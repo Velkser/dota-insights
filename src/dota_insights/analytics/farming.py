@@ -2,6 +2,9 @@
 
 Sources:
 
+- The collector's database (``db.readers``): GPM and XPM histograms per hero, medal and
+  position from enriched ranked matches, for benchmark questions about those two metrics or
+  for rank ranges ``/benchmarks`` cannot serve.
 - OpenDota ``/benchmarks``: published percentiles (p10..p99) of per-minute stats. OpenDota does
   not say how many matches they rest on.
 - OpenDota ``/heroes/{id}/durations``: wins and games per 5-minute match-duration bin.
@@ -16,6 +19,7 @@ import json
 import re
 from collections import Counter, defaultdict
 from collections.abc import Mapping, Sequence
+from dataclasses import dataclass
 from datetime import UTC, date, datetime
 from statistics import median, quantiles
 from typing import Any
@@ -24,6 +28,10 @@ from pydantic import BaseModel, Field
 
 from dota_insights.analytics.stats import two_proportion_ztest, wilson_interval
 from dota_insights.cache import TTL_AGGREGATE, cached
+from dota_insights.db import readers
+from dota_insights.db.access import read
+from dota_insights.db.aggregates import percentile_from_histogram
+from dota_insights.db.models import HISTOGRAM_BUCKET_WIDTH, HistogramStat
 from dota_insights.models import Filters, GameMode, Outcome, Position, RankBracket
 from dota_insights.reference import hero_by_id, patches
 from dota_insights.sources import get_opendota, get_stratz
@@ -159,6 +167,61 @@ def place_value(points: Sequence[Percentile], value: float) -> tuple[float, str]
                 pct = lo.percentile + frac * (hi.percentile - lo.percentile)
             return pct, f"p{round(pct * 100)}"
     return last.percentile, f"p{round(last.percentile * 100)}"
+
+
+# Benchmarks from the database
+
+# Benchmark metrics the database keeps histograms for, and the percentiles OpenDota publishes.
+DB_BENCHMARKS = {"gold_per_min": HistogramStat.GPM, "xp_per_min": HistogramStat.XPM}
+BENCHMARK_PERCENTILES = (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99)
+
+
+@dataclass(frozen=True, slots=True)
+class DbBenchmarks:
+    metrics: dict[str, list[Percentile]]
+    sample_size: int  # games behind the smaller of the two histograms
+    scope: readers.Scope
+
+
+def wants_db_benchmarks(filters: Filters, value: Mapping[str, float] | None) -> bool:
+    """True when the database can answer: only GPM/XPM values asked, or a rank range."""
+    if value and {metric_name(k) for k in value} <= set(DB_BENCHMARKS):
+        return True
+    try:
+        benchmark_params(filters)
+    except ValueError:
+        return filters.rank_range is not None and filters.rank_range[0] is not RankBracket.IMMORTAL
+    return False
+
+
+def _db_benchmarks(session, hero_id: int, filters: Filters) -> DbBenchmarks | None:
+    scope = readers.scope_for(session, filters)
+    if isinstance(scope, str):
+        return None
+    metrics: dict[str, list[Percentile]] = {}
+    sample: int | None = None
+    for name, stat in DB_BENCHMARKS.items():
+        histogram = readers.stat_histogram(session, scope, hero_id, stat)
+        games = sum(histogram.values())
+        sample = games if sample is None else min(sample, games)
+        if games:
+            width = HISTOGRAM_BUCKET_WIDTH[stat]
+            metrics[name] = [
+                Percentile(
+                    percentile=q,
+                    value=round(percentile_from_histogram(histogram, q, width) or 0.0, 1),
+                )
+                for q in BENCHMARK_PERCENTILES
+            ]
+    return DbBenchmarks(metrics, sample or 0, scope)
+
+
+async def db_benchmarks(hero_id: int, filters: Filters) -> DbBenchmarks | None:
+    """GPM/XPM percentiles from the database when both rest on ``min_sample`` games."""
+    found = await read(_db_benchmarks, hero_id, filters)
+    if found is None or found.sample_size < filters.min_sample:
+        return None
+    return found
 
 
 # Power curve

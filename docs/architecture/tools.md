@@ -32,6 +32,11 @@ Conventions every tool in `src/dota_insights/mcp/tools/` follows.
 
 ## Sources
 
+- Aggregate questions (hero rates, matchups, item timings, GPM/XPM percentiles) are answered from
+  the collector's database first: `await dota_insights.db.access.read(fn, ...)` with a reader from
+  `db/readers.py`, falling back to the APIs when it returns None or the sample is below
+  `min_sample`. Such envelopes list `"dota-insights-db"` first in `source`, then the upstream
+  origin; see [collector.md](collector.md#tools-reading-aggregates).
 - Get clients with `dota_insights.sources.get_opendota()` and `get_stratz()` so the server
   shares one rate limiter per source. Tests swap them with `sources.use_clients(...)` and an
   `httpx.MockTransport`.

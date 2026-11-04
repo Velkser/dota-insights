@@ -1,5 +1,10 @@
 """Hero meta analytics: overview, side-by-side comparison, tier list and hidden gems.
 
+When the collector's database has fresh aggregates for the filters (``db.readers``), win and
+pick counts, breakdowns, the patch trend, per-game averages and pro rates are read from it and
+no API is called; below ``min_sample`` games, or when the database cannot answer, the live
+sources below are used.
+
 Win and pick counts come from STRATZ ``heroStats.winDay`` / ``winWeek`` (single medals,
 Immortal included, by position and game mode). Per-game averages (KDA, XP, net worth) come
 from STRATZ ``heroStats.stats``, which only knows paired brackets. When STRATZ cannot be
@@ -9,6 +14,7 @@ positions, Immortal merged into Divine).
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from itertools import combinations
@@ -23,7 +29,9 @@ from dota_insights.analytics.stats import (
     wilson_interval,
 )
 from dota_insights.cache import TTL_AGGREGATE, TTL_REFERENCE, cached
-from dota_insights.mcp.envelope import Period, Source
+from dota_insights.db import readers
+from dota_insights.db.access import read
+from dota_insights.mcp.envelope import DB_SOURCE, Period, Source
 from dota_insights.models.filters import Filters, GameMode, Position, RankBracket
 from dota_insights.reference import Hero, hero_by_id
 from dota_insights.sources import get_opendota, get_stratz
@@ -231,6 +239,12 @@ class Pool:
     patch: str | None
     period: Period | None
     freshness: datetime | None
+    upstream: tuple[Source, ...] = ()  # where the database's matches came from
+    scope: readers.Scope | None = None  # set when the pool was read from the database
+
+    @property
+    def sources(self) -> list[Source]:
+        return [self.source, *self.upstream]
 
     @property
     def win_rate(self) -> float:
@@ -375,12 +389,49 @@ async def opendota_pool(filters: Filters) -> Pool:
     )
 
 
+def _db_pool(session, filters: Filters) -> Pool | None:
+    scope = readers.scope_for(session, filters)
+    if isinstance(scope, str):
+        return None
+    counts = {h: Count(g, w) for h, (g, w) in readers.hero_counts(session, scope).items()}
+    matches, detailed = readers.match_totals(session, scope)
+    upstream = readers.DRAFT_SOURCES if scope.position is None else readers.DETAIL_SOURCES
+    return Pool(
+        counts=counts,
+        # With a position, hero games are positions in enriched matches, one per hero per match.
+        total_matches=matches if scope.position is None else detailed,
+        filters=scope.filters(filters),
+        source=DB_SOURCE,
+        patch=scope.patch,
+        period=scope.period,
+        freshness=scope.freshness,
+        upstream=tuple(upstream[1:]),
+        scope=scope,
+    )
+
+
+async def db_pool(filters: Filters, hero_ids: Sequence[int] = ()) -> Pool | None:
+    """The database pool when it reaches ``min_sample``: matches, or games of each hero."""
+    pool = await read(_db_pool, filters)
+    if pool is None:
+        return None
+    needed = filters.min_sample
+    if hero_ids:
+        if any(pool.counts.get(h, Count(0, 0)).matches < needed for h in hero_ids):
+            return None
+    elif pool.total_matches < needed:
+        return None
+    return pool
+
+
 def _stratz_failed(exc: Exception) -> bool:
     return isinstance(exc, StratzError)
 
 
-async def hero_pool(filters: Filters) -> Pool:
-    """STRATZ pool, or OpenDota's when STRATZ fails."""
+async def hero_pool(filters: Filters, hero_ids: Sequence[int] = ()) -> Pool:
+    """Database pool, else STRATZ, else OpenDota's when STRATZ fails."""
+    if (pool := await db_pool(filters, hero_ids)) is not None:
+        return pool
     try:
         return await stratz_pool(filters)
     except HeroDataUnavailable:
@@ -392,6 +443,8 @@ async def hero_pool(filters: Filters) -> Pool:
 
 
 def pool_caveats(pool: Pool) -> list[str]:
+    if pool.scope is not None:
+        return pool.scope.caveats(detail=pool.scope.position is not None)
     if pool.source == "stratz":
         notes = [
             "Data from STRATZ (https://stratz.com).",
@@ -575,6 +628,10 @@ def _breakdown(label: str, rows: list[dict[str, Any]], hero_total: int | None) -
     total = Count(0, 0)
     for row in rows:
         total = total + Count(row["matchCount"], row["winCount"])
+    return _count_row(label, total, hero_total)
+
+
+def _count_row(label: str, total: Count, hero_total: int | None) -> BreakdownRow:
     return BreakdownRow(
         group=label,
         matches=total.matches,
@@ -635,6 +692,21 @@ def win_rate_rank(pool: Pool, hero_id: int, min_sample: int) -> tuple[int | None
     return (ids.index(hero_id) + 1 if hero_id in ids else None), len(ids)
 
 
+def _pro_from_counts(rows: dict[int, tuple[int, int, int]], hero_id: int) -> ProStats | None:
+    total = round(sum(picks for picks, _, _ in rows.values()) / 10)
+    if hero_id not in rows or not total:
+        return None
+    picks, wins, bans = rows[hero_id]
+    return ProStats(
+        pro_matches=total,
+        picks=picks,
+        bans=bans,
+        pick_rate=picks / total,
+        ban_rate=bans / total,
+        win_rate=wins / picks if picks else None,
+    )
+
+
 async def pro_stats(hero_id: int) -> ProStats | None:
     rows = await _opendota_hero_stats()
     total = round(sum(r.get("pro_pick") or 0 for r in rows) / 10)
@@ -661,17 +733,71 @@ class Analysis[T]:
     caveats: list[str]
 
 
+@dataclass(frozen=True, slots=True)
+class _DbOverview:
+    by_position: list[BreakdownRow]
+    by_bracket: list[BreakdownRow]
+    trend: list[PatchRate]
+    pro: readers.ProCounts | None
+
+
+def _db_overview(session, scope: readers.Scope, hero_id: int) -> _DbOverview:
+    # Like STRATZ: positions over the rank filter only, medals over the position filter only.
+    positions = readers.position_counts(session, scope, [hero_id]).get(hero_id, {})
+    hero_total = sum(g for g, _ in positions.values())
+    by_position = [
+        _count_row(p.name.lower(), Count(*positions.get(int(p), (0, 0))), hero_total)
+        for p in Position
+    ]
+    brackets = readers.bracket_counts(session, scope, hero_id)
+    by_bracket = [
+        _count_row(readers.rank_label(b), Count(*brackets.get(b, (0, 0))), None)
+        for b in range(1, readers.TOP_BRACKET + 1)
+    ]
+    trend = [
+        PatchRate(
+            patch=row.patch,
+            matches=row.games,
+            win_rate=row.wins / row.games if row.games else None,
+            win_rate_ci=tuple(wilson_interval(row.wins, row.games)) if row.games else None,
+            partial=row.partial,
+        )
+        for row in readers.patch_trend(session, scope, hero_id, TREND_PATCHES)
+    ]
+    return _DbOverview(by_position, by_bracket, trend, readers.pro_counts(session))
+
+
 async def hero_overview(hero: Hero, filters: Filters) -> Analysis[HeroOverview]:
-    pool = await hero_pool(filters)
+    pool = await hero_pool(filters, [hero.id])
     current = hero_rate(pool, hero.id)
     rank, ranked = win_rate_rank(pool, hero.id, filters.min_sample)
-    sources: list[Source] = [pool.source]
+    sources: list[Source] = pool.sources
     caveats = pool_caveats(pool)
     by_position: list[BreakdownRow] = []
     by_bracket: list[BreakdownRow] = []
     trend: list[PatchRate] = []
+    pro: ProStats | None = None
+    db_pro = False
 
-    if pool.source == "stratz":
+    db = await read(_db_overview, pool.scope, hero.id) if pool.scope is not None else None
+    if pool.scope is not None and db is None:
+        caveats.append("Position, medal and patch breakdowns could not be read; they are empty.")
+    if db is not None:
+        by_position, by_bracket, trend = db.by_position, db.by_bracket, db.trend
+        if readers.DETAIL_CAVEAT not in caveats:
+            caveats.append(readers.DETAIL_CAVEAT)
+        if "stratz" not in sources:
+            sources.append("stratz")
+        caveats.append(
+            "by_position is over enriched matches with all positions; by_bracket keeps the "
+            "position filter; the trend sums each major patch, and a patch the collector did "
+            "not cover from its release is marked partial."
+        )
+        if db.pro is not None:
+            pro, db_pro = _pro_from_counts(db.pro.rows, hero.id), True
+    elif pool.scope is not None:
+        pass  # database pool whose breakdowns failed to read: keep them empty (caveat above)
+    elif pool.source == "stratz":
         versions = await game_versions()
         window = patch_window(versions, filters.patch)
         assert window is not None
@@ -722,11 +848,11 @@ async def hero_overview(hero: Hero, filters: Filters) -> Analysis[HeroOverview]:
         ]
         caveats.append("Position breakdown and patch trend need STRATZ and are omitted.")
 
-    pro = None
-    try:
-        pro = await pro_stats(hero.id)
-    except Exception as exc:  # pro numbers are a bonus; never fail the overview for them
-        caveats.append(f"Pro pick/ban rates unavailable ({type(exc).__name__}).")
+    if not db_pro:
+        try:
+            pro = await pro_stats(hero.id)
+        except Exception as exc:  # pro numbers are a bonus; never fail the overview for them
+            caveats.append(f"Pro pick/ban rates unavailable ({type(exc).__name__}).")
     if pro is not None:
         if "opendota" not in sources:
             sources.append("opendota")
@@ -794,15 +920,42 @@ def _average_values(row: dict[str, Any] | None) -> dict[str, float | None]:
     }
 
 
+def _stratz_like(row: readers.HeroAverages) -> dict[str, Any]:
+    """Database averages in the shape of a STRATZ ``heroStats.stats`` row."""
+    return {
+        "matchCount": row.games,
+        "kills": row.kills,
+        "deaths": row.deaths,
+        "assists": row.assists,
+        "networth": row.net_worth,
+        "xp": row.xpm * row.duration_minutes,
+        "cs": row.last_hits,
+        "time": row.duration_minutes,
+    }
+
+
 async def compare(
     heroes: list[Hero], filters: Filters, metrics: list[str]
 ) -> Analysis[ComparisonResult]:
-    pool = await hero_pool(filters)
-    sources: list[Source] = [pool.source]
+    pool = await hero_pool(filters, [h.id for h in heroes])
+    sources: list[Source] = pool.sources
     caveats = pool_caveats(pool)
     averages: dict[int, dict[str, Any]] = {}
     needs_averages = any(m not in ("win_rate", "pick_rate") for m in metrics)
-    if needs_averages:
+    db_averages = None
+    if needs_averages and pool.scope is not None:
+        db_averages = await read(readers.hero_averages, pool.scope, [h.id for h in heroes])
+    if db_averages is not None:
+        averages = {hero_id: _stratz_like(row) for hero_id, row in db_averages.items()}
+        if "stratz" not in sources:
+            sources.append("stratz")
+        if readers.DETAIL_CAVEAT not in caveats:
+            caveats.append(readers.DETAIL_CAVEAT)
+        caveats.append(
+            "KDA, XPM, net worth and last hits are per-game averages over the enriched matches "
+            "of the same patch, medals and position."
+        )
+    elif needs_averages:
         try:
             averages = await _averages(filters, [h.id for h in heroes])
         except Exception as exc:
@@ -914,7 +1067,7 @@ async def tier_list(filters: Filters, limit: int) -> Analysis[TierList]:
         heroes=entries,
         excluded_low_sample=sum(1 for c in pool.counts.values() if c.matches < filters.min_sample),
     )
-    return Analysis(result, pool, pool.total_matches, [pool.source], pool_caveats(pool))
+    return Analysis(result, pool, pool.total_matches, pool.sources, pool_caveats(pool))
 
 
 async def hidden_gems(filters: Filters, max_pick_rate: float, limit: int) -> Analysis[HiddenGems]:
@@ -966,4 +1119,4 @@ async def hidden_gems(filters: Filters, max_pick_rate: float, limit: int) -> Ana
         gems=gems[:limit],
         candidates_checked=len(candidates),
     )
-    return Analysis(result, pool, pool.total_matches, [pool.source], pool_caveats(pool))
+    return Analysis(result, pool, pool.total_matches, pool.sources, pool_caveats(pool))

@@ -23,11 +23,12 @@ from typing import Any
 from sqlalchemy import Table, delete, select, tuple_, update
 from sqlalchemy.orm import Session
 
-from dota_insights.collector.db import upsert, utc_now
+from dota_insights.collector.db import as_utc, upsert, utc_now
 from dota_insights.collector.ingest import bracket_of
 from dota_insights.collector.patches import mark_fresh, stale_patches
 from dota_insights.db.models import (
     HISTOGRAM_BUCKET_WIDTH,
+    AggregateStatus,
     EventType,
     HeroAggregate,
     HeroDraftAggregate,
@@ -266,6 +267,40 @@ def _stamp(session: Session, matches: Sequence[Any], column: str) -> None:
     )
 
 
+def extend_period(session: Session, matches: Sequence[Any]) -> None:
+    """Widen ``aggregate_status.first_match_at`` / ``last_match_at`` to cover ``matches``."""
+    spans: dict[int, tuple[Any, Any]] = {}
+    for match in matches:
+        start = as_utc(match.start_time)
+        low, high = spans.get(match.patch_id, (start, start))
+        spans[match.patch_id] = (min(low, start), max(high, start))
+    current = {
+        row.patch_id: row
+        for row in session.execute(
+            select(
+                AggregateStatus.patch_id,
+                AggregateStatus.first_match_at,
+                AggregateStatus.last_match_at,
+            ).where(AggregateStatus.patch_id.in_(spans))
+        )
+    }
+    rows = []
+    for patch_id, (low, high) in spans.items():
+        row = current.get(patch_id)
+        if row is not None and row.first_match_at is not None:
+            low = min(low, as_utc(row.first_match_at))
+        if row is not None and row.last_match_at is not None:
+            high = max(high, as_utc(row.last_match_at))
+        rows.append({"patch_id": patch_id, "first_match_at": low, "last_match_at": high})
+    upsert(
+        session,
+        AggregateStatus.__table__,
+        rows,
+        ("patch_id",),
+        replace=("first_match_at", "last_match_at"),
+    )
+
+
 def aggregate_batch(
     session: Session,
     batch_size: int,
@@ -283,6 +318,7 @@ def aggregate_batch(
             ).where(tuple_(MatchPlayer.match_id, MatchPlayer.start_time).in_(_keys(matches)))
         )
         apply_deltas(session, draft_deltas(matches, players))
+        extend_period(session, matches)
         _stamp(session, matches, "aggregated_at")
         result.draft_matches = len(matches)
 
@@ -318,6 +354,11 @@ def rebuild_patch(session: Session, patch_id: int, batch_size: int) -> Aggregate
         .where(Match.patch_id == patch_id)
         .values(aggregated_at=None, details_aggregated_at=None),
         execution_options={"synchronize_session": False},
+    )
+    session.execute(
+        update(AggregateStatus)
+        .where(AggregateStatus.patch_id == patch_id)
+        .values(first_match_at=None, last_match_at=None)
     )
     total = AggregateResult(rebuilt_patches=[patch_id])
     while True:

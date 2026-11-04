@@ -13,7 +13,10 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from dota_insights.models.filters import Filters
 
 Status = Literal["ok", "insufficient_data", "error"]
-Source = Literal["opendota", "stratz", "steam"]
+# "dota-insights-db": the collector's aggregates in our own database (see db/readers.py); it is
+# listed together with the upstream sources those matches were collected from.
+Source = Literal["opendota", "stratz", "steam", "dota-insights-db"]
+DB_SOURCE: Source = "dota-insights-db"
 
 
 class Period(BaseModel):

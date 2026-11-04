@@ -1,6 +1,8 @@
 """Hero matchups, synergies, combos, pick suggestions and draft analysis.
 
-Data comes from STRATZ ``heroStats.matchUp`` (pair win counts against and alongside every other
+The collector's database (``db.readers``) answers first when it has fresh aggregates for the
+filters and every requested hero reaches ``min_sample`` games; otherwise data comes from STRATZ
+``heroStats.matchUp`` (pair win counts against and alongside every other
 hero, by rank bracket) and ``heroStats.stats(groupByPosition)`` (games per hero and position).
 OpenDota ``/heroes/{id}/matchups`` is the fallback for opponents when STRATZ cannot be reached;
 it has no ally data, no rank split and small samples.
@@ -19,10 +21,15 @@ from __future__ import annotations
 import itertools
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
+from datetime import datetime
 from typing import Any, Literal
 
 from dota_insights.analytics.stats import Interval, advantage, wilson_interval
 from dota_insights.cache import TTL_AGGREGATE, cached
+from dota_insights.db import readers
+from dota_insights.db.access import read
+from dota_insights.db.models import MatchupRelation
+from dota_insights.mcp.envelope import DB_SOURCE, Period, Source
 from dota_insights.models import Filters, Position, RankBracket
 from dota_insights.reference import hero_by_id
 from dota_insights.sources import get_opendota, get_stratz
@@ -34,6 +41,8 @@ MIN_POSITION_SHARE = 0.10
 # Pick estimate is clipped to this range: summed advantages are not a calibrated model.
 WIN_PROBABILITY_CLIP = (0.05, 0.95)
 MAX_OPENDOTA_FALLBACK_HEROES = 10
+# Enriched matches the database needs before its position shares replace STRATZ's.
+MIN_DB_POSITION_MATCHES = 2000
 
 STRATZ_BRACKETS: dict[RankBracket, str] = {
     RankBracket.HERALD: "HERALD_GUARDIAN",
@@ -149,13 +158,27 @@ def synergy_advantage(pair: Pair) -> float:
 class MatchupData:
     """Pair statistics for a set of heroes from one source."""
 
-    source: Literal["stratz", "opendota"]
+    source: Literal["stratz", "opendota", "dota-insights-db"]
     brackets: tuple[str, ...] | None
     vs: dict[tuple[int, int], Pair] = field(default_factory=dict)
     with_: dict[tuple[int, int], Pair] = field(default_factory=dict)
     games: dict[int, int] = field(default_factory=dict)
     base: dict[int, float] = field(default_factory=dict)
     has_synergy: bool = True
+    # Set when the pairs were read from the database.
+    scope: readers.Scope | None = None
+
+    @property
+    def sources(self) -> list[Source]:
+        return readers.DRAFT_SOURCES if self.source == DB_SOURCE else [self.source]
+
+    @property
+    def period(self) -> Period | None:
+        return self.scope.period if self.scope is not None else None
+
+    @property
+    def freshness(self) -> datetime | None:
+        return self.scope.freshness if self.scope is not None else None
 
     def against(self, hero: int, other: int) -> Pair | None:
         """``hero``'s games against ``other``, using ``other``'s row when ``hero`` has none."""
@@ -279,8 +302,44 @@ def parse_positions(data: Any) -> PositionStats:
     return PositionStats(games, wins)
 
 
+def _db_matchups(session, filters: Filters, hero_ids: tuple[int, ...] | None) -> MatchupData | None:
+    scope = readers.scope_for(session, filters.model_copy(update={"position": None}))
+    if isinstance(scope, str):
+        return None
+    counts = readers.draft_counts(session, scope)
+    out = MatchupData(source=DB_SOURCE, brackets=None, scope=scope)
+    for hero, (games, wins) in counts.items():
+        out.games[hero] = games
+        if games:
+            out.base[hero] = wins / games
+    for (relation, hero, other), (games, wins) in readers.matchup_counts(
+        session, scope, hero_ids
+    ).items():
+        if not games or hero not in out.base or other not in out.base:
+            continue
+        target = out.vs if relation is MatchupRelation.VS else out.with_
+        target[(hero, other)] = Pair(hero, other, games, wins, out.base[hero], out.base[other])
+    return out
+
+
+async def db_matchups(hero_ids: Iterable[int] | None, filters: Filters) -> MatchupData | None:
+    """Database pairs when every requested hero (or the whole pool) has ``min_sample`` games."""
+    ids = tuple(sorted(set(hero_ids))) if hero_ids is not None else None
+    data = await read(_db_matchups, filters, ids)
+    if data is None:
+        return None
+    if ids is not None:
+        enough = all(data.games.get(h, 0) >= filters.min_sample for h in ids)
+    else:
+        enough = sum(data.games.values()) // 10 >= filters.min_sample
+    return data if enough else None
+
+
 async def load_matchups(hero_ids: Iterable[int] | None, filters: Filters) -> MatchupData:
-    """Pairs for ``hero_ids`` (None = every hero) from STRATZ, else OpenDota opponents only."""
+    """Pairs for ``hero_ids`` (None = every hero) from the database, STRATZ, else OpenDota
+    opponents only."""
+    if (data := await db_matchups(hero_ids, filters)) is not None:
+        return data
     brackets = stratz_brackets(filters)
     ids = tuple(sorted(set(hero_ids))) if hero_ids is not None else tuple(sorted(hero_by_id()))
     try:
@@ -306,8 +365,22 @@ async def load_matchups(hero_ids: Iterable[int] | None, filters: Filters) -> Mat
         raise MatchupsUnavailable(f"{stratz_problem}; OpenDota also failed: {exc}") from exc
 
 
+def _db_positions(session, filters: Filters) -> PositionStats | None:
+    scope = readers.scope_for(session, filters.model_copy(update={"position": None}))
+    if isinstance(scope, str) or readers.match_totals(session, scope)[1] < MIN_DB_POSITION_MATCHES:
+        return None
+    games: dict[int, dict[int, int]] = {}
+    wins: dict[int, dict[int, int]] = {}
+    for hero, rows in readers.position_counts(session, scope).items():
+        games[hero] = {p: g for p, (g, _) in rows.items()}
+        wins[hero] = {p: w for p, (_, w) in rows.items()}
+    return PositionStats(games, wins) if games else None
+
+
 async def load_positions(filters: Filters) -> PositionStats | None:
-    """Games per hero and position, or None when STRATZ is unavailable."""
+    """Games per hero and position from the database or STRATZ; None when neither has them."""
+    if (positions := await read(_db_positions, filters)) is not None:
+        return positions
     try:
         return parse_positions(await _stratz_positions(stratz_brackets(filters)))
     except StratzError:
