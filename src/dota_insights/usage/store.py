@@ -46,7 +46,14 @@ _REQUIRED = {
     "feedback": ("feedback_id", "ts", "kind", "text"),
 }
 _DEFAULTS: dict[str, dict[str, Any]] = {
-    "call": {"arguments": {}, "sources": [], "latency_ms": 0, "cache_hit": False},
+    # Events queued before the channel column existed were all MCP calls.
+    "call": {
+        "arguments": {},
+        "sources": [],
+        "latency_ms": 0,
+        "cache_hit": False,
+        "channel": "mcp",
+    },
     "feedback": {},
 }
 

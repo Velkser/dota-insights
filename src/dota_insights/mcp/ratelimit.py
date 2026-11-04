@@ -10,6 +10,11 @@ an ``error`` envelope whose hint says how many seconds until the window resets.
 
 Calls without an HTTP request (stdio, in-process tests) are not limited. Limits are set in
 ``config.Settings`` (``rate_limit_*``); ``DOTA_INSIGHTS_RATE_LIMIT_ENABLED=false`` turns them off.
+
+Calls from the Developer API (``dota_insights.api``) are counted per API key instead of per IP,
+against the key's own per-minute and per-day quotas (plus the heavy and feedback limits). They
+are always enforced, whatever ``rate_limit_enabled`` says, and a refused call records the wait in
+the caller's ``retry_after`` so the route can answer 429.
 """
 
 import hashlib
@@ -24,6 +29,8 @@ from fastmcp.server.middleware import CallNext, Middleware, MiddlewareContext
 from fastmcp.tools.base import ToolResult as McpToolResult
 
 from dota_insights import metrics
+from dota_insights.api import context as api_context
+from dota_insights.api.context import ApiCaller
 from dota_insights.config import settings
 from dota_insights.kv import KVError, get_kv
 from dota_insights.mcp.envelope import error
@@ -62,11 +69,14 @@ class Limit:
         return f"{self.max_calls} {kind} {per}"
 
 
-def limits_for(tool: str) -> list[Limit]:
-    limits = [
-        Limit("all", MINUTE, settings.rate_limit_per_minute),
-        Limit("all", DAY, settings.rate_limit_per_day),
-    ]
+def limits_for(tool: str, caller: ApiCaller | None = None) -> list[Limit]:
+    """Limits for one call of ``tool``: the client's, or the API key's for an API call."""
+    per_minute, per_day = (
+        (caller.per_minute, caller.per_day)
+        if caller is not None
+        else (settings.rate_limit_per_minute, settings.rate_limit_per_day)
+    )
+    limits = [Limit("all", MINUTE, per_minute), Limit("all", DAY, per_day)]
     if tool in HEAVY_TOOLS:
         limits += [
             Limit("heavy", MINUTE, settings.rate_limit_heavy_per_minute),
@@ -122,9 +132,11 @@ class RateLimiter:
             self._local[key] = self._local.get(key, 0) + 1
         return [self._local[key] for key, _ in windows]
 
-    async def hit(self, client: str, tool: str) -> tuple[Limit, float] | None:
+    async def hit(
+        self, client: str, tool: str, caller: ApiCaller | None = None
+    ) -> tuple[Limit, float] | None:
         """Count a call; the exceeded limit and seconds until it resets, or None if allowed."""
-        limits = limits_for(tool)
+        limits = limits_for(tool, caller)
         if not limits:
             return None
         now = self._clock()
@@ -148,13 +160,18 @@ class RateLimitMiddleware(Middleware):
         self.limiter = limiter or RateLimiter()
 
     async def on_call_tool(self, context: MiddlewareContext, call_next: CallNext) -> Any:
-        if not settings.rate_limit_enabled:
-            return await call_next(context)
-        ip = client_ip()
-        if ip is None:
-            return await call_next(context)
+        caller = api_context.current()
+        if caller is not None:
+            client = f"key-{caller.key_id}"
+        else:
+            if not settings.rate_limit_enabled:
+                return await call_next(context)
+            ip = client_ip()
+            if ip is None:
+                return await call_next(context)
+            client = client_id(ip)
         tool = context.message.name
-        over = await self.limiter.hit(client_id(ip), tool)
+        over = await self.limiter.hit(client, tool, caller)
         if over is None:
             return await call_next(context)
         limit, reset = over
@@ -162,7 +179,10 @@ class RateLimitMiddleware(Middleware):
         call = metrics.current()
         if call is not None:
             call.rate_limited = True
-        message = f"Rate limit reached for your address: at most {limit.describe()}."
+        if caller is not None:
+            caller.retry_after = seconds
+        who = "your API key" if caller is not None else "your address"
+        message = f"Rate limit reached for {who}: at most {limit.describe()}."
         hint = f"Retry in about {seconds} seconds, when the limit resets." + (
             " This tool is one of the heavy ones (explorer queries, multi-hero or "
             "multi-match aggregates); lighter tools have a higher limit."

@@ -36,6 +36,7 @@ EXPECTED_TABLES = {
     "usage_events",
     "usage_feedback",
     "player_opt_outs",
+    "api_keys",
 }
 
 EXPECTED_INDEXES = {

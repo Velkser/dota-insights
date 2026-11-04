@@ -9,6 +9,8 @@
   rotation still lets the report count unique clients per day and per week.
 - The client's name and version come from the MCP ``initialize`` client info when the session
   has it, else from the ``User-Agent`` header.
+- ``channel`` is ``"api"`` for calls made through the Developer API (``/api/v1``), else
+  ``"mcp"``. The API key itself is not stored.
 """
 
 import asyncio
@@ -162,6 +164,7 @@ def call_event(
     client: str | None,
     client_name: str | None,
     client_version: str | None,
+    channel: str = "mcp",
 ) -> dict[str, Any]:
     """One ``usage_events`` row as queued (JSON-safe; ``ts`` is ISO 8601)."""
     hits = call.cache_hits + call.shared_cache_hits
@@ -180,10 +183,12 @@ def call_event(
         "client_name": client_name,
         "client_version": client_version,
         "client_hash": client,
+        "channel": channel,
     }
 
 
 async def _record(context: MiddlewareContext, **fields: Any) -> None:
+    from dota_insights.api import context as api_context
     from dota_insights.usage import store
 
     client = await current_client()
@@ -194,6 +199,7 @@ async def _record(context: MiddlewareContext, **fields: Any) -> None:
         client=client,
         client_name=name,
         client_version=version,
+        channel="api" if api_context.current() is not None else "mcp",
         **fields,
     )
     writes = [store.enqueue(event)]
