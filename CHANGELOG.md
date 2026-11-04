@@ -8,6 +8,13 @@ All notable changes to this project. The format follows
 
 ### Added
 
+- Insight Generator and the Weekly Meta Report rubric (`dota_insights.insights`,
+  `dota-insights insights weekly`): week-over-week win-rate and pick-rate risers and fallers per
+  rank bracket from the collector's matches (or OpenDota `/heroStats` snapshots), anomalies flagged
+  by two-proportion z-tests with a Benjamini-Hochberg correction and a minimum change, Russian post
+  drafts that always state the sample and patch, and PNG charts. Output is a dated folder of
+  Markdown, PNG and JSON for manual moderation; nothing is published. The weekly `Insights`
+  workflow (Mondays, and `workflow_dispatch`) uploads it as an artifact.
 - Landing page at `/` and privacy policy at `/privacy`: self-contained HTML (no JavaScript),
   light and dark, English and Russian (`?lang=`, else `Accept-Language`). The landing page's tool
   list is rendered from the registered tools (`dota_insights.mcp.catalog`, shared with the README
