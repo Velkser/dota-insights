@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     opendota_api_key: str | None = None
     stratz_api_token: str | None = None
     database_url: str | None = None
+    log_level: str = "INFO"
 
 
 settings = Settings()
