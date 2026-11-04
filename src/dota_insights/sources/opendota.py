@@ -1,6 +1,7 @@
 """Async client for the OpenDota REST API (https://docs.opendota.com/).
 
-The client applies a token-bucket rate limit shared by all requests it makes and retries
+The client applies a token-bucket rate limit shared by all requests it makes (plus, when given,
+a ``SharedQuota`` counted across all server instances) and retries
 transient failures (HTTP 429, 5xx and connection errors) with exponential backoff and jitter,
 honoring ``Retry-After`` when the server sends it.
 """
@@ -18,7 +19,9 @@ from typing import Any, Self, TypedDict
 
 import httpx
 
+from dota_insights import metrics
 from dota_insights.config import settings
+from dota_insights.sources.quota import QuotaExhaustedError, SharedQuota
 
 BASE_URL = "https://api.opendota.com/api"
 
@@ -165,6 +168,7 @@ class OpenDotaClient:
         clock: Clock = time.monotonic,
         sleep: Sleep = asyncio.sleep,
         rng: Callable[[], float] = random.random,
+        quota: SharedQuota | None = None,
     ) -> None:
         self.api_key = settings.opendota_api_key if api_key is _UNSET else api_key
         self.max_retries = max_retries
@@ -174,6 +178,7 @@ class OpenDotaClient:
         self._sleep = sleep
         self._rng = rng
         self.limiter = TokenBucket(requests_per_minute, burst, clock=clock, sleep=sleep)
+        self.quota = quota
         self._http = httpx.AsyncClient(
             base_url=base_url.rstrip("/"),
             timeout=timeout,
@@ -215,6 +220,15 @@ class OpenDotaClient:
         for attempt in range(self.max_retries + 1):
             last_attempt = attempt == self.max_retries
             await self.limiter.acquire()
+            if self.quota is not None:
+                try:
+                    await self.quota.acquire()
+                except QuotaExhaustedError as exc:
+                    raise OpenDotaRateLimitedError(
+                        f"{label}: the server's daily OpenDota quota is spent",
+                        retry_after=exc.retry_after,
+                    ) from exc
+            metrics.record_source_call("opendota")
             try:
                 response = await self._http.request(method, path, params=query)
             except httpx.TransportError as exc:

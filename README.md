@@ -264,7 +264,57 @@ does not run on Vercel: GitHub Actions runs it on a schedule (`.github/workflows
 see [docs/architecture/collector.md](docs/architecture/collector.md)), using the repository
 secrets `DOTA_INSIGHTS_DATABASE_URL` and `DOTA_INSIGHTS_STRATZ_API_TOKEN`.
 
-Caches and rate limiters are per instance, so concurrent instances each keep their own.
+### Shared state (Redis)
+
+Serverless instances share no memory. With Upstash Redis connected (Vercel Marketplace →
+Upstash → Redis, linked to the project), the integration injects `UPSTASH_REDIS_REST_URL` and
+`UPSTASH_REDIS_REST_TOKEN` (older Vercel KV stores: `KV_REST_API_URL` / `KV_REST_API_TOKEN`; all
+are accepted, as is `DOTA_INSIGHTS_REDIS_REST_URL` / `_TOKEN`). Then all instances share:
+
+- the source cache (`@cached`), keyed by function and argument hash with the function's TTL, in a
+  generation that changes when the collector sees a new patch or a deploy ships newer patch data;
+- server-wide source quotas: by default 50/min and 2,500/day for OpenDota (free tier: 60/min,
+  3,000/day per IP) and 120/min and 4,000/day for STRATZ (token: 250/min, 10,000/day, also used by
+  the collector). Over the minute cap a call waits; over the daily cap it gets an `error` envelope
+  until midnight UTC. Set with `DOTA_INSIGHTS_{OPENDOTA,STRATZ}_SERVER_{PER_MINUTE,DAILY}`;
+- per-client rate limits (below) and the alert throttle.
+
+Without Redis, or while it fails (each command times out after 1.5 s, then Redis is skipped for
+30 s), everything falls back to per-instance memory; no tool fails because Redis is down. A tool
+call costs a few Redis commands (one rate-limit update, a lookup per cache miss in memory, one
+quota update per source request); the Upstash free tier covers light public use. To let the
+collector invalidate the cache on a new patch, add the same two variables as repository secrets.
+
+### Rate limits
+
+Each client IP (`x-real-ip` / `x-forwarded-for`, which Vercel sets) gets 30 tool calls a minute
+and 1,000 a day; heavy tools (explorer queries, multi-hero and multi-match aggregates,
+`explore_query`, `test_hypothesis`, `find_matches`, `predict_live_win`, ...) also count against
+5 a minute and 150 a day. A call over a limit returns an `error` envelope whose hint gives the
+seconds until the window resets. Configure with `DOTA_INSIGHTS_RATE_LIMIT_PER_MINUTE`,
+`_PER_DAY`, `_HEAVY_PER_MINUTE`, `_HEAVY_PER_DAY` (0 disables one) or turn them off with
+`DOTA_INSIGHTS_RATE_LIMIT_ENABLED=false`. Calls without an HTTP request (stdio) are not limited.
+
+### Monitoring
+
+- Every tool call logs one JSON line (logger `dota_insights.tool_calls`) with `duration_ms`,
+  `status`, `sources` and `source_calls`, `cache_hit` / `cache_hits` / `shared_cache_hits` /
+  `cache_misses`, `quota_left` (calls left today per source) and `rate_limited`. Vercel shows them
+  under the project's Logs.
+- `GET /status` returns source quota usage (minute and day), whether shared state is on Redis,
+  the rate limits, and data freshness when `DATABASE_URL` is set: the last run of each collector
+  job (status, start, finish, last success), the newest collected match and stale aggregate
+  patches.
+- Telegram alerts (optional): set `DOTA_INSIGHTS_TELEGRAM_BOT_TOKEN` (from @BotFather) and
+  `DOTA_INSIGHTS_TELEGRAM_CHAT_ID`. The server then alerts when a source's daily quota passes 80%
+  (`DOTA_INSIGHTS_ALERT_QUOTA_RATIO`) and when it is spent, and when at least half
+  (`DOTA_INSIGHTS_ALERT_ERROR_RATE`) of at least 10 (`DOTA_INSIGHTS_ALERT_ERROR_MIN_CALLS`) tool
+  calls in a 5-minute window fail. Each alert kind is sent at most once per 30 minutes
+  (`DOTA_INSIGHTS_ALERT_THROTTLE_SECONDS`) across instances.
+- Uptime: point an external monitor (UptimeRobot, Better Stack or similar; free tiers are enough)
+  at `https://dota-insights.vercel.app/health` with a 5-minute interval, expecting HTTP 200 and
+  the keyword `"ok"`. `/health` does no I/O, so it measures the deployment itself; use `/status`
+  for quotas and collector freshness.
 
 ## Layout
 

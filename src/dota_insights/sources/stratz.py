@@ -16,8 +16,10 @@ from typing import Any, Self
 
 import httpx
 
+from dota_insights import metrics
 from dota_insights.config import settings
 from dota_insights.sources.opendota import Clock, Sleep, TokenBucket, _parse_retry_after
+from dota_insights.sources.quota import QuotaExhaustedError, SharedQuota
 
 BASE_URL = "https://api.stratz.com/graphql"
 
@@ -79,6 +81,7 @@ class StratzClient:
         clock: Clock = time.monotonic,
         sleep: Sleep = asyncio.sleep,
         rng: Callable[[], float] = random.random,
+        quota: SharedQuota | None = None,
     ) -> None:
         self.token = settings.stratz_api_token if token is _UNSET else token
         self.url = base_url
@@ -89,6 +92,7 @@ class StratzClient:
         self._sleep = sleep
         self._rng = rng
         self.limiter = TokenBucket(requests_per_minute, burst, clock=clock, sleep=sleep)
+        self.quota = quota
         # STRATZ rejects requests without this exact User-Agent.
         headers = {"Content-Type": "application/json", "User-Agent": "STRATZ_API"}
         if self.token:
@@ -122,6 +126,14 @@ class StratzClient:
         for attempt in range(self.max_retries + 1):
             last_attempt = attempt == self.max_retries
             await self.limiter.acquire()
+            if self.quota is not None:
+                try:
+                    await self.quota.acquire()
+                except QuotaExhaustedError as exc:
+                    raise StratzRateLimitedError(
+                        "the server's daily STRATZ quota is spent", retry_after=exc.retry_after
+                    ) from exc
+            metrics.record_source_call("stratz")
             try:
                 response = await self._http.post(self.url, json=payload)
             except httpx.TransportError as exc:

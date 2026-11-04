@@ -91,6 +91,12 @@ def tool_timeout(name: str) -> float:
 
 
 def _rate_limit_hint(retry_after: float | None) -> str:
+    if retry_after and retry_after > 3600:
+        # The server's daily source quota is spent; it resets at midnight UTC.
+        return (
+            f"Retry in about {round(retry_after / 3600)} hours ({round(retry_after)} seconds, "
+            "at midnight UTC); cached answers for questions asked before still work."
+        )
     wait = f"about {max(1, round(retry_after))} seconds" if retry_after else "a minute"
     return f"Retry in {wait}; if it repeats, {_NARROW}."
 

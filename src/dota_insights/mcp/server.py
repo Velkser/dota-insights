@@ -9,6 +9,8 @@ from dota_insights.config import settings
 from dota_insights.logging import ToolCallLoggingMiddleware, setup_logging
 from dota_insights.mcp.errors import ErrorEnvelopeMiddleware
 from dota_insights.mcp.prompts import register_prompts
+from dota_insights.mcp.ratelimit import RateLimitMiddleware
+from dota_insights.mcp.status import status_payload
 from dota_insights.mcp.tools import register_all
 
 mcp = FastMCP(
@@ -18,8 +20,10 @@ mcp = FastMCP(
         "report them to the user and do not present low-sample results as facts."
     ),
 )
-# Logging wraps the error middleware, so it records the envelope the client receives.
+# Logging wraps the rate limiter and the error middleware, so it records the envelope the
+# client receives (rate-limit refusals included).
 mcp.add_middleware(ToolCallLoggingMiddleware())
+mcp.add_middleware(RateLimitMiddleware())
 mcp.add_middleware(ErrorEnvelopeMiddleware())
 register_all(mcp)
 register_prompts(mcp)
@@ -27,8 +31,14 @@ register_prompts(mcp)
 
 @mcp.custom_route("/health", methods=["GET"], include_in_schema=False)
 async def health(request: Request) -> JSONResponse:
-    """Liveness probe for load balancers and container orchestrators."""
+    """Liveness probe for load balancers, containers and uptime checks (no I/O)."""
     return JSONResponse({"status": "ok", "version": __version__})
+
+
+@mcp.custom_route("/status", methods=["GET"], include_in_schema=False)
+async def status(request: Request) -> JSONResponse:
+    """Source quota usage, shared-state backend and data freshness."""
+    return JSONResponse(await status_payload(), headers={"Cache-Control": "no-store"})
 
 
 def run() -> None:

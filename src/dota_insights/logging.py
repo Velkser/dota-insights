@@ -9,6 +9,7 @@ from typing import Any
 
 from fastmcp.server.middleware import CallNext, Middleware, MiddlewareContext
 
+from dota_insights import metrics
 from dota_insights.config import settings
 
 TOOL_CALL_LOGGER = "dota_insights.tool_calls"
@@ -44,10 +45,18 @@ def setup_logging(level: str | None = None) -> None:
     root = logging.getLogger()
     root.handlers[:] = [handler]
     root.setLevel((level or settings.log_level).upper())
+    # httpx logs every request URL at INFO: OpenDota's api_key query parameter and the Telegram
+    # bot token (part of its URL) would end up in the logs.
+    for name in ("httpx", "httpcore"):
+        logging.getLogger(name).setLevel(logging.WARNING)
 
 
 class ToolCallLoggingMiddleware(Middleware):
-    """Log every tool call with its name, duration and status."""
+    """Log every tool call with its metrics: duration, status, sources, cache use, quota left.
+
+    The fields come from ``dota_insights.metrics``; when Telegram alerts are configured the
+    call's outcome also feeds the error-rate monitor.
+    """
 
     def __init__(self, logger: logging.Logger | None = None) -> None:
         self.logger = logger or logging.getLogger(TOOL_CALL_LOGGER)
@@ -55,19 +64,22 @@ class ToolCallLoggingMiddleware(Middleware):
     async def on_call_tool(self, context: MiddlewareContext, call_next: CallNext) -> Any:
         tool = context.message.name
         start = time.perf_counter()
-        try:
-            result = await call_next(context)
-        except Exception as exc:
-            self.logger.warning(
-                "tool call failed",
-                extra={
-                    "tool": tool,
-                    "duration_ms": round((time.perf_counter() - start) * 1000, 2),
-                    "status": "error",
-                    "error": type(exc).__name__,
-                },
-            )
-            raise
+        with metrics.track_call() as call:
+            try:
+                result = await call_next(context)
+            except Exception as exc:
+                self.logger.warning(
+                    "tool call failed",
+                    extra={
+                        "tool": tool,
+                        "duration_ms": round((time.perf_counter() - start) * 1000, 2),
+                        "status": "error",
+                        "error": type(exc).__name__,
+                        **call.as_log(),
+                    },
+                )
+                await _record_outcome(failed=True)
+                raise
         status = "error" if getattr(result, "is_error", False) else "ok"
         structured = getattr(result, "structured_content", None)
         if isinstance(structured, dict) and structured.get("status") in _ENVELOPE_STATUSES:
@@ -78,6 +90,22 @@ class ToolCallLoggingMiddleware(Middleware):
                 "tool": tool,
                 "duration_ms": round((time.perf_counter() - start) * 1000, 2),
                 "status": status,
+                "rate_limited": call.rate_limited,
+                **call.as_log(),
             },
         )
+        # Calls refused by the per-client rate limiter are not server errors.
+        await _record_outcome(failed=status == "error" and not call.rate_limited)
         return result
+
+
+async def _record_outcome(*, failed: bool) -> None:
+    from dota_insights.telegram.alerts import get_alerter
+
+    alerter = get_alerter()
+    if alerter is None:
+        return
+    try:
+        await alerter.record_call(failed)
+    except Exception:
+        logging.getLogger(__name__).exception("error-rate monitor failed")
