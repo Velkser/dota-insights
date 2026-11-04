@@ -1,7 +1,7 @@
 """Collector jobs (p2-01). Each is an async function of a ``CollectorContext``.
 
-- ``patches``: OpenDota ``/constants/patch`` (1 call) -> ``patches``; re-labels matches and marks
-  stale aggregates when the list changes.
+- ``patches``: OpenDota ``/constants/patch`` (1 call) -> ``patches``; re-labels matches, marks
+  stale aggregates and invalidates the server's shared Redis cache when the list changes.
 - ``constants``: OpenDota ``/constants/{resource}`` (6 calls) -> ``reference_snapshots``.
 - ``hero-stats``: OpenDota ``/heroStats`` (1 call) -> ``hero_stats_daily``.
 - ``public-matches``: OpenDota ``/explorer`` on ``public_matches`` per rank bracket (paced; one
@@ -20,6 +20,7 @@ from datetime import UTC, datetime, timedelta
 
 from sqlalchemy import and_, or_, select, update
 
+from dota_insights.cache import invalidate_shared
 from dota_insights.collector.aggregates import run_aggregation
 from dota_insights.collector.budget import OPENDOTA, STRATZ, BudgetExceededError
 from dota_insights.collector.context import CollectorContext
@@ -93,6 +94,9 @@ async def job_patches(ctx: CollectorContext) -> JobResult:
     raw = await ctx.call_opendota(lambda c: c.constants("patch"))
     with ctx.session_factory.begin() as session:
         changed = sync_patches(session, raw)
+    if changed:
+        # Cached tool answers in Redis were computed for the old patch list.
+        await invalidate_shared(f"patches changed: {changed}")
     return JobResult(rows=len(changed), detail=f"changed patches: {changed}" if changed else None)
 
 

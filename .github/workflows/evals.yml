@@ -1,0 +1,65 @@
+name: Live evals
+
+# Opt-in: runs a Claude model against the MCP server and costs API credits, so it never runs on
+# push or pull_request. Needs the ANTHROPIC_API_KEY repository secret.
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: '"prod", "local" (in-process server on the runner) or an MCP URL'
+        default: prod
+      model:
+        description: Model under test
+        default: claude-opus-5-5
+      category:
+        description: Only this category (blank for all)
+        default: ""
+      cases:
+        description: Space-separated case ids (blank for all)
+        default: ""
+      max_turns:
+        description: Model requests per question
+        default: "8"
+      concurrency:
+        description: Questions run at once
+        default: "3"
+
+permissions:
+  contents: read
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --locked --group evals
+      - name: Run evals
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Used only with target "local", where the runner itself calls STRATZ.
+          DOTA_INSIGHTS_STRATZ_API_TOKEN: ${{ secrets.STRATZ_API_TOKEN }}
+          TARGET: ${{ inputs.target }}
+          MODEL: ${{ inputs.model }}
+          CATEGORY: ${{ inputs.category }}
+          CASES: ${{ inputs.cases }}
+          MAX_TURNS: ${{ inputs.max_turns }}
+          CONCURRENCY: ${{ inputs.concurrency }}
+        run: |
+          args=(--target "$TARGET" --model "$MODEL" --max-turns "$MAX_TURNS"
+                --concurrency "$CONCURRENCY" --stem "run-${GITHUB_RUN_ID}")
+          if [ -n "$CATEGORY" ]; then args+=(--category "$CATEGORY"); fi
+          for id in $CASES; do args+=(--case "$id"); done
+          uv run --group evals python -m evals.run "${args[@]}"
+      - name: Job summary
+        if: always()
+        run: |
+          report="evals/reports/run-${GITHUB_RUN_ID}.md"
+          if [ -f "$report" ]; then cat "$report" >> "$GITHUB_STEP_SUMMARY"; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eval-report-${{ github.run_id }}
+          path: evals/reports/run-${{ github.run_id }}.*
+          if-no-files-found: ignore
