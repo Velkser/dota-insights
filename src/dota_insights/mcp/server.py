@@ -2,11 +2,12 @@
 
 from fastmcp import FastMCP
 from starlette.requests import Request
-from starlette.responses import JSONResponse
+from starlette.responses import HTMLResponse, JSONResponse
 
 from dota_insights import __version__
 from dota_insights.config import settings
 from dota_insights.logging import ToolCallLoggingMiddleware, setup_logging
+from dota_insights.mcp import site
 from dota_insights.mcp.errors import ErrorEnvelopeMiddleware
 from dota_insights.mcp.prompts import register_prompts
 from dota_insights.mcp.ratelimit import RateLimitMiddleware
@@ -39,6 +40,18 @@ async def health(request: Request) -> JSONResponse:
 async def status(request: Request) -> JSONResponse:
     """Source quota usage, shared-state backend and data freshness."""
     return JSONResponse(await status_payload(), headers={"Cache-Control": "no-store"})
+
+
+@mcp.custom_route("/", methods=["GET"], include_in_schema=False)
+async def landing(request: Request) -> HTMLResponse:
+    """Landing page (English or Russian): what the server does, its tools, how to connect."""
+    return await site.landing(request, prompts=len(await mcp.list_prompts()))
+
+
+@mcp.custom_route("/privacy", methods=["GET"], include_in_schema=False)
+async def privacy(request: Request) -> HTMLResponse:
+    """Privacy policy (English or Russian)."""
+    return await site.privacy(request)
 
 
 def run() -> None:

@@ -12,13 +12,14 @@ data source fails (rate limit, outage, missing STRATZ token, timeout), `error` s
 
 ## Connect
 
-The server speaks MCP over Streamable HTTP at `http://<host>:<port>/mcp` (default
-`http://127.0.0.1:8000/mcp`). Start it locally with `uv run dota-insights` (see [Development](#development)).
+The public server runs at <https://dota-insights.vercel.app> (landing page in English and Russian)
+and speaks MCP over Streamable HTTP at `https://dota-insights.vercel.app/mcp`. No account or API
+key is needed.
 
 **Claude Code**
 
 ```bash
-claude mcp add --transport http dota-insights http://127.0.0.1:8000/mcp
+claude mcp add --transport http dota-insights https://dota-insights.vercel.app/mcp
 ```
 
 Add `--scope user` to use it in every project. Check it with `claude mcp list`, or `/mcp` inside a
@@ -26,22 +27,32 @@ session.
 
 **Claude Desktop**
 
-For a server reachable over HTTPS, open Settings → Connectors → Add custom connector and enter its `/mcp`
-URL. For a server on your own machine, bridge it with `mcp-remote` in `claude_desktop_config.json`
-(Settings → Developer → Edit Config), then restart Claude Desktop:
+Settings → Connectors → Add custom connector, and enter `https://dota-insights.vercel.app/mcp`.
+Without custom connectors, bridge it with `mcp-remote` in `claude_desktop_config.json`
+(Settings → Developer → Edit Config; needs Node.js), then restart Claude Desktop:
 
 ```json
 {
   "mcpServers": {
     "dota-insights": {
       "command": "npx",
-      "args": ["-y", "mcp-remote", "http://127.0.0.1:8000/mcp"]
+      "args": ["-y", "mcp-remote", "https://dota-insights.vercel.app/mcp"]
     }
   }
 }
 ```
 
-Other clients (Cursor, VS Code, ...) take the same URL as a "streamable HTTP" MCP server.
+**Cursor and other clients** take the same URL as a Streamable HTTP server (Cursor:
+`{"mcpServers": {"dota-insights": {"url": "https://dota-insights.vercel.app/mcp"}}}` in
+`~/.cursor/mcp.json`).
+
+Step-by-step guides with troubleshooting: [Claude Code](docs/connect/claude-code.md),
+[Claude Desktop](docs/connect/claude-desktop.md), [Cursor](docs/connect/cursor.md),
+[VS Code, Windsurf, `mcp-remote` and others](docs/connect/other-clients.md). For a server you run
+yourself, use `http://127.0.0.1:8000/mcp` instead (see [Development](#development)).
+
+Privacy: [docs/privacy.md](docs/privacy.md), also served at
+[`/privacy`](https://dota-insights.vercel.app/privacy).
 
 ## Tools
 
@@ -263,6 +274,12 @@ loaded through the root `app.py` that Vercel detects. It is stateless: no MCP se
 requests, and responses are JSON rather than SSE. Only pushes to `main` deploy (to production);
 other branches and pull requests get no deployment (`git.deploymentEnabled` in `vercel.json`).
 
+Routes: `/mcp` (MCP), `/health` (liveness), `/status` (quotas and data freshness, JSON), `/`
+(landing page) and `/privacy` (privacy policy). The two pages are self-contained HTML in English
+and Russian (`?lang=en|ru`, else `Accept-Language`), rendered by `dota_insights.mcp.site`; the
+landing page's tool list comes from the same catalog as the tool table above
+(`dota_insights.mcp.catalog`).
+
 Project environment variables in Vercel: `DOTA_INSIGHTS_STRATZ_API_TOKEN`, and `DATABASE_URL`
 from the Neon integration (read when `DOTA_INSIGHTS_DATABASE_URL` is not set). Data collection
 does not run on Vercel: GitHub Actions runs it on a schedule (`.github/workflows/collect.yml`,
@@ -325,7 +342,7 @@ seconds until the window resets. Configure with `DOTA_INSIGHTS_RATE_LIMIT_PER_MI
 
 ```
 src/dota_insights/
-  mcp/         MCP server, tools, prompts, result envelope and error handling
+  mcp/         MCP server, tools, prompts, result envelope, error handling, landing and privacy pages
   sources/     OpenDota, STRATZ and Steam Web API clients
   collector/   scheduled data collection jobs
   db/          PostgreSQL schema and access
@@ -333,4 +350,5 @@ src/dota_insights/
   telegram/    insight generator and channel publishing
   config.py    settings from DOTA_INSIGHTS_* environment variables
 scripts/       reference data refresh, README tool table generator
+docs/connect/  client connection guides
 ```
