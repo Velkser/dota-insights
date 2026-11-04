@@ -81,6 +81,7 @@ class StratzClient:
         rng: Callable[[], float] = random.random,
     ) -> None:
         self.token = settings.stratz_api_token if token is _UNSET else token
+        self.url = base_url
         self.max_retries = max_retries
         self.backoff_base = backoff_base
         self.backoff_max = backoff_max
@@ -92,9 +93,7 @@ class StratzClient:
         headers = {"Content-Type": "application/json", "User-Agent": "STRATZ_API"}
         if self.token:
             headers["Authorization"] = f"Bearer {self.token}"
-        self._http = httpx.AsyncClient(
-            base_url=base_url, timeout=timeout, transport=transport, headers=headers
-        )
+        self._http = httpx.AsyncClient(timeout=timeout, transport=transport, headers=headers)
 
     async def __aenter__(self) -> Self:
         return self
@@ -124,7 +123,7 @@ class StratzClient:
             last_attempt = attempt == self.max_retries
             await self.limiter.acquire()
             try:
-                response = await self._http.post("", json=payload)
+                response = await self._http.post(self.url, json=payload)
             except httpx.TransportError as exc:
                 if last_attempt:
                     raise StratzUnavailableError(f"STRATZ failed: {type(exc).__name__}") from exc

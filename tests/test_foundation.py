@@ -80,6 +80,7 @@ async def test_stratz_sends_auth_and_returns_data():
     seen = {}
 
     def handler(request: httpx.Request) -> httpx.Response:
+        seen["url"] = str(request.url)
         seen["auth"] = request.headers["Authorization"]
         seen["ua"] = request.headers["User-Agent"]
         seen["body"] = json.loads(request.content)
@@ -88,6 +89,7 @@ async def test_stratz_sends_auth_and_returns_data():
     async with _stratz(handler) as client:
         data = await client.query("query($id: Short!) { x }", {"id": 1})
     assert data == {"constants": {"hero": {"id": 1}}}
+    assert seen["url"] == "https://api.stratz.com/graphql"
     assert seen["auth"] == "Bearer t"
     assert seen["ua"] == "STRATZ_API"
     assert seen["body"]["variables"] == {"id": 1}
