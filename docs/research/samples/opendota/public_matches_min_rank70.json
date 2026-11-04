@@ -1,0 +1,135 @@
+{
+ "_note": "GET /publicMatches?min_rank=70, fetched 2026-11-04 ~16:33 UTC, first 5 of 100 rows",
+ "rows": [
+  {
+   "match_id": 9076175277,
+   "match_seq_num": 7621486380,
+   "radiant_win": true,
+   "start_time": 1793809410,
+   "duration": 216,
+   "lobby_type": 7,
+   "game_mode": 22,
+   "avg_rank_tier": 72,
+   "num_rank_tier": 4,
+   "cluster": 153,
+   "radiant_team": [
+    69,
+    9,
+    22,
+    87,
+    41
+   ],
+   "dire_team": [
+    145,
+    62,
+    2,
+    74,
+    111
+   ]
+  },
+  {
+   "match_id": 9076169238,
+   "match_seq_num": 7621473403,
+   "radiant_win": false,
+   "start_time": 1793809171,
+   "duration": 0,
+   "lobby_type": 4,
+   "game_mode": 1,
+   "avg_rank_tier": 75,
+   "num_rank_tier": 1,
+   "cluster": 213,
+   "radiant_team": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "dire_team": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "match_id": 9076167951,
+   "match_seq_num": 7621472158,
+   "radiant_win": false,
+   "start_time": 1793809121,
+   "duration": 0,
+   "lobby_type": 4,
+   "game_mode": 1,
+   "avg_rank_tier": 75,
+   "num_rank_tier": 1,
+   "cluster": 161,
+   "radiant_team": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "dire_team": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "match_id": 9076164021,
+   "match_seq_num": 7621469581,
+   "radiant_win": false,
+   "start_time": 1793808965,
+   "duration": 0,
+   "lobby_type": 4,
+   "game_mode": 1,
+   "avg_rank_tier": 72,
+   "num_rank_tier": 2,
+   "cluster": 213,
+   "radiant_team": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "dire_team": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "match_id": 9076160688,
+   "match_seq_num": 7621480534,
+   "radiant_win": false,
+   "start_time": 1793808831,
+   "duration": 480,
+   "lobby_type": 7,
+   "game_mode": 22,
+   "avg_rank_tier": 71,
+   "num_rank_tier": 8,
+   "cluster": 183,
+   "radiant_team": [
+    6,
+    21,
+    71,
+    15,
+    91
+   ],
+   "dire_team": [
+    74,
+    1,
+    31,
+    131,
+    49
+   ]
+  }
+ ]
+}

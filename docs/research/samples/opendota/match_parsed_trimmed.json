@@ -1,0 +1,485 @@
+{
+ "version": 22,
+ "match_id": 9073999945,
+ "teamfights": [
+  {
+   "start": 167,
+   "end": 211,
+   "last_death": 196,
+   "deaths": 3,
+   "players": [
+    {
+     "deaths_pos": {},
+     "ability_uses": {
+      "sven_storm_bolt": 1
+     },
+     "ability_targets": {},
+     "item_uses": {},
+     "killed": {},
+     "deaths": 0,
+     "buybacks": 0,
+     "damage": 132,
+     "…": "5 more keys"
+    },
+    {
+     "deaths_pos": {},
+     "ability_uses": {
+      "warlock_shadow_word": 1,
+      "plus_high_five": 1
+     },
+     "ability_targets": {},
+     "item_uses": {},
+     "killed": {},
+     "deaths": 0,
+     "buybacks": 0,
+     "damage": 393,
+     "…": "5 more keys"
+    },
+    {
+     "deaths_pos": {
+      "165": {
+       "81": 1
+      }
+     },
+     "ability_uses": {
+      "lion_impale": 1,
+      "lion_mana_drain": 1
+     },
+     "ability_targets": {},
+     "item_uses": {
+      "tpscroll": 1,
+      "ward_dispenser": 2
+     },
+     "killed": {},
+     "deaths": 1,
+     "buybacks": 0,
+     "damage": 188,
+     "…": "5 more keys"
+    },
+    "…7 more"
+   ]
+  }
+ ],
+ "pauses": [
+  {
+   "time": 348,
+   "duration": 22
+  },
+  {
+   "time": 352,
+   "duration": 41
+  }
+ ],
+ "objectives": [
+  {
+   "time": 50,
+   "type": "CHAT_MESSAGE_FIRSTBLOOD",
+   "key": "1",
+   "slot": 9,
+   "player_slot": 132,
+   "victim_player_slot": 1
+  },
+  {
+   "time": 248,
+   "type": "CHAT_MESSAGE_COURIER_LOST",
+   "team": 2,
+   "value": 55,
+   "killer": 132
+  },
+  {
+   "time": 710,
+   "type": "building_kill",
+   "unit": "npc_dota_hero_dark_seer",
+   "key": "npc_dota_badguys_tower1_top",
+   "slot": 3,
+   "player_slot": 3
+  },
+  {
+   "time": 735,
+   "type": "building_kill",
+   "unit": "npc_dota_hero_legion_commander",
+   "key": "npc_dota_goodguys_tower1_bot",
+   "slot": 5,
+   "player_slot": 128
+  },
+  {
+   "time": 999,
+   "type": "building_kill",
+   "unit": "npc_dota_hero_warlock",
+   "key": "npc_dota_badguys_tower1_mid",
+   "slot": 1,
+   "player_slot": 1
+  },
+  "…37 more"
+ ],
+ "radiant_gold_adv": [
+  0,
+  -404,
+  -337,
+  -569,
+  -378,
+  "…61 more"
+ ],
+ "radiant_xp_adv": [
+  0,
+  -252,
+  -119,
+  -518,
+  -658,
+  "…61 more"
+ ],
+ "draft_timings": [],
+ "leagueid": 0,
+ "start_time": 1793677940,
+ "duration": 3900,
+ "series_id": 0,
+ "series_type": 0,
+ "cluster": 184,
+ "replay_salt": 919511281,
+ "radiant_win": true,
+ "pre_game_duration": 90,
+ "match_seq_num": 7619809304,
+ "tower_status_radiant": 6,
+ "tower_status_dire": 0,
+ "barracks_status_radiant": 3,
+ "barracks_status_dire": 0,
+ "first_blood_time": 50,
+ "lobby_type": 7,
+ "human_players": 10,
+ "game_mode": 22,
+ "flags": 1,
+ "engine": 1,
+ "radiant_score": 60,
+ "dire_score": 65,
+ "picks_bans": [
+  {
+   "is_pick": true,
+   "hero_id": 26,
+   "team": 0,
+   "order": 0
+  },
+  {
+   "is_pick": true,
+   "hero_id": 22,
+   "team": 1,
+   "order": 1
+  },
+  {
+   "is_pick": true,
+   "hero_id": 14,
+   "team": 1,
+   "order": 2
+  },
+  {
+   "is_pick": true,
+   "hero_id": 18,
+   "team": 0,
+   "order": 3
+  },
+  {
+   "is_pick": true,
+   "hero_id": 136,
+   "team": 0,
+   "order": 4
+  },
+  "…11 more"
+ ],
+ "od_data": {
+  "has_api": true,
+  "has_gcdata": true,
+  "has_parsed": true,
+  "has_archive": false
+ },
+ "metadata": null,
+ "replay_url": "http://replay184.valve.net/570/9073999945_919511281.dem.bz2",
+ "patch": 60,
+ "region": 8,
+ "my_word_counts": {},
+ "throw": 19321,
+ "loss": 10028,
+ "players": [
+  {
+   "account_id": 865389253,
+   "player_slot": 0,
+   "hero_id": 18,
+   "rank_tier": 61,
+   "kills": 20,
+   "deaths": 10,
+   "assists": 21,
+   "last_hits": 662,
+   "denies": 10,
+   "gold_per_min": 816,
+   "xp_per_min": 1123,
+   "net_worth": 47572,
+   "hero_damage": 65703,
+   "tower_damage": 13988,
+   "item_0": 116,
+   "item_1": 156,
+   "item_2": 603,
+   "item_3": 133,
+   "item_4": 141,
+   "item_5": 112,
+   "item_neutral": 1168,
+   "lane": 1,
+   "lane_role": 1,
+   "is_roaming": false,
+   "lane_efficiency_pct": 78,
+   "gold_t": [
+    0,
+    220,
+    721,
+    1085,
+    1610,
+    1810,
+    "…60 more"
+   ],
+   "xp_t": [
+    0,
+    34,
+    366,
+    587,
+    1191,
+    1453,
+    "…60 more"
+   ],
+   "lh_t": [
+    0,
+    1,
+    7,
+    13,
+    19,
+    22,
+    "…60 more"
+   ],
+   "dn_t": [
+    0,
+    1,
+    4,
+    7,
+    9,
+    9,
+    "…60 more"
+   ],
+   "purchase_log": [
+    {
+     "time": -89,
+     "key": "quelling_blade"
+    },
+    {
+     "time": -89,
+     "key": "magic_stick"
+    },
+    {
+     "time": -89,
+     "key": "gauntlets"
+    },
+    {
+     "time": -89,
+     "key": "gauntlets"
+    },
+    {
+     "time": 0,
+     "key": "tango"
+    },
+    {
+     "time": 103,
+     "key": "belt_of_strength"
+    },
+    "…48 more"
+   ],
+   "kills_log": [
+    {
+     "time": 70,
+     "key": "npc_dota_hero_legion_commander"
+    },
+    {
+     "time": 498,
+     "key": "npc_dota_hero_pudge"
+    },
+    {
+     "smoke": true,
+     "time": 1524,
+     "key": "npc_dota_hero_pudge"
+    },
+    {
+     "time": 1821,
+     "key": "npc_dota_hero_pudge"
+    },
+    {
+     "time": 1923,
+     "key": "npc_dota_hero_legion_commander"
+    },
+    {
+     "time": 2023,
+     "key": "npc_dota_hero_legion_commander"
+    },
+    "…14 more"
+   ],
+   "deaths_log": [
+    {
+     "gold_fed": 305,
+     "time": 283,
+     "gold_lost": 57,
+     "key": "npc_dota_hero_pudge",
+     "time_dead": 21
+    },
+    {
+     "gold_fed": 732,
+     "gold_fed_shared": true,
+     "time": 623,
+     "gold_lost": 109,
+     "key": "npc_dota_hero_zuus",
+     "time_dead": 28
+    },
+    {
+     "gold_fed": 447,
+     "time": 762,
+     "gold_lost": 134,
+     "key": "npc_dota_hero_zuus",
+     "time_dead": 32
+    },
+    {
+     "gold_fed": 697,
+     "time": 1234,
+     "gold_lost": 260,
+     "key": "npc_dota_hero_legion_commander",
+     "time_dead": 50
+    },
+    {
+     "gold_fed": 1041,
+     "time": 1716,
+     "gold_lost": 441,
+     "key": "npc_dota_hero_spectre",
+     "time_dead": 85
+    },
+    {
+     "gold_fed": 1111,
+     "time": 1926,
+     "gold_lost": 517,
+     "key": "npc_dota_hero_snapfire",
+     "time_dead": 90
+    },
+    "…4 more"
+   ],
+   "obs_log": [
+    {
+     "time": 699,
+     "type": "obs_log",
+     "key": "[137,62]",
+     "slot": 0,
+     "player_slot": 0,
+     "x": 136.8,
+     "y": 62,
+     "z": 129.1,
+     "…": "2 more keys"
+    },
+    {
+     "time": 740,
+     "type": "obs_log",
+     "key": "[130,97]",
+     "slot": 0,
+     "player_slot": 0,
+     "x": 129.7,
+     "y": 96.6,
+     "z": 130,
+     "…": "2 more keys"
+    }
+   ],
+   "sen_log": [
+    {
+     "time": 736,
+     "type": "sen_log",
+     "key": "[118,94]",
+     "slot": 0,
+     "player_slot": 0,
+     "x": 117.8,
+     "y": 94.1,
+     "z": 131.1,
+     "…": "2 more keys"
+    }
+   ],
+   "runes_log": [
+    {
+     "time": 0,
+     "key": "5"
+    },
+    {
+     "time": 1686,
+     "key": "8"
+    },
+    {
+     "time": 1893,
+     "key": "4"
+    },
+    {
+     "time": 2494,
+     "key": "5"
+    },
+    {
+     "time": 2554,
+     "key": "8"
+    },
+    {
+     "time": 2778,
+     "key": "5"
+    },
+    "…4 more"
+   ],
+   "buyback_log": [
+    {
+     "time": 3362,
+     "type": "buyback_log",
+     "slot": 0,
+     "player_slot": 0
+    }
+   ],
+   "killed_by": {
+    "npc_dota_hero_zuus": 4,
+    "npc_dota_hero_pudge": 1,
+    "npc_dota_hero_legion_commander": 1,
+    "npc_dota_hero_snapfire": 2,
+    "npc_dota_hero_spectre": 2
+   },
+   "benchmarks": {
+    "gold_per_min": {
+     "raw": 816,
+     "pct": 0.8435079726651481
+    },
+    "xp_per_min": {
+     "raw": 1123,
+     "pct": 0.7785876993166287
+    },
+    "kills_per_min": {
+     "raw": 0.3076923076923077,
+     "pct": 0.7002277904328018
+    },
+    "deaths_per_min": {
+     "raw": 0.15384615384615385,
+     "pct": 0.48359908883826874
+    },
+    "assists_per_min": {
+     "raw": 0.32307692307692304,
+     "pct": 0.8059225512528474
+    },
+    "last_hits_per_min": {
+     "raw": 10.184615384615384,
+     "pct": 0.5546697038724373
+    },
+    "denies_per_min": {
+     "raw": 0.15384615384615385,
+     "pct": 0.4592255125284738
+    },
+    "hero_damage_per_min": {
+     "raw": 1010.8153846153846,
+     "pct": 0.8423690205011389
+    },
+    "…": "2 more keys"
+   },
+   "teamfight_participation": 0.68333334,
+   "actions_per_min": 256,
+   "stuns": 80.2995
+  },
+  "…9 more players"
+ ],
+ "_note": "Trimmed sample of GET /matches/9073999945 (parsed, version 22), fetched 2026-11-04. Arrays cut to first items."
+}
