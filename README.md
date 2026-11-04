@@ -32,6 +32,17 @@ uv run pytest
 uv run ruff check . && uv run ruff format --check .
 ```
 
+Collector (needs `DOTA_INSIGHTS_DATABASE_URL`; see [docs/architecture/collector.md](docs/architecture/collector.md)):
+
+```bash
+uv run alembic upgrade head
+uv run dota-insights collect list         # jobs and intervals
+uv run dota-insights collect patches      # run one job now
+uv run dota-insights collect scheduler    # run due jobs forever
+uv run dota-insights collect status       # budgets, last runs, stale patches, gaps
+docker compose up --build                 # PostgreSQL + migrations + server + collector
+```
+
 Connect a local server to Claude Code:
 
 ```bash

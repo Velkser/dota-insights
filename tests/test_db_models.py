@@ -24,10 +24,23 @@ EXPECTED_TABLES = {
     "hero_aggregates",
     "hero_matchup_aggregates",
     "item_timing_aggregates",
+    "hero_draft_aggregates",
+    "hero_stat_histograms",
+    "aggregate_status",
+    "hero_stats_daily",
+    "reference_snapshots",
+    "collector_job_runs",
+    "collector_api_usage",
+    "collector_cursors",
+    "collector_gaps",
 }
 
 EXPECTED_INDEXES = {
-    "matches": {"ix_matches_patch_rank"},
+    "matches": {
+        "ix_matches_patch_rank",
+        "ix_matches_pending_aggregation",
+        "ix_matches_pending_details_aggregation",
+    },
     "match_players": {
         "ix_match_players_patch_hero_position",
         "ix_match_players_account_start_time",
@@ -114,4 +127,64 @@ def test_online_migration_round_trip():
         assert set(inspect(engine).get_table_names()) >= EXPECTED_TABLES
         engine.dispose()
     finally:
+        command.downgrade(config, "base")
+
+
+@pytest.mark.skipif(
+    "DOTA_INSIGHTS_TEST_DATABASE_URL" not in os.environ,
+    reason="set DOTA_INSIGHTS_TEST_DATABASE_URL to an empty scratch database",
+)
+def test_collector_round_trip_on_postgresql():
+    """Collector writes on real partitions, arrays and RETURNING, then a patch-split rebuild."""
+    from datetime import UTC, datetime
+
+    from sqlalchemy.orm import sessionmaker
+
+    from dota_insights.collector import aggregates
+    from dota_insights.collector.ingest import store_summaries
+    from dota_insights.collector.patches import stale_patches, sync_patches
+    from dota_insights.db.models import Match, PatchBracketTotal
+
+    url = os.environ["DOTA_INSIGHTS_TEST_DATABASE_URL"]
+    config = alembic_config()
+    config.cmd_opts = type("Opts", (), {"x": [f"url={url}"]})()
+    command.upgrade(config, "head")
+    engine = create_engine(database_url(url))
+    try:
+        factory = sessionmaker(engine, expire_on_commit=False)
+        patches = [{"id": 60, "name": "7.41", "date": "2026-03-24T00:50:59Z"}]
+        # 2030-05 is outside the pre-created partitions: the collector must create it.
+        starts = [datetime(2026, 10, 1, tzinfo=UTC), datetime(2030, 5, 2, tzinfo=UTC)]
+        rows = [
+            {
+                "match_id": 10 + i,
+                "start_time": int(start.timestamp()),
+                "duration": 2000,
+                "lobby_type": 7,
+                "game_mode": 22,
+                "avg_rank_tier": 61.4,
+                "radiant_win": True,
+                "radiant_team": [1, 2, 3, 4, 5],
+                "dire_team": [6, 7, 8, 9, 10],
+            }
+            for i, start in enumerate(starts)
+        ]
+        with factory.begin() as session:
+            sync_patches(session, patches)
+            assert store_summaries(session, rows) == [10, 11]
+            assert store_summaries(session, rows) == []
+        aggregates.run_aggregation(factory, batch_size=10)
+        with factory.begin() as session:
+            assert session.get(PatchBracketTotal, (60, 6)).games == 2
+            sync_patches(
+                session, patches + [{"id": 61, "name": "7.42", "date": "2027-01-01T00:00:00Z"}]
+            )
+            assert stale_patches(session) == [60, 61]
+        assert aggregates.run_aggregation(factory, batch_size=10).rebuilt_patches == [60, 61]
+        with factory() as session:
+            assert session.get(PatchBracketTotal, (60, 6)).games == 1
+            assert session.get(PatchBracketTotal, (61, 6)).games == 1
+            assert session.get(Match, (11, starts[1])).patch_id == 61
+    finally:
+        engine.dispose()
         command.downgrade(config, "base")

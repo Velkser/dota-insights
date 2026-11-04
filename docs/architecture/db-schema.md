@@ -157,6 +157,24 @@ refresh jobs can add a batch of new matches with an upsert and the tool layer ca
 - Alembic autogenerate ignores the `<table>_YYYY_MM` partitions and the per-partition foreign
   keys PostgreSQL creates (`migrations/env.py`), so `alembic check` stays clean.
 
+## Collector additions (migration `0002`)
+
+See [collector.md](collector.md) for how these are written.
+
+- `match_players` player stats (`kills` … `denies`, `items`) are nullable: draft-only rows from
+  `publicMatches` carry hero, side and result only, until enrichment fills them in.
+- `matches` gains `has_details`, `detail_attempts`, `banned_hero_ids` (NULL = unknown),
+  `aggregated_at` and `details_aggregated_at` (incremental-aggregation markers, with partial
+  indexes on the pending rows).
+- `patch_bracket_totals` gains `detailed_games` and `ban_sample_games` (denominators for detail
+  aggregates and ban rate).
+- New aggregates: `hero_draft_aggregates` (patch, bracket, hero: games, wins, bans) and
+  `hero_stat_histograms` (patch, bracket, position, hero, stat, bucket: games, wins).
+- New state: `aggregate_status` (stale patches), `hero_stats_daily`, `reference_snapshots`,
+  `collector_job_runs`, `collector_api_usage`, `collector_cursors`, `collector_gaps`.
+- Models map `ARRAY`/`JSONB` to `JSON` on SQLite so collector logic is testable without
+  PostgreSQL; the PostgreSQL DDL is unchanged.
+
 ## Which tool reads what
 
 | Tool | Reads | Notes |

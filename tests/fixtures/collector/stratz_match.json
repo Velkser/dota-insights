@@ -1,0 +1,671 @@
+{
+ "_note": "STRATZ match(id: 9076000299) aliased as a, fetched 2026-11-04; pickBans and itemPurchases trimmed",
+ "data": {
+  "m9076000299": {
+   "id": 9076000299,
+   "didRadiantWin": true,
+   "durationSeconds": 2535,
+   "startDateTime": 1793802511,
+   "lobbyType": "RANKED",
+   "gameMode": "ALL_PICK_RANKED",
+   "rank": 51,
+   "bracket": 5,
+   "pickBans": [
+    {
+     "isPick": false,
+     "heroId": null,
+     "order": null,
+     "isRadiant": null
+    },
+    {
+     "isPick": false,
+     "heroId": null,
+     "order": null,
+     "isRadiant": null
+    },
+    {
+     "isPick": true,
+     "heroId": 128,
+     "order": 0,
+     "isRadiant": true
+    },
+    {
+     "isPick": true,
+     "heroId": 9,
+     "order": 1,
+     "isRadiant": true
+    },
+    {
+     "isPick": true,
+     "heroId": 5,
+     "order": 2,
+     "isRadiant": false
+    },
+    {
+     "isPick": true,
+     "heroId": 75,
+     "order": 3,
+     "isRadiant": false
+    },
+    {
+     "isPick": true,
+     "heroId": 29,
+     "order": 4,
+     "isRadiant": true
+    },
+    {
+     "isPick": true,
+     "heroId": 44,
+     "order": 5,
+     "isRadiant": true
+    },
+    {
+     "isPick": true,
+     "heroId": 41,
+     "order": 6,
+     "isRadiant": false
+    },
+    {
+     "isPick": true,
+     "heroId": 7,
+     "order": 7,
+     "isRadiant": false
+    },
+    {
+     "isPick": true,
+     "heroId": 22,
+     "order": 8,
+     "isRadiant": true
+    },
+    {
+     "isPick": true,
+     "heroId": 19,
+     "order": 9,
+     "isRadiant": false
+    }
+   ],
+   "players": [
+    {
+     "playerSlot": 0,
+     "heroId": 22,
+     "isRadiant": true,
+     "position": "POSITION_2",
+     "lane": "MID_LANE",
+     "role": "CORE",
+     "steamAccountId": 327186418,
+     "kills": 11,
+     "deaths": 6,
+     "assists": 28,
+     "goldPerMinute": 525,
+     "experiencePerMinute": 790,
+     "numLastHits": 179,
+     "numDenies": 3,
+     "networth": 20641,
+     "heroDamage": 51490,
+     "towerDamage": 1061,
+     "heroHealing": 0,
+     "item0Id": 180,
+     "item1Id": 256,
+     "item2Id": 36,
+     "item3Id": 273,
+     "item4Id": 232,
+     "item5Id": 1808,
+     "backpack0Id": null,
+     "backpack1Id": null,
+     "backpack2Id": null,
+     "neutral0Id": 1720,
+     "stats": {
+      "itemPurchases": [
+       {
+        "itemId": 44,
+        "time": -89
+       },
+       {
+        "itemId": 16,
+        "time": -89
+       },
+       {
+        "itemId": 237,
+        "time": -89
+       },
+       {
+        "itemId": 36,
+        "time": 220
+       },
+       {
+        "itemId": 46,
+        "time": 2370
+       },
+       {
+        "itemId": 256,
+        "time": 2437
+       }
+      ]
+     }
+    },
+    {
+     "playerSlot": 1,
+     "heroId": 128,
+     "isRadiant": true,
+     "position": "POSITION_5",
+     "lane": "SAFE_LANE",
+     "role": "HARD_SUPPORT",
+     "steamAccountId": 1463090354,
+     "kills": 4,
+     "deaths": 16,
+     "assists": 25,
+     "goldPerMinute": 340,
+     "experiencePerMinute": 685,
+     "numLastHits": 49,
+     "numDenies": 1,
+     "networth": 11032,
+     "heroDamage": 13748,
+     "towerDamage": 1709,
+     "heroHealing": 1875,
+     "item0Id": 231,
+     "item1Id": 102,
+     "item2Id": 43,
+     "item3Id": null,
+     "item4Id": null,
+     "item5Id": null,
+     "backpack0Id": null,
+     "backpack1Id": null,
+     "backpack2Id": null,
+     "neutral0Id": 574,
+     "stats": {
+      "itemPurchases": [
+       {
+        "itemId": 29,
+        "time": -89
+       },
+       {
+        "itemId": 43,
+        "time": -89
+       },
+       {
+        "itemId": 42,
+        "time": -89
+       },
+       {
+        "itemId": 1123,
+        "time": -89
+       },
+       {
+        "itemId": 43,
+        "time": 2439
+       },
+       {
+        "itemId": 46,
+        "time": 2483
+       }
+      ]
+     }
+    },
+    {
+     "playerSlot": 2,
+     "heroId": 29,
+     "isRadiant": true,
+     "position": "POSITION_3",
+     "lane": "OFF_LANE",
+     "role": "CORE",
+     "steamAccountId": 1864226555,
+     "kills": 10,
+     "deaths": 10,
+     "assists": 33,
+     "goldPerMinute": 525,
+     "experiencePerMinute": 1008,
+     "numLastHits": 183,
+     "numDenies": 5,
+     "networth": 19967,
+     "heroDamage": 31605,
+     "towerDamage": 2872,
+     "heroHealing": 0,
+     "item0Id": 1,
+     "item1Id": 50,
+     "item2Id": 110,
+     "item3Id": 90,
+     "item4Id": 1854,
+     "item5Id": 178,
+     "backpack0Id": null,
+     "backpack1Id": null,
+     "backpack2Id": null,
+     "neutral0Id": 574,
+     "stats": {
+      "itemPurchases": [
+       {
+        "itemId": 11,
+        "time": -89
+       },
+       {
+        "itemId": 13,
+        "time": -89
+       },
+       {
+        "itemId": 44,
+        "time": -89
+       },
+       {
+        "itemId": 16,
+        "time": -89
+       },
+       {
+        "itemId": 4206,
+        "time": 2272
+       },
+       {
+        "itemId": 110,
+        "time": 2433
+       }
+      ]
+     }
+    },
+    {
+     "playerSlot": 3,
+     "heroId": 44,
+     "isRadiant": true,
+     "position": "POSITION_1",
+     "lane": "SAFE_LANE",
+     "role": "CORE",
+     "steamAccountId": 1825260705,
+     "kills": 15,
+     "deaths": 9,
+     "assists": 8,
+     "goldPerMinute": 699,
+     "experiencePerMinute": 1060,
+     "numLastHits": 360,
+     "numDenies": 13,
+     "networth": 27423,
+     "heroDamage": 31661,
+     "towerDamage": 14914,
+     "heroHealing": 0,
+     "item0Id": 116,
+     "item1Id": 208,
+     "item2Id": 145,
+     "item3Id": 63,
+     "item4Id": 168,
+     "item5Id": 160,
+     "backpack0Id": null,
+     "backpack1Id": null,
+     "backpack2Id": null,
+     "neutral0Id": 1603,
+     "stats": {
+      "itemPurchases": [
+       {
+        "itemId": 16,
+        "time": -89
+       },
+       {
+        "itemId": 11,
+        "time": -89
+       },
+       {
+        "itemId": 44,
+        "time": -89
+       },
+       {
+        "itemId": 237,
+        "time": -89
+       },
+       {
+        "itemId": 162,
+        "time": 2491
+       },
+       {
+        "itemId": 208,
+        "time": 2499
+       }
+      ]
+     }
+    },
+    {
+     "playerSlot": 4,
+     "heroId": 9,
+     "isRadiant": true,
+     "position": "POSITION_4",
+     "lane": "OFF_LANE",
+     "role": "LIGHT_SUPPORT",
+     "steamAccountId": 196899322,
+     "kills": 12,
+     "deaths": 4,
+     "assists": 30,
+     "goldPerMinute": 526,
+     "experiencePerMinute": 867,
+     "numLastHits": 139,
+     "numDenies": 1,
+     "networth": 21584,
+     "heroDamage": 32223,
+     "towerDamage": 1034,
+     "heroHealing": 1745,
+     "item0Id": 1,
+     "item1Id": 267,
+     "item2Id": 231,
+     "item3Id": 229,
+     "item4Id": 36,
+     "item5Id": 108,
+     "backpack0Id": 188,
+     "backpack1Id": null,
+     "backpack2Id": null,
+     "neutral0Id": 1604,
+     "stats": {
+      "itemPurchases": [
+       {
+        "itemId": 20,
+        "time": -89
+       },
+       {
+        "itemId": 16,
+        "time": -89
+       },
+       {
+        "itemId": 34,
+        "time": -89
+       },
+       {
+        "itemId": 44,
+        "time": -89
+       },
+       {
+        "itemId": 1128,
+        "time": 2297
+       },
+       {
+        "itemId": 229,
+        "time": 2393
+       }
+      ]
+     }
+    },
+    {
+     "playerSlot": 128,
+     "heroId": 19,
+     "isRadiant": false,
+     "position": "POSITION_2",
+     "lane": "MID_LANE",
+     "role": "CORE",
+     "steamAccountId": 1069034229,
+     "kills": 11,
+     "deaths": 8,
+     "assists": 12,
+     "goldPerMinute": 489,
+     "experiencePerMinute": 741,
+     "numLastHits": 236,
+     "numDenies": 8,
+     "networth": 17622,
+     "heroDamage": 33398,
+     "towerDamage": 63,
+     "heroHealing": 0,
+     "item0Id": 63,
+     "item1Id": 1,
+     "item2Id": 249,
+     "item3Id": 116,
+     "item4Id": 252,
+     "item5Id": null,
+     "backpack0Id": null,
+     "backpack1Id": null,
+     "backpack2Id": null,
+     "neutral0Id": 2097,
+     "stats": {
+      "itemPurchases": [
+       {
+        "itemId": 16,
+        "time": -86
+       },
+       {
+        "itemId": 16,
+        "time": -85
+       },
+       {
+        "itemId": 44,
+        "time": -84
+       },
+       {
+        "itemId": 11,
+        "time": -81
+       },
+       {
+        "itemId": 115,
+        "time": 2073
+       },
+       {
+        "itemId": 116,
+        "time": 2073
+       }
+      ]
+     }
+    },
+    {
+     "playerSlot": 129,
+     "heroId": 41,
+     "isRadiant": false,
+     "position": "POSITION_1",
+     "lane": "SAFE_LANE",
+     "role": "CORE",
+     "steamAccountId": 185109816,
+     "kills": 12,
+     "deaths": 9,
+     "assists": 7,
+     "goldPerMinute": 520,
+     "experiencePerMinute": 862,
+     "numLastHits": 304,
+     "numDenies": 3,
+     "networth": 17385,
+     "heroDamage": 22783,
+     "towerDamage": 0,
+     "heroHealing": 0,
+     "item0Id": 166,
+     "item1Id": 147,
+     "item2Id": 172,
+     "item3Id": 141,
+     "item4Id": 485,
+     "item5Id": 63,
+     "backpack0Id": null,
+     "backpack1Id": null,
+     "backpack2Id": null,
+     "neutral0Id": 1721,
+     "stats": {
+      "itemPurchases": [
+       {
+        "itemId": 34,
+        "time": -81
+       },
+       {
+        "itemId": 11,
+        "time": -80
+       },
+       {
+        "itemId": 44,
+        "time": -80
+       },
+       {
+        "itemId": 20,
+        "time": -73
+       },
+       {
+        "itemId": 46,
+        "time": 1863
+       },
+       {
+        "itemId": 141,
+        "time": 2056
+       }
+      ]
+     }
+    },
+    {
+     "playerSlot": 130,
+     "heroId": 5,
+     "isRadiant": false,
+     "position": "POSITION_5",
+     "lane": "SAFE_LANE",
+     "role": "HARD_SUPPORT",
+     "steamAccountId": 158367571,
+     "kills": 5,
+     "deaths": 17,
+     "assists": 11,
+     "goldPerMinute": 301,
+     "experiencePerMinute": 337,
+     "numLastHits": 40,
+     "numDenies": 2,
+     "networth": 9414,
+     "heroDamage": 17467,
+     "towerDamage": 24,
+     "heroHealing": 393,
+     "item0Id": 178,
+     "item1Id": 1,
+     "item2Id": 42,
+     "item3Id": 8,
+     "item4Id": 21,
+     "item5Id": 214,
+     "backpack0Id": 4206,
+     "backpack1Id": 34,
+     "backpack2Id": 11,
+     "neutral0Id": 1638,
+     "stats": {
+      "itemPurchases": [
+       {
+        "itemId": 42,
+        "time": -89
+       },
+       {
+        "itemId": 42,
+        "time": -89
+       },
+       {
+        "itemId": 188,
+        "time": -89
+       },
+       {
+        "itemId": 1123,
+        "time": -89
+       },
+       {
+        "itemId": 4206,
+        "time": 2328
+       },
+       {
+        "itemId": 188,
+        "time": 2443
+       }
+      ]
+     }
+    },
+    {
+     "playerSlot": 131,
+     "heroId": 7,
+     "isRadiant": false,
+     "position": "POSITION_3",
+     "lane": "OFF_LANE",
+     "role": "CORE",
+     "steamAccountId": 220007283,
+     "kills": 14,
+     "deaths": 7,
+     "assists": 18,
+     "goldPerMinute": 698,
+     "experiencePerMinute": 975,
+     "numLastHits": 361,
+     "numDenies": 9,
+     "networth": 25979,
+     "heroDamage": 44886,
+     "towerDamage": 954,
+     "heroHealing": 0,
+     "item0Id": 1,
+     "item1Id": 277,
+     "item2Id": 116,
+     "item3Id": 235,
+     "item4Id": 110,
+     "item5Id": 48,
+     "backpack0Id": null,
+     "backpack1Id": null,
+     "backpack2Id": null,
+     "neutral0Id": 1864,
+     "stats": {
+      "itemPurchases": [
+       {
+        "itemId": 34,
+        "time": -89
+       },
+       {
+        "itemId": 20,
+        "time": -89
+       },
+       {
+        "itemId": 16,
+        "time": -89
+       },
+       {
+        "itemId": 11,
+        "time": -89
+       },
+       {
+        "itemId": 110,
+        "time": 1932
+       },
+       {
+        "itemId": 116,
+        "time": 2270
+       }
+      ]
+     }
+    },
+    {
+     "playerSlot": 132,
+     "heroId": 75,
+     "isRadiant": false,
+     "position": "POSITION_4",
+     "lane": "OFF_LANE",
+     "role": "LIGHT_SUPPORT",
+     "steamAccountId": 1715359909,
+     "kills": 2,
+     "deaths": 13,
+     "assists": 20,
+     "goldPerMinute": 266,
+     "experiencePerMinute": 426,
+     "numLastHits": 53,
+     "numDenies": 1,
+     "networth": 8139,
+     "heroDamage": 7056,
+     "towerDamage": 333,
+     "heroHealing": 0,
+     "item0Id": 102,
+     "item1Id": 36,
+     "item2Id": 40,
+     "item3Id": 180,
+     "item4Id": 43,
+     "item5Id": 254,
+     "backpack0Id": null,
+     "backpack1Id": null,
+     "backpack2Id": null,
+     "neutral0Id": 2097,
+     "stats": {
+      "itemPurchases": [
+       {
+        "itemId": 44,
+        "time": -89
+       },
+       {
+        "itemId": 43,
+        "time": -89
+       },
+       {
+        "itemId": 34,
+        "time": -89
+       },
+       {
+        "itemId": 16,
+        "time": -89
+       },
+       {
+        "itemId": 43,
+        "time": 2428
+       },
+       {
+        "itemId": 43,
+        "time": 2429
+       }
+      ]
+     }
+    }
+   ]
+  }
+ }
+}
