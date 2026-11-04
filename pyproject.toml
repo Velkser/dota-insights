@@ -8,8 +8,11 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "alembic>=1.20.1",
     "fastmcp>=4.1.6",
+    "psycopg[binary]>=3.3.8",
     "pydantic-settings>=2.16.2",
+    "sqlalchemy>=2.1.8",
 ]
 
 [project.scripts]
