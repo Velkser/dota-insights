@@ -217,43 +217,46 @@ async def run_case(
             # Pass the whole content back unchanged (thinking blocks included).
             messages.append({"role": "assistant", "content": response.content})
             uses = [b for b in response.content if b.type == "tool_use"]
-            results = await asyncio.gather(
+            outcomes = await asyncio.gather(
                 *(_call(session, transcript, u, config.tool_timeout_s) for u in uses)
             )
-            messages.append({"role": "user", "content": list(results)})
+            # Recorded in the order the model asked for them, not the order they finished.
+            transcript.calls.extend(call for _, call in outcomes)
+            messages.append({"role": "user", "content": [result for result, _ in outcomes]})
     except Exception as exc:  # API errors: record and score the case as failed
         transcript.error = f"{type(exc).__name__}: {exc}"
     transcript.latency_s = time.perf_counter() - started
     return transcript
 
 
-async def _call(session: ToolSession, transcript: Transcript, use: Any, timeout: float) -> dict:
+async def _call(
+    session: ToolSession, transcript: Transcript, use: Any, timeout: float
+) -> tuple[dict, ToolCall]:
     arguments = use.input if isinstance(use.input, dict) else {}
     t0 = time.perf_counter()
     outcome = await session.call(use.name, arguments, timeout)
     latency = time.perf_counter() - t0
     transcript.tool_latency_s += latency
     status = outcome.envelope.get("status") if outcome.envelope else None
-    transcript.calls.append(
-        ToolCall(
-            name=use.name,
-            arguments=arguments,
-            status=status if isinstance(status, str) else None,
-            envelope=_recorded(outcome.envelope),
-            is_error=outcome.is_error,
-            error=outcome.text[:500] if outcome.is_error else None,
-            latency_s=round(latency, 3),
-        )
+    call = ToolCall(
+        name=use.name,
+        arguments=arguments,
+        status=status if isinstance(status, str) else None,
+        envelope=_recorded(outcome.envelope),
+        is_error=outcome.is_error,
+        error=outcome.text[:500] if outcome.is_error else None,
+        latency_s=round(latency, 3),
     )
     text = outcome.text
     if len(text) > MAX_RESULT_CHARS:
         text = text[:MAX_RESULT_CHARS] + "\n[truncated by eval harness]"
-    return {
+    result = {
         "type": "tool_result",
         "tool_use_id": use.id,
         "content": text or "(empty result)",
         "is_error": outcome.is_error,
     }
+    return result, call
 
 
 async def run_cases(

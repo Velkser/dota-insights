@@ -222,7 +222,9 @@ def test_russian_number_formats():
         "29 декабря 2025 – 4 января 2026"
     )
     assert texts.fmt_q(0.0002) == "< 0,001"
-    assert texts.hero_name(1) == "Anti-Mage"
+    assert texts.hero_name(1) == "Антимаг"
+    assert texts.hero_name(99999) == "Hero #99999"
+    assert texts.hero_name_en(1) == "Anti-Mage"
 
 
 def test_posts_state_sample_and_patch(seeded):
@@ -233,7 +235,7 @@ def test_posts_state_sample_and_patch(seeded):
     post = texts.weekly_post(result)
     assert post.startswith("**Weekly Meta Report · 26 октября – 1 ноября 2026**")
     assert "Патч 7.41 · все ранги · 1 200 матчей (неделей ранее 1 200)" in post
-    assert "• Anti-Mage — " in post and "≥ 100 игр" in post
+    assert "• Антимаг — " in post and "≥ 100 игр" in post
     assert len(post) < 1024  # fits a Telegram photo caption
     draft = texts.anomaly_post(result.anomalies[0], result)
     assert "патч 7.41" in draft and "Игр с героем:" in draft and "z = " in draft

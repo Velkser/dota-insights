@@ -6,6 +6,16 @@ All notable changes to this project. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- Insight and Weekly Meta Report drafts name heroes in Russian ("Антимаг", "Пудж") through
+  the shared RU name table, falling back to English; draft file names stay English slugs.
+
+### Fixed
+
+- The eval harness records parallel tool calls in the order the model asked for them, not the
+  order they finished (this made `test_run_case_calls_tools_and_records_transcript` flaky).
+
 ### Added
 
 - Developer API prototype (p5-06, `dota_insights.api`, [docs/api.md](docs/api.md)): read-only
