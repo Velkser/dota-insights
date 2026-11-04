@@ -9,7 +9,7 @@ from dota_insights import sources
 from dota_insights.analytics import farming
 from dota_insights.cache import clear_all
 from dota_insights.mcp.tools import farming as farming_tools
-from dota_insights.models import Filters
+from dota_insights.models import Filters, Outcome
 from dota_insights.sources.opendota import OpenDotaClient
 
 FIXTURES = Path(__file__).parent / "fixtures" / "farming"
@@ -32,6 +32,12 @@ OPENDOTA_ROUTES = {
     ("/api/heroes/1/durations", ()): "od_heroes_1_durations.json",
 }
 
+# Recorded explorer responses, keyed by the SQL that produced them (patch 7.41).
+EXPLORER = {
+    fixture["sql"]: fixture
+    for fixture in (_load(f"od_explorer_{name}.json") for name in ("farm_1", "farm_44", "lane_1"))
+}
+
 
 @pytest.fixture
 def requests():
@@ -39,6 +45,11 @@ def requests():
 
     def handler(request: httpx.Request) -> httpx.Response:
         seen.append(request)
+        if request.url.path == "/api/explorer":
+            fixture = EXPLORER.get(request.url.params["sql"])
+            if fixture is None:
+                return httpx.Response(200, json={"rows": [], "rowCount": 0, "err": None})
+            return httpx.Response(200, json=fixture)
         key = (request.url.path, tuple(sorted(request.url.params.items())))
         name = OPENDOTA_ROUTES.get(key)
         if name is None:
@@ -184,3 +195,159 @@ async def test_get_hero_power_curve_reports_ignored_filters_and_min_sample(reque
     assert body["status"] == "insufficient_data"
     assert body["filters"]["rank_bracket"] is None
     assert any("rank_bracket" in c for c in body["caveats"])
+
+
+# Explorer-based analytics
+
+
+def _rows(name: str) -> list[dict]:
+    return _load(f"od_explorer_{name}.json")["rows"]
+
+
+def test_recorded_sql_matches_query_builders():
+    assert _load("od_explorer_farm_1.json")["sql"] == farming.farm_sql(1, "7.41")
+    assert _load("od_explorer_lane_1.json")["sql"] == farming.lane_sql(1, "7.41")
+
+
+def test_explorer_patch():
+    assert farming.explorer_patch(Filters(patch="7.41f")) == "7.41"
+    assert farming.explorer_patch(Filters(patch="7.40")) == "7.40"
+    with pytest.raises(ValueError):
+        farming.explorer_patch(Filters(patch="7.41'; DROP TABLE matches; --"))
+
+
+def test_farm_at_minutes_on_recorded_matches():
+    rows = _rows("farm_1")
+    ten, thirty = farming.farm_at_minutes(rows, [10, 30], min_games=100)
+    assert ten.games == len(rows)
+    golds = sorted(r["gold_t"][10] for r in rows)
+    assert ten.gold.q1 <= ten.gold.median <= ten.gold.q3
+    assert golds[0] <= ten.gold.q1 and ten.gold.q3 <= golds[-1]
+    assert ten.gpm.median == pytest.approx(ten.gold.median / 10)
+    assert thirty.games == sum(1 for r in rows if len(r["gold_t"]) > 30)
+    (late,) = farming.farm_at_minutes(rows, [80], min_games=100)
+    assert late.gold is None and late.games < 100
+
+
+def test_spread_quartiles():
+    s = farming.spread([1, 2, 3, 4, 5])
+    assert (s.q1, s.median, s.q3) == (2, 3, 4)
+    assert farming.spread([7]) == farming.Spread(median=7, q1=7, q3=7)
+
+
+def test_filter_outcome_uses_player_side():
+    rows = [
+        {"player_slot": 0, "radiant_win": True},
+        {"player_slot": 128, "radiant_win": True},
+        {"player_slot": 132, "radiant_win": False},
+    ]
+    assert farming.filter_outcome(rows, Outcome.WIN) == [rows[0], rows[2]]
+    assert farming.filter_outcome(rows, Outcome.LOSS) == [rows[1]]
+
+
+def test_lane_result_rule():
+    assert farming.lane_result([1100], [1000]) == "draw"
+    assert farming.lane_result([1200], [1000]) == "win"
+    assert farming.lane_result([1000, 600], [1000]) == "loss"
+    assert farming.lane_result([0], [0]) == "draw"
+
+
+def _player(slot, hero, lane, gold, roaming=False, radiant_win=True):
+    return {
+        "match_id": 1, "player_slot": slot, "hero_id": hero, "lane": lane,
+        "is_roaming": roaming, "gold_10": gold, "lh_10": gold // 50,
+        "radiant_win": radiant_win, "start_time": 0,
+    }  # fmt: skip
+
+
+def test_lane_stats_counts_opponents_and_partners(monkeypatch):
+    monkeypatch.setattr(farming, "MIN_PAIR_GAMES", 1)
+    rows = [
+        _player(0, 1, 1, 4000),  # Anti-Mage, safe lane bottom
+        _player(1, 5, 1, 1500),  # Crystal Maiden with him
+        _player(2, 14, 2, 3000),  # Pudge mid, other lane
+        _player(128, 2, 1, 2000),  # Axe against them
+        _player(129, 26, 3, 1000, roaming=True),
+    ]
+    stats = farming.lane_stats("Anti-Mage", 1, "7.41", rows)
+    assert stats.games == 1 and stats.skipped == 0
+    assert stats.lane_win_rate == 1.0  # (4000 + 1500) / 2 = 2750 vs 2000
+    assert [m.hero for m in stats.best_opponents] == ["Axe"]
+    assert [m.hero for m in stats.best_partners] == ["Crystal Maiden"]
+    assert stats.match_win_rate_after_lane_win == 1.0
+    assert stats.match_win_rate_after_lane_loss is None
+
+
+def test_lane_stats_on_recorded_matches():
+    stats = farming.lane_stats("Anti-Mage", 1, "7.41", _rows("lane_1"))
+    assert stats.games + stats.skipped == len({r["match_id"] for r in _rows("lane_1")})
+    total = stats.lane_win_rate + stats.lane_draw_rate + stats.lane_loss_rate
+    assert total == pytest.approx(1.0)
+    assert all(m.games >= farming.MIN_PAIR_GAMES for m in stats.best_opponents)
+    assert len(stats.worst_opponents) == 5
+
+
+# Explorer-based tools
+
+
+async def test_get_farming_stats(requests):
+    body = await _call("get_farming_stats", {"hero": "anti-mage"})
+    assert body["status"] == "ok", body
+    assert body["filters"]["patch"] == "7.41"
+    assert body["sample_size"] == len(_rows("farm_1"))
+    minutes = {m["minute"]: m for m in body["result"]["minutes"]}
+    assert sorted(minutes) == [10, 15, 20, 25, 30]
+    assert minutes[10]["last_hits"]["median"] == 57
+    assert body["period"]["from_date"] >= "2026-03-24"
+    assert any("league" in c for c in body["caveats"])
+
+
+async def test_get_farming_stats_outcome_and_ignored_filters(requests):
+    args = {"hero": "am", "outcome": "win", "filters": {"position": 1, "min_sample": 50}}
+    body = await _call("get_farming_stats", args)
+    assert body["status"] == "ok"
+    rows = _rows("farm_1")
+    assert body["sample_size"] == len(farming.filter_outcome(rows, Outcome.WIN))
+    assert body["filters"]["position"] is None
+    assert any("position" in c for c in body["caveats"])
+
+
+async def test_get_farming_stats_insufficient_and_errors(requests):
+    body = await _call("get_farming_stats", {"hero": "am", "filters": {"patch": "7.30"}})
+    assert body["status"] == "insufficient_data"
+    assert body["sample_size"] == 0
+    body = await _call("get_farming_stats", {"hero": "am", "minutes": [0]})
+    assert body["status"] == "error"
+
+
+async def test_get_gold_xp_curves_side_by_side(requests):
+    body = await _call("get_gold_xp_curves", {"heroes": ["am", "phantom assassin"]})
+    assert body["status"] == "ok", body
+    curves = {c["hero"]: c for c in body["result"]}
+    assert set(curves) == {"Anti-Mage", "Phantom Assassin"}
+    am = curves["Anti-Mage"]
+    assert am["wins"][0]["minute"] == 0
+    assert am["wins"][0]["games"] + am["losses"][0]["games"] == am["games"]
+    assert all(p["games"] >= farming.MIN_CURVE_GAMES for p in am["losses"])
+    assert body["sample_size"] == min(c["games"] for c in curves.values())
+
+
+async def test_get_gold_xp_curves_skips_small_heroes(requests):
+    body = await _call("get_gold_xp_curves", {"heroes": ["am", "pudge"], "outcome": "loss"})
+    assert body["status"] == "ok"
+    assert [c["hero"] for c in body["result"]] == ["Anti-Mage"]
+    assert body["result"][0]["wins"] is None
+    assert any("Pudge (0)" in c for c in body["caveats"])
+    body = await _call("get_gold_xp_curves", {"heroes": ["pudge"]})
+    assert body["status"] == "insufficient_data"
+
+
+async def test_get_hero_lane_stats(requests):
+    body = await _call("get_hero_lane_stats", {"hero": "am"})
+    assert body["status"] == "ok", body
+    result = body["result"]
+    assert body["sample_size"] == result["games"]
+    low, high = body["confidence"]["lane_win_rate"]
+    assert low <= result["lane_win_rate"] <= high
+    assert "lane outcome" in body["definitions"]
+    assert result["best_opponents"] and result["worst_partners"]
