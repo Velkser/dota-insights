@@ -8,6 +8,8 @@ All notable changes to this project. The format follows
 
 ### Added
 
+- Vercel deployment: stateless ASGI entry point `dota_insights.mcp.asgi:app`, and
+  `DATABASE_URL` from the Neon integration as a fallback for `DOTA_INSIGHTS_DATABASE_URL`.
 - Central error handling: `ErrorEnvelopeMiddleware` turns OpenDota and STRATZ rate limits, auth
   failures, outages, rejected queries, timeouts and unexpected exceptions into `error` envelopes with
   a retry hint, for every tool including ones added later. Internal exception details are not sent to
