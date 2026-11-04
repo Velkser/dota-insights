@@ -1,0 +1,226 @@
+[
+ {
+  "match_id": "9076183783",
+  "game_time": 2463,
+  "radiant_lead": -36926,
+  "team_name_radiant": "CyberHero",
+  "team_name_dire": "HULIGANI",
+  "radiant_score": 22,
+  "dire_score": 40,
+  "league_id": 19944,
+  "delay": 900,
+  "last_update_time": 1793813500,
+  "deactivate_time": 0,
+  "sort_score": 13427,
+  "players": [
+   {
+    "team": 1,
+    "hero_id": 121
+   },
+   {
+    "team": 1,
+    "hero_id": 120
+   },
+   {
+    "team": 1,
+    "hero_id": 119
+   },
+   {
+    "team": 1,
+    "hero_id": 38
+   },
+   {
+    "team": 1,
+    "hero_id": 80
+   },
+   {
+    "team": 0,
+    "hero_id": 33
+   },
+   {
+    "team": 0,
+    "hero_id": 51
+   },
+   {
+    "team": 0,
+    "hero_id": 88
+   },
+   {
+    "team": 0,
+    "hero_id": 21
+   },
+   {
+    "team": 0,
+    "hero_id": 7
+   }
+  ]
+ },
+ {
+  "match_id": "9076294639",
+  "game_time": 897,
+  "radiant_lead": -409,
+  "team_name_radiant": "HULIGANI",
+  "team_name_dire": "CyberHero",
+  "radiant_score": 8,
+  "dire_score": 8,
+  "league_id": 19944,
+  "delay": 900,
+  "last_update_time": 1793816300,
+  "deactivate_time": 0,
+  "sort_score": 13239,
+  "players": [
+   {
+    "team": 0,
+    "hero_id": 21
+   },
+   {
+    "team": 1,
+    "hero_id": 36
+   },
+   {
+    "team": 0,
+    "hero_id": 65
+   },
+   {
+    "team": 0,
+    "hero_id": 17
+   },
+   {
+    "team": 0,
+    "hero_id": 30
+   },
+   {
+    "team": 1,
+    "hero_id": 49
+   },
+   {
+    "team": 1,
+    "hero_id": 93
+   },
+   {
+    "team": 1,
+    "hero_id": 71
+   },
+   {
+    "team": 1,
+    "hero_id": 50
+   },
+   {
+    "team": 0,
+    "hero_id": 91
+   }
+  ]
+ },
+ {
+  "match_id": "9076096078",
+  "game_time": 1146,
+  "radiant_lead": 12331,
+  "team_name_radiant": "",
+  "team_name_dire": "",
+  "radiant_score": 23,
+  "dire_score": 8,
+  "league_id": 0,
+  "delay": 120,
+  "last_update_time": 1793807600,
+  "deactivate_time": 0,
+  "sort_score": 7368,
+  "players": [
+   {
+    "team": 0,
+    "hero_id": 49
+   },
+   {
+    "team": 0,
+    "hero_id": 1
+   },
+   {
+    "team": 0,
+    "hero_id": 110
+   },
+   {
+    "team": 0,
+    "hero_id": 10
+   },
+   {
+    "team": 0,
+    "hero_id": 88
+   },
+   {
+    "team": 1,
+    "hero_id": 8
+   },
+   {
+    "team": 1,
+    "hero_id": 55
+   },
+   {
+    "team": 1,
+    "hero_id": 73
+   },
+   {
+    "team": 1,
+    "hero_id": 93
+   },
+   {
+    "team": 1,
+    "hero_id": 9
+   }
+  ]
+ },
+ {
+  "match_id": "9076108067",
+  "game_time": 1777,
+  "radiant_lead": 28366,
+  "team_name_radiant": "",
+  "team_name_dire": "",
+  "radiant_score": 40,
+  "dire_score": 15,
+  "league_id": 0,
+  "delay": 120,
+  "last_update_time": 1793808900,
+  "deactivate_time": 1793809019,
+  "sort_score": 6963,
+  "players": [
+   {
+    "team": 0,
+    "hero_id": 50
+   },
+   {
+    "team": 0,
+    "hero_id": 93
+   },
+   {
+    "team": 0,
+    "hero_id": 59
+   },
+   {
+    "team": 0,
+    "hero_id": 123
+   },
+   {
+    "team": 0,
+    "hero_id": 42
+   },
+   {
+    "team": 1,
+    "hero_id": 5
+   },
+   {
+    "team": 1,
+    "hero_id": 78
+   },
+   {
+    "team": 1,
+    "hero_id": 107
+   },
+   {
+    "team": 1,
+    "hero_id": 86
+   },
+   {
+    "team": 1,
+    "hero_id": 48
+   }
+  ]
+ }
+]

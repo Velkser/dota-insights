@@ -1,0 +1,48 @@
+{
+ "status": "ok",
+ "result": {
+  "radiant_win_estimate": 0.52,
+  "matchups": [
+   {
+    "radiant": "Axe",
+    "dire": "Lina",
+    "radiant_advantage": 0.02,
+    "games": 300
+   },
+   {
+    "radiant": "Axe",
+    "dire": "Invoker",
+    "radiant_advantage": -0.015,
+    "games": 300
+   },
+   {
+    "radiant": "Lich",
+    "dire": "Lina",
+    "radiant_advantage": 0.004,
+    "games": 300
+   },
+   {
+    "radiant": "Lich",
+    "dire": "Invoker",
+    "radiant_advantage": 0.031,
+    "games": 300
+   },
+   {
+    "radiant": "Viper",
+    "dire": "Lina",
+    "radiant_advantage": -0.027,
+    "games": 300
+   },
+   {
+    "radiant": "Viper",
+    "dire": "Invoker",
+    "radiant_advantage": 0.01,
+    "games": 300
+   }
+  ]
+ },
+ "sample_size": 100,
+ "source": [
+  "opendota"
+ ]
+}
