@@ -6,6 +6,7 @@ from fastmcp import FastMCP
 from pydantic import Field
 
 from dota_insights.analytics import matchups as mu
+from dota_insights.mcp import args
 from dota_insights.mcp.envelope import ToolResult, error, insufficient_data, ok
 from dota_insights.models import Filters, Position
 from dota_insights.reference import hero_by_id, patches, resolve_hero
@@ -23,7 +24,7 @@ FiltersArg = Annotated[
 ]
 HeroList = Annotated[
     list[str],
-    Field(description='Hero names as a person would type them ("PA", "Фантомка", "wr").'),
+    Field(description=args.HEROES),
 ]
 
 DEFINITIONS = {
@@ -131,7 +132,7 @@ async def _positions_or_error(
 def register(mcp: FastMCP) -> None:
     @mcp.tool
     async def get_hero_matchups(
-        hero: Annotated[str, Field(description='Hero name, e.g. "Anti-Mage", "am", "Антимаг".')],
+        hero: Annotated[str, Field(description=args.HERO)],
         filters: FiltersArg = None,
         mode: Annotated[
             Literal["counters", "synergies", "both"],
@@ -340,7 +341,9 @@ def register(mcp: FastMCP) -> None:
     async def suggest_pick(
         allies: HeroList,
         enemies: HeroList,
-        bans: Annotated[list[str] | None, Field(description="Banned heroes to exclude.")] = None,
+        bans: Annotated[
+            list[str] | None, Field(description=f"Banned heroes to exclude. {args.HEROES}")
+        ] = None,
         position: Annotated[
             Position | None,
             Field(description="Position of the open slot; candidates must be played there."),

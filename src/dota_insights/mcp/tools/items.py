@@ -6,6 +6,7 @@ from fastmcp import FastMCP
 from pydantic import Field
 
 from dota_insights.analytics import items as analytics
+from dota_insights.mcp import args
 from dota_insights.mcp.envelope import ToolResult, error, insufficient_data, ok
 from dota_insights.mcp.errors import retry_hint, source_error
 from dota_insights.models.filters import Filters
@@ -15,18 +16,11 @@ from dota_insights.sources.stratz import StratzError
 
 ItemName = Annotated[
     str,
-    Field(
-        description=(
-            'Item name as a person would type it, in English or Russian: "Black King Bar", '
-            '"bkb", "линка", "battle fury".'
-        )
-    ),
+    Field(description=args.ITEM),
 ]
 HeroName = Annotated[
     str | None,
-    Field(
-        description=('Hero name or slang, e.g. "Anti-Mage", "am", "Фантомка". Omit for all heroes.')
-    ),
+    Field(description=f"Only this hero; omit for all heroes. {args.HERO}"),
 ]
 FiltersArg = Annotated[
     Filters | None,
@@ -354,10 +348,10 @@ def register(mcp: FastMCP) -> None:
             Field(
                 min_length=2,
                 max_length=4,
-                description='2-4 items for the same slot, e.g. ["bkb", "linken"].',
+                description=f"2-4 items for the same slot. {args.ITEMS}",
             ),
         ],
-        hero: Annotated[str, Field(description='Hero name or slang, e.g. "Storm Spirit".')],
+        hero: Annotated[str, Field(description=args.HERO)],
         filters: FiltersArg = None,
         timing_buckets: TimingBuckets = None,
     ) -> ToolResult[dict[str, Any]]:
@@ -474,7 +468,7 @@ def register(mcp: FastMCP) -> None:
             Field(
                 min_length=1,
                 max_length=4,
-                description='1-4 farming items, e.g. ["battle fury", "midas", "radiance"].',
+                description=f"1-4 farming items, e.g. battle fury, midas. {args.ITEMS}",
             ),
         ],
         hero: HeroName = None,

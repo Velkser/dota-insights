@@ -9,6 +9,7 @@ from pydantic import Field
 from dota_insights import privacy
 from dota_insights.analytics import pro
 from dota_insights.cache import TTL_LIVE
+from dota_insights.mcp import args
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
 from dota_insights.mcp.errors import source_error
 from dota_insights.models import Filters
@@ -440,7 +441,7 @@ def register(mcp: FastMCP) -> None:
 
     @mcp.tool
     async def get_pro_builds(
-        hero: Annotated[str, Field(description='Hero name or slang, e.g. "OD", "Anti-Mage".')],
+        hero: Annotated[str, Field(description=args.HERO)],
         matches: Annotated[
             int,
             Field(ge=10, le=60, description="How many of the hero's newest pro matches to use."),

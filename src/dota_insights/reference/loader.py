@@ -1,7 +1,8 @@
 """Typed access to the OpenDota constants snapshots shipped in ``reference/data``.
 
-Snapshots are produced by ``scripts/update_reference.py``. Every loader is cached, so the
-JSON is parsed at most once per process.
+Snapshots are produced by ``scripts/update_reference.py``. ``names_ru.json`` is curated by
+hand (see ``ru_names``). Every loader is cached, so the JSON is parsed at most once per
+process.
 """
 
 from __future__ import annotations
@@ -70,6 +71,12 @@ class Ability:
     damage_type: str | None
     pierces_immunity: str | None  # raw OpenDota value: "Yes" / "No" / None
     hero_id: int | None  # owning hero, when the ability is in a hero's kit
+
+
+@dataclass(frozen=True, slots=True)
+class RuName:
+    name: str  # the usual Russian name, e.g. "Пудж", "БКБ"
+    aliases: tuple[str, ...]  # other Russian spellings and nicknames
 
 
 @dataclass(frozen=True, slots=True)
@@ -163,6 +170,42 @@ def patches() -> tuple[Patch, ...]:
 def item_ids() -> dict[int, str]:
     """OpenDota's item id -> internal name table (covers some ids absent from ``items()``)."""
     return {int(key): name for key, name in _read("item_ids").items()}
+
+
+@cache
+def ru_names() -> dict[str, dict[str, RuName]]:
+    """Russian names keyed by ``"heroes"`` / ``"items"``, then by hero short name or item name.
+
+    The Russian game client keeps hero and item names in English, so these are the names
+    Russian-speaking players and sites use (transliterations and community nicknames).
+    """
+    return {
+        kind: {key: RuName(raw["name"], tuple(raw["aliases"])) for key, raw in table.items()}
+        for kind, table in _read("names_ru").items()
+    }
+
+
+def hero_name_ru(hero: Hero) -> str | None:
+    entry = ru_names()["heroes"].get(hero.short_name)
+    return entry.name if entry else None
+
+
+def item_name_ru(item: Item) -> str | None:
+    entry = ru_names()["items"].get(item.name)
+    return entry.name if entry else None
+
+
+@cache
+def ru_by_display_name() -> dict[str, str]:
+    """English hero and item display name -> its Russian name, where one is listed."""
+    table = {}
+    for item in items():
+        if item.display_name and (ru := item_name_ru(item)):
+            table.setdefault(item.display_name, ru)
+    for hero in heroes():
+        if ru := hero_name_ru(hero):
+            table[hero.display_name] = ru
+    return table
 
 
 @cache

@@ -1,0 +1,1309 @@
+{
+  "heroes": {
+    "antimage": {
+      "name": "Антимаг",
+      "aliases": [
+        "ам",
+        "магина",
+        "анти-маг"
+      ]
+    },
+    "axe": {
+      "name": "Акс",
+      "aliases": []
+    },
+    "bane": {
+      "name": "Бейн",
+      "aliases": []
+    },
+    "bloodseeker": {
+      "name": "Бладсикер",
+      "aliases": [
+        "бс",
+        "сикер",
+        "блудсикер"
+      ]
+    },
+    "crystal_maiden": {
+      "name": "Кристал Мейден",
+      "aliases": [
+        "цм",
+        "кристалка",
+        "цмка"
+      ]
+    },
+    "drow_ranger": {
+      "name": "Дроу Рейнджер",
+      "aliases": [
+        "дров",
+        "дровка",
+        "дроу"
+      ]
+    },
+    "earthshaker": {
+      "name": "Эртшейкер",
+      "aliases": [
+        "ес",
+        "шейкер"
+      ]
+    },
+    "juggernaut": {
+      "name": "Джаггернаут",
+      "aliases": [
+        "джагернаут",
+        "джагер",
+        "джаг"
+      ]
+    },
+    "mirana": {
+      "name": "Мирана",
+      "aliases": []
+    },
+    "morphling": {
+      "name": "Морфлинг",
+      "aliases": [
+        "морф"
+      ]
+    },
+    "nevermore": {
+      "name": "Шадоу Финд",
+      "aliases": [
+        "сф",
+        "невермор",
+        "сфка"
+      ]
+    },
+    "phantom_lancer": {
+      "name": "Фантом Лансер",
+      "aliases": [
+        "пл",
+        "лансер"
+      ]
+    },
+    "puck": {
+      "name": "Пак",
+      "aliases": []
+    },
+    "pudge": {
+      "name": "Пудж",
+      "aliases": [
+        "пуджик",
+        "мясник"
+      ]
+    },
+    "razor": {
+      "name": "Разор",
+      "aliases": []
+    },
+    "sand_king": {
+      "name": "Сенд Кинг",
+      "aliases": [
+        "ск",
+        "сэнд кинг"
+      ]
+    },
+    "storm_spirit": {
+      "name": "Шторм Спирит",
+      "aliases": [
+        "шторм"
+      ]
+    },
+    "sven": {
+      "name": "Свен",
+      "aliases": []
+    },
+    "tiny": {
+      "name": "Тини",
+      "aliases": [
+        "тайни"
+      ]
+    },
+    "vengefulspirit": {
+      "name": "Венджфул Спирит",
+      "aliases": [
+        "венга",
+        "венж"
+      ]
+    },
+    "windrunner": {
+      "name": "Виндрейнджер",
+      "aliases": [
+        "вр",
+        "виндраннер",
+        "винда",
+        "виндранер"
+      ]
+    },
+    "zuus": {
+      "name": "Зевс",
+      "aliases": []
+    },
+    "kunkka": {
+      "name": "Кунка",
+      "aliases": [
+        "адмирал"
+      ]
+    },
+    "lina": {
+      "name": "Лина",
+      "aliases": []
+    },
+    "lion": {
+      "name": "Лион",
+      "aliases": [
+        "лайон"
+      ]
+    },
+    "shadow_shaman": {
+      "name": "Шадоу Шаман",
+      "aliases": [
+        "шаман",
+        "раста"
+      ]
+    },
+    "slardar": {
+      "name": "Слардар",
+      "aliases": []
+    },
+    "tidehunter": {
+      "name": "Тайдхантер",
+      "aliases": [
+        "тайд"
+      ]
+    },
+    "witch_doctor": {
+      "name": "Вич Доктор",
+      "aliases": [
+        "вд",
+        "вичдоктор"
+      ]
+    },
+    "lich": {
+      "name": "Лич",
+      "aliases": []
+    },
+    "riki": {
+      "name": "Рики",
+      "aliases": []
+    },
+    "enigma": {
+      "name": "Энигма",
+      "aliases": []
+    },
+    "tinker": {
+      "name": "Тинкер",
+      "aliases": []
+    },
+    "sniper": {
+      "name": "Снайпер",
+      "aliases": []
+    },
+    "necrolyte": {
+      "name": "Некрофос",
+      "aliases": [
+        "некр"
+      ]
+    },
+    "warlock": {
+      "name": "Варлок",
+      "aliases": []
+    },
+    "beastmaster": {
+      "name": "Бистмастер",
+      "aliases": [
+        "бм"
+      ]
+    },
+    "queenofpain": {
+      "name": "Квин оф Пейн",
+      "aliases": [
+        "акаша",
+        "квопа"
+      ]
+    },
+    "venomancer": {
+      "name": "Веномансер",
+      "aliases": [
+        "веник"
+      ]
+    },
+    "faceless_void": {
+      "name": "Фейслесс Войд",
+      "aliases": [
+        "войд",
+        "фв",
+        "фейслес войд"
+      ]
+    },
+    "skeleton_king": {
+      "name": "Рейт Кинг",
+      "aliases": [
+        "вк",
+        "скелет",
+        "леорик"
+      ]
+    },
+    "death_prophet": {
+      "name": "Дез Профет",
+      "aliases": [
+        "дп"
+      ]
+    },
+    "phantom_assassin": {
+      "name": "Фантом Ассасин",
+      "aliases": [
+        "па",
+        "фантомка",
+        "мортред",
+        "фантом ассассин"
+      ]
+    },
+    "pugna": {
+      "name": "Пугна",
+      "aliases": []
+    },
+    "templar_assassin": {
+      "name": "Темплар Ассасин",
+      "aliases": [
+        "та",
+        "темпларка",
+        "ланая"
+      ]
+    },
+    "viper": {
+      "name": "Вайпер",
+      "aliases": []
+    },
+    "luna": {
+      "name": "Луна",
+      "aliases": []
+    },
+    "dragon_knight": {
+      "name": "Драгон Найт",
+      "aliases": [
+        "дк",
+        "давион"
+      ]
+    },
+    "dazzle": {
+      "name": "Даззл",
+      "aliases": [
+        "дазл"
+      ]
+    },
+    "rattletrap": {
+      "name": "Клокверк",
+      "aliases": [
+        "клок"
+      ]
+    },
+    "leshrac": {
+      "name": "Лешрак",
+      "aliases": [
+        "леш"
+      ]
+    },
+    "furion": {
+      "name": "Нейчерс Профет",
+      "aliases": [
+        "нп",
+        "фурион",
+        "профет"
+      ]
+    },
+    "life_stealer": {
+      "name": "Лайфстилер",
+      "aliases": [
+        "лс",
+        "гуля",
+        "найкс"
+      ]
+    },
+    "dark_seer": {
+      "name": "Дарк Сир",
+      "aliases": [
+        "дс"
+      ]
+    },
+    "clinkz": {
+      "name": "Клинкз",
+      "aliases": []
+    },
+    "omniknight": {
+      "name": "Омнинайт",
+      "aliases": [
+        "омни",
+        "омник"
+      ]
+    },
+    "enchantress": {
+      "name": "Энчантресс",
+      "aliases": [
+        "энча"
+      ]
+    },
+    "huskar": {
+      "name": "Хускар",
+      "aliases": []
+    },
+    "night_stalker": {
+      "name": "Найт Сталкер",
+      "aliases": [
+        "нс",
+        "балансар"
+      ]
+    },
+    "broodmother": {
+      "name": "Брудмазер",
+      "aliases": [
+        "бруда",
+        "бруд"
+      ]
+    },
+    "bounty_hunter": {
+      "name": "Баунти Хантер",
+      "aliases": [
+        "бх",
+        "баунти"
+      ]
+    },
+    "weaver": {
+      "name": "Вивер",
+      "aliases": []
+    },
+    "jakiro": {
+      "name": "Джакиро",
+      "aliases": []
+    },
+    "batrider": {
+      "name": "Бэтрайдер",
+      "aliases": [
+        "бэт"
+      ]
+    },
+    "chen": {
+      "name": "Чен",
+      "aliases": []
+    },
+    "spectre": {
+      "name": "Спектра",
+      "aliases": [
+        "спектр"
+      ]
+    },
+    "ancient_apparition": {
+      "name": "Эншент Эппаришн",
+      "aliases": [
+        "аа"
+      ]
+    },
+    "doom_bringer": {
+      "name": "Дум",
+      "aliases": []
+    },
+    "ursa": {
+      "name": "Урса",
+      "aliases": []
+    },
+    "spirit_breaker": {
+      "name": "Спирит Брейкер",
+      "aliases": [
+        "сб",
+        "бара",
+        "барадун"
+      ]
+    },
+    "gyrocopter": {
+      "name": "Гирокоптер",
+      "aliases": [
+        "гиро"
+      ]
+    },
+    "alchemist": {
+      "name": "Алхимик",
+      "aliases": [
+        "алх"
+      ]
+    },
+    "invoker": {
+      "name": "Инвокер",
+      "aliases": [
+        "инв",
+        "инвок",
+        "карл"
+      ]
+    },
+    "silencer": {
+      "name": "Сайленсер",
+      "aliases": []
+    },
+    "obsidian_destroyer": {
+      "name": "Аутворлд Девоурер",
+      "aliases": [
+        "од",
+        "аутворлд"
+      ]
+    },
+    "lycan": {
+      "name": "Ликан",
+      "aliases": []
+    },
+    "brewmaster": {
+      "name": "Брюмастер",
+      "aliases": [
+        "брю",
+        "панда"
+      ]
+    },
+    "shadow_demon": {
+      "name": "Шадоу Демон",
+      "aliases": [
+        "сд"
+      ]
+    },
+    "lone_druid": {
+      "name": "Лон Друид",
+      "aliases": [
+        "лд",
+        "друид"
+      ]
+    },
+    "chaos_knight": {
+      "name": "Хаос Найт",
+      "aliases": [
+        "цк",
+        "хаос"
+      ]
+    },
+    "meepo": {
+      "name": "Мипо",
+      "aliases": []
+    },
+    "treant": {
+      "name": "Трент Протектор",
+      "aliases": [
+        "трент"
+      ]
+    },
+    "ogre_magi": {
+      "name": "Огр Маги",
+      "aliases": [
+        "огр"
+      ]
+    },
+    "undying": {
+      "name": "Андаинг",
+      "aliases": []
+    },
+    "rubick": {
+      "name": "Рубик",
+      "aliases": []
+    },
+    "disruptor": {
+      "name": "Дизраптор",
+      "aliases": []
+    },
+    "nyx_assassin": {
+      "name": "Никс Ассасин",
+      "aliases": [
+        "никс"
+      ]
+    },
+    "naga_siren": {
+      "name": "Нага Сирена",
+      "aliases": [
+        "нага"
+      ]
+    },
+    "keeper_of_the_light": {
+      "name": "Кипер оф зе Лайт",
+      "aliases": [
+        "котл",
+        "кипер"
+      ]
+    },
+    "wisp": {
+      "name": "Ио",
+      "aliases": [
+        "висп"
+      ]
+    },
+    "visage": {
+      "name": "Визаж",
+      "aliases": []
+    },
+    "slark": {
+      "name": "Сларк",
+      "aliases": []
+    },
+    "medusa": {
+      "name": "Медуза",
+      "aliases": []
+    },
+    "troll_warlord": {
+      "name": "Тролль Варлорд",
+      "aliases": [
+        "тролль",
+        "трол"
+      ]
+    },
+    "centaur": {
+      "name": "Кентавр",
+      "aliases": [
+        "цент"
+      ]
+    },
+    "magnataur": {
+      "name": "Магнус",
+      "aliases": []
+    },
+    "shredder": {
+      "name": "Тимберсо",
+      "aliases": [
+        "тимбер",
+        "тимбермен"
+      ]
+    },
+    "bristleback": {
+      "name": "Бристлбэк",
+      "aliases": [
+        "бб",
+        "бристл",
+        "бристлбек"
+      ]
+    },
+    "tusk": {
+      "name": "Туск",
+      "aliases": []
+    },
+    "skywrath_mage": {
+      "name": "Скайрат Мейдж",
+      "aliases": [
+        "скай",
+        "скайрат"
+      ]
+    },
+    "abaddon": {
+      "name": "Абаддон",
+      "aliases": [
+        "абадон"
+      ]
+    },
+    "elder_titan": {
+      "name": "Элдер Титан",
+      "aliases": [
+        "титан"
+      ]
+    },
+    "legion_commander": {
+      "name": "Легион Коммандер",
+      "aliases": [
+        "легионка",
+        "легион"
+      ]
+    },
+    "techies": {
+      "name": "Техис",
+      "aliases": [
+        "техи"
+      ]
+    },
+    "ember_spirit": {
+      "name": "Эмбер Спирит",
+      "aliases": [
+        "эмбер"
+      ]
+    },
+    "earth_spirit": {
+      "name": "Эрт Спирит",
+      "aliases": [
+        "эрс спирит"
+      ]
+    },
+    "abyssal_underlord": {
+      "name": "Андерлорд",
+      "aliases": [
+        "питлорд"
+      ]
+    },
+    "terrorblade": {
+      "name": "Террорблейд",
+      "aliases": [
+        "тб"
+      ]
+    },
+    "phoenix": {
+      "name": "Феникс",
+      "aliases": []
+    },
+    "oracle": {
+      "name": "Оракл",
+      "aliases": []
+    },
+    "winter_wyvern": {
+      "name": "Винтер Виверн",
+      "aliases": [
+        "вв",
+        "виверна"
+      ]
+    },
+    "arc_warden": {
+      "name": "Арк Варден",
+      "aliases": [
+        "арк",
+        "зет"
+      ]
+    },
+    "monkey_king": {
+      "name": "Манки Кинг",
+      "aliases": [
+        "мк",
+        "манки"
+      ]
+    },
+    "dark_willow": {
+      "name": "Дарк Виллоу",
+      "aliases": [
+        "вилоу",
+        "виллоу"
+      ]
+    },
+    "pangolier": {
+      "name": "Панголиер",
+      "aliases": [
+        "панго"
+      ]
+    },
+    "grimstroke": {
+      "name": "Гримстрок",
+      "aliases": [
+        "грим"
+      ]
+    },
+    "hoodwink": {
+      "name": "Худвинк",
+      "aliases": [
+        "белка"
+      ]
+    },
+    "void_spirit": {
+      "name": "Войд Спирит",
+      "aliases": []
+    },
+    "snapfire": {
+      "name": "Снэпфаер",
+      "aliases": [
+        "бабка"
+      ]
+    },
+    "mars": {
+      "name": "Марс",
+      "aliases": []
+    },
+    "ringmaster": {
+      "name": "Ринг Мастер",
+      "aliases": [
+        "рингмастер"
+      ]
+    },
+    "dawnbreaker": {
+      "name": "Даунбрейкер",
+      "aliases": [
+        "давнбрейкер"
+      ]
+    },
+    "marci": {
+      "name": "Марси",
+      "aliases": []
+    },
+    "primal_beast": {
+      "name": "Праймал Бист",
+      "aliases": [
+        "пб",
+        "праймал"
+      ]
+    },
+    "muerta": {
+      "name": "Муэрта",
+      "aliases": []
+    },
+    "kez": {
+      "name": "Кез",
+      "aliases": []
+    },
+    "largo": {
+      "name": "Ларго",
+      "aliases": []
+    }
+  },
+  "items": {
+    "black_king_bar": {
+      "name": "БКБ",
+      "aliases": [
+        "бкбшка",
+        "блэк кинг бар"
+      ]
+    },
+    "blink": {
+      "name": "Блинк",
+      "aliases": [
+        "даггер",
+        "блинк даггер"
+      ]
+    },
+    "ultimate_scepter": {
+      "name": "Аганим",
+      "aliases": [
+        "аги",
+        "агс",
+        "скипетр аганима"
+      ]
+    },
+    "aghanims_shard": {
+      "name": "Аганим шард",
+      "aliases": [
+        "шард"
+      ]
+    },
+    "sphere": {
+      "name": "Линка",
+      "aliases": [
+        "линкен",
+        "линкенс"
+      ]
+    },
+    "radiance": {
+      "name": "Радианс",
+      "aliases": [
+        "радиант",
+        "радик"
+      ]
+    },
+    "bfury": {
+      "name": "Бэтл Фьюри",
+      "aliases": [
+        "бф",
+        "бфура",
+        "батлфури"
+      ]
+    },
+    "manta": {
+      "name": "Манта",
+      "aliases": []
+    },
+    "desolator": {
+      "name": "Дезолятор",
+      "aliases": [
+        "дезоль"
+      ]
+    },
+    "butterfly": {
+      "name": "Баттерфляй",
+      "aliases": [
+        "бабочка"
+      ]
+    },
+    "satanic": {
+      "name": "Сатаник",
+      "aliases": []
+    },
+    "skadi": {
+      "name": "Скади",
+      "aliases": []
+    },
+    "monkey_king_bar": {
+      "name": "МКБ",
+      "aliases": []
+    },
+    "abyssal_blade": {
+      "name": "Абиссал",
+      "aliases": [
+        "абисал"
+      ]
+    },
+    "basher": {
+      "name": "Башер",
+      "aliases": []
+    },
+    "heart": {
+      "name": "Харт",
+      "aliases": [
+        "тараска"
+      ]
+    },
+    "assault": {
+      "name": "Кираса",
+      "aliases": [
+        "ассаулт"
+      ]
+    },
+    "shivas_guard": {
+      "name": "Шива",
+      "aliases": []
+    },
+    "refresher": {
+      "name": "Рефрешер",
+      "aliases": [
+        "рефреш"
+      ]
+    },
+    "sheepstick": {
+      "name": "Гекс",
+      "aliases": [
+        "хекс",
+        "овца",
+        "овечка"
+      ]
+    },
+    "orchid": {
+      "name": "Орчид",
+      "aliases": []
+    },
+    "bloodthorn": {
+      "name": "Бладторн",
+      "aliases": []
+    },
+    "silver_edge": {
+      "name": "Силвер Эдж",
+      "aliases": [
+        "силвер"
+      ]
+    },
+    "invis_sword": {
+      "name": "Шадоу Блейд",
+      "aliases": [
+        "лотар"
+      ]
+    },
+    "travel_boots": {
+      "name": "Тревела",
+      "aliases": [
+        "тревелы"
+      ]
+    },
+    "power_treads": {
+      "name": "Треды",
+      "aliases": [
+        "тредсы"
+      ]
+    },
+    "phase_boots": {
+      "name": "Фейзы",
+      "aliases": [
+        "фазы"
+      ]
+    },
+    "arcane_boots": {
+      "name": "Арканы",
+      "aliases": []
+    },
+    "tranquil_boots": {
+      "name": "Транквилы",
+      "aliases": [
+        "транки"
+      ]
+    },
+    "hand_of_midas": {
+      "name": "Мидас",
+      "aliases": []
+    },
+    "force_staff": {
+      "name": "Форс Стафф",
+      "aliases": [
+        "форс",
+        "форсстафф"
+      ]
+    },
+    "glimmer_cape": {
+      "name": "Глиммер",
+      "aliases": []
+    },
+    "ghost": {
+      "name": "Гост",
+      "aliases": []
+    },
+    "cyclone": {
+      "name": "Еул",
+      "aliases": [
+        "еулс",
+        "эул"
+      ]
+    },
+    "mekansm": {
+      "name": "Мека",
+      "aliases": [
+        "меканизм"
+      ]
+    },
+    "guardian_greaves": {
+      "name": "Гривсы",
+      "aliases": [
+        "гривы"
+      ]
+    },
+    "pipe": {
+      "name": "Пайп",
+      "aliases": [
+        "пайпа"
+      ]
+    },
+    "vladmir": {
+      "name": "Влад",
+      "aliases": [
+        "владимир"
+      ]
+    },
+    "aether_lens": {
+      "name": "Линза",
+      "aliases": []
+    },
+    "dagon": {
+      "name": "Дагон",
+      "aliases": []
+    },
+    "rapier": {
+      "name": "Рапира",
+      "aliases": []
+    },
+    "diffusal_blade": {
+      "name": "Диффуз",
+      "aliases": [
+        "диффузал"
+      ]
+    },
+    "maelstrom": {
+      "name": "Мальстрём",
+      "aliases": [
+        "мальстрим"
+      ]
+    },
+    "mjollnir": {
+      "name": "Мьёльнир",
+      "aliases": [
+        "мьелнир",
+        "мьёлнир",
+        "мжолнир"
+      ]
+    },
+    "gungir": {
+      "name": "Глейпнир",
+      "aliases": []
+    },
+    "greater_crit": {
+      "name": "Дедал",
+      "aliases": [
+        "крит"
+      ]
+    },
+    "lesser_crit": {
+      "name": "Кристалис",
+      "aliases": []
+    },
+    "nullifier": {
+      "name": "Нуллифаер",
+      "aliases": [
+        "нулик"
+      ]
+    },
+    "octarine_core": {
+      "name": "Октарин",
+      "aliases": []
+    },
+    "sange_and_yasha": {
+      "name": "Санга и Яша",
+      "aliases": [
+        "сня"
+      ]
+    },
+    "kaya_and_sange": {
+      "name": "Кая и Санга",
+      "aliases": []
+    },
+    "yasha_and_kaya": {
+      "name": "Яша и Кая",
+      "aliases": []
+    },
+    "sange": {
+      "name": "Санга",
+      "aliases": []
+    },
+    "yasha": {
+      "name": "Яша",
+      "aliases": []
+    },
+    "kaya": {
+      "name": "Кая",
+      "aliases": []
+    },
+    "echo_sabre": {
+      "name": "Эхо Сабля",
+      "aliases": [
+        "эхо"
+      ]
+    },
+    "armlet": {
+      "name": "Армлет",
+      "aliases": []
+    },
+    "bottle": {
+      "name": "Ботл",
+      "aliases": [
+        "бутылка"
+      ]
+    },
+    "ward_observer": {
+      "name": "Обсервер",
+      "aliases": [
+        "обс"
+      ]
+    },
+    "ward_sentry": {
+      "name": "Сентри",
+      "aliases": [
+        "сенты"
+      ]
+    },
+    "tpscroll": {
+      "name": "Телепорт",
+      "aliases": [
+        "тп"
+      ]
+    },
+    "smoke_of_deceit": {
+      "name": "Смок",
+      "aliases": []
+    },
+    "dust": {
+      "name": "Даст",
+      "aliases": []
+    },
+    "blade_mail": {
+      "name": "Блейд Мейл",
+      "aliases": [
+        "бм",
+        "блейдмейл"
+      ]
+    },
+    "lotus_orb": {
+      "name": "Лотус",
+      "aliases": []
+    },
+    "aeon_disk": {
+      "name": "Эон Диск",
+      "aliases": [
+        "эон"
+      ]
+    },
+    "spirit_vessel": {
+      "name": "Вессел",
+      "aliases": []
+    },
+    "urn_of_shadows": {
+      "name": "Урна",
+      "aliases": []
+    },
+    "heavens_halberd": {
+      "name": "Алебарда",
+      "aliases": [
+        "халберд"
+      ]
+    },
+    "crimson_guard": {
+      "name": "Кримсон",
+      "aliases": []
+    },
+    "hurricane_pike": {
+      "name": "Пайк",
+      "aliases": []
+    },
+    "ethereal_blade": {
+      "name": "Этериал",
+      "aliases": [
+        "эфир"
+      ]
+    },
+    "meteor_hammer": {
+      "name": "Метеор",
+      "aliases": []
+    },
+    "solar_crest": {
+      "name": "Солар",
+      "aliases": []
+    },
+    "wind_waker": {
+      "name": "Виндвейкер",
+      "aliases": []
+    },
+    "moon_shard": {
+      "name": "Мун шард",
+      "aliases": []
+    },
+    "magic_wand": {
+      "name": "Ванд",
+      "aliases": [
+        "палка"
+      ]
+    },
+    "magic_stick": {
+      "name": "Стик",
+      "aliases": []
+    },
+    "boots": {
+      "name": "Сапоги",
+      "aliases": [
+        "ботинки"
+      ]
+    },
+    "tango": {
+      "name": "Танго",
+      "aliases": []
+    },
+    "flask": {
+      "name": "Фласка",
+      "aliases": [
+        "салва",
+        "хилка"
+      ]
+    },
+    "clarity": {
+      "name": "Кларити",
+      "aliases": []
+    },
+    "faerie_fire": {
+      "name": "Фейри",
+      "aliases": []
+    },
+    "enchanted_mango": {
+      "name": "Манго",
+      "aliases": []
+    },
+    "branches": {
+      "name": "Ветка",
+      "aliases": [
+        "ветки"
+      ]
+    },
+    "gem": {
+      "name": "Гем",
+      "aliases": []
+    },
+    "cheese": {
+      "name": "Сыр",
+      "aliases": []
+    },
+    "quelling_blade": {
+      "name": "Квеллинг",
+      "aliases": []
+    },
+    "bracer": {
+      "name": "Брейсер",
+      "aliases": []
+    },
+    "null_talisman": {
+      "name": "Нулька",
+      "aliases": []
+    },
+    "soul_ring": {
+      "name": "Соул Ринг",
+      "aliases": []
+    },
+    "ancient_janggo": {
+      "name": "Барабан",
+      "aliases": [
+        "драмы"
+      ]
+    },
+    "veil_of_discord": {
+      "name": "Вейл",
+      "aliases": []
+    },
+    "rod_of_atos": {
+      "name": "Атос",
+      "aliases": []
+    },
+    "dragon_lance": {
+      "name": "Драгон Ланс",
+      "aliases": []
+    },
+    "mask_of_madness": {
+      "name": "Маска безумия",
+      "aliases": [
+        "мом"
+      ]
+    },
+    "helm_of_the_dominator": {
+      "name": "Доминатор",
+      "aliases": []
+    },
+    "helm_of_the_overlord": {
+      "name": "Оверлорд",
+      "aliases": []
+    },
+    "vanguard": {
+      "name": "Вангард",
+      "aliases": []
+    },
+    "holy_locket": {
+      "name": "Локет",
+      "aliases": []
+    },
+    "eternal_shroud": {
+      "name": "Шрауд",
+      "aliases": []
+    },
+    "angels_demise": {
+      "name": "Ханда",
+      "aliases": []
+    },
+    "devastator": {
+      "name": "Парасма",
+      "aliases": []
+    },
+    "harpoon": {
+      "name": "Гарпун",
+      "aliases": []
+    },
+    "disperser": {
+      "name": "Дисперсер",
+      "aliases": []
+    },
+    "phylactery": {
+      "name": "Филактерия",
+      "aliases": []
+    },
+    "revenants_brooch": {
+      "name": "Брошь",
+      "aliases": []
+    },
+    "pavise": {
+      "name": "Павиз",
+      "aliases": []
+    },
+    "witch_blade": {
+      "name": "Вичблейд",
+      "aliases": []
+    },
+    "falcon_blade": {
+      "name": "Фалкон",
+      "aliases": []
+    },
+    "mage_slayer": {
+      "name": "Мейджслеер",
+      "aliases": []
+    },
+    "infused_raindrop": {
+      "name": "Рейндропы",
+      "aliases": [
+        "капли"
+      ]
+    },
+    "bloodstone": {
+      "name": "Бладстоун",
+      "aliases": []
+    },
+    "necronomicon": {
+      "name": "Некрономикон",
+      "aliases": []
+    }
+  }
+}

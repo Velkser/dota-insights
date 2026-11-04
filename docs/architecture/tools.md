@@ -15,7 +15,11 @@ Conventions every tool in `src/dota_insights/mcp/tools/` follows.
 
 - Hero and item names: accept what a person would type (`"PA"`, `"Фантомка"`, `"bkb"`) and
   resolve with `dota_insights.reference.resolve_hero` / `resolve_item`. When the resolution is
-  ambiguous or empty, return `error(...)` listing the candidates instead of guessing.
+  ambiguous or empty, return `error(...)` listing the candidates instead of guessing. Describe
+  the parameter with `dota_insights.mcp.args.HERO` / `HEROES` / `ITEM` / `ITEMS` so every tool
+  says the same thing about accepted spellings, Russian included. Russian names and nicknames
+  live in `reference/data/names_ru.json` (the Russian client itself keeps English names); add
+  new heroes and items there.
 - Filters: use `dota_insights.models.Filters` and its enums (`Position`, `RankBracket`,
   `GameMode`, `Outcome`) rather than inventing parameter names.
 - Every parameter gets a `Field(description=...)` written for an AI caller.
@@ -28,6 +32,9 @@ Conventions every tool in `src/dota_insights/mcp/tools/` follows.
   `confidence` where a rate or median is reported (`analytics.stats.wilson_interval`,
   `bootstrap_ci`), `caveats`, `source` and `data_freshness`.
 - Below `filters.min_sample`, return `insufficient_data` with a hint on how to widen the query.
+- Use English display names (`hero.display_name`, `item.display_name`) in results. `ok(...)` fills
+  `names_ru` with the Russian name of every hero and item string it finds in `result` (values and
+  keys), so tools need no language parameter.
 - Win rate of an item or a build is correlational; say so in `caveats`.
 
 ## Sources

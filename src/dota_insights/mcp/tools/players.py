@@ -16,6 +16,7 @@ from dota_insights.analytics.players import (
     PlayerUnavailable,
     Report,
 )
+from dota_insights.mcp import args
 from dota_insights.mcp.envelope import ToolResult, error, insufficient_data, ok
 from dota_insights.mcp.errors import source_error
 from dota_insights.models.filters import Filters, GameMode, Position
@@ -56,7 +57,7 @@ Days = Annotated[
 ]
 Hero = Annotated[
     str | None,
-    Field(description='Only matches on this hero; names and nicknames work ("PA", "am").'),
+    Field(description=f"Only matches on this hero. {args.HERO}"),
 ]
 PositionArg = Annotated[
     Position | None,

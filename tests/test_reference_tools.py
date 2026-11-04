@@ -50,6 +50,17 @@ async def test_hero_record_fields():
     assert record["talents"] and all(t["level"] for t in record["talents"])
 
 
+async def test_lookup_accepts_russian_and_returns_russian_names():
+    data = await lookup("Пудж")
+    assert data["result"]["record"]["name"] == "Pudge"
+    assert data["result"]["record"]["name_ru"] == "Пудж"
+    assert data["names_ru"]["Pudge"] == "Пудж"
+
+    item = (await lookup("Бкб", "item"))["result"]["record"]
+    assert item["internal_name"] == "black_king_bar"
+    assert item["name_ru"] == "БКБ"
+
+
 async def test_item_record_fields():
     record = (await lookup("bkb", "item"))["result"]["record"]
     assert record["internal_name"] == "black_king_bar"
@@ -92,6 +103,7 @@ async def test_list_resources_content():
     hero_list = await read("heroes://list")
     assert len(hero_list) == len(heroes())
     assert hero_list[0]["name"] == "Anti-Mage"
+    assert hero_list[0]["name_ru"] == "Антимаг"
 
     item_list = await read("items://list")
     assert item_list and not any(i["internal_name"].startswith("recipe_") for i in item_list)
@@ -120,3 +132,29 @@ async def test_detail_resources_by_id_and_name():
 async def test_detail_resource_unknown_raises():
     with pytest.raises(MCPError):
         await read("heroes://notahero")
+
+
+NAME_PARAMS = {
+    "hero",
+    "heroes",
+    "enemy_heroes",
+    "radiant_heroes",
+    "dire_heroes",
+    "allies",
+    "enemies",
+    "bans",
+    "item",
+    "items",
+}
+
+
+async def test_hero_and_item_parameters_say_russian_names_work():
+    async with Client(mcp) as client:
+        tools = await client.list_tools()
+    checked = 0
+    for tool in tools:
+        for name, prop in tool.input_schema.get("properties", {}).items():
+            if name in NAME_PARAMS:
+                checked += 1
+                assert "Russian" in prop.get("description", ""), f"{tool.name}.{name}"
+    assert checked >= 30
