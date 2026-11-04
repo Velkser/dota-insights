@@ -711,3 +711,104 @@ source = "MYT-04"
 question = "Насколько первый Рошан повышает шанс на победу?"
 expected_tools = ["get_objective_impact"]
 checks = [{ type = "language" }, { type = "correlation_caveat" }, { type = "no_causal_claim" }]
+
+# --- myth library (evals/myths.yaml, docs/myths.md) ----------------------------------------
+# Each case below is one myth from evals/myths.yaml (its `eval_case`); the yaml records the exact
+# tool call and the result of a live run. myth-01..04 and hyp-01..03 also belong to the library.
+
+[[case]]
+id = "myth-lib-01"
+category = "myths"
+lang = "en"
+source = "MYT-09"
+question = "Does losing the first tower basically decide the game?"
+expected_tools = ["get_objective_impact"]
+checks = [{ type = "sample_size" }, { type = "correlation_caveat" }, { type = "no_causal_claim" }]
+notes = "evals/myths.yaml first-tower"
+
+[[case]]
+id = "myth-lib-02"
+category = "myths"
+lang = "ru"
+question = "Тормента бить — пустая трата времени, или команда, которая убила первого Тормента, чаще побеждает?"
+expected_tools = ["get_objective_impact"]
+checks = [{ type = "language" }, { type = "sample_size" }, { type = "correlation_caveat" }]
+notes = "evals/myths.yaml tormentor"
+
+[[case]]
+id = "myth-lib-03"
+category = "myths"
+lang = "en"
+question = "If a team takes two Roshans in a row, is the game over?"
+expected_tools = ["get_objective_impact"]
+checks = [{ type = "sample_size" }, { type = "correlation_caveat" }, { type = "no_causal_claim" }]
+notes = "evals/myths.yaml two-roshans"
+
+[[case]]
+id = "myth-lib-04"
+category = "myths"
+lang = "en"
+question = "Does controlling power runes win games?"
+expected_tools = ["get_objective_impact"]
+checks = [{ type = "correlation_caveat" }, { type = "no_causal_claim" }]
+notes = "evals/myths.yaml rune-control"
+
+[[case]]
+id = "myth-lib-05"
+category = "myths"
+lang = "ru"
+question = "Говорят, киллы не выигрывают игры, только башни. Это правда?"
+expected_tools = ["analyze_correlation"]
+args = { metric = { contains_any = ["kill", "tower"] } }
+checks = [{ type = "language" }, { type = "correlation_caveat" }, { type = "no_causal_claim" }]
+notes = "evals/myths.yaml kills-dont-matter"
+
+[[case]]
+id = "myth-lib-06"
+category = "myths"
+lang = "en"
+question = "Does the player with the most hero damage usually win?"
+expected_tools = ["analyze_correlation"]
+args = { metric = { contains_any = ["damage"] } }
+checks = [{ type = "sample_size" }, { type = "correlation_caveat" }, { type = "no_causal_claim" }]
+notes = "evals/myths.yaml hero-damage"
+
+[[case]]
+id = "myth-lib-07"
+category = "myths"
+lang = "en"
+question = "Do Anti-Mages with Battle Fury before 15 minutes win more than slower ones?"
+expected_tools = ["test_hypothesis", "analyze_item"]
+args = { hero = { hero = "Anti-Mage" }, item = { item = "Battle Fury" } }
+checks = [{ type = "sample_size" }, { type = "correlation_caveat" }, { type = "no_causal_claim" }]
+notes = "evals/myths.yaml battle-fury-am"
+
+[[case]]
+id = "myth-lib-08"
+category = "myths"
+lang = "ru"
+question = "Акс без блинка до 13 минуты проигрывает — это миф?"
+expected_tools = ["test_hypothesis", "analyze_item"]
+args = { hero = { hero = "Axe" }, item = { item = "Blink Dagger" } }
+checks = [{ type = "language" }, { type = "correlation_caveat" }, { type = "no_causal_claim" }]
+notes = "evals/myths.yaml blink-axe"
+
+[[case]]
+id = "myth-lib-09"
+category = "myths"
+lang = "en"
+question = "Is it true that Spectre wins if the game goes past 45 minutes?"
+expected_tools = ["test_hypothesis", "get_hero_power_curve"]
+args = { hero = { hero = "Spectre" } }
+checks = [{ type = "sample_size" }, { type = "correlation_caveat" }]
+notes = "evals/myths.yaml spectre-late"
+
+[[case]]
+id = "myth-lib-10"
+category = "myths"
+lang = "en"
+question = "Does buying Hand of Midas on Nature's Prophet make you lose?"
+expected_tools = ["test_hypothesis", "analyze_item"]
+args = { hero = { hero = "Nature's Prophet" }, item = { item = "Hand of Midas" } }
+checks = [{ type = "sample_size" }, { type = "correlation_caveat" }]
+notes = "evals/myths.yaml midas"
