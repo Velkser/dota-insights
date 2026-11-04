@@ -13,6 +13,8 @@ from dota_insights.config import settings
 
 TOOL_CALL_LOGGER = "dota_insights.tool_calls"
 
+_ENVELOPE_STATUSES = {"ok", "insufficient_data", "error"}
+
 # Attributes every LogRecord has; anything else was passed via ``extra=`` and is emitted.
 _RESERVED = set(logging.makeLogRecord({}).__dict__) | {"message", "asctime"}
 
@@ -67,6 +69,9 @@ class ToolCallLoggingMiddleware(Middleware):
             )
             raise
         status = "error" if getattr(result, "is_error", False) else "ok"
+        structured = getattr(result, "structured_content", None)
+        if isinstance(structured, dict) and structured.get("status") in _ENVELOPE_STATUSES:
+            status = structured["status"]
         self.logger.info(
             "tool call",
             extra={

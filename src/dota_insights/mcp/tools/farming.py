@@ -9,6 +9,7 @@ from pydantic import Field
 from dota_insights.analytics import farming
 from dota_insights.analytics.stats import wilson_interval
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
+from dota_insights.mcp.errors import source_error
 from dota_insights.models import Filters, Outcome
 from dota_insights.reference import Hero, resolve_hero
 from dota_insights.sources.opendota import OpenDotaError
@@ -160,7 +161,7 @@ async def _league_power_curve(found: Hero, requested: Filters, fallback: str) ->
     try:
         rows = await farming.fetch_durations(found.id)
     except OpenDotaError as exc:
-        return error(f"OpenDota durations failed: {exc}", source=["opendota"])
+        return source_error(exc, source=["opendota"])
     buckets = farming.bucket_durations(rows)
     n = sum(b.games for b in buckets)
     caveats = [
@@ -207,7 +208,7 @@ async def _league_lane_stats(found: Hero, requested: Filters, fallback: str) -> 
     try:
         rows = await farming.fetch_explorer(farming.lane_sql(found.id, used.patch))
     except OpenDotaError as exc:
-        return error(f"OpenDota explorer failed: {exc}", source=["opendota"])
+        return source_error(exc, source=["opendota"])
     stats = farming.lane_stats(found.display_name, found.id, used.patch, rows)
     if stats.games < used.min_sample:
         return _not_enough(found.display_name, stats.games, used, caveats)
@@ -352,7 +353,7 @@ def register(mcp: FastMCP) -> None:
         try:
             payload = await farming.fetch_benchmarks(found.id, bracket, role)
         except OpenDotaError as exc:
-            return error(f"OpenDota benchmarks failed: {exc}", source=["opendota"])
+            return source_error(exc, source=["opendota"])
         metrics = farming.parse_benchmarks(payload)
         if not metrics:
             return insufficient_data(
@@ -441,7 +442,7 @@ def register(mcp: FastMCP) -> None:
         try:
             rows = await farming.fetch_explorer(farming.farm_sql(found.id, used.patch))
         except OpenDotaError as exc:
-            return error(f"OpenDota explorer failed: {exc}", source=["opendota"])
+            return source_error(exc, source=["opendota"])
         rows = farming.filter_outcome(rows, outcome)
         if len(rows) < used.min_sample:
             return _not_enough(found.display_name, len(rows), used, caveats)
@@ -510,7 +511,7 @@ def register(mcp: FastMCP) -> None:
             try:
                 rows = await farming.fetch_explorer(farming.farm_sql(found.id, used.patch))
             except OpenDotaError as exc:
-                return error(f"OpenDota explorer failed: {exc}", source=["opendota"])
+                return source_error(exc, source=["opendota"])
             rows = farming.filter_outcome(rows, outcome)
             if len(rows) < used.min_sample:
                 short.append(f"{found.display_name} ({len(rows)})")

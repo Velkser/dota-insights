@@ -8,6 +8,7 @@ from pydantic import BaseModel, Field
 
 from dota_insights.analytics import trends as t
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
+from dota_insights.mcp.errors import retry_hint, source_error
 from dota_insights.models import Filters, GameMode
 from dota_insights.reference import hero_by_id, resolve_hero
 from dota_insights.sources.opendota import OpenDotaError
@@ -199,12 +200,9 @@ def _freshness(series: t.Series) -> datetime | None:
 
 
 def _stratz_error(exc: StratzError, filters: Filters) -> ToolResult:
-    return error(
-        f"STRATZ request failed: {exc}",
-        hint="Retry later; patch and rank-filtered trends need STRATZ.",
-        filters=filters,
-        source=["stratz"],
-    )
+    envelope = source_error(exc, filters=filters, source=["stratz"])
+    envelope.hint = f"{envelope.hint} Patch and rank-filtered trends need STRATZ."
+    return envelope
 
 
 async def _resolve_patch_pair(
@@ -294,7 +292,12 @@ def register(mcp: FastMCP) -> None:
             try:
                 series = await t.fetch_opendota_series(t.now())
             except OpenDotaError as od_exc:
-                return error(f"STRATZ and OpenDota both failed: {exc}; {od_exc}", filters=f)
+                return error(
+                    f"STRATZ and OpenDota both failed: {exc}; {od_exc}",
+                    hint=retry_hint(od_exc),
+                    filters=f,
+                    source=["stratz", "opendota"],
+                )
             f = f.model_copy(update={"game_mode": None})
             before, after = t.day_windows(series, spec.days)
 

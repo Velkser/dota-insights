@@ -100,6 +100,8 @@ class ToolResult[T](BaseModel):
                 raise ValueError(f"{self.status} result must not carry a result")
             if not self.message:
                 raise ValueError(f"{self.status} result must explain itself in message")
+            if self.status == "insufficient_data" and not (self.hint and self.hint.strip()):
+                raise ValueError("insufficient_data result must say how to widen filters in hint")
         return self
 
 

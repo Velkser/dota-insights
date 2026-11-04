@@ -42,3 +42,25 @@ Conventions every tool in `src/dota_insights/mcp/tools/` follows.
   matches, players and pro data. See `docs/research/`.
 - STRATZ requires a link back to stratz.com: put `"stratz"` in `source` and the tool's
   caveats mention it where its data is used.
+
+## Errors and timeouts
+
+- `ErrorEnvelopeMiddleware` (`dota_insights.mcp.errors`) wraps every tool call. A source exception
+  that escapes a tool (OpenDota/STRATZ rate limit, auth, outage, query error, HTTP timeout) becomes an
+  `error` envelope with a retry hint; any other exception becomes a generic error that names only its
+  type. Tools do not need a catch-all `try`.
+- Catch a source error only to keep context such as `filters` or to fall back to another source;
+  then return `source_error(exc, filters=..., source=...)`, or use `retry_hint(exc)` when wording the
+  message yourself. An `error(...)` without a hint gets a generic one from the middleware, but write
+  your own when you know what the caller should change.
+- Every call is cancelled after `DEFAULT_TOOL_TIMEOUT` seconds. A tool that fans out to many source
+  requests on a cold cache goes in `TOOL_TIMEOUTS` with `HEAVY_TOOL_TIMEOUT`.
+- `insufficient_data(reason, hint)` requires a non-empty hint naming the filter to widen.
+
+## Docs
+
+- After adding or changing a tool, add an example question to `EXAMPLES` in
+  `scripts/gen_tool_docs.py` and run `uv run python scripts/gen_tool_docs.py`. `tests/test_docs.py`
+  fails when README.md is out of date or a tool has no example.
+- MCP prompts live in `dota_insights/mcp/prompts.py`; name tools in backticks so the tests can check
+  they exist.
