@@ -15,6 +15,8 @@ COPY pyproject.toml uv.lock README.md ./
 RUN uv sync --locked --no-dev --no-install-project
 
 COPY src ./src
+COPY alembic.ini ./
+COPY migrations ./migrations
 RUN uv sync --locked --no-dev && chown -R app:app /app
 
 USER app
@@ -23,4 +25,5 @@ ENV PATH="/app/.venv/bin:$PATH" \
     DOTA_INSIGHTS_PORT=8000
 
 EXPOSE 8000
+# The same image can run collector jobs: `dota-insights collect run <job>...`.
 CMD ["dota-insights"]

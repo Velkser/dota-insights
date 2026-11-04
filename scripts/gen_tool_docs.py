@@ -76,6 +76,16 @@ EXAMPLES: dict[str, str] = {
     "find_meta_trends": "Which heroes rose the most after the last patch?",
     "get_hero_patch_history": "How has Pudge's win rate changed over the patches?",
     "get_patch_summary": "What changed for heroes in 7.39?",
+    "analyze_death": "How much does dying at 25 minutes cost, and when is buyback worth it?",
+    "get_farm_distribution": "How much of the team's net worth should the carry have?",
+    "get_comeback_stats": "How often do teams win from 10k behind at 25 minutes?",
+    "get_objective_impact": "How much does killing the first Roshan raise the win rate?",
+    "test_hypothesis": "Do Phantom Assassins with BKB before 20 minutes win more?",
+    "analyze_correlation": "Does stacking more camps actually help supports win?",
+    "find_matches": "Show me matches won after being 20k gold behind.",
+    "explore_query": "Average GPM by lane role in league matches this patch?",
+    "render_chart": "Draw Anti-Mage's gold curve as a chart.",
+    "predict_live_win": "Who is likely to win a game with a 5k lead at 30 minutes?",
 }
 
 MAX_PARAMS = 4

@@ -287,12 +287,15 @@ class OpenDotaClient:
         return await self._request("POST", f"/request/{match_id}")
 
     async def public_matches(
-        self, min_rank: int | None = None, less_than_match_id: int | None = None
+        self,
+        min_rank: int | None = None,
+        less_than_match_id: int | None = None,
+        max_rank: int | None = None,
     ) -> list[dict[str, Any]]:
         """GET /publicMatches: a page of recent public matches."""
         return await self._get(
             "/publicMatches",
-            {"min_rank": min_rank, "less_than_match_id": less_than_match_id},
+            {"min_rank": min_rank, "max_rank": max_rank, "less_than_match_id": less_than_match_id},
         )
 
     async def pro_matches(self, less_than_match_id: int | None = None) -> list[dict[str, Any]]:

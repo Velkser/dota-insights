@@ -214,6 +214,10 @@ SAMPLE_ARGS: dict[str, Any] = {
     "enemies": ["Lion"],
     "radiant": ["Axe", "Lion", "Pudge", "Sniper", "Lich"],
     "dire": ["Juggernaut", "Crystal Maiden", "Zeus", "Tidehunter", "Lina"],
+    "group_a": [{"field": "item_minute", "item": "bkb", "op": "<", "value": 20}],
+    "metric": "gpm",
+    "table": "player_matches",
+    "data": [{"x": 10, "y": 4200, "series": "Anti-Mage"}],
 }
 
 

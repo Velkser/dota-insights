@@ -5,14 +5,16 @@ range-partitioned by ``start_time`` into monthly partitions, so every one of the
 ``start_time`` and includes it in its primary key. See docs/architecture/db-schema.md.
 """
 
-from datetime import datetime
+from datetime import date, datetime
 from enum import StrEnum
 from typing import Any
 
 from sqlalchemy import (
+    JSON,
     BigInteger,
     Boolean,
     CheckConstraint,
+    Date,
     DateTime,
     Enum,
     ForeignKey,
@@ -37,6 +39,11 @@ NAMING_CONVENTION = {
 }
 
 PARTITION_BY_START_TIME = "RANGE (start_time)"
+
+# PostgreSQL types with a SQLite fallback, so collector logic can be tested without PostgreSQL.
+IntArray = ARRAY(Integer).with_variant(JSON(), "sqlite")
+JsonB = JSONB().with_variant(JSON(), "sqlite")
+AutoId = BigInteger().with_variant(Integer(), "sqlite")
 
 # Parents that get one partition per calendar month; see ensure_month_partitions() in the migration.
 PARTITIONED_TABLES = ("matches", "match_players", "player_timeseries", "match_events")
@@ -69,6 +76,12 @@ class MatchupRelation(StrEnum):
     VS = "vs"  # opposing team
 
 
+class HistogramStat(StrEnum):
+    GPM = "gpm"
+    XPM = "xpm"
+    NET_WORTH = "net_worth"
+
+
 def _str_enum(enum_cls: type[StrEnum], name: str) -> Enum:
     """A VARCHAR + CHECK enum: adding a value later is a constraint change, not ALTER TYPE."""
     return Enum(
@@ -97,6 +110,16 @@ class Match(Base):
         CheckConstraint("duration >= 0", name="duration_non_negative"),
         CheckConstraint("avg_rank_tier BETWEEN 10 AND 85", name="avg_rank_tier_range"),
         Index("ix_matches_patch_rank", "patch_id", "avg_rank_tier"),
+        Index(
+            "ix_matches_pending_aggregation",
+            "patch_id",
+            postgresql_where=text("aggregated_at IS NULL"),
+        ),
+        Index(
+            "ix_matches_pending_details_aggregation",
+            "patch_id",
+            postgresql_where=text("has_details AND details_aggregated_at IS NULL"),
+        ),
         {"postgresql_partition_by": PARTITION_BY_START_TIME},
     )
 
@@ -115,6 +138,23 @@ class Match(Base):
     source: Mapped[MatchSource] = mapped_column(_str_enum(MatchSource, "match_source"))
     ingested_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
+    )
+    has_details: Mapped[bool] = mapped_column(
+        Boolean,
+        server_default=text("false"),
+        comment="per-player stats and positions are present, not just the draft",
+    )
+    detail_attempts: Mapped[int] = mapped_column(
+        SmallInteger, server_default=text("0"), comment="enrichment lookups that found nothing"
+    )
+    banned_hero_ids: Mapped[list[int] | None] = mapped_column(
+        IntArray, comment="NULL = bans unknown (public match bans are hidden by the sources)"
+    )
+    aggregated_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), comment="draft-level aggregates include this match"
+    )
+    details_aggregated_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), comment="detail-level aggregates include this match"
     )
 
 
@@ -160,21 +200,22 @@ class MatchPlayer(Base):
     lane_role: Mapped[int | None] = mapped_column(
         SmallInteger, comment="OpenDota lane_role: 1 safe, 2 mid, 3 off, 4 jungle"
     )
-    kills: Mapped[int] = mapped_column(SmallInteger)
-    deaths: Mapped[int] = mapped_column(SmallInteger)
-    assists: Mapped[int] = mapped_column(SmallInteger)
-    gpm: Mapped[int] = mapped_column(SmallInteger)
-    xpm: Mapped[int] = mapped_column(SmallInteger)
-    last_hits: Mapped[int] = mapped_column(SmallInteger)
-    denies: Mapped[int] = mapped_column(SmallInteger)
+    # Player stats are NULL on draft-only rows (from publicMatches), filled in by enrichment.
+    kills: Mapped[int | None] = mapped_column(SmallInteger)
+    deaths: Mapped[int | None] = mapped_column(SmallInteger)
+    assists: Mapped[int | None] = mapped_column(SmallInteger)
+    gpm: Mapped[int | None] = mapped_column(SmallInteger)
+    xpm: Mapped[int | None] = mapped_column(SmallInteger)
+    last_hits: Mapped[int | None] = mapped_column(SmallInteger)
+    denies: Mapped[int | None] = mapped_column(SmallInteger)
     net_worth: Mapped[int | None] = mapped_column(Integer)
     hero_damage: Mapped[int | None] = mapped_column(Integer)
     tower_damage: Mapped[int | None] = mapped_column(Integer)
     healing: Mapped[int | None] = mapped_column(Integer)
-    items: Mapped[list[int]] = mapped_column(
-        ARRAY(Integer), comment="final inventory item ids, slots 0-5; 0 = empty"
+    items: Mapped[list[int] | None] = mapped_column(
+        IntArray, comment="final inventory item ids, slots 0-5; 0 = empty"
     )
-    backpack: Mapped[list[int] | None] = mapped_column(ARRAY(Integer))
+    backpack: Mapped[list[int] | None] = mapped_column(IntArray)
     item_neutral: Mapped[int | None] = mapped_column(Integer)
     win: Mapped[bool] = mapped_column(Boolean)
 
@@ -200,10 +241,10 @@ class PlayerTimeseries(Base):
     match_id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=False)
     start_time: Mapped[datetime] = mapped_column(DateTime(timezone=True), primary_key=True)
     slot: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
-    gold_t: Mapped[list[int]] = mapped_column(ARRAY(Integer), comment="cumulative gold earned")
-    xp_t: Mapped[list[int]] = mapped_column(ARRAY(Integer))
-    lh_t: Mapped[list[int]] = mapped_column(ARRAY(Integer))
-    dn_t: Mapped[list[int] | None] = mapped_column(ARRAY(Integer))
+    gold_t: Mapped[list[int]] = mapped_column(IntArray, comment="cumulative gold earned")
+    xp_t: Mapped[list[int]] = mapped_column(IntArray)
+    lh_t: Mapped[list[int]] = mapped_column(IntArray)
+    dn_t: Mapped[list[int] | None] = mapped_column(IntArray)
 
 
 class MatchEvent(Base):
@@ -238,7 +279,7 @@ class MatchEvent(Base):
     key: Mapped[str | None] = mapped_column(
         String(64), comment="type-specific discriminator: rune type, ward type, killer unit"
     )
-    payload: Mapped[dict[str, Any]] = mapped_column(JSONB, server_default=text("'{}'::jsonb"))
+    payload: Mapped[dict[str, Any]] = mapped_column(JsonB, server_default=text("'{}'"))
 
 
 class _AggregateMixin:
@@ -253,7 +294,12 @@ RANK_BRACKET_CHECK = "rank_bracket BETWEEN 0 AND 8"  # 0 = unknown, 1 Herald .. 
 
 
 class PatchBracketTotal(Base, _AggregateMixin):
-    """Match count per patch and rank bracket: the denominator for pick rate."""
+    """Match count per patch and rank bracket: the denominator for pick rate.
+
+    ``games`` counts every match (draft level); ``detailed_games`` only matches with player
+    stats (the denominator for ``hero_aggregates``); ``ban_sample_games`` only matches whose bans
+    are known (the denominator for ban rate).
+    """
 
     __tablename__ = "patch_bracket_totals"
     __table_args__ = (CheckConstraint(RANK_BRACKET_CHECK, name="rank_bracket_range"),)
@@ -262,6 +308,26 @@ class PatchBracketTotal(Base, _AggregateMixin):
         SmallInteger, ForeignKey("patches.patch_id"), primary_key=True
     )
     rank_bracket: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    detailed_games: Mapped[int] = mapped_column(Integer, server_default=text("0"))
+    ban_sample_games: Mapped[int] = mapped_column(Integer, server_default=text("0"))
+
+
+class HeroDraftAggregate(Base, _AggregateMixin):
+    """Games, wins and bans per hero from every collected match, positions unknown.
+
+    The large-sample source for win and pick rate; ``hero_aggregates`` has the smaller,
+    position-resolved sample from enriched matches.
+    """
+
+    __tablename__ = "hero_draft_aggregates"
+    __table_args__ = (CheckConstraint(RANK_BRACKET_CHECK, name="rank_bracket_range"),)
+
+    patch_id: Mapped[int] = mapped_column(
+        SmallInteger, ForeignKey("patches.patch_id"), primary_key=True
+    )
+    rank_bracket: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    hero_id: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    bans: Mapped[int] = mapped_column(Integer, server_default=text("0"))
 
 
 class HeroAggregate(Base, _AggregateMixin):
@@ -333,3 +399,140 @@ class ItemTimingAggregate(Base, _AggregateMixin):
     minute: Mapped[int] = mapped_column(
         SmallInteger, primary_key=True, comment="minute of first purchase; -1 = before horn"
     )
+
+
+class HeroStatHistogram(Base, _AggregateMixin):
+    """Histogram of a per-player stat (GPM, XPM, net worth) for percentiles.
+
+    ``bucket`` is the lower bound of a fixed-width bin (``HISTOGRAM_BUCKET_WIDTH``); percentiles
+    are interpolated from the cumulative counts and stay mergeable across brackets and positions.
+    """
+
+    __tablename__ = "hero_stat_histograms"
+    __table_args__ = (
+        CheckConstraint(RANK_BRACKET_CHECK, name="rank_bracket_range"),
+        CheckConstraint("position BETWEEN 0 AND 5", name="position_range"),
+    )
+
+    patch_id: Mapped[int] = mapped_column(
+        SmallInteger, ForeignKey("patches.patch_id"), primary_key=True
+    )
+    rank_bracket: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    position: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    hero_id: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    stat: Mapped[HistogramStat] = mapped_column(
+        _str_enum(HistogramStat, "histogram_stat"), primary_key=True
+    )
+    bucket: Mapped[int] = mapped_column(Integer, primary_key=True)
+
+
+HISTOGRAM_BUCKET_WIDTH = {
+    HistogramStat.GPM: 25,
+    HistogramStat.XPM: 25,
+    HistogramStat.NET_WORTH: 1000,
+}
+
+
+class AggregateStatus(Base):
+    """Freshness of one patch's aggregates. Stale patches are rebuilt from the raw tables."""
+
+    __tablename__ = "aggregate_status"
+
+    patch_id: Mapped[int] = mapped_column(
+        SmallInteger, ForeignKey("patches.patch_id"), primary_key=True
+    )
+    stale: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
+    stale_reason: Mapped[str | None] = mapped_column(String(200))
+    stale_since: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    rebuilt_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class HeroStatsDaily(Base):
+    """Daily snapshot of OpenDota ``/heroStats`` (its own trailing-window pick/win counts).
+
+    ``scope`` is ``pub`` (``rank_bracket`` 1-8), ``pro`` or ``turbo`` (``rank_bracket`` 0).
+    ``bans`` is only known for ``pro``.
+    """
+
+    __tablename__ = "hero_stats_daily"
+    __table_args__ = (CheckConstraint(RANK_BRACKET_CHECK, name="rank_bracket_range"),)
+
+    day: Mapped[date] = mapped_column(Date, primary_key=True)
+    scope: Mapped[str] = mapped_column(String(8), primary_key=True)
+    rank_bracket: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    hero_id: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    picks: Mapped[int] = mapped_column(Integer)
+    wins: Mapped[int] = mapped_column(Integer)
+    bans: Mapped[int | None] = mapped_column(Integer)
+
+
+class ReferenceSnapshot(Base):
+    """A distinct version of an OpenDota ``/constants/{resource}`` payload."""
+
+    __tablename__ = "reference_snapshots"
+
+    resource: Mapped[str] = mapped_column(String(32), primary_key=True)
+    sha256: Mapped[str] = mapped_column(String(64), primary_key=True)
+    fetched_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    payload: Mapped[Any] = mapped_column(JsonB)
+
+
+class CollectorJobRun(Base):
+    """One run of a collector job; the scheduler reads the last run to decide what is due."""
+
+    __tablename__ = "collector_job_runs"
+    __table_args__ = (Index("ix_collector_job_runs_job_started_at", "job", "started_at"),)
+
+    run_id: Mapped[int] = mapped_column(AutoId, primary_key=True, autoincrement=True)
+    job: Mapped[str] = mapped_column(String(32))
+    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    status: Mapped[str] = mapped_column(String(16), comment="running | ok | skipped | failed")
+    api_calls: Mapped[int] = mapped_column(Integer, server_default=text("0"))
+    rows: Mapped[int] = mapped_column(Integer, server_default=text("0"))
+    detail: Mapped[str | None] = mapped_column(String(500))
+
+
+class CollectorApiUsage(Base):
+    """API calls the collector made per source and window (``day`` / ``hour``, UTC)."""
+
+    __tablename__ = "collector_api_usage"
+
+    source: Mapped[str] = mapped_column(String(16), primary_key=True)
+    window: Mapped[str] = mapped_column(String(8), primary_key=True)
+    window_start: Mapped[datetime] = mapped_column(DateTime(timezone=True), primary_key=True)
+    calls: Mapped[int] = mapped_column(Integer)
+
+
+class CollectorCursor(Base):
+    """How far each ingest stream (e.g. ``public_matches:5``) has read, by match id."""
+
+    __tablename__ = "collector_cursors"
+
+    stream: Mapped[str] = mapped_column(String(32), primary_key=True)
+    newest_match_id: Mapped[int] = mapped_column(
+        BigInteger, comment="every settled match up to this id has been read"
+    )
+    newest_start_time: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), comment="start time at that id: how far behind the stream is"
+    )
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class CollectorGap(Base):
+    """A match id range (exclusive bounds) a stream skipped and the backfill job still owes."""
+
+    __tablename__ = "collector_gaps"
+    __table_args__ = (
+        CheckConstraint("low_match_id < high_match_id", name="ordered_bounds"),
+        Index(
+            "ix_collector_gaps_stream_open", "stream", postgresql_where=text("filled_at IS NULL")
+        ),
+    )
+
+    gap_id: Mapped[int] = mapped_column(AutoId, primary_key=True, autoincrement=True)
+    stream: Mapped[str] = mapped_column(String(32))
+    low_match_id: Mapped[int] = mapped_column(BigInteger)
+    high_match_id: Mapped[int] = mapped_column(BigInteger)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    filled_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))

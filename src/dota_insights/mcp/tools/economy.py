@@ -7,6 +7,7 @@ from pydantic import Field
 
 from dota_insights.analytics import economy, farming
 from dota_insights.mcp.envelope import Period, Source, ToolResult, error, insufficient_data, ok
+from dota_insights.mcp.errors import retry_hint
 from dota_insights.models import Filters
 from dota_insights.reference import Hero, resolve_hero
 from dota_insights.sources.opendota import OpenDotaError
@@ -70,7 +71,12 @@ async def _sample(used: Filters, hero_id: int | None = None) -> economy.Sample |
     try:
         return await economy.fetch_sample(used.patch or "", hero_id)
     except OpenDotaError as exc:
-        return error(f"OpenDota explorer failed: {exc}", filters=used, source=["opendota"])
+        return error(
+            f"OpenDota explorer failed: {exc}",
+            hint=retry_hint(exc),
+            filters=used,
+            source=["opendota"],
+        )
 
 
 def _period(sample: economy.Sample) -> Period | None:

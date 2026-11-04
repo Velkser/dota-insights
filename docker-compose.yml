@@ -1,0 +1,44 @@
+# Local development stack: PostgreSQL, a one-shot migration and the MCP server.
+#   docker compose up --build
+# Collection runs from GitHub Actions (.github/workflows/collect.yml); locally use
+#   docker compose run --rm server dota-insights collect run public-matches aggregate
+# Secrets (DOTA_INSIGHTS_STRATZ_API_TOKEN, DOTA_INSIGHTS_OPENDOTA_API_KEY) come from .env.
+x-app: &app
+  build: .
+  env_file:
+    - path: .env
+      required: false
+  environment:
+    DOTA_INSIGHTS_DATABASE_URL: postgresql://dota:dota@db:5432/dota_insights
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: dota
+      POSTGRES_PASSWORD: dota
+      POSTGRES_DB: dota_insights
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dota -d dota_insights"]
+      interval: 5s
+      retries: 10
+
+  migrate:
+    <<: *app
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      db:
+        condition: service_healthy
+
+  server:
+    <<: *app
+    ports:
+      - "8000:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+volumes:
+  pgdata:

@@ -4,6 +4,15 @@ __version__ = "0.1.0"
 
 
 def main() -> None:
+    """``dota-insights`` serves MCP; ``dota-insights collect ...`` runs the collector."""
+    import sys
+
+    args = sys.argv[1:]
+    if args and args[0] == "collect":
+        from dota_insights.collector.cli import main as collect
+
+        sys.exit(collect(args[1:]))
+
     from dota_insights.mcp.server import run
 
     run()
