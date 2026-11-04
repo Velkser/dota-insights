@@ -8,7 +8,7 @@ from datetime import date, timedelta
 
 from dota_insights.insights.data import ALL_RANKS, WeekCounts
 from dota_insights.insights.meta import Anomaly, HeroChange, MetaReport, Metric, Movers
-from dota_insights.reference.loader import hero_by_id
+from dota_insights.reference.loader import hero_by_id, hero_name_ru
 
 NBSP = " "
 MINUS = "−"
@@ -45,11 +45,17 @@ SOURCE_NOTES = {
 ZTEST_NOTE = "двусторонний z-тест долей, поправка Бенджамини–Хохберга"
 
 
-def hero_name(hero_id: int) -> str:
-    # TODO: switch to the RU/EN name resolver from the i18n session once it lands; English
-    # names are what most Russian-speaking players use in posts anyway.
+def hero_name_en(hero_id: int) -> str:
     hero = hero_by_id().get(hero_id)
     return hero.display_name if hero else f"Hero #{hero_id}"
+
+
+def hero_name(hero_id: int) -> str:
+    """The hero's usual Russian name for the posts, falling back to the English one."""
+    hero = hero_by_id().get(hero_id)
+    if hero is None:
+        return f"Hero #{hero_id}"
+    return hero_name_ru(hero) or hero.display_name
 
 
 def fmt_int(value: int) -> str:

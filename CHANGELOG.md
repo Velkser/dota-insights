@@ -6,6 +6,11 @@ All notable changes to this project. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- Insight and Weekly Meta Report drafts name heroes in Russian ("Антимаг", "Пудж") through
+  the shared RU name table, falling back to English; draft file names stay English slugs.
+
 ### Added
 
 - Russian hero and item names (p9-11): `reference/data/names_ru.json` lists the usual Russian
