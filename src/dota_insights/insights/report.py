@@ -76,7 +76,7 @@ def _slug(text: str) -> str:
 def anomaly_filename(index: int, anomaly: Anomaly) -> str:
     c = anomaly.change
     rank = "all" if c.bracket == ALL_RANKS else f"rank{c.bracket}"
-    return f"{index:02d}-{_slug(texts.hero_name(c.hero_id))}-{anomaly.metric}-{rank}.md"
+    return f"{index:02d}-{_slug(texts.hero_name_en(c.hero_id))}-{anomaly.metric}-{rank}.md"
 
 
 def _change_json(c) -> dict[str, Any]:
