@@ -1,4 +1,5 @@
 import json
+from datetime import UTC, datetime
 from pathlib import Path
 
 import httpx
@@ -11,6 +12,7 @@ from dota_insights.cache import clear_all
 from dota_insights.mcp.tools import farming as farming_tools
 from dota_insights.models import Filters, Outcome
 from dota_insights.sources.opendota import OpenDotaClient
+from dota_insights.sources.stratz import StratzClient
 
 FIXTURES = Path(__file__).parent / "fixtures" / "farming"
 
@@ -38,6 +40,15 @@ EXPLORER = {
     for fixture in (_load(f"od_explorer_{name}.json") for name in ("farm_1", "farm_44", "lane_1"))
 }
 
+# Recorded STRATZ responses, keyed by the query variables that produced them.
+STRATZ = {
+    json.dumps(fixture["variables"], sort_keys=True): fixture["data"]
+    for fixture in (
+        _load(f"stratz_{name}.json") for name in ("power_1", "power_1_divine_pos1", "lane_1")
+    )
+}
+STRATZ_EMPTY = {"heroStats": {"winWeek": [], "vs": [], "with": [], "stats": []}}
+
 
 @pytest.fixture
 def requests():
@@ -56,15 +67,31 @@ def requests():
             return httpx.Response(404, json={"error": "not recorded"})
         return httpx.Response(200, json=_load(name))
 
+    def stratz_handler(request: httpx.Request) -> httpx.Response:
+        seen.append(request)
+        variables = json.loads(request.content)["variables"]
+        data = STRATZ.get(json.dumps(variables, sort_keys=True), STRATZ_EMPTY)
+        return httpx.Response(200, json={"data": data})
+
     clear_all()
     sources.use_clients(
         opendota=OpenDotaClient(
             api_key=None, transport=httpx.MockTransport(handler), sleep=_no_sleep
-        )
+        ),
+        stratz=StratzClient(
+            token="test", transport=httpx.MockTransport(stratz_handler), sleep=_no_sleep
+        ),
     )
     yield seen
     sources.use_clients()
     clear_all()
+
+
+@pytest.fixture
+def stratz_down(requests):
+    """STRATZ has no token, so tools fall back to OpenDota."""
+    sources.use_clients(opendota=sources.get_opendota(), stratz=StratzClient(token=None))
+    return requests
 
 
 async def _call(tool: str, args: dict) -> dict:
@@ -175,7 +202,7 @@ async def test_get_hero_benchmarks_rejects_bad_input(requests):
     assert requests == []
 
 
-async def test_get_hero_power_curve(requests):
+async def test_get_hero_power_curve_falls_back_to_opendota(stratz_down):
     body = await _call("get_hero_power_curve", {"hero": "Anti-Mage"})
     assert body["status"] == "ok"
     rows = _load("od_heroes_1_durations.json")
@@ -187,7 +214,7 @@ async def test_get_hero_power_curve(requests):
     assert "classification" in body["definitions"]
 
 
-async def test_get_hero_power_curve_reports_ignored_filters_and_min_sample(requests):
+async def test_get_hero_power_curve_fallback_reports_ignored_filters(stratz_down):
     body = await _call(
         "get_hero_power_curve",
         {"hero": "am", "filters": {"rank_bracket": "divine", "min_sample": 1_000_000}},
@@ -342,7 +369,7 @@ async def test_get_gold_xp_curves_skips_small_heroes(requests):
     assert body["status"] == "insufficient_data"
 
 
-async def test_get_hero_lane_stats(requests):
+async def test_get_hero_lane_stats_falls_back_to_league(stratz_down):
     body = await _call("get_hero_lane_stats", {"hero": "am"})
     assert body["status"] == "ok", body
     result = body["result"]
@@ -351,3 +378,115 @@ async def test_get_hero_lane_stats(requests):
     assert low <= result["lane_win_rate"] <= high
     assert "lane outcome" in body["definitions"]
     assert result["best_opponents"] and result["worst_partners"]
+    assert body["source"] == ["opendota"]
+    assert any("STRATZ was unavailable" in c for c in body["caveats"])
+
+
+# STRATZ analytics
+
+
+def test_stratz_filter_mapping():
+    f = Filters(rank_bracket="legend-divine", position=3, game_mode="turbo")
+    assert farming.stratz_medals(f) == ["LEGEND", "ANCIENT", "DIVINE"]
+    assert farming.stratz_basic_brackets(f) == ["LEGEND_ANCIENT", "DIVINE_IMMORTAL"]
+    assert farming.stratz_basic_brackets(Filters(rank_bracket="herald")) == ["HERALD_GUARDIAN"]
+    assert farming.stratz_basic_brackets(Filters()) is None
+    assert farming.stratz_position(f) == ["POSITION_3"]
+    assert farming.stratz_mode(f) == "TURBO"
+    assert farming.stratz_mode(Filters()) == "ALL_PICK_RANKED"
+
+
+def test_recorded_stratz_variables_match_builders():
+    power = _load("stratz_power_1_divine_pos1.json")["variables"]
+    flt = Filters(rank_bracket="divine+", position=1)
+    assert power == farming.power_curve_variables(1, flt)
+    assert _load("stratz_lane_1.json")["variables"] == farming.lane_variables(1, Filters())
+
+
+def test_stratz_duration_rows_keeps_patch_weeks_and_drops_abandons():
+    rows = [
+        {"week": 1_780_000_000, "durationMinute": 6, "winCount": 5, "matchCount": 10},
+        {"week": 1_780_000_000, "durationMinute": 1, "winCount": 9, "matchCount": 10},
+        {"week": 1_700_000_000, "durationMinute": 6, "winCount": 1, "matchCount": 10},
+    ]
+    start = datetime(2026, 1, 1, tzinfo=UTC)
+    bins, weeks = farming.stratz_duration_rows(rows, start, None)
+    assert bins == [{"duration_bin": 1800, "games_played": 10, "wins": 5}]
+    assert weeks == [datetime.fromtimestamp(1_780_000_000, UTC).date()]
+
+
+def test_pub_lane_stats_on_recorded_response():
+    data = _load("stratz_lane_1.json")["data"]
+    stats = farming.pub_lane_stats("Anti-Mage", 1, Filters(), data)
+    vs = data["heroStats"]["vs"]
+    assert stats.pairings == sum(r["winCount"] + r["drawCount"] + r["lossCount"] for r in vs)
+    total = stats.lane_win_rate + stats.lane_draw_rate + stats.lane_loss_rate
+    assert total == pytest.approx(1.0)
+    ten = next(r for r in data["heroStats"]["stats"] if r["time"] == 10)
+    assert stats.networth_10_avg == ten["networth"]
+    assert all(m.games >= farming.STRATZ_MIN_PAIR_GAMES for m in stats.worst_opponents)
+    edges = [m.lane_win_rate - m.lane_loss_rate for m in stats.best_opponents]
+    assert edges == sorted(edges, reverse=True)
+
+
+def test_power_curve_peak_ignores_short_games():
+    def bucket(start, end, wins, games):
+        return farming.DurationBucket(
+            label=str(start), from_min=start, to_min=end, games=games, wins=wins,
+            win_rate=wins / games, ci_low=0, ci_high=1,
+        )  # fmt: skip
+
+    curve = farming.power_curve("X", 1, [bucket(0, 20, 90, 100), bucket(40, 45, 55, 100)])
+    assert curve.peak == "40"
+
+
+# STRATZ tools
+
+
+async def test_get_hero_power_curve_from_stratz(requests):
+    body = await _call("get_hero_power_curve", {"hero": "am"})
+    assert body["status"] == "ok", body
+    assert body["source"] == ["stratz"]
+    assert body["filters"]["patch"] == "7.41"
+    assert body["filters"]["game_mode"] == "ranked_all_pick"
+    result = body["result"]
+    assert result["classification"] == "late"
+    assert result["peak"] not in (None, "<20")
+    assert body["sample_size"] == sum(b["games"] for b in result["buckets"])
+    assert body["period"]["from_date"] >= "2026-03-24"
+    assert any("stratz.com" in c for c in body["caveats"])
+
+
+async def test_get_hero_power_curve_from_stratz_with_filters(requests):
+    filters = {"rank_bracket": "divine+", "position": 1}
+    body = await _call("get_hero_power_curve", {"hero": "Anti-Mage", "filters": filters})
+    assert body["status"] == "ok"
+    assert body["filters"]["rank_bracket"] == "divine+"
+    assert body["filters"]["position"] == 1
+    sent = json.loads(requests[-1].content)["variables"]
+    assert sent["brackets"] == ["DIVINE", "IMMORTAL"] and sent["positions"] == ["POSITION_1"]
+
+
+async def test_get_hero_power_curve_from_stratz_old_patch_is_insufficient(requests):
+    body = await _call("get_hero_power_curve", {"hero": "am", "filters": {"patch": "7.39"}})
+    assert body["status"] == "insufficient_data"
+    assert body["source"] == ["stratz"]
+
+
+async def test_get_hero_lane_stats_from_stratz(requests):
+    body = await _call("get_hero_lane_stats", {"hero": "am"})
+    assert body["status"] == "ok", body
+    assert body["source"] == ["stratz"]
+    result = body["result"]
+    assert body["sample_size"] == result["pairings"]
+    low, high = body["confidence"]["lane_win_rate"]
+    assert low <= result["lane_win_rate"] <= high
+    assert result["best_opponents"] and result["worst_partners"]
+    assert result["networth_10_avg"] > 0
+
+
+async def test_get_hero_lane_stats_widens_medal_to_stratz_pair(requests):
+    body = await _call("get_hero_lane_stats", {"hero": "am", "filters": {"rank_bracket": "divine"}})
+    assert body["status"] == "insufficient_data"  # not recorded: the mock returns no rows
+    assert body["filters"]["rank_bracket"] == "divine-immortal"
+    assert any("widened" in c for c in body["caveats"])

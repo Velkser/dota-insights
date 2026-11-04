@@ -1,5 +1,6 @@
 """Farming tools: hero benchmarks, farm at fixed minutes, gold/XP curves, power curve, laning."""
 
+from datetime import timedelta
 from typing import Annotated
 
 from fastmcp import FastMCP
@@ -11,6 +12,7 @@ from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_d
 from dota_insights.models import Filters, Outcome
 from dota_insights.reference import Hero, resolve_hero
 from dota_insights.sources.opendota import OpenDotaError
+from dota_insights.sources.stratz import StratzError
 
 HeroArg = Annotated[
     str,
@@ -79,6 +81,237 @@ def _not_enough(name: str, n: int, used: Filters, caveats: list[str]) -> ToolRes
         sample_size=n,
         caveats=caveats,
         source=["opendota"],
+    )
+
+
+def _curve_definitions() -> dict[str, str]:
+    return {
+        "win_rate": "Wins / games in the bucket, by match duration.",
+        "peak": (
+            f"Bucket starting at {farming.PEAK_FROM_MIN}+ min with the highest win rate and at "
+            f"least {farming.MIN_BUCKET_GAMES} games (shorter games are mostly abandons)."
+        ),
+        "classification": (
+            f"Compares win rate in matches under {farming.EARLY_BEFORE_MIN} min (early) with "
+            f"matches of {farming.LATE_FROM_MIN}+ min (late) using a pooled two-proportion "
+            f"z-test; 'late' or 'early' if p < {farming.POWER_ALPHA}, else 'flat'."
+        ),
+    }
+
+
+CORRELATION_CAVEAT = (
+    "Win rate by duration is correlational: long games also mean the hero's team was not "
+    "stomped early."
+)
+
+
+async def _pub_power_curve(found: Hero, requested: Filters) -> ToolResult:
+    patch, start, end = farming.patch_window(requested)
+    used = requested.model_copy(
+        update={
+            "patch": patch,
+            "game_mode": requested.game_mode or farming.STRATZ_DEFAULT_MODE,
+        }
+    )
+    data = await farming.fetch_stratz(
+        farming.POWER_CURVE_DOC, farming.power_curve_variables(found.id, used)
+    )
+    rows, weeks = farming.stratz_duration_rows(data["heroStats"]["winWeek"] or [], start, end)
+    buckets = farming.bucket_durations(rows)
+    n = sum(b.games for b in buckets)
+    caveats = [
+        CORRELATION_CAVEAT,
+        "Ranked pub data from STRATZ (stratz.com), summed over weekly buckets that start "
+        f"inside patch {patch}. STRATZ keeps only recent weeks, so the period can be shorter "
+        "than the patch.",
+        "STRATZ's durationMinute field is read as a 5-minute bucket index; STRATZ does not "
+        f"document it. Matches under {farming.STRATZ_MIN_DURATION_MIN} min are left out.",
+    ]
+    if requested.patch and requested.patch.strip().lower() != patch:
+        caveats.append(f"Patch letters are not tracked; {requested.patch} was widened to {patch}.")
+    period = None
+    if weeks:
+        period = Period(from_date=weeks[0], to_date=weeks[-1] + timedelta(days=6))
+    if n < used.min_sample:
+        return insufficient_data(
+            f"Only {n} STRATZ matches with {found.display_name} for these filters.",
+            "Widen rank_bracket, drop position, or use a newer patch.",
+            filters=used,
+            sample_size=n,
+            period=period,
+            caveats=caveats,
+            source=["stratz"],
+        )
+    curve = farming.power_curve(found.display_name, found.id, buckets)
+    return ok(
+        curve,
+        filters=used,
+        sample_size=n,
+        period=period,
+        definitions=_curve_definitions(),
+        confidence={f"win_rate[{b.label}]": (b.ci_low, b.ci_high) for b in curve.buckets},
+        caveats=caveats,
+        source=["stratz"],
+    )
+
+
+async def _league_power_curve(found: Hero, requested: Filters, fallback: str) -> ToolResult:
+    used = Filters(min_sample=requested.min_sample)
+    try:
+        rows = await farming.fetch_durations(found.id)
+    except OpenDotaError as exc:
+        return error(f"OpenDota durations failed: {exc}", source=["opendota"])
+    buckets = farming.bucket_durations(rows)
+    n = sum(b.games for b in buckets)
+    caveats = [
+        fallback,
+        "OpenDota's duration table covers the matches in its own match database, which is "
+        "mostly league (pro and amateur-league) games, not ranked pubs.",
+        CORRELATION_CAVEAT,
+    ]
+    ignored = [
+        name
+        for name in ("patch", "rank_bracket", "position", "game_mode")
+        if getattr(requested, name) is not None
+    ]
+    if ignored:
+        caveats.append(
+            f"This source cannot filter by {', '.join(ignored)}; the result covers all of them."
+        )
+    if n < used.min_sample:
+        return insufficient_data(
+            f"Only {n} matches with {found.display_name} in OpenDota's duration table.",
+            "Lower min_sample to accept a noisier answer.",
+            filters=used,
+            sample_size=n,
+            caveats=caveats,
+            source=["opendota"],
+        )
+    curve = farming.power_curve(found.display_name, found.id, buckets)
+    return ok(
+        curve,
+        filters=used,
+        sample_size=n,
+        definitions=_curve_definitions(),
+        confidence={f"win_rate[{b.label}]": (b.ci_low, b.ci_high) for b in curve.buckets},
+        caveats=caveats,
+        source=["opendota"],
+    )
+
+
+async def _league_lane_stats(found: Hero, requested: Filters, fallback: str) -> ToolResult:
+    prepared = _explorer_filters(requested)
+    if isinstance(prepared, ToolResult):
+        return prepared
+    used, caveats = prepared
+    try:
+        rows = await farming.fetch_explorer(farming.lane_sql(found.id, used.patch))
+    except OpenDotaError as exc:
+        return error(f"OpenDota explorer failed: {exc}", source=["opendota"])
+    stats = farming.lane_stats(found.display_name, found.id, used.patch, rows)
+    if stats.games < used.min_sample:
+        return _not_enough(found.display_name, stats.games, used, caveats)
+    wins = round(stats.lane_win_rate * stats.games)
+    losses = round(stats.lane_loss_rate * stats.games)
+    caveats += [
+        fallback,
+        "Lane outcome is our own rule on gold at 10 minutes (see definitions), not "
+        "STRATZ's lane outcome.",
+        f"Opponents and partners need at least {farming.MIN_PAIR_GAMES} shared lanes to "
+        "be ranked; with this sample their rates are noisy.",
+    ]
+    return ok(
+        stats,
+        filters=used,
+        sample_size=stats.games,
+        period=_period(rows),
+        definitions={
+            "lane outcome": (
+                "Per match, the average gold_t at minute 10 of the hero's side of its lane "
+                "vs the enemies in that lane: edge = (own - enemy) / mean of both. Win if "
+                f"edge >= {farming.LANE_MARGIN:.0%}, loss if <= -{farming.LANE_MARGIN:.0%}, "
+                "else draw. Roaming heroes and empty lanes are skipped."
+            ),
+            "gold_10": "The hero's own " + GOLD_DEFINITION,
+            "last_hits_10": "The hero's last hits at minute 10.",
+            "match_win_rate_after_lane_win": "Match win rate in matches where it won lane.",
+            "best_opponents": "Ranked by lane win rate minus lane loss rate.",
+        },
+        confidence={
+            "lane_win_rate": tuple(wilson_interval(wins, stats.games)),
+            "lane_loss_rate": tuple(wilson_interval(losses, stats.games)),
+        },
+        caveats=caveats,
+        source=["opendota"],
+        data_freshness=farming.newest_match(rows),
+    )
+
+
+def _pair_range(pairs: list[str] | None) -> str | None:
+    """Filters.rank_bracket covering STRATZ medal pairs, e.g. ["DIVINE_IMMORTAL"] -> "divine+"."""
+    if not pairs:
+        return None
+    low = pairs[0].split("_")[0].lower()
+    high = pairs[-1].split("_")[1].lower()
+    return f"{low}-{high}"
+
+
+async def _pub_lane_stats(found: Hero, requested: Filters) -> ToolResult:
+    pairs = farming.stratz_basic_brackets(requested)
+    used = Filters(
+        rank_bracket=_pair_range(pairs),
+        position=requested.position,
+        min_sample=requested.min_sample,
+    )
+    data = await farming.fetch_stratz(farming.LANE_DOC, farming.lane_variables(found.id, used))
+    stats = farming.pub_lane_stats(found.display_name, found.id, used, data)
+    caveats = [
+        "Ranked pub data from STRATZ (stratz.com) over STRATZ's own recent window; STRATZ "
+        "does not say which dates or patch it covers, so no period is given.",
+        "Lane win/draw/loss and stomps are STRATZ's lane-outcome classification.",
+        "Rates count hero-vs-lane-opponent pairings, so a match against two lane enemies "
+        "counts twice; the confidence intervals treat pairings as independent and are "
+        "slightly too narrow.",
+        f"Opponents and partners need at least {farming.STRATZ_MIN_PAIR_GAMES} pairings to "
+        "be ranked.",
+    ]
+    if requested.rank_bracket and used.rank_bracket != requested.rank_bracket:
+        caveats.append(
+            f"STRATZ groups medals in pairs for lane data; {requested.rank_bracket} was "
+            f"widened to {used.rank_bracket}."
+        )
+    ignored = [n for n in ("patch", "game_mode") if getattr(requested, n)]
+    if ignored:
+        caveats.append(f"Lane data cannot be filtered by {', '.join(ignored)}.")
+    if stats.pairings < used.min_sample:
+        return insufficient_data(
+            f"Only {stats.pairings} STRATZ lane pairings for {found.display_name}.",
+            "Widen rank_bracket or drop position.",
+            filters=used,
+            sample_size=stats.pairings,
+            caveats=caveats,
+            source=["stratz"],
+        )
+    n = stats.pairings
+    return ok(
+        stats,
+        filters=used,
+        sample_size=n,
+        definitions={
+            "pairings": "Hero-vs-lane-opponent pairings (sample_size counts these).",
+            "lane_win_rate": "Pairings STRATZ classifies as a won lane / all pairings.",
+            "stomp_win_rate": "Pairings STRATZ classifies as a lane stomp in the hero's favour.",
+            "networth_10_avg": "STRATZ mean net worth at minute 10 for these filters.",
+            "last_hits_10_avg": "STRATZ mean last hits at minute 10 for these filters.",
+            "best_opponents": "Lane enemies ranked by lane win rate minus lane loss rate.",
+            "best_partners": "Lane allies ranked the same way.",
+        },
+        confidence={
+            "lane_win_rate": tuple(wilson_interval(round(stats.lane_win_rate * n), n)),
+            "lane_loss_rate": tuple(wilson_interval(round(stats.lane_loss_rate * n), n)),
+        },
+        caveats=caveats,
+        source=["stratz"],
     )
 
 
@@ -170,64 +403,19 @@ def register(mcp: FastMCP) -> None:
         hero: HeroArg, filters: FiltersArg = None
     ) -> ToolResult[farming.PowerCurve]:
         """Win rate by match duration (5-minute buckets), the duration where the hero wins
-        most, and whether it is an early-game or late-game hero."""
+        most, and whether it is an early-game or late-game hero. Uses ranked pubs from
+        STRATZ by medal and position; falls back to OpenDota league matches."""
         found = _hero(hero)
         if isinstance(found, ToolResult):
             return found
         requested = filters or Filters()
-        used = Filters(min_sample=requested.min_sample)
         try:
-            rows = await farming.fetch_durations(found.id)
-        except OpenDotaError as exc:
-            return error(f"OpenDota durations failed: {exc}", source=["opendota"])
-        buckets = farming.bucket_durations(rows)
-        n = sum(b.games for b in buckets)
-        caveats = [
-            "OpenDota's duration table covers the matches in its own match database, which "
-            "is mostly league (pro and amateur-league) games, not ranked pubs.",
-            "Win rate by duration is correlational: long games also mean the hero's team "
-            "was not stomped early.",
-        ]
-        ignored = [
-            name
-            for name in ("patch", "rank_bracket", "position", "game_mode")
-            if getattr(requested, name) is not None
-        ]
-        if ignored:
-            caveats.append(
-                f"This source cannot filter by {', '.join(ignored)}; the result covers all of them."
-            )
-        if n < used.min_sample:
-            return insufficient_data(
-                f"Only {n} matches with {found.display_name} in OpenDota's duration table.",
-                "Lower min_sample to accept a noisier answer.",
-                filters=used,
-                sample_size=n,
-                caveats=caveats,
-                source=["opendota"],
-            )
-        curve = farming.power_curve(found.display_name, found.id, buckets)
-        return ok(
-            curve,
-            filters=used,
-            sample_size=n,
-            definitions={
-                "win_rate": "Wins / games in the bucket, by match duration.",
-                "peak": (
-                    "Bucket with the highest win rate among buckets with at least "
-                    f"{farming.MIN_BUCKET_GAMES} games."
-                ),
-                "classification": (
-                    f"Compares win rate in matches under {farming.EARLY_BEFORE_MIN} min "
-                    f"(early) with matches of {farming.LATE_FROM_MIN}+ min (late) using a "
-                    f"pooled two-proportion z-test; 'late' or 'early' if p < "
-                    f"{farming.POWER_ALPHA}, else 'flat'."
-                ),
-            },
-            confidence={f"win_rate[{b.label}]": (b.ci_low, b.ci_high) for b in curve.buckets},
-            caveats=caveats,
-            source=["opendota"],
-        )
+            return await _pub_power_curve(found, requested)
+        except StratzError as exc:
+            fallback = f"STRATZ was unavailable ({exc}); this falls back to OpenDota."
+        except ValueError as exc:
+            return error(str(exc), filters=requested)
+        return await _league_power_curve(found, requested, fallback)
 
     @mcp.tool
     async def get_farming_stats(
@@ -374,53 +562,16 @@ def register(mcp: FastMCP) -> None:
     @mcp.tool
     async def get_hero_lane_stats(
         hero: HeroArg, filters: FiltersArg = None
-    ) -> ToolResult[farming.LaneStats]:
-        """How a hero's laning phase goes: lane win/draw/loss rates, gold and last hits at
-        10 minutes, and the lane opponents and lane partners it does best and worst with."""
+    ) -> ToolResult[farming.PubLaneStats | farming.LaneStats]:
+        """How a hero's laning phase goes: lane win/draw/loss rates, farm at 10 minutes,
+        and the lane opponents and lane partners it does best and worst with. Uses ranked
+        pubs from STRATZ by medal and position; falls back to OpenDota league matches."""
         found = _hero(hero)
         if isinstance(found, ToolResult):
             return found
-        prepared = _explorer_filters(filters or Filters())
-        if isinstance(prepared, ToolResult):
-            return prepared
-        used, caveats = prepared
+        requested = filters or Filters()
         try:
-            rows = await farming.fetch_explorer(farming.lane_sql(found.id, used.patch))
-        except OpenDotaError as exc:
-            return error(f"OpenDota explorer failed: {exc}", source=["opendota"])
-        stats = farming.lane_stats(found.display_name, found.id, used.patch, rows)
-        if stats.games < used.min_sample:
-            return _not_enough(found.display_name, stats.games, used, caveats)
-        wins = round(stats.lane_win_rate * stats.games)
-        losses = round(stats.lane_loss_rate * stats.games)
-        caveats += [
-            "Lane outcome is our own rule on gold at 10 minutes (see definitions), not "
-            "STRATZ's lane outcome.",
-            f"Opponents and partners need at least {farming.MIN_PAIR_GAMES} shared lanes to "
-            "be ranked; with this sample their rates are noisy.",
-        ]
-        return ok(
-            stats,
-            filters=used,
-            sample_size=stats.games,
-            period=_period(rows),
-            definitions={
-                "lane outcome": (
-                    "Per match, the average gold_t at minute 10 of the hero's side of its lane "
-                    "vs the enemies in that lane: edge = (own - enemy) / mean of both. Win if "
-                    f"edge >= {farming.LANE_MARGIN:.0%}, loss if <= -{farming.LANE_MARGIN:.0%}, "
-                    "else draw. Roaming heroes and empty lanes are skipped."
-                ),
-                "gold_10": "The hero's own " + GOLD_DEFINITION,
-                "last_hits_10": "The hero's last hits at minute 10.",
-                "match_win_rate_after_lane_win": "Match win rate in matches where it won lane.",
-                "best_opponents": "Ranked by lane win rate minus lane loss rate.",
-            },
-            confidence={
-                "lane_win_rate": tuple(wilson_interval(wins, stats.games)),
-                "lane_loss_rate": tuple(wilson_interval(losses, stats.games)),
-            },
-            caveats=caveats,
-            source=["opendota"],
-            data_freshness=farming.newest_match(rows),
-        )
+            return await _pub_lane_stats(found, requested)
+        except StratzError as exc:
+            fallback = f"STRATZ was unavailable ({exc}); this falls back to OpenDota."
+        return await _league_lane_stats(found, requested, fallback)

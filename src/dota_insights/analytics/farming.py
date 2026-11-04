@@ -8,8 +8,11 @@ Sources:
 - OpenDota ``/explorer`` (SQL): per-minute ``gold_t`` / ``xp_t`` / ``lh_t`` arrays and lanes of
   parsed matches. The explorer's ``matches`` table holds league matches only, so these
   numbers describe league play, not ranked pubs.
+- STRATZ GraphQL ``heroStats``: weekly win counts by duration bucket and lane outcomes, by
+  medal and position (ranked pubs).
 """
 
+import json
 import re
 from collections import Counter, defaultdict
 from collections.abc import Mapping, Sequence
@@ -21,9 +24,9 @@ from pydantic import BaseModel, Field
 
 from dota_insights.analytics.stats import two_proportion_ztest, wilson_interval
 from dota_insights.cache import TTL_AGGREGATE, cached
-from dota_insights.models import Filters, Outcome, Position, RankBracket
+from dota_insights.models import Filters, GameMode, Outcome, Position, RankBracket
 from dota_insights.reference import hero_by_id, patches
-from dota_insights.sources import get_opendota
+from dota_insights.sources import get_opendota, get_stratz
 from dota_insights.sources.opendota import OpenDotaError
 
 # OpenDota benchmark metric -> what it measures.
@@ -166,6 +169,8 @@ EARLY_BEFORE_MIN = 30
 LATE_FROM_MIN = 40
 POWER_ALPHA = 0.05
 MIN_BUCKET_GAMES = 30
+# Matches under 20 minutes are mostly abandons and early surrenders, so the peak ignores them.
+PEAK_FROM_MIN = 20
 
 
 class DurationBucket(BaseModel):
@@ -184,7 +189,7 @@ class PowerCurve(BaseModel):
     hero_id: int
     buckets: list[DurationBucket]
     peak: str | None = Field(
-        description="Bucket with the highest win rate among buckets with enough games."
+        description="Bucket from 20 minutes on with the highest win rate and enough games."
     )
     early_win_rate: float | None
     late_win_rate: float | None
@@ -241,11 +246,14 @@ def bucket_durations(rows: Sequence[Mapping[str, Any]]) -> list[DurationBucket]:
 def power_curve(hero: str, hero_id: int, buckets: list[DurationBucket]) -> PowerCurve:
     """Peak window and early/late classification.
 
+    The peak is the bucket with the highest win rate among buckets that start at
+    ``PEAK_FROM_MIN`` or later and have at least ``MIN_BUCKET_GAMES`` games.
+
     Early = matches shorter than ``EARLY_BEFORE_MIN`` minutes, late = ``LATE_FROM_MIN`` and
     longer. "late" if the late win rate is higher and a pooled two-proportion z-test gives
     p < ``POWER_ALPHA``; "early" if lower with p < ``POWER_ALPHA``; otherwise "flat".
     """
-    eligible = [b for b in buckets if b.games >= MIN_BUCKET_GAMES]
+    eligible = [b for b in buckets if b.games >= MIN_BUCKET_GAMES and b.from_min >= PEAK_FROM_MIN]
     peak = max(eligible, key=lambda b: b.win_rate).label if eligible else None
     early = [b for b in buckets if b.to_min is not None and b.to_min <= EARLY_BEFORE_MIN]
     late = [b for b in buckets if b.from_min >= LATE_FROM_MIN]
@@ -480,6 +488,27 @@ class LaneStats(BaseModel):
     worst_partners: list[LaneMatchup]
 
 
+def _matchups(table: Mapping[int, tuple[int, int, int]], min_games: int | None = None):
+    """LaneMatchup per other hero from (wins, draws, losses), skipping small pairs."""
+    floor = MIN_PAIR_GAMES if min_games is None else min_games
+    heroes_by_id = hero_by_id()
+    out = []
+    for other, (won, drawn, lost) in table.items():
+        games = won + drawn + lost
+        if games >= floor and other in heroes_by_id:
+            out.append(LaneMatchup(hero=heroes_by_id[other].display_name, hero_id=other,
+                                   games=games, lane_win_rate=won / games,
+                                   lane_loss_rate=lost / games))  # fmt: skip
+    return out
+
+
+def ranked(items: Sequence[LaneMatchup], best: bool, top: int = 5) -> list[LaneMatchup]:
+    """Top matchups by net lane result (win rate minus loss rate); more games first on ties."""
+    sign = 1 if best else -1
+    return sorted(items, key=lambda m: (-sign * (m.lane_win_rate - m.lane_loss_rate),
+                                         -m.games))[:top]  # fmt: skip
+
+
 def lane_result(own: Sequence[float], enemy: Sequence[float]) -> str:
     """ "win", "draw" or "loss" from average gold per hero on each side of the lane.
 
@@ -534,28 +563,12 @@ def lane_stats(
                 mate[p["hero_id"]][result] += 1
     n = sum(counts.values())
 
-    def matchups(table: dict[int, Counter]) -> list[LaneMatchup]:
-        heroes_by_id = hero_by_id()
-        out = []
-        for other, c in table.items():
-            games = sum(c.values())
-            if games >= MIN_PAIR_GAMES and other in heroes_by_id:
-                out.append(LaneMatchup(hero=heroes_by_id[other].display_name, hero_id=other,
-                                       games=games, lane_win_rate=c["win"] / games,
-                                       lane_loss_rate=c["loss"] / games))  # fmt: skip
-        return out
-
-    def ranked(items: list[LaneMatchup], best: bool) -> list[LaneMatchup]:
-        # Net lane result (win rate minus loss rate); more games first on ties.
-        sign = 1 if best else -1
-        return sorted(items, key=lambda m: (-sign * (m.lane_win_rate - m.lane_loss_rate),
-                                             -m.games))[:5]  # fmt: skip
-
     def rate(result: str) -> float | None:
         total = after[(result, True)] + after[(result, False)]
         return after[(result, True)] / total if total else None
 
-    opponents, partners = matchups(opp), matchups(mate)
+    opponents = _matchups({h: (c["win"], c["draw"], c["loss"]) for h, c in opp.items()})
+    partners = _matchups({h: (c["win"], c["draw"], c["loss"]) for h, c in mate.items()})
     return LaneStats(
         hero=hero_name,
         hero_id=hero_id,
@@ -569,6 +582,217 @@ def lane_stats(
         match_win_rate_after_lane_loss=rate("loss"),
         gold_10=spread(gold) if gold else Spread(median=0, q1=0, q3=0),
         last_hits_10=spread(lhs) if lhs else Spread(median=0, q1=0, q3=0),
+        best_opponents=ranked(opponents, best=True),
+        worst_opponents=ranked(opponents, best=False),
+        best_partners=ranked(partners, best=True),
+        worst_partners=ranked(partners, best=False),
+    )
+
+
+# STRATZ (ranked pubs, by medal and position)
+
+STRATZ_BUCKET_MIN = 5
+STRATZ_MIN_DURATION_MIN = 10
+STRATZ_DEFAULT_MODE = GameMode.RANKED_ALL_PICK
+STRATZ_MIN_PAIR_GAMES = 50
+_STRATZ_MODES = {
+    GameMode.RANKED_ALL_PICK: "ALL_PICK_RANKED",
+    GameMode.ALL_PICK: "ALL_PICK",
+    GameMode.TURBO: "TURBO",
+    GameMode.CAPTAINS_MODE: "CAPTAINS_MODE",
+    GameMode.SINGLE_DRAFT: "SINGLE_DRAFT",
+    GameMode.RANDOM_DRAFT: "RANDOM_DRAFT",
+    GameMode.ALL_RANDOM: "ALL_RANDOM",
+    GameMode.ABILITY_DRAFT: "ABILITY_DRAFT",
+}
+# STRATZ RankBracketBasicEnum pairs, in medal order.
+_BASIC_PAIRS = ("HERALD_GUARDIAN", "CRUSADER_ARCHON", "LEGEND_ANCIENT", "DIVINE_IMMORTAL")
+
+
+def stratz_medals(filters: Filters) -> list[str] | None:
+    """STRATZ ``RankBracket`` names covering the filter (single medals, Immortal included)."""
+    if filters.rank_range is None:
+        return None
+    low, high = filters.rank_range
+    return [b.name for b in RankBracket if low.tier <= b.tier <= high.tier]
+
+
+def stratz_basic_brackets(filters: Filters) -> list[str] | None:
+    """STRATZ medal pairs covering the filter; a pair is included if either medal is wanted."""
+    if filters.rank_range is None:
+        return None
+    low, high = filters.rank_range
+    return [
+        pair
+        for i, pair in enumerate(_BASIC_PAIRS)
+        if low.tier <= 2 * i + 2 and 2 * i + 1 <= high.tier
+    ]
+
+
+def stratz_position(filters: Filters) -> list[str] | None:
+    return [f"POSITION_{int(filters.position)}"] if filters.position is not None else None
+
+
+def stratz_mode(filters: Filters) -> str:
+    return _STRATZ_MODES[filters.game_mode or STRATZ_DEFAULT_MODE]
+
+
+def patch_window(filters: Filters) -> tuple[str, datetime, datetime | None]:
+    """Major patch name and its [start, end) dates from the reference patch list."""
+    name = explorer_patch(filters)
+    known = patches()
+    for i, patch in enumerate(known):
+        if patch.name == name:
+            end = known[i + 1].date if i + 1 < len(known) else None
+            return name, patch.date, end
+    raise ValueError(f"Unknown patch {name!r}")
+
+
+POWER_CURVE_DOC = """
+query PowerCurve($hero: Short!, $brackets: [RankBracket], $positions: [MatchPlayerPositionType],
+                 $modes: [GameModeEnumType]) {
+  heroStats {
+    winWeek(heroIds: [$hero], take: 100, bracketIds: $brackets, positionIds: $positions,
+            gameModeIds: $modes, groupBy: HERO_ID_DURATION_MINUTES) {
+      week durationMinute winCount matchCount
+    }
+  }
+}
+"""
+
+LANE_DOC = """
+query Lane($hero: Short!, $brackets: [RankBracketBasicEnum],
+           $positions: [MatchPlayerPositionType]) {
+  heroStats {
+    vs: laneOutcome(heroId: $hero, isWith: false, bracketBasicIds: $brackets,
+                    positionIds: $positions) {
+      heroId2 winCount drawCount lossCount stompWinCount stompLossCount
+    }
+    with: laneOutcome(heroId: $hero, isWith: true, bracketBasicIds: $brackets,
+                      positionIds: $positions) {
+      heroId2 winCount drawCount lossCount stompWinCount stompLossCount
+    }
+    stats(heroIds: [$hero], bracketBasicIds: $brackets, positionIds: $positions,
+          groupByTime: true, maxTime: 10) {
+      time matchCount networth cs
+    }
+  }
+}
+"""
+
+
+def _variables(**values: Any) -> dict[str, Any]:
+    return {k: v for k, v in values.items() if v is not None}
+
+
+def power_curve_variables(hero_id: int, filters: Filters) -> dict[str, Any]:
+    return _variables(
+        hero=hero_id,
+        brackets=stratz_medals(filters),
+        positions=stratz_position(filters),
+        modes=[stratz_mode(filters)],
+    )
+
+
+def lane_variables(hero_id: int, filters: Filters) -> dict[str, Any]:
+    return _variables(
+        hero=hero_id,
+        brackets=stratz_basic_brackets(filters),
+        positions=stratz_position(filters),
+    )
+
+
+@cached(ttl=TTL_AGGREGATE)
+async def _stratz_query(document: str, variables_json: str) -> Any:
+    return await get_stratz().query(document, json.loads(variables_json))
+
+
+async def fetch_stratz(document: str, variables: Mapping[str, Any]) -> Any:
+    """Cached STRATZ query (variables are serialised so lists can be part of the cache key)."""
+    return await _stratz_query(document, json.dumps(variables, sort_keys=True))
+
+
+def stratz_duration_rows(
+    rows: Sequence[Mapping[str, Any]], start: datetime, end: datetime | None
+) -> tuple[list[dict[str, int]], list[date]]:
+    """STRATZ weekly duration buckets inside [start, end) as OpenDota-style duration bins.
+
+    ``durationMinute`` is read as a 5-minute bucket index (0 = 0-5 min, 6 = 30-35 min, the
+    last one open-ended). STRATZ does not document this; the shape of the data fits it.
+    Only weeks that start on or after ``start`` are used, so no week mixes two patches.
+    Matches shorter than ``STRATZ_MIN_DURATION_MIN`` (remakes and abandons) are dropped.
+    """
+    bins: dict[int, list[int]] = defaultdict(lambda: [0, 0])
+    weeks = set()
+    for row in rows:
+        week = datetime.fromtimestamp(row["week"], UTC)
+        if week < start or (end is not None and week >= end):
+            continue
+        weeks.add(week.date())
+        index = int(row["durationMinute"])
+        if index * STRATZ_BUCKET_MIN < STRATZ_MIN_DURATION_MIN:
+            continue
+        b = bins[index]
+        b[0] += int(row["matchCount"])
+        b[1] += int(row["winCount"])
+    out = [
+        {"duration_bin": index * STRATZ_BUCKET_MIN * 60, "games_played": g, "wins": w}
+        for index, (g, w) in sorted(bins.items())
+    ]
+    return out, sorted(weeks)
+
+
+class PubLaneStats(BaseModel):
+    hero: str
+    hero_id: int
+    brackets: list[str] | None = Field(description="STRATZ medal pairs used; null for all.")
+    position: int | None
+    pairings: int = Field(
+        description=("Hero-vs-lane-opponent pairings behind the rates (a 1v2 lane counts twice).")
+    )
+    lane_win_rate: float
+    lane_draw_rate: float
+    lane_loss_rate: float
+    stomp_win_rate: float = Field(description="Share of pairings won by a stomp (STRATZ).")
+    stomp_loss_rate: float
+    networth_10_avg: float | None = Field(description="Mean net worth at minute 10.")
+    last_hits_10_avg: float | None = Field(description="Mean last hits at minute 10.")
+    best_opponents: list[LaneMatchup]
+    worst_opponents: list[LaneMatchup]
+    best_partners: list[LaneMatchup]
+    worst_partners: list[LaneMatchup]
+
+
+def pub_lane_stats(
+    hero_name: str, hero_id: int, filters: Filters, data: Mapping[str, Any]
+) -> PubLaneStats:
+    """Lane rates, stomps and best/worst lane opponents and partners from STRATZ."""
+    stats = data["heroStats"]
+
+    def table(rows):
+        return {r["heroId2"]: (r["winCount"], r["drawCount"], r["lossCount"]) for r in rows}
+
+    vs = stats.get("vs") or []
+    won = sum(r["winCount"] for r in vs)
+    drawn = sum(r["drawCount"] for r in vs)
+    lost = sum(r["lossCount"] for r in vs)
+    n = won + drawn + lost
+    minute_10 = next((r for r in stats.get("stats") or [] if r["time"] == LANE_MINUTE), None)
+    opponents = _matchups(table(vs), STRATZ_MIN_PAIR_GAMES)
+    partners = _matchups(table(stats.get("with") or []), STRATZ_MIN_PAIR_GAMES)
+    return PubLaneStats(
+        hero=hero_name,
+        hero_id=hero_id,
+        brackets=stratz_basic_brackets(filters),
+        position=int(filters.position) if filters.position is not None else None,
+        pairings=n,
+        lane_win_rate=won / n if n else 0.0,
+        lane_draw_rate=drawn / n if n else 0.0,
+        lane_loss_rate=lost / n if n else 0.0,
+        stomp_win_rate=sum(r["stompWinCount"] for r in vs) / n if n else 0.0,
+        stomp_loss_rate=sum(r["stompLossCount"] for r in vs) / n if n else 0.0,
+        networth_10_avg=minute_10["networth"] if minute_10 else None,
+        last_hits_10_avg=minute_10["cs"] if minute_10 else None,
         best_opponents=ranked(opponents, best=True),
         worst_opponents=ranked(opponents, best=False),
         best_partners=ranked(partners, best=True),
