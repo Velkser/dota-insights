@@ -73,7 +73,11 @@ def wilson_interval(successes: int, n: int, confidence: float = 0.95) -> Interva
     denom = 1 + z2 / n
     centre = (p + z2 / (2 * n)) / denom
     margin = z * math.sqrt(p * (1 - p) / n + z2 / (4 * n * n)) / denom
-    return Interval(max(0.0, centre - margin), min(1.0, centre + margin))
+    # At p̂ = 0 or 1 the bound is exactly 0 or 1; set it directly so float rounding
+    # (which differs between platforms' libm) cannot leave a tiny residue.
+    low = 0.0 if successes == 0 else max(0.0, centre - margin)
+    high = 1.0 if successes == n else min(1.0, centre + margin)
+    return Interval(low, high)
 
 
 def bootstrap_ci(
