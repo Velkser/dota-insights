@@ -45,7 +45,7 @@ from dota_insights.db.models import (
     PatchBracketTotal,
 )
 from dota_insights.sources.opendota import OpenDotaClient
-from dota_insights.sources.stratz import StratzClient
+from dota_insights.sources.stratz import StratzClient, StratzQueryError
 
 FIXTURES = Path(__file__).parent / "fixtures" / "collector"
 NOW = datetime(2026, 11, 4, 18, 0, tzinfo=UTC)
@@ -556,6 +556,41 @@ async def test_enrich_retries_unparsed_matches_later(factory):
     assert "m1: match(id: 1)" in asked[0] and "m2:" not in asked[0]
     with factory() as session:
         assert session.get(Match, (1, start)).detail_attempts == 1
+    await ctx.opendota.aclose()
+    await ctx.stratz.aclose()
+
+
+async def test_enrich_keeps_resolved_matches_when_stratz_fails_some_fields(factory):
+    match_id, start = stored_stratz_match(factory)
+    with factory.begin() as session:
+        store_summaries(session, [public_row(555, start)])
+
+    def stratz_handler(request: httpx.Request) -> httpx.Response:
+        error = {"message": "Error trying to resolve field 'm555'.", "path": ["m555"]}
+        data = stratz_fixture() | {"m555": None}
+        return httpx.Response(200, json={"data": data, "errors": [error]})
+
+    ctx = make_context(factory, FakeOpenDota(), stratz_handler)
+    result = await jobs.job_enrich(ctx)
+    assert (result.rows, result.detail) == (1, "calls=1 not_found=1")
+    with factory() as session:
+        assert session.get(Match, (555, start.replace(tzinfo=None))).detail_attempts == 1
+        assert session.get(Match, (match_id, start.replace(tzinfo=None))).has_details
+    await ctx.opendota.aclose()
+    await ctx.stratz.aclose()
+
+
+async def test_enrich_still_fails_on_other_query_errors(factory):
+    start = NOW - timedelta(hours=2)
+    with factory.begin() as session:
+        store_summaries(session, [public_row(1, start)])
+
+    def stratz_handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, json={"data": None, "errors": [{"message": "syntax error"}]})
+
+    ctx = make_context(factory, FakeOpenDota(), stratz_handler)
+    with pytest.raises(StratzQueryError):
+        await jobs.job_enrich(ctx)
     await ctx.opendota.aclose()
     await ctx.stratz.aclose()
 

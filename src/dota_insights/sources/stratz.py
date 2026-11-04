@@ -55,11 +55,15 @@ class StratzUnavailableError(StratzError):
 
 
 class StratzQueryError(StratzError):
-    """The query reached STRATZ but came back with GraphQL ``errors``."""
+    """The query reached STRATZ but came back with GraphQL ``errors``.
 
-    def __init__(self, message: str, *, errors: list[dict[str, Any]]) -> None:
+    ``data`` keeps whatever fields did resolve, so callers batching aliased fields can use them.
+    """
+
+    def __init__(self, message: str, *, errors: list[dict[str, Any]], data: Any = None) -> None:
         super().__init__(message, status_code=200)
         self.errors = errors
+        self.data = data
 
 
 class StratzClient:
@@ -171,7 +175,9 @@ class StratzClient:
                 raise StratzError("STRATZ returned invalid JSON", status_code=status) from exc
             if body.get("errors"):
                 messages = "; ".join(str(e.get("message", e)) for e in body["errors"])
-                raise StratzQueryError(f"STRATZ query failed: {messages}", errors=body["errors"])
+                raise StratzQueryError(
+                    f"STRATZ query failed: {messages}", errors=body["errors"], data=body.get("data")
+                )
             return body.get("data")
 
         raise AssertionError("unreachable")  # pragma: no cover

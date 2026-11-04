@@ -16,6 +16,7 @@
 import hashlib
 import json
 import logging
+import re
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
@@ -37,6 +38,7 @@ from dota_insights.db.models import (
     Match,
     ReferenceSnapshot,
 )
+from dota_insights.sources.stratz import StratzQueryError
 
 log = logging.getLogger(__name__)
 
@@ -360,6 +362,19 @@ async def job_backfill(ctx: CollectorContext) -> JobResult:
     return JobResult(rows=stored, detail=f"calls={spent} gaps_filled={filled}")
 
 
+def _failed_fields(errors: list[dict]) -> set[str | None]:
+    """The top-level field each GraphQL error belongs to (None when it names none)."""
+    fields: set[str | None] = set()
+    for error in errors:
+        path = error.get("path") or []
+        if path:
+            fields.add(str(path[0]))
+        else:
+            found = re.search(r"resolve field '([^']+)'", str(error.get("message", "")))
+            fields.add(found.group(1) if found else None)
+    return fields
+
+
 async def job_enrich(ctx: CollectorContext) -> JobResult:
     """Fetch player stats for recent draft-level matches from STRATZ, a batch per call."""
     if ctx.stratz is None:
@@ -392,7 +407,15 @@ async def job_enrich(ctx: CollectorContext) -> JobResult:
         if ctx.out_of_time():
             break
         batch = candidates[start : start + per_call]
-        data = await ctx.call_stratz(stratz_matches_query([m.match_id for m in batch]))
+        aliases = {f"m{m.match_id}" for m in batch}
+        try:
+            data = await ctx.call_stratz(stratz_matches_query([m.match_id for m in batch]))
+        except StratzQueryError as exc:
+            # STRATZ fails the field of a match it has not parsed yet but still answers the rest;
+            # those matches fall through to not_found and are retried later.
+            if not _failed_fields(exc.errors) <= aliases:
+                raise
+            data = exc.data
         calls += 1
         with ctx.session_factory.begin() as session:
             for match in batch:
