@@ -1,0 +1,614 @@
+{
+ "status": "ok",
+ "result": [
+  {
+   "hero": "Anti-Mage",
+   "hero_id": 1,
+   "games": 80,
+   "wins": [
+    {
+     "minute": 0,
+     "games": 80,
+     "gold_median": 600,
+     "xp_median": 0
+    },
+    {
+     "minute": 1,
+     "games": 79,
+     "gold_median": 1128,
+     "xp_median": 700
+    },
+    {
+     "minute": 2,
+     "games": 78,
+     "gold_median": 1672,
+     "xp_median": 1400
+    },
+    {
+     "minute": 3,
+     "games": 77,
+     "gold_median": 2232,
+     "xp_median": 2100
+    },
+    {
+     "minute": 4,
+     "games": 76,
+     "gold_median": 2808,
+     "xp_median": 2800
+    },
+    {
+     "minute": 5,
+     "games": 75,
+     "gold_median": 3400,
+     "xp_median": 3500
+    },
+    {
+     "minute": 6,
+     "games": 74,
+     "gold_median": 4008,
+     "xp_median": 4200
+    },
+    {
+     "minute": 7,
+     "games": 73,
+     "gold_median": 4632,
+     "xp_median": 4900
+    },
+    {
+     "minute": 8,
+     "games": 72,
+     "gold_median": 5272,
+     "xp_median": 5600
+    },
+    {
+     "minute": 9,
+     "games": 71,
+     "gold_median": 5928,
+     "xp_median": 6300
+    },
+    {
+     "minute": 10,
+     "games": 70,
+     "gold_median": 6600,
+     "xp_median": 7000
+    },
+    {
+     "minute": 11,
+     "games": 69,
+     "gold_median": 7288,
+     "xp_median": 7700
+    },
+    {
+     "minute": 12,
+     "games": 68,
+     "gold_median": 7992,
+     "xp_median": 8400
+    },
+    {
+     "minute": 13,
+     "games": 67,
+     "gold_median": 8712,
+     "xp_median": 9100
+    },
+    {
+     "minute": 14,
+     "games": 66,
+     "gold_median": 9448,
+     "xp_median": 9800
+    },
+    {
+     "minute": 15,
+     "games": 65,
+     "gold_median": 10200,
+     "xp_median": 10500
+    },
+    {
+     "minute": 16,
+     "games": 64,
+     "gold_median": 10968,
+     "xp_median": 11200
+    },
+    {
+     "minute": 17,
+     "games": 63,
+     "gold_median": 11752,
+     "xp_median": 11900
+    },
+    {
+     "minute": 18,
+     "games": 62,
+     "gold_median": 12552,
+     "xp_median": 12600
+    },
+    {
+     "minute": 19,
+     "games": 61,
+     "gold_median": 13368,
+     "xp_median": 13300
+    },
+    {
+     "minute": 20,
+     "games": 60,
+     "gold_median": 14200,
+     "xp_median": 14000
+    },
+    {
+     "minute": 21,
+     "games": 59,
+     "gold_median": 15048,
+     "xp_median": 14700
+    },
+    {
+     "minute": 22,
+     "games": 58,
+     "gold_median": 15912,
+     "xp_median": 15400
+    },
+    {
+     "minute": 23,
+     "games": 57,
+     "gold_median": 16792,
+     "xp_median": 16100
+    },
+    {
+     "minute": 24,
+     "games": 56,
+     "gold_median": 17688,
+     "xp_median": 16800
+    },
+    {
+     "minute": 25,
+     "games": 55,
+     "gold_median": 18600,
+     "xp_median": 17500
+    },
+    {
+     "minute": 26,
+     "games": 54,
+     "gold_median": 19528,
+     "xp_median": 18200
+    },
+    {
+     "minute": 27,
+     "games": 53,
+     "gold_median": 20472,
+     "xp_median": 18900
+    },
+    {
+     "minute": 28,
+     "games": 52,
+     "gold_median": 21432,
+     "xp_median": 19600
+    },
+    {
+     "minute": 29,
+     "games": 51,
+     "gold_median": 22408,
+     "xp_median": 20300
+    },
+    {
+     "minute": 30,
+     "games": 50,
+     "gold_median": 23400,
+     "xp_median": 21000
+    }
+   ],
+   "losses": [
+    {
+     "minute": 0,
+     "games": 70,
+     "gold_median": 600,
+     "xp_median": 0
+    },
+    {
+     "minute": 1,
+     "games": 69,
+     "gold_median": 1035,
+     "xp_median": 620
+    },
+    {
+     "minute": 2,
+     "games": 68,
+     "gold_median": 1480,
+     "xp_median": 1240
+    },
+    {
+     "minute": 3,
+     "games": 67,
+     "gold_median": 1935,
+     "xp_median": 1860
+    },
+    {
+     "minute": 4,
+     "games": 66,
+     "gold_median": 2400,
+     "xp_median": 2480
+    },
+    {
+     "minute": 5,
+     "games": 65,
+     "gold_median": 2875,
+     "xp_median": 3100
+    },
+    {
+     "minute": 6,
+     "games": 64,
+     "gold_median": 3360,
+     "xp_median": 3720
+    },
+    {
+     "minute": 7,
+     "games": 63,
+     "gold_median": 3855,
+     "xp_median": 4340
+    },
+    {
+     "minute": 8,
+     "games": 62,
+     "gold_median": 4360,
+     "xp_median": 4960
+    },
+    {
+     "minute": 9,
+     "games": 61,
+     "gold_median": 4875,
+     "xp_median": 5580
+    },
+    {
+     "minute": 10,
+     "games": 60,
+     "gold_median": 5400,
+     "xp_median": 6200
+    },
+    {
+     "minute": 11,
+     "games": 59,
+     "gold_median": 5935,
+     "xp_median": 6820
+    },
+    {
+     "minute": 12,
+     "games": 58,
+     "gold_median": 6480,
+     "xp_median": 7440
+    },
+    {
+     "minute": 13,
+     "games": 57,
+     "gold_median": 7035,
+     "xp_median": 8060
+    },
+    {
+     "minute": 14,
+     "games": 56,
+     "gold_median": 7600,
+     "xp_median": 8680
+    },
+    {
+     "minute": 15,
+     "games": 55,
+     "gold_median": 8175,
+     "xp_median": 9300
+    },
+    {
+     "minute": 16,
+     "games": 54,
+     "gold_median": 8760,
+     "xp_median": 9920
+    },
+    {
+     "minute": 17,
+     "games": 53,
+     "gold_median": 9355,
+     "xp_median": 10540
+    },
+    {
+     "minute": 18,
+     "games": 52,
+     "gold_median": 9960,
+     "xp_median": 11160
+    },
+    {
+     "minute": 19,
+     "games": 51,
+     "gold_median": 10575,
+     "xp_median": 11780
+    },
+    {
+     "minute": 20,
+     "games": 50,
+     "gold_median": 11200,
+     "xp_median": 12400
+    },
+    {
+     "minute": 21,
+     "games": 49,
+     "gold_median": 11835,
+     "xp_median": 13020
+    },
+    {
+     "minute": 22,
+     "games": 48,
+     "gold_median": 12480,
+     "xp_median": 13640
+    },
+    {
+     "minute": 23,
+     "games": 47,
+     "gold_median": 13135,
+     "xp_median": 14260
+    },
+    {
+     "minute": 24,
+     "games": 46,
+     "gold_median": 13800,
+     "xp_median": 14880
+    },
+    {
+     "minute": 25,
+     "games": 45,
+     "gold_median": 14475,
+     "xp_median": 15500
+    },
+    {
+     "minute": 26,
+     "games": 44,
+     "gold_median": 15160,
+     "xp_median": 16120
+    },
+    {
+     "minute": 27,
+     "games": 43,
+     "gold_median": 15855,
+     "xp_median": 16740
+    },
+    {
+     "minute": 28,
+     "games": 42,
+     "gold_median": 16560,
+     "xp_median": 17360
+    },
+    {
+     "minute": 29,
+     "games": 41,
+     "gold_median": 17275,
+     "xp_median": 17980
+    },
+    {
+     "minute": 30,
+     "games": 40,
+     "gold_median": 18000,
+     "xp_median": 18600
+    },
+    {
+     "minute": 31,
+     "games": 39,
+     "gold_median": 18735,
+     "xp_median": 19220
+    },
+    {
+     "minute": 32,
+     "games": 38,
+     "gold_median": 19480,
+     "xp_median": 19840
+    },
+    {
+     "minute": 33,
+     "games": 37,
+     "gold_median": 20235,
+     "xp_median": 20460
+    },
+    {
+     "minute": 34,
+     "games": 36,
+     "gold_median": 21000,
+     "xp_median": 21080
+    },
+    {
+     "minute": 35,
+     "games": 35,
+     "gold_median": 21775,
+     "xp_median": 21700
+    }
+   ]
+  },
+  {
+   "hero": "Medusa",
+   "hero_id": 94,
+   "games": 60,
+   "wins": [
+    {
+     "minute": 0,
+     "games": 60,
+     "gold_median": 600,
+     "xp_median": 0
+    },
+    {
+     "minute": 1,
+     "games": 59,
+     "gold_median": 1079,
+     "xp_median": 650
+    },
+    {
+     "minute": 2,
+     "games": 58,
+     "gold_median": 1576,
+     "xp_median": 1300
+    },
+    {
+     "minute": 3,
+     "games": 57,
+     "gold_median": 2091,
+     "xp_median": 1950
+    },
+    {
+     "minute": 4,
+     "games": 56,
+     "gold_median": 2624,
+     "xp_median": 2600
+    },
+    {
+     "minute": 5,
+     "games": 55,
+     "gold_median": 3175,
+     "xp_median": 3250
+    },
+    {
+     "minute": 6,
+     "games": 54,
+     "gold_median": 3744,
+     "xp_median": 3900
+    },
+    {
+     "minute": 7,
+     "games": 53,
+     "gold_median": 4331,
+     "xp_median": 4550
+    },
+    {
+     "minute": 8,
+     "games": 52,
+     "gold_median": 4936,
+     "xp_median": 5200
+    },
+    {
+     "minute": 9,
+     "games": 51,
+     "gold_median": 5559,
+     "xp_median": 5850
+    },
+    {
+     "minute": 10,
+     "games": 50,
+     "gold_median": 6200,
+     "xp_median": 6500
+    },
+    {
+     "minute": 11,
+     "games": 49,
+     "gold_median": 6859,
+     "xp_median": 7150
+    },
+    {
+     "minute": 12,
+     "games": 48,
+     "gold_median": 7536,
+     "xp_median": 7800
+    },
+    {
+     "minute": 13,
+     "games": 47,
+     "gold_median": 8231,
+     "xp_median": 8450
+    },
+    {
+     "minute": 14,
+     "games": 46,
+     "gold_median": 8944,
+     "xp_median": 9100
+    },
+    {
+     "minute": 15,
+     "games": 45,
+     "gold_median": 9675,
+     "xp_median": 9750
+    },
+    {
+     "minute": 16,
+     "games": 44,
+     "gold_median": 10424,
+     "xp_median": 10400
+    },
+    {
+     "minute": 17,
+     "games": 43,
+     "gold_median": 11191,
+     "xp_median": 11050
+    },
+    {
+     "minute": 18,
+     "games": 42,
+     "gold_median": 11976,
+     "xp_median": 11700
+    },
+    {
+     "minute": 19,
+     "games": 41,
+     "gold_median": 12779,
+     "xp_median": 12350
+    },
+    {
+     "minute": 20,
+     "games": 40,
+     "gold_median": 13600,
+     "xp_median": 13000
+    },
+    {
+     "minute": 21,
+     "games": 39,
+     "gold_median": 14439,
+     "xp_median": 13650
+    },
+    {
+     "minute": 22,
+     "games": 38,
+     "gold_median": 15296,
+     "xp_median": 14300
+    },
+    {
+     "minute": 23,
+     "games": 37,
+     "gold_median": 16171,
+     "xp_median": 14950
+    },
+    {
+     "minute": 24,
+     "games": 36,
+     "gold_median": 17064,
+     "xp_median": 15600
+    },
+    {
+     "minute": 25,
+     "games": 35,
+     "gold_median": 17975,
+     "xp_median": 16250
+    },
+    {
+     "minute": 26,
+     "games": 34,
+     "gold_median": 18904,
+     "xp_median": 16900
+    },
+    {
+     "minute": 27,
+     "games": 33,
+     "gold_median": 19851,
+     "xp_median": 17550
+    },
+    {
+     "minute": 28,
+     "games": 32,
+     "gold_median": 20816,
+     "xp_median": 18200
+    },
+    {
+     "minute": 29,
+     "games": 31,
+     "gold_median": 21799,
+     "xp_median": 18850
+    },
+    {
+     "minute": 30,
+     "games": 30,
+     "gold_median": 22800,
+     "xp_median": 19500
+    }
+   ],
+   "losses": null
+  }
+ ],
+ "sample_size": 100,
+ "source": [
+  "opendota"
+ ]
+}
