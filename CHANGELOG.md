@@ -8,6 +8,17 @@ All notable changes to this project. The format follows
 
 ### Added
 
+- Developer API prototype (p5-06, `dota_insights.api`, [docs/api.md](docs/api.md)): read-only
+  `GET /api/v1/...` endpoints for hero overview, matchups and builds, tier list, item overview,
+  match analysis and player profile. Each runs its MCP tool through `mcp.call_tool`, so it returns
+  the same envelope and shares the timeouts, error envelopes, logging and source caps. Requests
+  need `Authorization: Bearer <key>`; keys are stored as HMAC-SHA256 with
+  `DOTA_INSIGHTS_API_KEY_SECRET` in the new `api_keys` table (migration `0005`) and managed with
+  `dota-insights api-keys create|list|revoke`. Each key has per-minute and per-day quotas
+  (`DOTA_INSIGHTS_API_KEY_PER_MINUTE` / `_PER_DAY`, or per key), enforced by the existing rate
+  limiter, and 401/404/422/429/503 answers are `error` envelopes. `/api/v1/openapi.json` serves an
+  OpenAPI 3.1 document generated from the routes and the tools' schemas. Usage events gain a
+  `channel` column (`mcp` or `api`) and the usage report counts calls per channel.
 - Russian hero and item names (p9-11): `reference/data/names_ru.json` lists the usual Russian
   name and community nicknames for all 127 heroes and 114 common items ("Пудж", "Инвокер", "АМ",
   "БКБ", "Блинк"). Every hero and item argument accepts them, case-insensitively and with ё/е

@@ -72,6 +72,14 @@ class Settings(BaseSettings):
     # Bearer token for GET /admin/usage; unset, the route answers 404.
     admin_token: str | None = None
 
+    # Developer REST API (/api/v1, dota_insights.api). Keys are stored as HMAC-SHA256 with this
+    # secret; unset, the API answers 503 and no key can be created. Changing it invalidates every
+    # key. Per-key quotas default to these; ``dota-insights api-keys create`` can set others.
+    # Heavy tools also count against rate_limit_heavy_* per key.
+    api_key_secret: str | None = None
+    api_key_per_minute: int = 30
+    api_key_per_day: int = 1000
+
     # Optional Telegram alerts on quota exhaustion and error-rate spikes.
     telegram_bot_token: str | None = None
     telegram_chat_id: str | None = None

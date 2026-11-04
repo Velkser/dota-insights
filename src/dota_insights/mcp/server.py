@@ -5,6 +5,7 @@ from starlette.requests import Request
 from starlette.responses import HTMLResponse, JSONResponse
 
 from dota_insights import __version__
+from dota_insights.api.routes import register_api_routes
 from dota_insights.config import settings
 from dota_insights.logging import ToolCallLoggingMiddleware, setup_logging
 from dota_insights.mcp import site
@@ -30,6 +31,7 @@ mcp.add_middleware(ErrorEnvelopeMiddleware())
 register_all(mcp)
 register_prompts(mcp)
 register_admin_routes(mcp)
+register_api_routes(mcp)
 
 
 @mcp.custom_route("/health", methods=["GET"], include_in_schema=False)

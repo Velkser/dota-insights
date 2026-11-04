@@ -571,6 +571,9 @@ class UsageEvent(Base):
     client_name: Mapped[str | None] = mapped_column(String(100))
     client_version: Mapped[str | None] = mapped_column(String(50))
     client_hash: Mapped[str | None] = mapped_column(String(16))
+    channel: Mapped[str] = mapped_column(
+        String(8), server_default=text("'mcp'"), comment="mcp | api (the /api/v1 REST routes)"
+    )
 
 
 class UsageFeedback(Base):
@@ -600,3 +603,22 @@ class PlayerOptOut(Base):
     account_id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     note: Mapped[str | None] = mapped_column(String(200))
+
+
+class ApiKey(Base):
+    """A Developer API key (p5-06). Only an HMAC-SHA256 of the key is stored, never the key."""
+
+    __tablename__ = "api_keys"
+
+    id: Mapped[str] = mapped_column(String(16), primary_key=True)
+    key_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    prefix: Mapped[str] = mapped_column(String(12), comment="first characters, to recognise a key")
+    name: Mapped[str] = mapped_column(String(100), comment="who or what the key is for")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    per_minute: Mapped[int | None] = mapped_column(
+        Integer, comment="calls a minute; null: settings.api_key_per_minute"
+    )
+    per_day: Mapped[int | None] = mapped_column(
+        Integer, comment="calls a day; null: settings.api_key_per_day"
+    )

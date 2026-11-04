@@ -176,6 +176,7 @@ def build_report(session: Session, now: datetime, days: int = 30, top: int = 20)
             UsageEvent.client_hash,
             UsageEvent.latency_ms,
             UsageEvent.client_name,
+            UsageEvent.channel,
         ).where(UsageEvent.ts >= since)
     ).all()
     status = Counter(r.status for r in rows)
@@ -196,6 +197,8 @@ def build_report(session: Session, now: datetime, days: int = 30, top: int = 20)
             "wrong_answer_reports": len(wrong),
             "feature_requests": len(requests),
         },
+        # Calls per channel: "mcp" (MCP clients) and "api" (the /api/v1 REST routes).
+        "channels": dict(Counter(r.channel or "mcp" for r in rows).most_common()),
         "per_day": _period_rows(rows, _day),
         "per_week": _period_rows(rows, week_of),
         "top_tools": [t["tool"] for t in tools[:top]],
@@ -220,6 +223,7 @@ def format_report(report: dict[str, Any]) -> str:
         f"calls {t['calls']}  unique clients {t['unique_clients']}  "
         f"ok {t['ok']}  insufficient {t['insufficient_data']}  error {t['error']}  "
         f"success {_pct(t['success_rate'])}  p50 {_ms(t['p50_ms'])}  p95 {_ms(t['p95_ms'])}",
+        "channels " + "  ".join(f"{k} {v}" for k, v in report.get("channels", {}).items()),
         "",
         "Per week:",
         *(

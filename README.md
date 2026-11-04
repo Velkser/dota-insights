@@ -368,6 +368,9 @@ seconds until the window resets. Configure with `DOTA_INSIGHTS_RATE_LIMIT_PER_MI
   questions no tool could answer (`suggest_feature`). `uv run dota-insights usage flush` moves
   the queue in now. Reports are limited to 3 a minute and 30 a day per client
   (`DOTA_INSIGHTS_RATE_LIMIT_FEEDBACK_PER_MINUTE` / `_PER_DAY`).
+- Developer REST API: `GET /api/v1/...` endpoints over the same tools, with per-key quotas
+  (`DOTA_INSIGHTS_API_KEY_SECRET`, `uv run dota-insights api-keys create <name>`); see
+  [docs/api.md](docs/api.md). API calls appear in the usage report with `channel: "api"`.
 - Uptime: point an external monitor (UptimeRobot, Better Stack or similar; free tiers are enough)
   at `https://dota-insights.vercel.app/health` with a 5-minute interval, expecting HTTP 200 and
   the keyword `"ok"`. `/health` does no I/O, so it measures the deployment itself; use `/status`
