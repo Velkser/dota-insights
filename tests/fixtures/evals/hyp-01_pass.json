@@ -1,0 +1,74 @@
+{
+  "note": "Hand-written in the harness transcript format (no API key was available when the scoring tests were added). Replace with a real recording from evals/reports when one exists.",
+  "transcript": {
+    "case_id": "hyp-01",
+    "model": "claude-opus-5-5",
+    "calls": [
+      {
+        "name": "test_hypothesis",
+        "arguments": {
+          "hero": "PA",
+          "group_a": [
+            {
+              "field": "item_minute",
+              "item": "bkb",
+              "op": "<",
+              "value": 20
+            }
+          ],
+          "group_b": [
+            {
+              "field": "item_minute",
+              "item": "bkb",
+              "op": ">=",
+              "value": 20
+            }
+          ]
+        },
+        "status": "ok",
+        "envelope": {
+          "status": "ok",
+          "result": {
+            "test": "chi_square",
+            "p_value": 0.003,
+            "effect_size": 0.06,
+            "significant": true,
+            "group_a": {
+              "matches": 2100,
+              "win_rate": 0.58
+            },
+            "group_b": {
+              "matches": 3900,
+              "win_rate": 0.52
+            }
+          },
+          "sample_size": 6000,
+          "caveats": [],
+          "source": [
+            "stratz"
+          ]
+        },
+        "is_error": false,
+        "error": null,
+        "latency_s": 1.2
+      }
+    ],
+    "answer": "Yes, but read it carefully. PAs with BKB before 20 minutes won 58% of 2,100 games versus 52% of 3,900 games for later BKBs (p = 0.003). That is a correlation, not proof that early BKB causes wins: players who finish it early are often already ahead.",
+    "turns": 2,
+    "api_calls": 2,
+    "stop_reason": "end_turn",
+    "hit_turn_cap": false,
+    "latency_s": 9.5,
+    "model_latency_s": 7.0,
+    "tool_latency_s": 2.5,
+    "input_tokens": 24000,
+    "output_tokens": 900,
+    "cache_read_tokens": 0,
+    "error": null
+  },
+  "expected": {
+    "passed": true,
+    "failed": [],
+    "failed_checks": []
+  }
+}

@@ -2,6 +2,7 @@
 tests
 docs
 scripts
+evals
 .github
 .claude
 .env

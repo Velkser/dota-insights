@@ -1,0 +1,68 @@
+{
+  "note": "Hand-written in the harness transcript format (no API key was available when the scoring tests were added). Replace with a real recording from evals/reports when one exists.",
+  "transcript": {
+    "case_id": "meta-07",
+    "model": "claude-opus-5-5",
+    "calls": [
+      {
+        "name": "get_hero_overview",
+        "arguments": {
+          "hero": "Фантомка",
+          "filters": {
+            "rank_bracket": "ancient"
+          }
+        },
+        "status": "ok",
+        "envelope": {
+          "status": "ok",
+          "result": {
+            "hero": "Phantom Assassin",
+            "patch": "7.41",
+            "current": {
+              "hero": "Phantom Assassin",
+              "hero_id": 44,
+              "matches": 48210,
+              "wins": 24683,
+              "win_rate": 0.512,
+              "win_rate_ci": [
+                0.5075,
+                0.5165
+              ],
+              "pick_rate": 0.083
+            }
+          },
+          "sample_size": 48210,
+          "caveats": [],
+          "source": [
+            "stratz"
+          ],
+          "filters": {
+            "patch": "7.41",
+            "rank_bracket": "ancient",
+            "min_sample": 100
+          }
+        },
+        "is_error": false,
+        "error": null,
+        "latency_s": 1.2
+      }
+    ],
+    "answer": "На патче 7.41 у Phantom Assassin на Древних винрейт около 51,2% (95% интервал 50,8–51,7%) по 48 210 матчам. Это чуть выше среднего, но разница небольшая.",
+    "turns": 2,
+    "api_calls": 2,
+    "stop_reason": "end_turn",
+    "hit_turn_cap": false,
+    "latency_s": 9.5,
+    "model_latency_s": 7.0,
+    "tool_latency_s": 2.5,
+    "input_tokens": 24000,
+    "output_tokens": 900,
+    "cache_read_tokens": 0,
+    "error": null
+  },
+  "expected": {
+    "passed": true,
+    "failed": [],
+    "failed_checks": []
+  }
+}

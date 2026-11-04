@@ -8,6 +8,10 @@ All notable changes to this project. The format follows
 
 ### Added
 
+- Evals (`evals/`): 63 English and Russian player questions with expected tools, argument
+  matchers and answer checks; a harness that lets a Claude model answer them with the in-process
+  server or a remote URL and scores tool choice, arguments, envelope status and answer caveats;
+  JSON and Markdown reports; an opt-in `Live evals` workflow (`workflow_dispatch`).
 - Vercel deployment: stateless ASGI entry point `dota_insights.mcp.asgi:app` (loaded by the
   root `app.py`), and
   `DATABASE_URL` from the Neon integration as a fallback for `DOTA_INSIGHTS_DATABASE_URL`.

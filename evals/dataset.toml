@@ -1,0 +1,713 @@
+# Eval questions for the dota-insights MCP server (tracker tasks p3-06, p3-10).
+#
+# Questions are paraphrased from docs/research/user-questions.md (`source` is the question ID)
+# and written the way players type them, in English and Russian. Each case lists:
+#
+#   expected_tools   tools that can answer it; calling any one of them counts as the right choice
+#   args             argument path -> matcher, checked on calls to an expected tool that has that
+#                    parameter (matchers: hero, hero_any, item, equals, any_of, contains,
+#                    contains_any, includes, range, present; see evals/scoring.py)
+#   checks           answer checks: sample_size, patch, correlation_caveat, no_causal_claim,
+#                    language, mentions_any, not_mentions, field, answer_number
+#   allowed_status   envelope statuses that count as the tool working (default ok and
+#                    insufficient_data; error never counts)
+#
+# Match 9073999945 and accounts 56939869 / 321580662 are real and public (recorded in
+# tests/fixtures). Rates in envelopes are fractions (0.52), answers usually say percent.
+
+# --- meta and heroes ---------------------------------------------------------------------
+
+[[case]]
+id = "meta-01"
+category = "meta"
+lang = "en"
+source = "MET-01"
+question = "Which heroes got better or worse after the last patch?"
+expected_tools = ["find_meta_trends", "get_patch_summary"]
+checks = [{ type = "patch" }, { type = "sample_size" }]
+
+[[case]]
+id = "meta-02"
+category = "meta"
+lang = "ru"
+source = "MET-03"
+question = "Дай тир-лист керри на текущем патче"
+expected_tools = ["get_tier_list"]
+args = { "filters.position" = { any_of = [1] } }
+checks = [
+  { type = "language" },
+  { type = "sample_size" },
+  { type = "field", key = "win_rate", range = [0, 1] },
+]
+
+[[case]]
+id = "meta-03"
+category = "meta"
+lang = "en"
+source = "HER-11"
+question = "Which rarely picked heroes are secretly winning a lot right now?"
+expected_tools = ["find_hidden_gems"]
+checks = [
+  { type = "sample_size" },
+  { type = "mentions_any", label = "significance", patterns = ["significan", "small sample", "noise", "shrink", "confidence", "interval"] },
+]
+
+[[case]]
+id = "meta-04"
+category = "meta"
+lang = "ru"
+source = "MET-13"
+question = "Что сейчас в мете на рейтинге Архонт–Легенда?"
+expected_tools = ["get_tier_list", "find_meta_trends"]
+args = { "filters.rank_bracket" = { any_of = ["archon-legend", "archon", "legend"] } }
+checks = [{ type = "language" }, { type = "sample_size" }]
+
+[[case]]
+id = "meta-05"
+category = "meta"
+lang = "en"
+source = "MET-02"
+question = "What changed in patch 7.39, in short?"
+expected_tools = ["get_patch_summary"]
+args = { patch = { contains = "7.39" } }
+checks = [{ type = "patch" }]
+
+[[case]]
+id = "meta-06"
+category = "meta"
+lang = "en"
+source = "HER-18"
+question = "How has Pudge's win rate moved over the last few patches?"
+expected_tools = ["get_hero_patch_history"]
+args = { hero = { hero = "Pudge" } }
+checks = [{ type = "patch" }, { type = "field", key = "win_rate", range = [0, 1] }]
+
+[[case]]
+id = "meta-07"
+category = "meta"
+lang = "ru"
+source = "HER-01"
+question = "Какой сейчас винрейт у Фантомки на Древних?"
+expected_tools = ["get_hero_overview"]
+args = { hero = { hero = "Phantom Assassin" }, "filters.rank_bracket" = { contains = "ancient" } }
+checks = [
+  { type = "language" },
+  { type = "sample_size" },
+  { type = "field", key = "win_rate", range = [0, 1] },
+]
+
+[[case]]
+id = "meta-08"
+category = "meta"
+lang = "en"
+source = "HER-10"
+question = "Pudge or Lion as a position 4 in Legend - which one is stronger right now?"
+expected_tools = ["compare_heroes"]
+args = { heroes = { hero = ["Pudge", "Lion"] }, "filters.position" = { any_of = [4] }, "filters.rank_bracket" = { contains = "legend" } }
+checks = [
+  { type = "sample_size" },
+  { type = "mentions_any", label = "significance", patterns = ["significan", "no real difference", "overlap", "noise", "within", "interval", "too close"] },
+]
+
+[[case]]
+id = "meta-09"
+category = "meta"
+lang = "ru"
+source = "HER-16"
+question = "У Мипо высокий винрейт только потому, что его мало кто берёт?"
+expected_tools = ["get_hero_overview", "find_hidden_gems"]
+args = { hero = { hero = "Meepo" } }
+checks = [
+  { type = "language" },
+  { type = "sample_size" },
+  { type = "mentions_any", label = "pick_rate_or_interval", patterns = ["пикрейт", "pick rate", "частот", "интервал", "выборк", "популярн"] },
+]
+
+[[case]]
+id = "meta-10"
+category = "meta"
+lang = "en"
+source = "HER-05"
+question = "Does Spectre get stronger the longer the game goes?"
+expected_tools = ["get_hero_power_curve"]
+args = { hero = { hero = "Spectre" } }
+checks = [{ type = "sample_size" }, { type = "no_causal_claim" }]
+
+# --- counters and draft ------------------------------------------------------------------
+
+[[case]]
+id = "counter-01"
+category = "counters"
+lang = "en"
+source = "MAT-01"
+question = "What counters Huskar?"
+expected_tools = ["get_hero_matchups"]
+args = { hero = { hero = "Huskar" }, mode = { any_of = ["counters", "both"], optional = true } }
+checks = [{ type = "sample_size" }]
+
+[[case]]
+id = "counter-02"
+category = "counters"
+lang = "ru"
+source = "MAT-09"
+question = "Кого пикнуть против Хускара на миду?"
+expected_tools = ["suggest_pick", "get_hero_matchups"]
+args = { enemies = { hero = ["Huskar"] }, hero = { hero = "Huskar" }, position = { any_of = [2] } }
+checks = [{ type = "language" }, { type = "sample_size" }]
+
+[[case]]
+id = "counter-03"
+category = "counters"
+lang = "en"
+source = "MAT-05"
+question = "Which supports pair best with Chaos Knight?"
+expected_tools = ["get_hero_matchups", "find_hero_combos"]
+args = { hero = { hero = "Chaos Knight" } }
+checks = [{ type = "sample_size" }]
+
+[[case]]
+id = "counter-04"
+category = "counters"
+lang = "en"
+source = "MAT-03"
+question = "What's Anti-Mage's win rate against Medusa?"
+expected_tools = ["get_hero_matchups"]
+args = { hero = { hero_any = ["Anti-Mage", "Medusa"] } }
+checks = [{ type = "sample_size" }, { type = "answer_number", range = [20, 80], percent = true }]
+
+[[case]]
+id = "draft-01"
+category = "counters"
+lang = "en"
+source = "DRF-02"
+question = "We have Axe, Lion, Crystal Maiden and Juggernaut. They have Sniper, Drow Ranger, Pudge, Faceless Void and Earthshaker. What should I pick mid?"
+expected_tools = ["suggest_pick"]
+args = { allies = { hero = ["Axe", "Lion", "Crystal Maiden", "Juggernaut"] }, enemies = { hero = ["Sniper", "Drow Ranger", "Pudge", "Faceless Void", "Earthshaker"] }, position = { any_of = [2] } }
+checks = [{ type = "mentions_any", label = "basis", patterns = ["matchup", "synerg", "advantage", "counter"] }]
+
+[[case]]
+id = "draft-02"
+category = "counters"
+lang = "ru"
+source = "DRF-01"
+question = "Чей драфт сильнее? Radiant: Anti-Mage, Invoker, Mars, Rubick, Lion. Dire: Phantom Assassin, Storm Spirit, Axe, Snapfire, Dazzle."
+expected_tools = ["analyze_draft"]
+args = { radiant = { hero = ["Anti-Mage", "Invoker", "Mars", "Rubick", "Lion"] }, dire = { hero = ["Phantom Assassin", "Storm Spirit", "Axe", "Snapfire", "Dazzle"] } }
+checks = [
+  { type = "language" },
+  { type = "mentions_any", label = "estimate_caveat", patterns = ["эвристи", "оценк", "приблиз", "не гарант", "heuristic", "вероятн"] },
+]
+
+# --- builds ------------------------------------------------------------------------------
+
+[[case]]
+id = "build-01"
+category = "builds"
+lang = "en"
+source = "BLD-01"
+question = "What should I build on Juggernaut this patch?"
+expected_tools = ["get_hero_builds"]
+args = { hero = { hero = "Juggernaut" } }
+checks = [{ type = "sample_size" }, { type = "no_causal_claim" }]
+
+[[case]]
+id = "build-02"
+category = "builds"
+lang = "ru"
+source = "BLD-04"
+question = "Какие таланты берут на Инвокере на 10 и 15 уровне и какие из них чаще выигрывают?"
+expected_tools = ["get_ability_stats", "get_hero_builds"]
+args = { hero = { hero = "Invoker" } }
+checks = [{ type = "language" }, { type = "sample_size" }, { type = "no_causal_claim" }]
+
+[[case]]
+id = "build-03"
+category = "builds"
+lang = "en"
+source = "BLD-09"
+question = "How do pros build Morphling compared with pubs?"
+expected_tools = ["get_pro_builds"]
+args = { hero = { hero = "Morphling" } }
+checks = [{ type = "sample_size" }]
+
+[[case]]
+id = "build-04"
+category = "builds"
+lang = "ru"
+source = "BLD-13"
+question = "Что делает ульта Войда, Хроносфера, и сколько она длится?"
+expected_tools = ["lookup_reference"]
+args = { query = { contains_any = ["chrono", "void", "хроно", "войд", "войда"] } }
+checks = [
+  { type = "language" },
+  { type = "mentions_any", label = "duration", patterns = ["сек", "\\d(?:[.,]\\d+)?\\s*с\\b"] },
+]
+
+[[case]]
+id = "build-05"
+category = "builds"
+lang = "en"
+source = "ITM-09"
+question = "Which tier 3 neutral item is best on Sniper?"
+expected_tools = ["get_neutral_items"]
+args = { hero = { hero = "Sniper" }, tier = { any_of = [3] } }
+checks = [{ type = "sample_size" }]
+
+[[case]]
+id = "build-06"
+category = "builds"
+lang = "ru"
+source = "BLD-06"
+question = "Что максить первым на Пудже — хук или ротатку?"
+expected_tools = ["get_ability_stats", "get_hero_builds"]
+args = { hero = { hero = "Pudge" } }
+checks = [{ type = "language" }, { type = "sample_size" }]
+
+# --- items -------------------------------------------------------------------------------
+
+[[case]]
+id = "item-01"
+category = "items"
+lang = "en"
+source = "ITM-01"
+question = "Who buys Radiance and when?"
+expected_tools = ["get_item_overview"]
+args = { item = { item = "Radiance" } }
+checks = [{ type = "sample_size" }]
+
+[[case]]
+id = "item-02"
+category = "items"
+lang = "ru"
+source = "ITM-07"
+question = "До какой минуты нужно собрать БКБ на Войде, чтобы он ещё имел смысл?"
+expected_tools = ["analyze_item"]
+args = { item = { item = "Black King Bar" }, hero = { hero = "Faceless Void" } }
+checks = [
+  { type = "language" },
+  { type = "sample_size" },
+  { type = "correlation_caveat" },
+  { type = "no_causal_claim" },
+]
+
+[[case]]
+id = "item-03"
+category = "items"
+lang = "en"
+source = "ITM-05"
+question = "Battle Fury or Maelstrom first on Troll Warlord?"
+expected_tools = ["compare_items"]
+args = { items = { item = ["Battle Fury", "Maelstrom"] }, hero = { hero = "Troll Warlord" } }
+checks = [{ type = "sample_size" }, { type = "no_causal_claim" }]
+
+[[case]]
+id = "item-04"
+category = "items"
+lang = "ru"
+source = "ITM-03"
+question = "За сколько минут окупается Мидас?"
+expected_tools = ["get_item_payback"]
+args = { items = { item = ["Hand of Midas"] } }
+checks = [
+  { type = "language" },
+  { type = "sample_size" },
+  { type = "mentions_any", label = "pro_data_caveat", patterns = ["про", "лиг", "профес", "турнир", "pro", "league"] },
+]
+
+[[case]]
+id = "item-05"
+category = "items"
+lang = "en"
+source = "ITM-13"
+question = "Is Dagon actually bad, or do people only buy it when they're already far ahead?"
+expected_tools = ["analyze_item", "get_item_overview"]
+args = { item = { item = "Dagon" } }
+checks = [{ type = "correlation_caveat" }, { type = "no_causal_claim" }]
+
+[[case]]
+id = "item-06"
+category = "items"
+lang = "en"
+source = "ITM-15"
+question = "Does buying a Divine Rapier win games or throw them?"
+expected_tools = ["analyze_item", "get_item_overview"]
+args = { item = { item = "Divine Rapier" } }
+checks = [{ type = "sample_size" }, { type = "correlation_caveat" }, { type = "no_causal_claim" }]
+
+[[case]]
+id = "item-07"
+category = "items"
+lang = "en"
+source = "ITM-18"
+question = "What does Eye of Skadi build from and how much does it cost?"
+expected_tools = ["lookup_reference"]
+args = { query = { contains = "skadi" } }
+checks = [{ type = "answer_number", range = [3000, 8000] }]
+
+# --- farming -----------------------------------------------------------------------------
+
+[[case]]
+id = "farm-01"
+category = "farming"
+lang = "en"
+source = "ECO-04"
+question = "How much gold does a Medusa have at 20 minutes?"
+expected_tools = ["get_farming_stats"]
+args = { hero = { hero = "Medusa" }, minutes = { includes = 20 } }
+checks = [{ type = "sample_size" }, { type = "answer_number", range = [3000, 25000] }]
+
+[[case]]
+id = "farm-02"
+category = "farming"
+lang = "ru"
+source = "ECO-02"
+question = "600 GPM на Анти-Маге — это хорошо?"
+expected_tools = ["get_hero_benchmarks"]
+args = { hero = { hero = "Anti-Mage" } }
+checks = [
+  { type = "language" },
+  { type = "mentions_any", label = "percentile", patterns = ["перцентил", "процентил", "percentile", "лучше чем", "\\d+\\s*%"] },
+]
+
+[[case]]
+id = "farm-03"
+category = "farming"
+lang = "en"
+source = "LAN-01"
+question = "How often does Viper win its lane?"
+expected_tools = ["get_hero_lane_stats"]
+args = { hero = { hero = "Viper" } }
+checks = [
+  { type = "sample_size" },
+  { type = "field", key = "lane_win_rate", range = [0, 1] },
+  { type = "answer_number", range = [10, 90], percent = true },
+]
+
+[[case]]
+id = "farm-04"
+category = "farming"
+lang = "ru"
+source = "ECO-06"
+question = "Какая доля нетворса команды должна быть у керри в выигранных играх?"
+expected_tools = ["get_farm_distribution"]
+checks = [{ type = "language" }, { type = "sample_size" }, { type = "no_causal_claim" }]
+
+[[case]]
+id = "farm-05"
+category = "farming"
+lang = "en"
+source = "ECO-09"
+question = "Alchemist vs Naga Siren: who out-farms whom, minute by minute?"
+expected_tools = ["get_gold_xp_curves"]
+args = { heroes = { hero = ["Alchemist", "Naga Siren"] } }
+checks = [{ type = "sample_size" }]
+
+[[case]]
+id = "farm-06"
+category = "farming"
+lang = "ru"
+source = "ECO-05"
+question = "Сколько ластхитов должно быть у Антимага к 10 минуте?"
+expected_tools = ["get_farming_stats", "get_hero_benchmarks"]
+args = { hero = { hero = "Anti-Mage" } }
+checks = [{ type = "language" }, { type = "answer_number", range = [20, 120] }]
+
+# --- economy and objectives --------------------------------------------------------------
+
+[[case]]
+id = "eco-01"
+category = "economy"
+lang = "en"
+source = "ECO-10"
+question = "How often do teams win from 10k gold behind at 25 minutes?"
+expected_tools = ["get_comeback_stats"]
+args = { minute = { range = [24, 26] }, deficit = { range = [9000, 11000] } }
+checks = [{ type = "sample_size" }, { type = "answer_number", range = [0, 60], percent = true }]
+
+[[case]]
+id = "eco-02"
+category = "economy"
+lang = "ru"
+source = "ECO-12"
+question = "Сколько золота я теряю, если умираю на 30-й минуте, и когда стоит выкупаться?"
+expected_tools = ["analyze_death"]
+checks = [{ type = "language" }, { type = "no_causal_claim" }]
+
+[[case]]
+id = "eco-03"
+category = "economy"
+lang = "ru"
+source = "LIV-04"
+question = "У Radiant +5к золота на 30-й минуте. Какой у них шанс победить?"
+expected_tools = ["predict_live_win", "get_comeback_stats"]
+args = { radiant_networth_lead = { range = [4000, 6000] }, game_time_s = { range = [1740, 1860] }, minute = { range = [29, 31] }, deficit = { range = [4000, 6000] } }
+checks = [{ type = "language" }, { type = "answer_number", range = [50, 95], percent = true }]
+
+[[case]]
+id = "eco-04"
+category = "economy"
+lang = "en"
+source = "GEN-04"
+question = "How long does an average Dota game last right now?"
+expected_tools = ["get_general_stats"]
+checks = [
+  { type = "sample_size" },
+  { type = "field", key = "median_minutes", range = [20, 60] },
+  { type = "answer_number", range = [20, 60] },
+]
+
+[[case]]
+id = "eco-05"
+category = "economy"
+lang = "en"
+source = "GEN-02"
+question = "What's the highest GPM ever recorded on Alchemist?"
+expected_tools = ["get_records"]
+args = { metric = { contains_any = ["gold_per_min", "gpm"] }, hero = { hero = "Alchemist" } }
+checks = [{ type = "answer_number", range = [900, 3000] }]
+
+[[case]]
+id = "eco-06"
+category = "economy"
+lang = "ru"
+source = "GEN-06"
+question = "Какой процент игроков — Divine и выше?"
+expected_tools = ["get_rank_distribution"]
+checks = [{ type = "language" }, { type = "answer_number", range = [0.1, 30], percent = true }]
+
+# --- single match ------------------------------------------------------------------------
+
+[[case]]
+id = "match-01"
+category = "match"
+lang = "en"
+source = "SMA-01"
+question = "What happened in match 9073999945?"
+expected_tools = ["analyze_match"]
+args = { match_id = { equals = 9073999945 } }
+checks = [{ type = "mentions_any", label = "winner", patterns = ["radiant", "dire"] }]
+
+[[case]]
+id = "match-02"
+category = "match"
+lang = "ru"
+source = "SMA-02"
+question = "В какой момент перевернулась игра 9073999945?"
+expected_tools = ["find_turning_points", "get_match_timeline"]
+args = { match_id = { equals = 9073999945 } }
+checks = [{ type = "language" }, { type = "mentions_any", label = "minute", patterns = ["минут", "\\d+:\\d\\d"] }]
+
+[[case]]
+id = "match-03"
+category = "match"
+lang = "en"
+source = "SMA-06"
+question = "Which teamfight decided match 9073999945?"
+expected_tools = ["analyze_teamfights", "find_turning_points"]
+args = { match_id = { equals = 9073999945 } }
+checks = [{ type = "mentions_any", label = "time", patterns = ["minute", "\\d+:\\d\\d", "min\\b"] }]
+
+[[case]]
+id = "match-04"
+category = "match"
+lang = "ru"
+source = "LAN-04"
+question = "Кто выиграл какие линии в матче 9073999945?"
+expected_tools = ["analyze_laning_phase"]
+args = { match_id = { equals = 9073999945 } }
+checks = [{ type = "language" }]
+
+[[case]]
+id = "match-05"
+category = "match"
+lang = "en"
+source = "SMA-08"
+question = "Did both teams ward enough in match 9073999945, and how many wards got dewarded?"
+expected_tools = ["analyze_vision"]
+args = { match_id = { equals = 9073999945 } }
+checks = [{ type = "mentions_any", label = "wards", patterns = ["observer", "sentr", "ward"] }]
+
+# --- personal player stats ---------------------------------------------------------------
+
+[[case]]
+id = "player-01"
+category = "player"
+lang = "en"
+source = "PER-01"
+question = "What's the medal and recent form of account 56939869?"
+expected_tools = ["get_player_profile"]
+args = { player = { contains = "56939869" } }
+checks = [{ type = "mentions_any", label = "form", patterns = ["win", "loss", "match"] }]
+
+[[case]]
+id = "player-02"
+category = "player"
+lang = "ru"
+source = "PER-02"
+question = "На каких героях я выигрываю чаще всего? Мой аккаунт 56939869"
+expected_tools = ["get_player_hero_pool"]
+args = { player = { contains = "56939869" } }
+checks = [{ type = "language" }, { type = "sample_size" }]
+
+[[case]]
+id = "player-03"
+category = "player"
+lang = "en"
+source = "PER-04"
+question = "Where am I below my rank's average? My profile: https://www.opendota.com/players/56939869"
+expected_tools = ["find_player_weaknesses"]
+args = { player = { contains = "56939869" } }
+checks = [{ type = "sample_size" }, { type = "no_causal_claim" }]
+
+[[case]]
+id = "player-04"
+category = "player"
+lang = "ru"
+source = "PER-06"
+question = "Я прогрессирую за последние 200 игр? id 56939869"
+expected_tools = ["get_player_trends"]
+args = { player = { contains = "56939869" }, matches = { range = [150, 250] } }
+checks = [{ type = "language" }, { type = "sample_size" }]
+
+[[case]]
+id = "player-05"
+category = "player"
+lang = "en"
+source = "PER-08"
+question = "Who do I win the most with? Account 56939869."
+expected_tools = ["get_player_peers"]
+args = { player = { contains = "56939869" } }
+checks = [{ type = "sample_size" }]
+
+# --- pro scene ---------------------------------------------------------------------------
+
+[[case]]
+id = "pro-01"
+category = "pro"
+lang = "en"
+source = "PRO-01"
+question = "What were Team Spirit's latest results?"
+expected_tools = ["get_pro_matches", "get_team_stats"]
+args = { team = { contains = "spirit" } }
+checks = [{ type = "mentions_any", label = "results", patterns = ["won", "lost", "beat", "win", "loss", "\\d\\s*[-:]\\s*\\d"] }]
+
+[[case]]
+id = "pro-02"
+category = "pro"
+lang = "ru"
+source = "PRO-03"
+question = "Какая история личных встреч у Team Liquid и Tundra?"
+expected_tools = ["get_head_to_head"]
+args = { team_a = { contains_any = ["liquid", "tundra"] }, team_b = { contains_any = ["liquid", "tundra"] } }
+checks = [{ type = "language" }]
+
+[[case]]
+id = "pro-03"
+category = "pro"
+lang = "en"
+source = "PRO-04"
+question = "Which heroes were contested most at The International 2025?"
+expected_tools = ["get_tournament_stats"]
+args = { league = { contains = "international" } }
+checks = [{ type = "sample_size" }]
+
+[[case]]
+id = "pro-04"
+category = "pro"
+lang = "ru"
+source = "PRO-06"
+question = "Что играет Ятору и как у него получается?"
+expected_tools = ["get_pro_player"]
+args = { player = { contains_any = ["yatoro", "ятор", "321580662"] } }
+checks = [{ type = "language" }, { type = "sample_size" }]
+
+[[case]]
+id = "pro-05"
+category = "pro"
+lang = "en"
+source = "PRO-12"
+question = "Which heroes does Team Liquid ban the most?"
+expected_tools = ["get_team_stats"]
+args = { team = { contains = "liquid" } }
+checks = [{ type = "sample_size" }]
+
+# --- hypotheses --------------------------------------------------------------------------
+
+[[case]]
+id = "hyp-01"
+category = "hypotheses"
+lang = "en"
+source = "BLD-10"
+question = "Do Phantom Assassins with BKB before 20 minutes win more than the ones who get it later?"
+expected_tools = ["test_hypothesis", "analyze_item"]
+args = { hero = { hero = "Phantom Assassin" }, item = { item = "Black King Bar" } }
+checks = [
+  { type = "sample_size" },
+  { type = "correlation_caveat" },
+  { type = "no_causal_claim" },
+  { type = "mentions_any", label = "uncertainty", patterns = ["p-value", "p\\s*[=<]", "significan", "confidence", "interval"] },
+]
+
+[[case]]
+id = "hyp-02"
+category = "hypotheses"
+lang = "ru"
+source = "ECO-11"
+question = "Реально ли стаки кемпов помогают саппортам выигрывать?"
+expected_tools = ["analyze_correlation", "test_hypothesis"]
+args = { metric = { contains_any = ["stack", "camps"] } }
+checks = [{ type = "language" }, { type = "correlation_caveat" }, { type = "no_causal_claim" }]
+
+[[case]]
+id = "hyp-03"
+category = "hypotheses"
+lang = "en"
+source = "ECO-14"
+question = "Does a high GPM actually matter for winning, once you account for game length?"
+expected_tools = ["analyze_correlation"]
+args = { metric = { contains_any = ["gpm", "gold_per_min"] } }
+checks = [{ type = "sample_size" }, { type = "correlation_caveat" }, { type = "no_causal_claim" }]
+
+# --- myths -------------------------------------------------------------------------------
+
+[[case]]
+id = "myth-01"
+category = "myths"
+lang = "en"
+source = "MYT-01"
+question = "Does the team that gets first blood win more often?"
+expected_tools = ["get_objective_impact"]
+checks = [{ type = "sample_size" }, { type = "correlation_caveat" }, { type = "no_causal_claim" }]
+
+[[case]]
+id = "myth-02"
+category = "myths"
+lang = "ru"
+source = "MYT-02"
+question = "Правда, что Radiant выигрывает чаще, чем Dire?"
+expected_tools = ["get_general_stats"]
+checks = [
+  { type = "language" },
+  { type = "sample_size" },
+  { type = "field", key = "radiant_win_rate", range = [0.35, 0.65] },
+  { type = "answer_number", range = [35, 65], percent = true },
+]
+
+[[case]]
+id = "myth-03"
+category = "myths"
+lang = "en"
+source = "MYT-10"
+question = "Do teams with more wards win more, or do winners just buy more wards?"
+expected_tools = ["analyze_correlation"]
+args = { metric = { contains_any = ["ward", "obs"] } }
+checks = [{ type = "correlation_caveat" }, { type = "no_causal_claim" }]
+
+[[case]]
+id = "myth-04"
+category = "myths"
+lang = "ru"
+source = "MYT-04"
+question = "Насколько первый Рошан повышает шанс на победу?"
+expected_tools = ["get_objective_impact"]
+checks = [{ type = "language" }, { type = "correlation_caveat" }, { type = "no_causal_claim" }]
