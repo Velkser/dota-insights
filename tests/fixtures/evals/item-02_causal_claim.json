@@ -1,0 +1,66 @@
+{
+  "note": "Hand-written in the harness transcript format (no API key was available when the scoring tests were added). Replace with a real recording from evals/reports when one exists.",
+  "transcript": {
+    "case_id": "item-02",
+    "model": "claude-opus-5-5",
+    "calls": [
+      {
+        "name": "analyze_item",
+        "arguments": {
+          "item": "bkb",
+          "hero": "Void"
+        },
+        "status": "ok",
+        "envelope": {
+          "status": "ok",
+          "result": {
+            "buckets": [
+              {
+                "label": "<15",
+                "matches": 1200,
+                "win_rate": 0.61
+              },
+              {
+                "label": "15-20",
+                "matches": 3400,
+                "win_rate": 0.55
+              }
+            ]
+          },
+          "sample_size": 4600,
+          "caveats": [
+            "Players who buy early are often already ahead; win rate by timing is correlational."
+          ],
+          "source": [
+            "stratz"
+          ]
+        },
+        "is_error": false,
+        "error": null,
+        "latency_s": 1.2
+      }
+    ],
+    "answer": "БКБ до 15 минуты гарантирует победу: винрейт 61% на 1 200 матчах против 55% на 3 400 матчах при покупке на 15–20 минуте. Собирайте его как можно раньше.",
+    "turns": 2,
+    "api_calls": 2,
+    "stop_reason": "end_turn",
+    "hit_turn_cap": false,
+    "latency_s": 9.5,
+    "model_latency_s": 7.0,
+    "tool_latency_s": 2.5,
+    "input_tokens": 24000,
+    "output_tokens": 900,
+    "cache_read_tokens": 0,
+    "error": null
+  },
+  "expected": {
+    "passed": false,
+    "failed": [
+      "answer"
+    ],
+    "failed_checks": [
+      "correlation_caveat",
+      "no_causal_claim"
+    ]
+  }
+}
