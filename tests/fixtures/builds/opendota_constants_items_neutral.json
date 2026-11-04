@@ -1,0 +1,247 @@
+{
+ "ash_legion_shield": {
+  "dname": "Ash Legion Shield",
+  "id": 1717,
+  "tier": 1
+ },
+ "chipped_vest": {
+  "dname": "Chipped Vest",
+  "id": 565,
+  "tier": 1
+ },
+ "cloak_of_flames": {
+  "dname": "Cloak of Flames",
+  "id": 574,
+  "tier": 3
+ },
+ "conjurers_catalyst": {
+  "dname": "Conjurer's Catalyst",
+  "id": 1864,
+  "tier": 4
+ },
+ "crippling_crossbow": {
+  "dname": "Crippling Crossbow",
+  "id": 1601,
+  "tier": 2
+ },
+ "dagger_of_ristul": {
+  "dname": "Dagger of Ristul",
+  "id": 1077,
+  "tier": 1
+ },
+ "dandelion_amulet": {
+  "dname": "Dandelion Amulet",
+  "id": 2190,
+  "tier": 4
+ },
+ "defiant_shell": {
+  "dname": "Defiant Shell",
+  "id": 950,
+  "tier": 2
+ },
+ "demonicon": {
+  "dname": "Book of the Dead",
+  "id": 370,
+  "tier": 5
+ },
+ "desolator_2": {
+  "dname": "Stygian Desolator",
+  "id": 292,
+  "tier": 5
+ },
+ "dezun_bloodrite": {
+  "dname": "Dezun Bloodrite",
+  "id": 1642,
+  "tier": 5
+ },
+ "divine_regalia": {
+  "dname": "Divine Regalia",
+  "id": 1644,
+  "tier": 5
+ },
+ "dormant_curio": {
+  "dname": "Dormant Curio",
+  "id": 1638,
+  "tier": 1
+ },
+ "duelist_gloves": {
+  "dname": "Duelist Gloves",
+  "id": 2097,
+  "tier": 1
+ },
+ "enchanters_bauble": {
+  "dname": "Enchanter's Bauble",
+  "id": 1862,
+  "tier": 4
+ },
+ "essence_ring": {
+  "dname": "Essence Ring",
+  "id": 359,
+  "tier": 2
+ },
+ "fallen_sky": {
+  "dname": "Fallen Sky",
+  "id": 371,
+  "tier": 5
+ },
+ "flayers_bota": {
+  "dname": "Flayer's Bota",
+  "id": 1721,
+  "tier": 4
+ },
+ "foragers_kit": {
+  "dname": "Forager's Kit",
+  "id": 1868,
+  "tier": 1
+ },
+ "giant_maul": {
+  "dname": "Giant's Maul",
+  "id": 1643,
+  "tier": 4
+ },
+ "gunpowder_gauntlets": {
+  "dname": "Gunpowder Gauntlet",
+  "id": 1603,
+  "tier": 3
+ },
+ "harmonizer": {
+  "dname": "Harmonizer",
+  "id": 1863,
+  "tier": 5
+ },
+ "heavy_blade": {
+  "dname": "Witchbane",
+  "id": 837,
+  "tier": 5
+ },
+ "idol_of_screeauk": {
+  "dname": "Idol of Scree'auk",
+  "id": 1720,
+  "tier": 4
+ },
+ "jidi_pollen_bag": {
+  "dname": "Jidi Pollen Bag",
+  "id": 1640,
+  "tier": 3
+ },
+ "kobold_cup": {
+  "dname": "Kobold Cup",
+  "id": 1637,
+  "tier": 1
+ },
+ "mana_draught": {
+  "dname": "Mana Draught",
+  "id": 1599,
+  "tier": 2
+ },
+ "medallion_of_courage": {
+  "dname": "Medallion of Courage",
+  "id": 187,
+  "tier": 2
+ },
+ "metamorphic_mandible": {
+  "dname": "Metamorphic Mandible",
+  "id": 1719,
+  "tier": 4
+ },
+ "minotaur_horn": {
+  "dname": "Minotaur Horn",
+  "id": 377,
+  "tier": 5
+ },
+ "occult_bracelet": {
+  "dname": "Occult Bracelet",
+  "id": 947,
+  "tier": 1
+ },
+ "partisans_brand": {
+  "dname": "Partisan's Brand",
+  "id": 1873,
+  "tier": 3
+ },
+ "pogo_stick": {
+  "dname": "Tumbler's Toy",
+  "id": 840,
+  "tier": 2
+ },
+ "polliwog_charm": {
+  "dname": "Pollywog Charm",
+  "id": 1606,
+  "tier": 1
+ },
+ "poor_mans_shield": {
+  "dname": "Poor Man's Shield",
+  "id": 71,
+  "tier": 2
+ },
+ "possessed_mask": {
+  "dname": "Possessed Mask",
+  "id": 577,
+  "tier": 1
+ },
+ "prophets_pendulum": {
+  "dname": "Prophet's Pendulum",
+  "id": 1860,
+  "tier": 4
+ },
+ "psychic_headband": {
+  "dname": "Psychic Headband",
+  "id": 675,
+  "tier": 3
+ },
+ "rattlecage": {
+  "dname": "Rattlecage",
+  "id": 1168,
+  "tier": 4
+ },
+ "riftshadow_prism": {
+  "dname": "Riftshadow Prism",
+  "id": 1718,
+  "tier": 5
+ },
+ "searing_signet": {
+  "dname": "Searing Signet",
+  "id": 1604,
+  "tier": 2
+ },
+ "seeds_of_serenity": {
+  "dname": "Seeds of Serenity",
+  "id": 945,
+  "tier": 2
+ },
+ "serrated_shiv": {
+  "dname": "Serrated Shiv",
+  "id": 1605,
+  "tier": 3
+ },
+ "spellslinger": {
+  "dname": "Spellslinger",
+  "id": 1859,
+  "tier": 3
+ },
+ "spider_legs": {
+  "dname": "Spider Legs",
+  "id": 326,
+  "tier": 5
+ },
+ "stonefeather_satchel": {
+  "dname": "Stonefeather Satchel",
+  "id": 1861,
+  "tier": 1
+ },
+ "stormcrafter": {
+  "dname": "Stormcrafter",
+  "id": 585,
+  "tier": 3
+ },
+ "unrelenting_eye": {
+  "dname": "Unrelenting Eye",
+  "id": 1598,
+  "tier": 3
+ },
+ "weighted_dice": {
+  "dname": "Weighted Dice",
+  "id": 1716,
+  "tier": 1
+ }
+}

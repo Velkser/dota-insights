@@ -1,0 +1,259 @@
+{
+ "command": "SELECT",
+ "rowCount": 36,
+ "rows": [
+  {
+   "item_neutral": 1605,
+   "games": 52,
+   "wins": 28,
+   "first_start": 1774793669,
+   "last_start": 1793048167
+  },
+  {
+   "item_neutral": 950,
+   "games": 26,
+   "wins": 13,
+   "first_start": 1775576015,
+   "last_start": 1792660346
+  },
+  {
+   "item_neutral": 1643,
+   "games": 23,
+   "wins": 12,
+   "first_start": 1774728593,
+   "last_start": 1793210899
+  },
+  {
+   "item_neutral": 1603,
+   "games": 22,
+   "wins": 9,
+   "first_start": 1775200169,
+   "last_start": 1792326020
+  },
+  {
+   "item_neutral": 1721,
+   "games": 19,
+   "wins": 9,
+   "first_start": 1776833303,
+   "last_start": 1793613613
+  },
+  {
+   "item_neutral": 1860,
+   "games": 17,
+   "wins": 7,
+   "first_start": 1778739684,
+   "last_start": 1792432084
+  },
+  {
+   "item_neutral": 71,
+   "games": 15,
+   "wins": 8,
+   "first_start": 1775023166,
+   "last_start": 1792519998
+  },
+  {
+   "item_neutral": 574,
+   "games": 14,
+   "wins": 6,
+   "first_start": 1774824106,
+   "last_start": 1793650986
+  },
+  {
+   "item_neutral": 359,
+   "games": 14,
+   "wins": 8,
+   "first_start": 1774820515,
+   "last_start": 1791915721
+  },
+  {
+   "item_neutral": 577,
+   "games": 10,
+   "wins": 5,
+   "first_start": 1775458863,
+   "last_start": 1792077217
+  },
+  {
+   "item_neutral": 1601,
+   "games": 9,
+   "wins": 8,
+   "first_start": 1774563144,
+   "last_start": 1793635230
+  },
+  {
+   "item_neutral": 1862,
+   "games": 8,
+   "wins": 6,
+   "first_start": 1775111752,
+   "last_start": 1792531637
+  },
+  {
+   "item_neutral": 1720,
+   "games": 7,
+   "wins": 4,
+   "first_start": 1774940302,
+   "last_start": 1792253403
+  },
+  {
+   "item_neutral": 1598,
+   "games": 7,
+   "wins": 3,
+   "first_start": 1775545686,
+   "last_start": 1792270722
+  },
+  {
+   "item_neutral": 945,
+   "games": 6,
+   "wins": 3,
+   "first_start": 1776097433,
+   "last_start": 1780334823
+  },
+  {
+   "item_neutral": 1873,
+   "games": 6,
+   "wins": 4,
+   "first_start": 1776621652,
+   "last_start": 1793794097
+  },
+  {
+   "item_neutral": 1168,
+   "games": 5,
+   "wins": 4,
+   "first_start": 1775396641,
+   "last_start": 1791865763
+  },
+  {
+   "item_neutral": 585,
+   "games": 4,
+   "wins": 3,
+   "first_start": 1776324112,
+   "last_start": 1791758341
+  },
+  {
+   "item_neutral": 2190,
+   "games": 3,
+   "wins": 2,
+   "first_start": 1791203916,
+   "last_start": 1793472691
+  },
+  {
+   "item_neutral": 187,
+   "games": 3,
+   "wins": 2,
+   "first_start": 1775138488,
+   "last_start": 1792178687
+  },
+  {
+   "item_neutral": 2097,
+   "games": 2,
+   "wins": 1,
+   "first_start": 1777394683,
+   "last_start": 1779259035
+  },
+  {
+   "item_neutral": 1716,
+   "games": 2,
+   "wins": 1,
+   "first_start": 1775592198,
+   "last_start": 1776216381
+  },
+  {
+   "item_neutral": 1640,
+   "games": 2,
+   "wins": 1,
+   "first_start": 1775269800,
+   "last_start": 1778274936
+  },
+  {
+   "item_neutral": 1719,
+   "games": 1,
+   "wins": 0,
+   "first_start": 1792183896,
+   "last_start": 1792183896
+  },
+  {
+   "item_neutral": 1599,
+   "games": 1,
+   "wins": 1,
+   "first_start": 1776861777,
+   "last_start": 1776861777
+  },
+  {
+   "item_neutral": 675,
+   "games": 1,
+   "wins": 1,
+   "first_start": 1775518781,
+   "last_start": 1775518781
+  },
+  {
+   "item_neutral": 1717,
+   "games": 1,
+   "wins": 1,
+   "first_start": 1776498154,
+   "last_start": 1776498154
+  },
+  {
+   "item_neutral": 1718,
+   "games": 1,
+   "wins": 0,
+   "first_start": 1779449821,
+   "last_start": 1779449821
+  },
+  {
+   "item_neutral": 840,
+   "games": 1,
+   "wins": 0,
+   "first_start": 1779595497,
+   "last_start": 1779595497
+  },
+  {
+   "item_neutral": 1861,
+   "games": 1,
+   "wins": 0,
+   "first_start": 1776049411,
+   "last_start": 1776049411
+  },
+  {
+   "item_neutral": 1077,
+   "games": 1,
+   "wins": 0,
+   "first_start": 1792079185,
+   "last_start": 1792079185
+  },
+  {
+   "item_neutral": 1864,
+   "games": 1,
+   "wins": 1,
+   "first_start": 1775390882,
+   "last_start": 1775390882
+  },
+  {
+   "item_neutral": 1645,
+   "games": 1,
+   "wins": 0,
+   "first_start": 1780849571,
+   "last_start": 1780849571
+  },
+  {
+   "item_neutral": 1868,
+   "games": 1,
+   "wins": 0,
+   "first_start": 1775390858,
+   "last_start": 1775390858
+  },
+  {
+   "item_neutral": 292,
+   "games": 1,
+   "wins": 0,
+   "first_start": 1779389007,
+   "last_start": 1779389007
+  },
+  {
+   "item_neutral": 1606,
+   "games": 1,
+   "wins": 1,
+   "first_start": 1776226162,
+   "last_start": 1776226162
+  }
+ ],
+ "err": null
+}

@@ -1,0 +1,1820 @@
+{
+ "data": {
+  "m0": {
+   "bracket": 8,
+   "gameVersionId": 190,
+   "id": 9076030901,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 6606,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 2097,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793803666
+  },
+  "m1": {
+   "bracket": 7,
+   "gameVersionId": 190,
+   "id": 9075940075,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 950,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793800161
+  },
+  "m10": {
+   "bracket": 7,
+   "gameVersionId": 190,
+   "id": 9075993085,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 6606,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 950,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793802247
+  },
+  "m11": {
+   "bracket": 8,
+   "gameVersionId": 190,
+   "id": 9075902189,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 730,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 577,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793798687
+  },
+  "m12": {
+   "bracket": 7,
+   "gameVersionId": 190,
+   "id": 9075870519,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 1495,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 735,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 1603,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793797432
+  },
+  "m13": {
+   "bracket": 8,
+   "gameVersionId": 190,
+   "id": 9075958584,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 735,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 1603,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793800866
+  },
+  "m14": {
+   "bracket": 8,
+   "gameVersionId": 190,
+   "id": 9075897256,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 6800,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 6606,
+       "level": 0
+      },
+      {
+       "abilityId": 6353,
+       "level": 0
+      },
+      {
+       "abilityId": 1495,
+       "level": 0
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 735,
+       "level": 0
+      },
+      {
+       "abilityId": 6012,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 371,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793798487
+  },
+  "m15": {
+   "bracket": 7,
+   "gameVersionId": 190,
+   "id": 9075832258,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 735,
+       "level": 0
+      },
+      {
+       "abilityId": 6353,
+       "level": 0
+      },
+      {
+       "abilityId": 1495,
+       "level": 0
+      },
+      {
+       "abilityId": 6800,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 1643,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793795856
+  },
+  "m16": {
+   "bracket": 8,
+   "gameVersionId": 190,
+   "id": 9075841702,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 735,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 1603,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793796251
+  },
+  "m17": {
+   "bracket": 8,
+   "gameVersionId": 190,
+   "id": 9075844908,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 359,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793796386
+  },
+  "m18": {
+   "bracket": 7,
+   "gameVersionId": 190,
+   "id": 9075911569,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 6606,
+       "level": 0
+      },
+      {
+       "abilityId": 6012,
+       "level": 0
+      },
+      {
+       "abilityId": 1495,
+       "level": 0
+      },
+      {
+       "abilityId": 6800,
+       "level": 0
+      },
+      {
+       "abilityId": 735,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 1860,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793799056
+  },
+  "m19": {
+   "bracket": 8,
+   "gameVersionId": 190,
+   "id": 9075934941,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 1601,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793799962
+  },
+  "m2": {
+   "bracket": 8,
+   "gameVersionId": 190,
+   "id": 9075899035,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 730,
+       "level": 0
+      },
+      {
+       "abilityId": 730,
+       "level": 1
+      },
+      {
+       "abilityId": 1495,
+       "level": 0
+      },
+      {
+       "abilityId": 730,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 730,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 6606,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 1643,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793798562
+  },
+  "m3": {
+   "bracket": 8,
+   "gameVersionId": 190,
+   "id": 9075938086,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 1495,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 1716,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793800082
+  },
+  "m4": {
+   "bracket": 8,
+   "gameVersionId": 190,
+   "id": 9075894284,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 6800,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 6606,
+       "level": 0
+      },
+      {
+       "abilityId": 6353,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 950,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793798378
+  },
+  "m5": {
+   "bracket": 7,
+   "gameVersionId": 190,
+   "id": 9075982408,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 1495,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 735,
+       "level": 0
+      },
+      {
+       "abilityId": 6353,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 1643,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793801817
+  },
+  "m6": {
+   "bracket": 8,
+   "gameVersionId": 190,
+   "id": 9075880888,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 1495,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 6800,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 6606,
+       "level": 0
+      },
+      {
+       "abilityId": 6353,
+       "level": 0
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 1643,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793797857
+  },
+  "m7": {
+   "bracket": 8,
+   "gameVersionId": 190,
+   "id": 9075881117,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 735,
+       "level": 0
+      },
+      {
+       "abilityId": 6353,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 1598,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793797867
+  },
+  "m8": {
+   "bracket": 8,
+   "gameVersionId": 190,
+   "id": 9075989139,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 6606,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 574,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793802119
+  },
+  "m9": {
+   "bracket": 7,
+   "gameVersionId": 190,
+   "id": 9075867410,
+   "players": [
+    {
+     "abilities": [
+      {
+       "abilityId": 5004,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 0
+      },
+      {
+       "abilityId": 5003,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 0
+      },
+      {
+       "abilityId": 5004,
+       "level": 2
+      },
+      {
+       "abilityId": 5004,
+       "level": 3
+      },
+      {
+       "abilityId": 5003,
+       "level": 3
+      },
+      {
+       "abilityId": 966,
+       "level": 0
+      },
+      {
+       "abilityId": 7314,
+       "level": 1
+      },
+      {
+       "abilityId": 5006,
+       "level": 1
+      },
+      {
+       "abilityId": 7314,
+       "level": 2
+      },
+      {
+       "abilityId": 7314,
+       "level": 3
+      },
+      {
+       "abilityId": 665,
+       "level": 0
+      },
+      {
+       "abilityId": 5006,
+       "level": 2
+      },
+      {
+       "abilityId": 6606,
+       "level": 0
+      },
+      {
+       "abilityId": 6353,
+       "level": 0
+      },
+      {
+       "abilityId": 1495,
+       "level": 0
+      }
+     ],
+     "heroId": 1,
+     "isVictory": true,
+     "neutral0Id": 1862,
+     "position": "POSITION_1",
+     "variant": 0
+    }
+   ],
+   "startDateTime": 1793797301
+  }
+ }
+}
