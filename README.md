@@ -253,8 +253,8 @@ Tool conventions are in [docs/architecture/tools.md](docs/architecture/tools.md)
 
 ## Deploy
 
-Production runs on Vercel (Hobby plan) as a serverless ASGI app, `dota_insights.mcp.asgi:app`
-(set in `[tool.vercel]` in `pyproject.toml`). It is stateless: no MCP session survives between
+Production runs on Vercel (Hobby plan) as a serverless ASGI app, `dota_insights.mcp.asgi:app`,
+loaded through the root `app.py` that Vercel detects. It is stateless: no MCP session survives between
 requests, and responses are JSON rather than SSE. Pushes to `main` deploy to production; pull
 requests get preview deployments, which Vercel Deployment Protection hides from MCP clients.
 
