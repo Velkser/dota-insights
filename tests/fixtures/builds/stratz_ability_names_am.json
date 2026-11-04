@@ -1,0 +1,38 @@
+{
+ "data": {
+  "constants": {
+   "a1495": {
+    "id": 1495,
+    "name": "special_bonus_hp_regen_3"
+   },
+   "a6012": {
+    "id": 6012,
+    "name": "special_bonus_unique_antimage"
+   },
+   "a6353": {
+    "id": 6353,
+    "name": "special_bonus_unique_antimage_2"
+   },
+   "a6606": {
+    "id": 6606,
+    "name": "special_bonus_unique_antimage_3"
+   },
+   "a665": {
+    "id": 665,
+    "name": "special_bonus_unique_antimage_6"
+   },
+   "a6800": {
+    "id": 6800,
+    "name": "special_bonus_unique_antimage_5"
+   },
+   "a735": {
+    "id": 735,
+    "name": "special_bonus_unique_antimage_8"
+   },
+   "a966": {
+    "id": 966,
+    "name": "special_bonus_unique_antimage_manavoid_aoe"
+   }
+  }
+ }
+}

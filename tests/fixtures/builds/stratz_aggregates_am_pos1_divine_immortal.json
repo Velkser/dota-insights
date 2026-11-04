@@ -1,0 +1,2361 @@
+{
+ "data": {
+  "constants": {
+   "hero": {
+    "abilities": [
+     {
+      "ability": {
+       "name": "antimage_mana_break"
+      },
+      "abilityId": 5003,
+      "slot": 1
+     },
+     {
+      "ability": {
+       "name": "antimage_blink"
+      },
+      "abilityId": 5004,
+      "slot": 2
+     },
+     {
+      "ability": {
+       "name": "antimage_counterspell"
+      },
+      "abilityId": 7314,
+      "slot": 3
+     },
+     {
+      "ability": {
+       "name": "generic_hidden"
+      },
+      "abilityId": 6251,
+      "slot": 4
+     },
+     {
+      "ability": {
+       "name": "antimage_persectur"
+      },
+      "abilityId": 1447,
+      "slot": 5
+     },
+     {
+      "ability": {
+       "name": "antimage_mana_void"
+      },
+      "abilityId": 5006,
+      "slot": 6
+     }
+    ],
+    "facets": [
+     {
+      "facetId": 1,
+      "slot": 0
+     },
+     {
+      "facetId": 2,
+      "slot": 1
+     }
+    ],
+    "id": 1,
+    "talents": [
+     {
+      "abilityId": 1495,
+      "slot": 0
+     },
+     {
+      "abilityId": 966,
+      "slot": 1
+     },
+     {
+      "abilityId": 6800,
+      "slot": 2
+     },
+     {
+      "abilityId": 665,
+      "slot": 3
+     },
+     {
+      "abilityId": 6606,
+      "slot": 4
+     },
+     {
+      "abilityId": 735,
+      "slot": 5
+     },
+     {
+      "abilityId": 6012,
+      "slot": 6
+     },
+     {
+      "abilityId": 6353,
+      "slot": 7
+     }
+    ]
+   }
+  },
+  "heroStats": {
+   "abilityMaxLevel": [
+    {
+     "abilityId": 7314,
+     "level": 30,
+     "matchCount": 14,
+     "winCount": 11
+    },
+    {
+     "abilityId": 7314,
+     "level": 25,
+     "matchCount": 138,
+     "winCount": 87
+    },
+    {
+     "abilityId": 730,
+     "level": 25,
+     "matchCount": 142,
+     "winCount": 92
+    },
+    {
+     "abilityId": 5003,
+     "level": 10,
+     "matchCount": 18774,
+     "winCount": 9549
+    },
+    {
+     "abilityId": 5004,
+     "level": 7,
+     "matchCount": 1894,
+     "winCount": 929
+    },
+    {
+     "abilityId": 5003,
+     "level": 13,
+     "matchCount": 77,
+     "winCount": 38
+    },
+    {
+     "abilityId": 5003,
+     "level": 16,
+     "matchCount": 87,
+     "winCount": 50
+    },
+    {
+     "abilityId": 5003,
+     "level": 12,
+     "matchCount": 1831,
+     "winCount": 903
+    },
+    {
+     "abilityId": 5003,
+     "level": 11,
+     "matchCount": 1843,
+     "winCount": 938
+    },
+    {
+     "abilityId": 5004,
+     "level": 6,
+     "matchCount": 5,
+     "winCount": 2
+    },
+    {
+     "abilityId": 7314,
+     "level": 27,
+     "matchCount": 72,
+     "winCount": 46
+    },
+    {
+     "abilityId": 7314,
+     "level": 7,
+     "matchCount": 41,
+     "winCount": 17
+    },
+    {
+     "abilityId": 7314,
+     "level": 28,
+     "matchCount": 29,
+     "winCount": 23
+    },
+    {
+     "abilityId": 5003,
+     "level": 15,
+     "matchCount": 4679,
+     "winCount": 2364
+    },
+    {
+     "abilityId": 5003,
+     "level": 20,
+     "matchCount": 75,
+     "winCount": 29
+    },
+    {
+     "abilityId": 5003,
+     "level": 8,
+     "matchCount": 2507,
+     "winCount": 1225
+    },
+    {
+     "abilityId": 730,
+     "level": 26,
+     "matchCount": 7,
+     "winCount": 4
+    },
+    {
+     "abilityId": 7314,
+     "level": 29,
+     "matchCount": 13,
+     "winCount": 7
+    },
+    {
+     "abilityId": 7314,
+     "level": 26,
+     "matchCount": 13,
+     "winCount": 10
+    },
+    {
+     "abilityId": 5003,
+     "level": 9,
+     "matchCount": 1610,
+     "winCount": 850
+    },
+    {
+     "abilityId": 5003,
+     "level": 14,
+     "matchCount": 912,
+     "winCount": 445
+    },
+    {
+     "abilityId": 5003,
+     "level": 18,
+     "matchCount": 32,
+     "winCount": 19
+    },
+    {
+     "abilityId": 5003,
+     "level": 7,
+     "matchCount": 7943,
+     "winCount": 4130
+    },
+    {
+     "abilityId": 5004,
+     "level": 10,
+     "matchCount": 9358,
+     "winCount": 4831
+    },
+    {
+     "abilityId": 5003,
+     "level": 27,
+     "matchCount": 30,
+     "winCount": 22
+    },
+    {
+     "abilityId": 5004,
+     "level": 13,
+     "matchCount": 35,
+     "winCount": 17
+    },
+    {
+     "abilityId": 5003,
+     "level": 28,
+     "matchCount": 14,
+     "winCount": 6
+    },
+    {
+     "abilityId": 7314,
+     "level": 15,
+     "matchCount": 32151,
+     "winCount": 16697
+    },
+    {
+     "abilityId": 7314,
+     "level": 8,
+     "matchCount": 49,
+     "winCount": 21
+    },
+    {
+     "abilityId": 7314,
+     "level": 20,
+     "matchCount": 345,
+     "winCount": 180
+    },
+    {
+     "abilityId": 730,
+     "level": 8,
+     "matchCount": 7,
+     "winCount": 1
+    },
+    {
+     "abilityId": 730,
+     "level": 20,
+     "matchCount": 266,
+     "winCount": 145
+    },
+    {
+     "abilityId": 730,
+     "level": 15,
+     "matchCount": 113,
+     "winCount": 64
+    },
+    {
+     "abilityId": 5004,
+     "level": 16,
+     "matchCount": 1,
+     "winCount": 0
+    },
+    {
+     "abilityId": 5003,
+     "level": 29,
+     "matchCount": 3,
+     "winCount": 3
+    },
+    {
+     "abilityId": 5004,
+     "level": 12,
+     "matchCount": 849,
+     "winCount": 404
+    },
+    {
+     "abilityId": 5003,
+     "level": 26,
+     "matchCount": 4,
+     "winCount": 4
+    },
+    {
+     "abilityId": 5004,
+     "level": 11,
+     "matchCount": 836,
+     "winCount": 415
+    },
+    {
+     "abilityId": 5003,
+     "level": 6,
+     "matchCount": 16,
+     "winCount": 6
+    },
+    {
+     "abilityId": 7314,
+     "level": 9,
+     "matchCount": 53,
+     "winCount": 19
+    },
+    {
+     "abilityId": 7314,
+     "level": 18,
+     "matchCount": 124,
+     "winCount": 71
+    },
+    {
+     "abilityId": 7314,
+     "level": 14,
+     "matchCount": 2520,
+     "winCount": 1279
+    },
+    {
+     "abilityId": 730,
+     "level": 18,
+     "matchCount": 350,
+     "winCount": 179
+    },
+    {
+     "abilityId": 730,
+     "level": 14,
+     "matchCount": 105,
+     "winCount": 55
+    },
+    {
+     "abilityId": 730,
+     "level": 9,
+     "matchCount": 5,
+     "winCount": 2
+    },
+    {
+     "abilityId": 5003,
+     "level": 30,
+     "matchCount": 4,
+     "winCount": 3
+    },
+    {
+     "abilityId": 5004,
+     "level": 15,
+     "matchCount": 190,
+     "winCount": 84
+    },
+    {
+     "abilityId": 5003,
+     "level": 25,
+     "matchCount": 51,
+     "winCount": 33
+    },
+    {
+     "abilityId": 5004,
+     "level": 20,
+     "matchCount": 5,
+     "winCount": 3
+    },
+    {
+     "abilityId": 5004,
+     "level": 8,
+     "matchCount": 11377,
+     "winCount": 5743
+    },
+    {
+     "abilityId": 730,
+     "level": 13,
+     "matchCount": 33,
+     "winCount": 19
+    },
+    {
+     "abilityId": 730,
+     "level": 10,
+     "matchCount": 6,
+     "winCount": 3
+    },
+    {
+     "abilityId": 7314,
+     "level": 10,
+     "matchCount": 215,
+     "winCount": 102
+    },
+    {
+     "abilityId": 7314,
+     "level": 13,
+     "matchCount": 174,
+     "winCount": 89
+    },
+    {
+     "abilityId": 5004,
+     "level": 9,
+     "matchCount": 16096,
+     "winCount": 8214
+    },
+    {
+     "abilityId": 5004,
+     "level": 14,
+     "matchCount": 189,
+     "winCount": 92
+    },
+    {
+     "abilityId": 5004,
+     "level": 18,
+     "matchCount": 2,
+     "winCount": 1
+    },
+    {
+     "abilityId": 730,
+     "level": 11,
+     "matchCount": 4,
+     "winCount": 0
+    },
+    {
+     "abilityId": 730,
+     "level": 12,
+     "matchCount": 32,
+     "winCount": 19
+    },
+    {
+     "abilityId": 730,
+     "level": 16,
+     "matchCount": 158,
+     "winCount": 90
+    },
+    {
+     "abilityId": 7314,
+     "level": 12,
+     "matchCount": 2390,
+     "winCount": 1188
+    },
+    {
+     "abilityId": 7314,
+     "level": 16,
+     "matchCount": 373,
+     "winCount": 175
+    },
+    {
+     "abilityId": 7314,
+     "level": 11,
+     "matchCount": 75,
+     "winCount": 35
+    }
+   ],
+   "itemBootPurchase": [
+    {
+     "instance": 0,
+     "itemId": 63,
+     "matchCount": 40908,
+     "timeAverage": 433.950767576024,
+     "winCount": 20753
+    },
+    {
+     "instance": 0,
+     "itemId": 29,
+     "matchCount": 3859,
+     "timeAverage": 574.899196683079,
+     "winCount": 2002
+    },
+    {
+     "instance": 0,
+     "itemId": 214,
+     "matchCount": 4,
+     "timeAverage": 1390.75,
+     "winCount": 2
+    },
+    {
+     "instance": 0,
+     "itemId": 231,
+     "matchCount": 1,
+     "timeAverage": 1783,
+     "winCount": 0
+    },
+    {
+     "instance": 0,
+     "itemId": 180,
+     "matchCount": 1,
+     "timeAverage": 1414,
+     "winCount": 0
+    },
+    {
+     "instance": 0,
+     "itemId": 220,
+     "matchCount": 180,
+     "timeAverage": 3531.37777777778,
+     "winCount": 104
+    },
+    {
+     "instance": 0,
+     "itemId": 50,
+     "matchCount": 9,
+     "timeAverage": 878.111111111111,
+     "winCount": 3
+    },
+    {
+     "instance": 0,
+     "itemId": 931,
+     "matchCount": 1,
+     "timeAverage": 2571,
+     "winCount": 1
+    },
+    {
+     "instance": 0,
+     "itemId": 48,
+     "matchCount": 990,
+     "timeAverage": 3192.28181818182,
+     "winCount": 660
+    }
+   ],
+   "itemFullPurchase": [
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 535,
+     "time": 18,
+     "winCount": 331
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 862,
+     "time": 34,
+     "winCount": 498
+    },
+    {
+     "instance": 0,
+     "itemId": 75,
+     "matchCount": 1593,
+     "time": 3,
+     "winCount": 788
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 1824,
+     "time": 26,
+     "winCount": 1245
+    },
+    {
+     "instance": 0,
+     "itemId": 170,
+     "matchCount": 4175,
+     "time": 15,
+     "winCount": 2872
+    },
+    {
+     "instance": 0,
+     "itemId": 135,
+     "matchCount": 314,
+     "time": 33,
+     "winCount": 201
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 263,
+     "time": 46,
+     "winCount": 124
+    },
+    {
+     "instance": 0,
+     "itemId": 108,
+     "matchCount": 295,
+     "time": 26,
+     "winCount": 170
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 292,
+     "time": 42,
+     "winCount": 150
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 749,
+     "time": 7,
+     "winCount": 371
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 286,
+     "time": 5,
+     "winCount": 155
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 791,
+     "time": 35,
+     "winCount": 443
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 350,
+     "time": 19,
+     "winCount": 188
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 1792,
+     "time": 27,
+     "winCount": 1131
+    },
+    {
+     "instance": 0,
+     "itemId": 75,
+     "matchCount": 3488,
+     "time": 2,
+     "winCount": 1806
+    },
+    {
+     "instance": 0,
+     "itemId": 170,
+     "matchCount": 1806,
+     "time": 14,
+     "winCount": 1412
+    },
+    {
+     "instance": 0,
+     "itemId": 135,
+     "matchCount": 360,
+     "time": 32,
+     "winCount": 232
+    },
+    {
+     "instance": 0,
+     "itemId": 108,
+     "matchCount": 297,
+     "time": 27,
+     "winCount": 177
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 1108,
+     "time": 6,
+     "winCount": 584
+    },
+    {
+     "instance": 0,
+     "itemId": 75,
+     "matchCount": 2650,
+     "time": 1,
+     "winCount": 1354
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 1419,
+     "time": 24,
+     "winCount": 1109
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 1250,
+     "time": 32,
+     "winCount": 741
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 797,
+     "time": 6,
+     "winCount": 502
+    },
+    {
+     "instance": 0,
+     "itemId": 135,
+     "matchCount": 333,
+     "time": 35,
+     "winCount": 197
+    },
+    {
+     "instance": 0,
+     "itemId": 170,
+     "matchCount": 465,
+     "time": 13,
+     "winCount": 377
+    },
+    {
+     "instance": 0,
+     "itemId": 108,
+     "matchCount": 291,
+     "time": 24,
+     "winCount": 188
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 482,
+     "time": 40,
+     "winCount": 265
+    },
+    {
+     "instance": 0,
+     "itemId": 108,
+     "matchCount": 255,
+     "time": 32,
+     "winCount": 155
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 401,
+     "time": 44,
+     "winCount": 222
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 1608,
+     "time": 5,
+     "winCount": 836
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 1704,
+     "time": 25,
+     "winCount": 1251
+    },
+    {
+     "instance": 0,
+     "itemId": 75,
+     "matchCount": 414,
+     "time": 0,
+     "winCount": 239
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 2276,
+     "time": 7,
+     "winCount": 1412
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 1078,
+     "time": 33,
+     "winCount": 649
+    },
+    {
+     "instance": 0,
+     "itemId": 135,
+     "matchCount": 359,
+     "time": 34,
+     "winCount": 222
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 369,
+     "time": 41,
+     "winCount": 210
+    },
+    {
+     "instance": 0,
+     "itemId": 108,
+     "matchCount": 329,
+     "time": 25,
+     "winCount": 202
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 308,
+     "time": 45,
+     "winCount": 162
+    },
+    {
+     "instance": 0,
+     "itemId": 108,
+     "matchCount": 258,
+     "time": 33,
+     "winCount": 162
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 2444,
+     "time": 4,
+     "winCount": 1240
+    },
+    {
+     "instance": 0,
+     "itemId": 135,
+     "matchCount": 337,
+     "time": 37,
+     "winCount": 199
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 432,
+     "time": 38,
+     "winCount": 249
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 488,
+     "time": 22,
+     "winCount": 250
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 1441,
+     "time": 30,
+     "winCount": 842
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 3759,
+     "time": 3,
+     "winCount": 1907
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 615,
+     "time": 42,
+     "winCount": 342
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 471,
+     "time": 22,
+     "winCount": 350
+    },
+    {
+     "instance": 0,
+     "itemId": 108,
+     "matchCount": 302,
+     "time": 30,
+     "winCount": 185
+    },
+    {
+     "instance": 0,
+     "itemId": 135,
+     "matchCount": 314,
+     "time": 36,
+     "winCount": 189
+    },
+    {
+     "instance": 0,
+     "itemId": 73,
+     "matchCount": 650,
+     "time": 2,
+     "winCount": 327
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 334,
+     "time": 23,
+     "winCount": 177
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 364,
+     "time": 39,
+     "winCount": 204
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 1402,
+     "time": 31,
+     "winCount": 844
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 5036,
+     "time": 2,
+     "winCount": 2608
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 686,
+     "time": 23,
+     "winCount": 459
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 485,
+     "time": 43,
+     "winCount": 269
+    },
+    {
+     "instance": 0,
+     "itemId": 108,
+     "matchCount": 297,
+     "time": 31,
+     "winCount": 183
+    },
+    {
+     "instance": 0,
+     "itemId": 73,
+     "matchCount": 441,
+     "time": 1,
+     "winCount": 234
+    },
+    {
+     "instance": 0,
+     "itemId": 135,
+     "matchCount": 274,
+     "time": 31,
+     "winCount": 187
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 1744,
+     "time": 28,
+     "winCount": 1043
+    },
+    {
+     "instance": 0,
+     "itemId": 75,
+     "matchCount": 343,
+     "time": 5,
+     "winCount": 163
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 656,
+     "time": 36,
+     "winCount": 352
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 274,
+     "time": 20,
+     "winCount": 158
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 4218,
+     "time": 1,
+     "winCount": 2219
+    },
+    {
+     "instance": 0,
+     "itemId": 108,
+     "matchCount": 288,
+     "time": 28,
+     "winCount": 176
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 852,
+     "time": 40,
+     "winCount": 547
+    },
+    {
+     "instance": 0,
+     "itemId": 135,
+     "matchCount": 316,
+     "time": 38,
+     "winCount": 188
+    },
+    {
+     "instance": 0,
+     "itemId": 75,
+     "matchCount": 684,
+     "time": 4,
+     "winCount": 360
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 1599,
+     "time": 29,
+     "winCount": 933
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 724,
+     "time": 21,
+     "winCount": 391
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 545,
+     "time": 37,
+     "winCount": 295
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 1551,
+     "time": 0,
+     "winCount": 829
+    },
+    {
+     "instance": 0,
+     "itemId": 108,
+     "matchCount": 317,
+     "time": 29,
+     "winCount": 178
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 348,
+     "time": 21,
+     "winCount": 265
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 753,
+     "time": 41,
+     "winCount": 459
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 707,
+     "time": 30,
+     "winCount": 543
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 1343,
+     "time": 34,
+     "winCount": 788
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 1127,
+     "time": 26,
+     "winCount": 736
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 1080,
+     "time": 38,
+     "winCount": 728
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 322,
+     "time": 15,
+     "winCount": 168
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 314,
+     "time": 26,
+     "winCount": 144
+    },
+    {
+     "instance": 0,
+     "itemId": 145,
+     "matchCount": 632,
+     "time": 10,
+     "winCount": 436
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 4850,
+     "time": 12,
+     "winCount": 2643
+    },
+    {
+     "instance": 0,
+     "itemId": 4206,
+     "matchCount": 399,
+     "time": 36,
+     "winCount": 222
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 1109,
+     "time": 35,
+     "winCount": 679
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 947,
+     "time": 31,
+     "winCount": 707
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 906,
+     "time": 39,
+     "winCount": 578
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 1228,
+     "time": 27,
+     "winCount": 801
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 369,
+     "time": 14,
+     "winCount": 225
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 4779,
+     "time": 13,
+     "winCount": 2410
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 553,
+     "time": 27,
+     "winCount": 254
+    },
+    {
+     "instance": 0,
+     "itemId": 145,
+     "matchCount": 2779,
+     "time": 11,
+     "winCount": 1961
+    },
+    {
+     "instance": 0,
+     "itemId": 4206,
+     "matchCount": 298,
+     "time": 37,
+     "winCount": 147
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 826,
+     "time": 24,
+     "winCount": 527
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 1221,
+     "time": 36,
+     "winCount": 850
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 454,
+     "time": 28,
+     "winCount": 340
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 1584,
+     "time": 32,
+     "winCount": 991
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 339,
+     "time": 13,
+     "winCount": 214
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 321,
+     "time": 40,
+     "winCount": 183
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 660,
+     "time": 24,
+     "winCount": 355
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 4121,
+     "time": 14,
+     "winCount": 1937
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 1174,
+     "time": 37,
+     "winCount": 762
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 981,
+     "time": 25,
+     "winCount": 608
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 1538,
+     "time": 33,
+     "winCount": 937
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 583,
+     "time": 29,
+     "winCount": 431
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 2881,
+     "time": 15,
+     "winCount": 1141
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 446,
+     "time": 25,
+     "winCount": 219
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 314,
+     "time": 33,
+     "winCount": 162
+    },
+    {
+     "instance": 0,
+     "itemId": 4206,
+     "matchCount": 302,
+     "time": 39,
+     "winCount": 146
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 692,
+     "time": 38,
+     "winCount": 360
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 1138,
+     "time": 34,
+     "winCount": 798
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 1572,
+     "time": 30,
+     "winCount": 1010
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 398,
+     "time": 22,
+     "winCount": 352
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 3623,
+     "time": 8,
+     "winCount": 2110
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 403,
+     "time": 30,
+     "winCount": 194
+    },
+    {
+     "instance": 0,
+     "itemId": 145,
+     "matchCount": 8044,
+     "time": 14,
+     "winCount": 4158
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 346,
+     "time": 27,
+     "winCount": 275
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 588,
+     "time": 39,
+     "winCount": 296
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 1683,
+     "time": 31,
+     "winCount": 1075
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 1185,
+     "time": 35,
+     "winCount": 830
+    },
+    {
+     "instance": 0,
+     "itemId": 139,
+     "matchCount": 855,
+     "time": 23,
+     "winCount": 722
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 273,
+     "time": 31,
+     "winCount": 121
+    },
+    {
+     "instance": 0,
+     "itemId": 145,
+     "matchCount": 6054,
+     "time": 15,
+     "winCount": 2617
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 4277,
+     "time": 9,
+     "winCount": 2364
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 410,
+     "time": 9,
+     "winCount": 212
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 1109,
+     "time": 32,
+     "winCount": 842
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 1461,
+     "time": 28,
+     "winCount": 975
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 1026,
+     "time": 36,
+     "winCount": 604
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 3847,
+     "time": 10,
+     "winCount": 2090
+    },
+    {
+     "instance": 0,
+     "itemId": 145,
+     "matchCount": 5997,
+     "time": 12,
+     "winCount": 3844
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 361,
+     "time": 28,
+     "winCount": 160
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 536,
+     "time": 8,
+     "winCount": 280
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 1489,
+     "time": 29,
+     "winCount": 988
+    },
+    {
+     "instance": 0,
+     "itemId": 208,
+     "matchCount": 1116,
+     "time": 33,
+     "winCount": 813
+    },
+    {
+     "instance": 0,
+     "itemId": 143,
+     "matchCount": 861,
+     "time": 37,
+     "winCount": 497
+    },
+    {
+     "instance": 0,
+     "itemId": 145,
+     "matchCount": 8123,
+     "time": 13,
+     "winCount": 4706
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 278,
+     "time": 29,
+     "winCount": 119
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 4629,
+     "time": 11,
+     "winCount": 2564
+    },
+    {
+     "instance": 0,
+     "itemId": 147,
+     "matchCount": 3624,
+     "time": 23,
+     "winCount": 1306
+    },
+    {
+     "instance": 0,
+     "itemId": 265,
+     "matchCount": 338,
+     "time": 5,
+     "winCount": 160
+    },
+    {
+     "instance": 0,
+     "itemId": 145,
+     "matchCount": 470,
+     "time": 19,
+     "winCount": 109
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 264,
+     "time": 41,
+     "winCount": 165
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 279,
+     "time": 45,
+     "winCount": 159
+    },
+    {
+     "instance": 0,
+     "itemId": 147,
+     "matchCount": 4719,
+     "time": 22,
+     "winCount": 2064
+    },
+    {
+     "instance": 0,
+     "itemId": 265,
+     "matchCount": 364,
+     "time": 4,
+     "winCount": 189
+    },
+    {
+     "instance": 0,
+     "itemId": 145,
+     "matchCount": 1068,
+     "time": 18,
+     "winCount": 231
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 339,
+     "time": 40,
+     "winCount": 220
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 309,
+     "time": 44,
+     "winCount": 154
+    },
+    {
+     "instance": 0,
+     "itemId": 147,
+     "matchCount": 6114,
+     "time": 21,
+     "winCount": 3149
+    },
+    {
+     "instance": 0,
+     "itemId": 145,
+     "matchCount": 2291,
+     "time": 17,
+     "winCount": 721
+    },
+    {
+     "instance": 0,
+     "itemId": 265,
+     "matchCount": 275,
+     "time": 6,
+     "winCount": 130
+    },
+    {
+     "instance": 0,
+     "itemId": 147,
+     "matchCount": 6620,
+     "time": 20,
+     "winCount": 3948
+    },
+    {
+     "instance": 0,
+     "itemId": 145,
+     "matchCount": 4449,
+     "time": 16,
+     "winCount": 1669
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 1031,
+     "time": 17,
+     "winCount": 301
+    },
+    {
+     "instance": 0,
+     "itemId": 147,
+     "matchCount": 5700,
+     "time": 19,
+     "winCount": 3841
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 671,
+     "time": 41,
+     "winCount": 393
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 2046,
+     "time": 16,
+     "winCount": 732
+    },
+    {
+     "instance": 0,
+     "itemId": 147,
+     "matchCount": 3800,
+     "time": 18,
+     "winCount": 2792
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 775,
+     "time": 40,
+     "winCount": 476
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 313,
+     "time": 42,
+     "winCount": 158
+    },
+    {
+     "instance": 0,
+     "itemId": 265,
+     "matchCount": 350,
+     "time": 3,
+     "winCount": 163
+    },
+    {
+     "instance": 0,
+     "itemId": 147,
+     "matchCount": 1803,
+     "time": 17,
+     "winCount": 1448
+    },
+    {
+     "instance": 0,
+     "itemId": 170,
+     "matchCount": 317,
+     "time": 24,
+     "winCount": 39
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 437,
+     "time": 43,
+     "winCount": 240
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 257,
+     "time": 16,
+     "winCount": 113
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 384,
+     "time": 41,
+     "winCount": 193
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 534,
+     "time": 23,
+     "winCount": 471
+    },
+    {
+     "instance": 0,
+     "itemId": 69,
+     "matchCount": 472,
+     "time": 18,
+     "winCount": 99
+    },
+    {
+     "instance": 0,
+     "itemId": 147,
+     "matchCount": 443,
+     "time": 16,
+     "winCount": 370
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 539,
+     "time": 42,
+     "winCount": 296
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 402,
+     "time": 40,
+     "winCount": 210
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 404,
+     "time": 39,
+     "winCount": 186
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 1164,
+     "time": 33,
+     "winCount": 660
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 1531,
+     "time": 25,
+     "winCount": 1204
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 673,
+     "time": 31,
+     "winCount": 347
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 1070,
+     "time": 37,
+     "winCount": 708
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 746,
+     "time": 29,
+     "winCount": 559
+    },
+    {
+     "instance": 0,
+     "itemId": 170,
+     "matchCount": 1017,
+     "time": 22,
+     "winCount": 196
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 1363,
+     "time": 32,
+     "winCount": 746
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 499,
+     "time": 38,
+     "winCount": 259
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 657,
+     "time": 30,
+     "winCount": 325
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 1000,
+     "time": 24,
+     "winCount": 821
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 1192,
+     "time": 36,
+     "winCount": 809
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 621,
+     "time": 28,
+     "winCount": 468
+    },
+    {
+     "instance": 0,
+     "itemId": 170,
+     "matchCount": 604,
+     "time": 23,
+     "winCount": 106
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 2047,
+     "time": 27,
+     "winCount": 1348
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 504,
+     "time": 29,
+     "winCount": 250
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 587,
+     "time": 37,
+     "winCount": 290
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 819,
+     "time": 35,
+     "winCount": 489
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 1108,
+     "time": 31,
+     "winCount": 832
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 811,
+     "time": 39,
+     "winCount": 515
+    },
+    {
+     "instance": 0,
+     "itemId": 170,
+     "matchCount": 3175,
+     "time": 20,
+     "winCount": 1077
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 463,
+     "time": 28,
+     "winCount": 222
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 1859,
+     "time": 26,
+     "winCount": 1325
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 891,
+     "time": 34,
+     "winCount": 508
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 618,
+     "time": 36,
+     "winCount": 312
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 953,
+     "time": 30,
+     "winCount": 711
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 969,
+     "time": 38,
+     "winCount": 641
+    },
+    {
+     "instance": 0,
+     "itemId": 147,
+     "matchCount": 309,
+     "time": 28,
+     "winCount": 44
+    },
+    {
+     "instance": 0,
+     "itemId": 170,
+     "matchCount": 1951,
+     "time": 21,
+     "winCount": 523
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 1186,
+     "time": 33,
+     "winCount": 851
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 257,
+     "time": 25,
+     "winCount": 189
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 562,
+     "time": 37,
+     "winCount": 330
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 703,
+     "time": 35,
+     "winCount": 338
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 378,
+     "time": 27,
+     "winCount": 190
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 1797,
+     "time": 29,
+     "winCount": 1033
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 446,
+     "time": 15,
+     "winCount": 285
+    },
+    {
+     "instance": 0,
+     "itemId": 147,
+     "matchCount": 582,
+     "time": 27,
+     "winCount": 102
+    },
+    {
+     "instance": 0,
+     "itemId": 170,
+     "matchCount": 6499,
+     "time": 18,
+     "winCount": 3128
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 1194,
+     "time": 32,
+     "winCount": 867
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 698,
+     "time": 34,
+     "winCount": 333
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 683,
+     "time": 36,
+     "winCount": 400
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 1899,
+     "time": 28,
+     "winCount": 1141
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 274,
+     "time": 26,
+     "winCount": 125
+    },
+    {
+     "instance": 0,
+     "itemId": 170,
+     "matchCount": 4738,
+     "time": 19,
+     "winCount": 1909
+    },
+    {
+     "instance": 0,
+     "itemId": 147,
+     "matchCount": 970,
+     "time": 26,
+     "winCount": 190
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 502,
+     "time": 27,
+     "winCount": 368
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 1206,
+     "time": 35,
+     "winCount": 798
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 1604,
+     "time": 31,
+     "winCount": 877
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 370,
+     "time": 39,
+     "winCount": 206
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 736,
+     "time": 33,
+     "winCount": 376
+    },
+    {
+     "instance": 0,
+     "itemId": 147,
+     "matchCount": 1489,
+     "time": 25,
+     "winCount": 356
+    },
+    {
+     "instance": 0,
+     "itemId": 170,
+     "matchCount": 7078,
+     "time": 16,
+     "winCount": 4466
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 384,
+     "time": 26,
+     "winCount": 286
+    },
+    {
+     "instance": 0,
+     "itemId": 162,
+     "matchCount": 1186,
+     "time": 34,
+     "winCount": 823
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 1692,
+     "time": 30,
+     "winCount": 962
+    },
+    {
+     "instance": 0,
+     "itemId": 116,
+     "matchCount": 731,
+     "time": 32,
+     "winCount": 381
+    },
+    {
+     "instance": 0,
+     "itemId": 160,
+     "matchCount": 468,
+     "time": 38,
+     "winCount": 279
+    },
+    {
+     "instance": 0,
+     "itemId": 4205,
+     "matchCount": 335,
+     "time": 12,
+     "winCount": 236
+    },
+    {
+     "instance": 0,
+     "itemId": 170,
+     "matchCount": 7899,
+     "time": 17,
+     "winCount": 4407
+    },
+    {
+     "instance": 0,
+     "itemId": 147,
+     "matchCount": 2434,
+     "time": 24,
+     "winCount": 707
+    }
+   ],
+   "itemStartingPurchase": [
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 315,
+     "wasGiven": false,
+     "winCount": 158
+    },
+    {
+     "instance": 1,
+     "itemId": 20,
+     "matchCount": 819,
+     "wasGiven": false,
+     "winCount": 439
+    },
+    {
+     "instance": 0,
+     "itemId": 20,
+     "matchCount": 20152,
+     "wasGiven": false,
+     "winCount": 10270
+    },
+    {
+     "instance": 0,
+     "itemId": 14,
+     "matchCount": 6219,
+     "wasGiven": false,
+     "winCount": 3140
+    },
+    {
+     "instance": 0,
+     "itemId": 39,
+     "matchCount": 367,
+     "wasGiven": false,
+     "winCount": 179
+    },
+    {
+     "instance": 1,
+     "itemId": 20,
+     "matchCount": 5809,
+     "wasGiven": true,
+     "winCount": 2961
+    },
+    {
+     "instance": 0,
+     "itemId": 13,
+     "matchCount": 532,
+     "wasGiven": false,
+     "winCount": 280
+    },
+    {
+     "instance": 0,
+     "itemId": 44,
+     "matchCount": 33976,
+     "wasGiven": false,
+     "winCount": 17159
+    },
+    {
+     "instance": 0,
+     "itemId": 36,
+     "matchCount": 775,
+     "wasGiven": true,
+     "winCount": 422
+    },
+    {
+     "instance": 0,
+     "itemId": 237,
+     "matchCount": 19870,
+     "wasGiven": false,
+     "winCount": 10104
+    },
+    {
+     "instance": 0,
+     "itemId": 34,
+     "matchCount": 23158,
+     "wasGiven": false,
+     "winCount": 11779
+    },
+    {
+     "instance": 1,
+     "itemId": 16,
+     "matchCount": 25018,
+     "wasGiven": true,
+     "winCount": 12652
+    },
+    {
+     "instance": 2,
+     "itemId": 16,
+     "matchCount": 325,
+     "wasGiven": false,
+     "winCount": 152
+    },
+    {
+     "instance": 1,
+     "itemId": 237,
+     "matchCount": 602,
+     "wasGiven": true,
+     "winCount": 318
+    },
+    {
+     "instance": 0,
+     "itemId": 1575,
+     "matchCount": 468,
+     "wasGiven": false,
+     "winCount": 211
+    },
+    {
+     "instance": 0,
+     "itemId": 11,
+     "matchCount": 36373,
+     "wasGiven": false,
+     "winCount": 18359
+    },
+    {
+     "instance": 2,
+     "itemId": 16,
+     "matchCount": 4580,
+     "wasGiven": true,
+     "winCount": 2349
+    },
+    {
+     "instance": 1,
+     "itemId": 16,
+     "matchCount": 4775,
+     "wasGiven": false,
+     "winCount": 2475
+    },
+    {
+     "instance": 3,
+     "itemId": 16,
+     "matchCount": 266,
+     "wasGiven": true,
+     "winCount": 115
+    },
+    {
+     "instance": 0,
+     "itemId": 16,
+     "matchCount": 37418,
+     "wasGiven": false,
+     "winCount": 19001
+    }
+   ],
+   "talent": [
+    {
+     "abilityId": 1495,
+     "matchCount": 9390,
+     "timeAverage": 965.172843450479,
+     "winCount": 4600
+    },
+    {
+     "abilityId": 6606,
+     "matchCount": 23578,
+     "timeAverage": 1681.57121045042,
+     "winCount": 13260
+    },
+    {
+     "abilityId": 6800,
+     "matchCount": 8516,
+     "timeAverage": 1353.02054955378,
+     "winCount": 4563
+    },
+    {
+     "abilityId": 6353,
+     "matchCount": 18275,
+     "timeAverage": 2153.12142270862,
+     "winCount": 11344
+    },
+    {
+     "abilityId": 735,
+     "matchCount": 9791,
+     "timeAverage": 1680.99193136554,
+     "winCount": 5413
+    },
+    {
+     "abilityId": 6012,
+     "matchCount": 3489,
+     "timeAverage": 2162.23932358842,
+     "winCount": 2236
+    },
+    {
+     "abilityId": 966,
+     "matchCount": 31515,
+     "timeAverage": 953.249849278121,
+     "winCount": 16190
+    },
+    {
+     "abilityId": 665,
+     "matchCount": 31082,
+     "timeAverage": 1351.68328936362,
+     "winCount": 16057
+    },
+    {
+     "abilityId": 730,
+     "matchCount": 8951,
+     "timeAverage": 1270.48921908167,
+     "winCount": 4673
+    }
+   ]
+  }
+ }
+}
