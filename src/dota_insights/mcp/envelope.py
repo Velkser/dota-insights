@@ -3,14 +3,20 @@
 The envelope carries the provenance an AI caller needs to report a number honestly: how many
 matches it rests on, over which filters and dates, how each metric is defined, its confidence
 interval, caveats and data sources. Build it with `ok`, `insufficient_data` or `error`.
+
+Every ok envelope also lists the Russian names of the heroes and items its result mentions
+(`names_ru`), so a caller answering in Russian can name them the way players do without
+each tool carrying a language parameter.
 """
 
 from datetime import date, datetime
-from typing import Literal, Self
+from typing import Any, Literal, Self
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic_core import to_jsonable_python
 
 from dota_insights.models.filters import Filters
+from dota_insights.reference import ru_by_display_name
 
 Status = Literal["ok", "insufficient_data", "error"]
 # "dota-insights-db": the collector's aggregates in our own database (see db/readers.py); it is
@@ -83,6 +89,19 @@ class ToolResult[T](BaseModel):
     data_freshness: datetime | None = Field(
         default=None, description="When the underlying data was last updated (UTC)."
     )
+    names_ru: dict[str, str] = Field(
+        default_factory=dict,
+        description=(
+            "English hero and item names that appear in `result` -> the names Russian-speaking "
+            "players use. Use them when answering in Russian."
+        ),
+    )
+
+    @model_validator(mode="after")
+    def _fill_names_ru(self) -> Self:
+        if self.result is not None and not self.names_ru:
+            self.names_ru = russian_names(self.result)
+        return self
 
     @model_validator(mode="after")
     def _consistent(self) -> Self:
@@ -106,6 +125,27 @@ class ToolResult[T](BaseModel):
             if self.status == "insufficient_data" and not (self.hint and self.hint.strip()):
                 raise ValueError("insufficient_data result must say how to widen filters in hint")
         return self
+
+
+def russian_names(value: Any) -> dict[str, str]:
+    """Russian names of the heroes and items named anywhere in `value` (keys included)."""
+    table = ru_by_display_name()
+    found: dict[str, str] = {}
+
+    def visit(node: Any) -> None:
+        if isinstance(node, str):
+            if node in table:
+                found[node] = table[node]
+        elif isinstance(node, dict):
+            for key, child in node.items():
+                visit(key)
+                visit(child)
+        elif isinstance(node, list):
+            for child in node:
+                visit(child)
+
+    visit(to_jsonable_python(value, fallback=str))
+    return dict(sorted(found.items()))
 
 
 def ok[T](

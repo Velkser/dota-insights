@@ -8,6 +8,7 @@ from pydantic import Field
 
 from dota_insights.analytics import live, pro
 from dota_insights.cache import TTL_LIVE
+from dota_insights.mcp import args
 from dota_insights.mcp.envelope import Period, ToolResult, error, ok
 from dota_insights.reference import resolve_hero
 from dota_insights.sources.opendota import OpenDotaError
@@ -15,9 +16,7 @@ from dota_insights.sources.opendota import OpenDotaError
 HeroList = Annotated[
     list[str] | None,
     Field(
-        description=(
-            "Up to 5 heroes of one side, as a person would type them. Overrides the live draft."
-        ),
+        description=f"Up to 5 heroes of one side; overrides the live draft. {args.HEROES}",
         max_length=5,
     ),
 ]

@@ -8,6 +8,13 @@ All notable changes to this project. The format follows
 
 ### Added
 
+- Russian hero and item names (p9-11): `reference/data/names_ru.json` lists the usual Russian
+  name and community nicknames for all 127 heroes and 114 common items ("Пудж", "Инвокер", "АМ",
+  "БКБ", "Блинк"). Every hero and item argument accepts them, case-insensitively and with ё/е
+  treated alike; a test checks that each Russian name and alias resolves to exactly one hero or
+  item. Every ok envelope carries `names_ru` (English name -> Russian name for the heroes and
+  items in its result), and `lookup_reference`, `heroes://list` and `items://list` records gain
+  `name_ru`. Hero and item parameter descriptions say Russian spellings are accepted.
 - Landing page at `/` and privacy policy at `/privacy`: self-contained HTML (no JavaScript),
   light and dark, English and Russian (`?lang=`, else `Accept-Language`). The landing page's tool
   list is rendered from the registered tools (`dota_insights.mcp.catalog`, shared with the README
@@ -45,6 +52,9 @@ All notable changes to this project. The format follows
 
 ### Changed
 
+- A hero or item query that is already an alias as typed is no longer also read in the other
+  keyboard layout, so "АМ", "ВК", "ЦК", "ДС" and "ТП" resolve instead of coming back ambiguous
+  ("ам" is "fv" on a QWERTY layout). Russian slang moved from `aliases.py` to `names_ru.json`.
 - `insufficient_data` envelopes must carry a non-empty `hint` on how to widen the filters.
 - Tool-call logs record the envelope status (`ok`, `insufficient_data`, `error`).
 - Source errors caught inside tools now use the same messages and retry hints as the middleware

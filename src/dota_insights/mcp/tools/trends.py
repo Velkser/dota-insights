@@ -7,6 +7,7 @@ from fastmcp import FastMCP
 from pydantic import BaseModel, Field
 
 from dota_insights.analytics import trends as t
+from dota_insights.mcp import args
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
 from dota_insights.mcp.errors import retry_hint, source_error
 from dota_insights.models import Filters, GameMode
@@ -399,7 +400,7 @@ def register(mcp: FastMCP) -> None:
 
     @mcp.tool
     async def get_hero_patch_history(
-        hero: Annotated[str, Field(description="Hero name or nickname, e.g. 'Anti-Mage', 'am'.")],
+        hero: Annotated[str, Field(description=args.HERO)],
         filters: FiltersArg = None,
         patches: Annotated[
             int, Field(ge=2, le=12, description="How many patches back, ending at filters.patch.")

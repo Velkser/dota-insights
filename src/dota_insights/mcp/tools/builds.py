@@ -10,6 +10,7 @@ from pydantic import Field
 
 from dota_insights.analytics import builds
 from dota_insights.analytics.stats import wilson_interval
+from dota_insights.mcp import args
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
 from dota_insights.mcp.errors import retry_hint, source_error
 from dota_insights.models.filters import Filters, GameMode
@@ -19,12 +20,7 @@ from dota_insights.sources.stratz import StratzError
 
 HeroArg = Annotated[
     str,
-    Field(
-        description=(
-            'Hero as a person would type it: name, nickname or abbreviation ("Anti-Mage", '
-            '"am", "Антимаг").'
-        )
-    ),
+    Field(description=args.HERO),
 ]
 FiltersArg = Annotated[
     Filters | None,
@@ -511,7 +507,7 @@ def register(mcp: FastMCP) -> None:
         filters: FiltersArg = None,
         hero: Annotated[
             str | None,
-            Field(description="Hero to get neutral items for. Omit for all heroes."),
+            Field(description=f"Hero to get neutral items for; omit for all heroes. {args.HERO}"),
         ] = None,
         tier: Annotated[
             int | None, Field(ge=1, le=5, description="Neutral item tier 1-5. Omit for all.")

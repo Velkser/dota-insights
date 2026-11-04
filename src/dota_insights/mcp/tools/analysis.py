@@ -9,6 +9,7 @@ from pydantic import Field
 
 from dota_insights.analytics import analysis as an
 from dota_insights.analytics.farming import explorer_patch
+from dota_insights.mcp import args
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
 from dota_insights.models import Filters, GameMode, Outcome
 from dota_insights.reference import Hero, hero_by_id, patches, resolve_hero, resolve_item
@@ -124,9 +125,7 @@ _FIELD_LIST = "; ".join(
 def register(mcp: FastMCP) -> None:
     @mcp.tool
     async def test_hypothesis(
-        hero: Annotated[
-            str, Field(description='Hero whose matches are compared, e.g. "PA", "Anti-Mage".')
-        ],
+        hero: Annotated[str, Field(description=f"Hero whose matches are compared. {args.HERO}")],
         group_a: Annotated[
             list[an.Condition],
             Field(
@@ -287,7 +286,7 @@ def register(mcp: FastMCP) -> None:
         ],
         hero: Annotated[
             str | None,
-            Field(description="Limit to one hero's players. Omit for every player."),
+            Field(description=f"Limit to one hero's players; omit for every player. {args.HERO}"),
         ] = None,
         filters: FiltersArg = None,
     ) -> ToolResult[an.CorrelationResult]:
@@ -400,11 +399,11 @@ def register(mcp: FastMCP) -> None:
     async def find_matches(
         heroes: Annotated[
             list[str] | None,
-            Field(description='Heroes that must all be on the same team, e.g. ["PA", "Lion"].'),
+            Field(description=f"Heroes that must all be on the same team. {args.HEROES}"),
         ] = None,
         enemy_heroes: Annotated[
             list[str] | None,
-            Field(description="Heroes that must all be on the opposing team."),
+            Field(description=f"Heroes that must all be on the opposing team. {args.HEROES}"),
         ] = None,
         heroes_outcome: Annotated[
             Outcome,

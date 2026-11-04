@@ -2,7 +2,8 @@
 
 Matching runs on normalized text (see ``aliases.normalize``) and also on the query
 re-typed in the other keyboard layout, so "фь" finds Anti-Mage ("am") and "ишт" finds
-BKB. Exact alias hits win outright; otherwise display-name words, alias prefixes and
+BKB; the layout switch is skipped when the query is already an alias as typed. Exact
+alias hits win outright; otherwise display-name words, alias prefixes and
 ``difflib`` similarity produce scored candidates.
 """
 
@@ -112,6 +113,9 @@ def _resolve[T](
     for key, factor in variants:
         if key in aliases:
             offer(aliases[key], EXACT_SCORE * factor, key)
+            # An alias as typed is final: "ам" is Anti-Mage, not "fv" in the other layout.
+            if factor == 1.0:
+                break
     if not scored:
         keys = list(aliases)
         for key, factor in variants:

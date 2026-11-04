@@ -8,6 +8,7 @@ from pydantic import Field
 
 from dota_insights.analytics import general
 from dota_insights.analytics.stats import wilson_interval
+from dota_insights.mcp import args
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
 from dota_insights.mcp.errors import source_error
 from dota_insights.models import Filters
@@ -155,8 +156,7 @@ def register(mcp: FastMCP) -> None:
             str | None,
             Field(
                 description=(
-                    'Only records set on this hero, any spelling ("PA", "Фантомка"). '
-                    "Not available for duration."
+                    f"Only records set on this hero. {args.HERO} Not available for duration."
                 )
             ),
         ] = None,

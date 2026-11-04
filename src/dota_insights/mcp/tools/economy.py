@@ -6,6 +6,7 @@ from fastmcp import FastMCP
 from pydantic import Field
 
 from dota_insights.analytics import economy, farming
+from dota_insights.mcp import args
 from dota_insights.mcp.envelope import Period, Source, ToolResult, error, insufficient_data, ok
 from dota_insights.mcp.errors import retry_hint
 from dota_insights.models import Filters
@@ -115,12 +116,7 @@ def register(mcp: FastMCP) -> None:
     async def analyze_death(
         hero: Annotated[
             str | None,
-            Field(
-                description=(
-                    'Hero whose deaths to analyse, as a person would type it ("sf", '
-                    '"Anti-Mage"). Omit for every hero.'
-                )
-            ),
+            Field(description=f"Hero whose deaths to analyse; omit for every hero. {args.HERO}"),
         ] = None,
         later_minutes: Annotated[
             int,

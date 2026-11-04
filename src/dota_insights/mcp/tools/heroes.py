@@ -6,6 +6,7 @@ from fastmcp import FastMCP
 from pydantic import Field
 
 from dota_insights.analytics import heroes as analytics
+from dota_insights.mcp import args
 from dota_insights.mcp.envelope import ToolResult, error, insufficient_data, ok
 from dota_insights.mcp.errors import source_error
 from dota_insights.models import Filters
@@ -95,9 +96,7 @@ async def _run(coro, filters: Filters):
 def register(mcp: FastMCP) -> None:
     @mcp.tool
     async def get_hero_overview(
-        hero: Annotated[
-            str, Field(description='Hero name as a person would type it ("PA", "Invoker").')
-        ],
+        hero: Annotated[str, Field(description=args.HERO)],
         filters: Annotated[Filters, Field(description=FILTERS_DESCRIPTION)] = ALL_MATCHES,
     ) -> ToolResult[analytics.HeroOverview]:
         """Win and pick rate of one hero with 95% intervals, its win-rate rank, which
@@ -133,7 +132,9 @@ def register(mcp: FastMCP) -> None:
     async def compare_heroes(
         heroes: Annotated[
             list[str],
-            Field(min_length=2, max_length=5, description="2 to 5 hero names to compare."),
+            Field(
+                min_length=2, max_length=5, description=f"2 to 5 heroes to compare. {args.HEROES}"
+            ),
         ],
         metrics: Annotated[
             list[Metric] | None,

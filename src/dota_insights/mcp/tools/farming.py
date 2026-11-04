@@ -9,6 +9,7 @@ from pydantic import Field
 from dota_insights.analytics import farming
 from dota_insights.analytics.stats import wilson_interval
 from dota_insights.db import readers
+from dota_insights.mcp import args
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
 from dota_insights.mcp.errors import source_error
 from dota_insights.models import Filters, Outcome
@@ -18,7 +19,7 @@ from dota_insights.sources.stratz import StratzError
 
 HeroArg = Annotated[
     str,
-    Field(description='Hero as a person would type it: "Anti-Mage", "am", "Фантомка", "pa".'),
+    Field(description=args.HERO),
 ]
 FiltersArg = Annotated[
     Filters | None,
@@ -537,7 +538,7 @@ def register(mcp: FastMCP) -> None:
         heroes: Annotated[
             list[str],
             Field(
-                description="1-5 heroes to compare, as a person would type them.",
+                description=f"1-5 heroes to compare. {args.HEROES}",
                 min_length=1,
                 max_length=5,
             ),

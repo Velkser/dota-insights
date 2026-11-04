@@ -6,15 +6,25 @@ from dota_insights.reference import (
     abilities,
     ability_by_name,
     hero_by_id,
+    hero_name_ru,
     heroes,
     item_ids,
+    item_name_ru,
     items,
     patch_at,
     patches,
     resolve_hero,
     resolve_item,
+    ru_by_display_name,
+    ru_names,
 )
-from dota_insights.reference.aliases import HERO_SLANG, ITEM_SLANG, hero_aliases, normalize
+from dota_insights.reference.aliases import (
+    HERO_SLANG,
+    ITEM_SLANG,
+    hero_aliases,
+    item_aliases,
+    normalize,
+)
 
 
 def test_all_heroes_load_with_unique_ids_and_names():
@@ -176,3 +186,85 @@ def test_normalize_ignores_case_punctuation_and_yo():
     assert normalize("Nature's  Prophet") == "naturesprophet"
     assert normalize("Мьёлнир") == normalize("мьелнир")
     assert "antimage" in hero_aliases()
+
+
+def test_ru_names_cover_every_hero_and_only_known_items():
+    names = ru_names()
+    assert set(names["heroes"]) == {h.short_name for h in heroes()}
+    assert set(names["items"]) <= {i.name for i in items()}
+
+
+def _ru_spellings(kind: str) -> list[tuple[str, str]]:
+    return [
+        (key, spelling)
+        for key, entry in ru_names()[kind].items()
+        for spelling in (entry.name, *entry.aliases)
+    ]
+
+
+def test_no_russian_hero_alias_maps_to_two_heroes():
+    index = hero_aliases()
+    by_key = {h.short_name: h for h in heroes()}
+    for key, spelling in _ru_spellings("heroes"):
+        assert index[normalize(spelling)] == {by_key[key].id}, spelling
+        assert resolve_hero(spelling).best == by_key[key], spelling
+
+
+def test_no_russian_item_alias_maps_to_two_items():
+    index = item_aliases()
+    by_key = {i.name: i for i in items()}
+    for key, spelling in _ru_spellings("items"):
+        assert index[normalize(spelling)] == {by_key[key].id}, spelling
+        assert resolve_item(spelling).best == by_key[key], spelling
+
+
+@pytest.mark.parametrize(
+    ("query", "expected"),
+    [
+        ("Пудж", "Pudge"),
+        ("пудж", "Pudge"),
+        ("ПУДЖ", "Pudge"),
+        ("Инвокер", "Invoker"),
+        ("Карл", "Invoker"),
+        ("АМ", "Anti-Mage"),
+        ("ам", "Anti-Mage"),
+        ("Магина", "Anti-Mage"),
+        ("ВК", "Wraith King"),
+        ("ЦК", "Chaos Knight"),
+        ("ДС", "Dark Seer"),
+        ("Шадоу Финд", "Shadow Fiend"),
+        ("Нейчерс Профет", "Nature's Prophet"),
+        ("Ио", "Io"),
+        ("Бабка", "Snapfire"),
+        ("Инвакер", "Invoker"),  # typo
+    ],
+)
+def test_russian_hero_names_and_nicknames_resolve(query, expected):
+    best = resolve_hero(query).best
+    assert (best.display_name if best else None) == expected
+
+
+@pytest.mark.parametrize(
+    ("query", "expected"),
+    [
+        ("БКБ", "black_king_bar"),
+        ("Бкб", "black_king_bar"),
+        ("Блинк", "blink"),
+        ("ТП", "tpscroll"),
+        ("Мьёльнир", "mjollnir"),
+        ("Мьельнир", "mjollnir"),  # е for ё
+        ("Гекс", "sheepstick"),
+        ("Сапоги", "boots"),
+    ],
+)
+def test_russian_item_names_and_nicknames_resolve(query, expected):
+    best = resolve_item(query).best
+    assert (best.name if best else None) == expected
+
+
+def test_russian_display_names():
+    pudge = next(h for h in heroes() if h.short_name == "pudge")
+    bkb = next(i for i in items() if i.name == "black_king_bar")
+    assert hero_name_ru(pudge) == "Пудж"
+    assert item_name_ru(bkb) == "БКБ"
+    assert ru_by_display_name()["Invoker"] == "Инвокер"

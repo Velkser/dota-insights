@@ -17,8 +17,10 @@ from dota_insights.reference import (
     abilities,
     ability_by_name,
     hero_by_id,
+    hero_name_ru,
     heroes,
     item_by_id,
+    item_name_ru,
     items,
     patches,
     resolve_hero,
@@ -92,6 +94,7 @@ def hero_record(hero: Hero) -> dict[str, Any]:
     return {
         "id": hero.id,
         "name": hero.display_name,
+        "name_ru": hero_name_ru(hero),
         "internal_name": hero.name,
         "primary_attribute": ATTRIBUTES.get(hero.primary_attr, hero.primary_attr),
         "attack_type": hero.attack_type,
@@ -122,6 +125,7 @@ def item_record(item: Item) -> dict[str, Any]:
     return {
         "id": item.id,
         "name": item.display_name,
+        "name_ru": item_name_ru(item),
         "internal_name": item.name,
         "cost": item.cost,
         "quality": item.quality,
@@ -276,13 +280,14 @@ def register(mcp: FastMCP) -> None:
     @mcp.resource(
         "heroes://list",
         mime_type="application/json",
-        description="Every hero: id, name, primary attribute, attack type, roles.",
+        description="Every hero: id, name, name_ru, primary attribute, attack type, roles.",
     )
     def hero_list() -> list[dict[str, Any]]:
         return [
             {
                 "id": h.id,
                 "name": h.display_name,
+                "name_ru": hero_name_ru(h),
                 "internal_name": h.name,
                 "primary_attribute": ATTRIBUTES.get(h.primary_attr, h.primary_attr),
                 "attack_type": h.attack_type,
@@ -302,13 +307,14 @@ def register(mcp: FastMCP) -> None:
     @mcp.resource(
         "items://list",
         mime_type="application/json",
-        description="Every purchasable item (no recipes): id, name, cost, quality.",
+        description="Every purchasable item (no recipes): id, name, name_ru, cost, quality.",
     )
     def item_list() -> list[dict[str, Any]]:
         return [
             {
                 "id": i.id,
                 "name": i.display_name,
+                "name_ru": item_name_ru(i),
                 "internal_name": i.name,
                 "cost": i.cost,
                 "quality": i.quality,

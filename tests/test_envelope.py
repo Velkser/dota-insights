@@ -5,7 +5,14 @@ import pytest
 from fastmcp import Client, FastMCP
 from pydantic import BaseModel, ValidationError
 
-from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
+from dota_insights.mcp.envelope import (
+    Period,
+    ToolResult,
+    error,
+    insufficient_data,
+    ok,
+    russian_names,
+)
 from dota_insights.models import Filters
 
 
@@ -106,6 +113,28 @@ def test_round_trip():
     assert data["period"] == {"from_date": "2026-10-01", "to_date": "2026-10-31"}
     assert data["confidence"] == {"win_rate": [0.44, 0.56]}
     assert data["filters"]["rank_bracket"] == "divine+"
+
+
+def test_ok_lists_russian_names_of_heroes_and_items_in_result():
+    result = ok(
+        {
+            "hero": {"id": 14, "name": "Pudge"},
+            "core_items": ["Blink Dagger", "Black King Bar", "not an item"],
+            "games_by_hero": {"Invoker": 12},
+        }
+    )
+    assert result.names_ru == {
+        "Black King Bar": "БКБ",
+        "Blink Dagger": "Блинк",
+        "Invoker": "Инвокер",
+        "Pudge": "Пудж",
+    }
+    assert make_ok().names_ru == {}
+    assert error("boom").names_ru == {}
+
+
+def test_russian_names_reads_models_and_dataclasses():
+    assert russian_names(WinRate(hero="Lion", win_rate=0.5)) == {"Lion": "Лион"}
 
 
 def test_json_schema():
