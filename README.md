@@ -251,6 +251,21 @@ docker compose up --build                 # local PostgreSQL + migrations + serv
 Tool conventions are in [docs/architecture/tools.md](docs/architecture/tools.md). Changes are listed in
 [CHANGELOG.md](CHANGELOG.md).
 
+## Deploy
+
+Production runs on Vercel (Hobby plan) as a serverless ASGI app, `dota_insights.mcp.asgi:app`,
+loaded through the root `app.py` that Vercel detects. It is stateless: no MCP session survives between
+requests, and responses are JSON rather than SSE. Pushes to `main` deploy to production; pull
+requests get preview deployments, which Vercel Deployment Protection hides from MCP clients.
+
+Project environment variables in Vercel: `DOTA_INSIGHTS_STRATZ_API_TOKEN`, and `DATABASE_URL`
+from the Neon integration (read when `DOTA_INSIGHTS_DATABASE_URL` is not set). Data collection
+does not run on Vercel: GitHub Actions runs it on a schedule (`.github/workflows/collect.yml`,
+see [docs/architecture/collector.md](docs/architecture/collector.md)), using the repository
+secrets `DOTA_INSIGHTS_DATABASE_URL` and `DOTA_INSIGHTS_STRATZ_API_TOKEN`.
+
+Caches and rate limiters are per instance, so concurrent instances each keep their own.
+
 ## Layout
 
 ```

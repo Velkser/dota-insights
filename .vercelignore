@@ -1,0 +1,9 @@
+# Not needed by the serverless MCP app (see src/dota_insights/mcp/asgi.py).
+tests
+docs
+scripts
+.github
+.claude
+.env
+.env.*
+!.env.example

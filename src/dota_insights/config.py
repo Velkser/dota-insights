@@ -1,3 +1,4 @@
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -10,7 +11,10 @@ class Settings(BaseSettings):
     port: int = 8000
     opendota_api_key: str | None = None
     stratz_api_token: str | None = None
-    database_url: str | None = None
+    # The Neon integration on Vercel injects a plain DATABASE_URL.
+    database_url: str | None = Field(
+        default=None, validation_alias=AliasChoices("DOTA_INSIGHTS_DATABASE_URL", "DATABASE_URL")
+    )
     log_level: str = "INFO"
 
     # Collector (separate process). The OpenDota free tier is 60/min and 3,000/day per IP, shared
