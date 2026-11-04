@@ -1,0 +1,39 @@
+[project]
+name = "dota-insights"
+version = "0.1.0"
+description = "Public MCP server and analytics platform for Dota 2"
+readme = "README.md"
+authors = [
+    { name = "velkser", email = "vielkinserhii@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp>=4.1.6",
+    "pydantic-settings>=2.16.2",
+]
+
+[project.scripts]
+dota-insights = "dota_insights:main"
+
+[build-system]
+requires = ["uv_build>=0.12.12,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "pytest-asyncio>=1.4.1.post1",
+    "ruff>=0.17.3",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
