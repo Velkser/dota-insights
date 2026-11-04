@@ -274,6 +274,14 @@ uv run dota-insights collect scheduler    # optional local loop; production uses
 docker compose up --build                 # local PostgreSQL + migrations + server
 ```
 
+Post drafts (Weekly Meta Report and insights, in Russian, for manual review; see
+[docs/architecture/insights.md](docs/architecture/insights.md)):
+
+```bash
+uv run dota-insights insights weekly --out reports            # reports/<last day of the week>/
+uv run dota-insights insights weekly --end 2026-11-02 --source opendota --min-games 300
+```
+
 Tool conventions are in [docs/architecture/tools.md](docs/architecture/tools.md). Changes are listed in
 [CHANGELOG.md](CHANGELOG.md).
 
@@ -387,7 +395,8 @@ src/dota_insights/
   collector/   scheduled data collection jobs
   db/          PostgreSQL schema and access
   analytics/   metric calculations and sample-size checks
-  telegram/    insight generator and channel publishing
+  insights/    Weekly Meta Report and insight drafts for the Telegram channel (not published)
+  telegram/    operator alerts (channel publishing is planned)
   config.py    settings from DOTA_INSIGHTS_* environment variables
 scripts/       reference data refresh, README tool table generator
 docs/connect/  client connection guides

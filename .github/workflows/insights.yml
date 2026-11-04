@@ -1,0 +1,80 @@
+# Weekly Meta Report and Insight Generator drafts (docs/architecture/insights.md). Reads the
+# collector's database and uploads a folder of Markdown + PNG drafts as a workflow artifact for
+# manual review. Nothing is posted anywhere.
+name: Insights
+
+on:
+  schedule:
+    # Mondays, after the daily collector run (04:43 UTC): reports Monday-Sunday of last week.
+    - cron: "23 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      end:
+        description: "First day after the reported week, YYYY-MM-DD (empty: today, UTC)"
+        required: false
+        default: ""
+      source:
+        description: "matches (collector matches) or opendota (hero_stats_daily snapshots)"
+        required: true
+        default: matches
+        type: choice
+        options: [matches, opendota]
+      min_games:
+        description: "Minimum games per hero in each week"
+        required: true
+        default: "200"
+
+concurrency:
+  group: insights
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      DOTA_INSIGHTS_DATABASE_URL: ${{ secrets.DOTA_INSIGHTS_DATABASE_URL }}
+    steps:
+      - name: Check configuration
+        id: config
+        run: |
+          if [ -z "$DOTA_INSIGHTS_DATABASE_URL" ]; then
+            echo "::warning::Repository secret DOTA_INSIGHTS_DATABASE_URL is not set; skipping."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.config.outputs.ready == 'true'
+
+      - uses: astral-sh/setup-uv@v6
+        if: steps.config.outputs.ready == 'true'
+
+      - name: Install
+        if: steps.config.outputs.ready == 'true'
+        run: uv sync --locked --no-dev
+
+      - name: Generate drafts
+        if: steps.config.outputs.ready == 'true'
+        env:
+          END_INPUT: ${{ inputs.end }}
+          SOURCE_INPUT: ${{ inputs.source || 'matches' }}
+          MIN_GAMES_INPUT: ${{ inputs.min_games || '200' }}
+        run: |
+          set -- --out reports --source "$SOURCE_INPUT" --min-games "$MIN_GAMES_INPUT"
+          if [ -n "$END_INPUT" ]; then
+            set -- "$@" --end "$END_INPUT"
+          fi
+          uv run --no-sync dota-insights insights weekly "$@"
+
+      - uses: actions/upload-artifact@v4
+        if: steps.config.outputs.ready == 'true'
+        with:
+          name: insights-${{ github.run_id }}
+          path: reports/
+          if-no-files-found: error
+          retention-days: 30
