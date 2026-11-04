@@ -9,6 +9,7 @@ from pydantic import Field
 from dota_insights.analytics import general
 from dota_insights.analytics.stats import wilson_interval
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
+from dota_insights.mcp.errors import source_error
 from dota_insights.models import Filters
 from dota_insights.reference import patches, resolve_hero
 from dota_insights.sources.opendota import OpenDotaError
@@ -96,7 +97,7 @@ def register(mcp: FastMCP) -> None:
         except general.UnsupportedFilter as exc:
             return error(str(exc), hint="Use rank_bracket 'divine+'.", filters=filters)
         except (OpenDotaError, RuntimeError) as exc:
-            return error(f"OpenDota request failed: {exc}", source=["opendota"])
+            return source_error(exc, source=["opendota"])
 
         caveats = [
             "Covers OpenDota's sample of public matches from the latest ~11 hours (window "
@@ -194,7 +195,7 @@ def register(mcp: FastMCP) -> None:
         try:
             result, raw = await general.records(metrics, hero_id, limit or (10 if metric else 1))
         except OpenDotaError as exc:
-            return error(f"OpenDota request failed: {exc}", source=["opendota"])
+            return source_error(exc, source=["opendota"])
 
         caveats = [
             "OpenDota keeps these top-100 lists over a recent rolling window, not all time; "
@@ -237,7 +238,7 @@ def register(mcp: FastMCP) -> None:
         try:
             opendota, fetched_at = await general.fetch_distributions()
         except OpenDotaError as exc:
-            return error(f"OpenDota request failed: {exc}", source=["opendota"])
+            return source_error(exc, source=["opendota"])
         caveats = [
             "Counts are player profiles each source tracks (players who used the site or "
             "appeared in a fetched match), not Valve's full player base; inactive and "

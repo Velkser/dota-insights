@@ -1,0 +1,1 @@
+{"sql":"SELECT min(match_id) AS lo, max(match_id) AS hi FROM match_patch WHERE patch = '7.41'","rowCount":1,"err":null,"rows":[{"lo":8744109859,"hi":9076183783}]}

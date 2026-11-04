@@ -7,6 +7,7 @@ from pydantic import Field
 
 from dota_insights.analytics import heroes as analytics
 from dota_insights.mcp.envelope import ToolResult, error, insufficient_data, ok
+from dota_insights.mcp.errors import source_error
 from dota_insights.models import Filters
 from dota_insights.reference import Hero, resolve_hero
 from dota_insights.sources.opendota import OpenDotaError
@@ -51,11 +52,7 @@ def _resolve(query: str) -> Hero | str:
 
 
 def _source_error(exc: Exception, filters: Filters) -> ToolResult:
-    return error(
-        f"Hero data source failed: {exc}",
-        hint="Retry in a minute; if it persists, the upstream API may be down.",
-        filters=filters,
-    )
+    return source_error(exc, filters=filters)
 
 
 def _wrap(analysis: analytics.Analysis, filters: Filters, definitions, confidence) -> ToolResult:

@@ -7,6 +7,7 @@ from pydantic import Field
 
 from dota_insights.analytics import items as analytics
 from dota_insights.mcp.envelope import ToolResult, error, insufficient_data, ok
+from dota_insights.mcp.errors import retry_hint, source_error
 from dota_insights.models.filters import Filters
 from dota_insights.reference import Hero, Item, resolve_hero, resolve_item
 from dota_insights.sources.opendota import OpenDotaError
@@ -86,12 +87,7 @@ def _widen_hint(filters: Filters) -> str:
 
 
 def _stratz_error(exc: StratzError, filters: Filters) -> ToolResult:
-    return error(
-        f"STRATZ item statistics are unavailable: {exc}",
-        hint="Retry later.",
-        filters=filters,
-        source=["stratz"],
-    )
+    return source_error(exc, filters=filters, source=["stratz"])
 
 
 def _bucket_confidence(prefix: str, buckets: list[analytics.BucketStat]) -> dict:
@@ -315,7 +311,7 @@ def register(mcp: FastMCP) -> None:
         except OpenDotaError as exc:
             return error(
                 f"Neither STRATZ ({reason}) nor OpenDota ({exc}) could be reached.",
-                hint="Retry later.",
+                hint=retry_hint(exc),
                 filters=filters,
                 source=["stratz", "opendota"],
             )
