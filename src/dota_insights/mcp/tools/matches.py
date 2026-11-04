@@ -8,7 +8,8 @@ from pydantic import Field
 
 from dota_insights.analytics import matches as am
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
-from dota_insights.sources.opendota import OpenDotaError, OpenDotaRateLimitedError
+from dota_insights.mcp.errors import source_error
+from dota_insights.sources.opendota import OpenDotaError
 
 MatchId = Annotated[
     int,
@@ -92,10 +93,8 @@ async def _run(
             hint="Check the id; matches appear on OpenDota about 5 minutes after they end.",
             source=["opendota"],
         )
-    except OpenDotaRateLimitedError:
-        return error("OpenDota rate limit reached.", hint="Retry in a minute.", source=["opendota"])
     except OpenDotaError as exc:
-        return error(f"OpenDota request failed: {exc}", hint="Retry later.", source=["opendota"])
+        return source_error(exc, source=["opendota"])
     if parsed_only and not match.parsed:
         return _unparsed(match, parsed_only)
     return build(match)

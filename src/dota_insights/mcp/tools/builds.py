@@ -11,6 +11,7 @@ from pydantic import Field
 from dota_insights.analytics import builds
 from dota_insights.analytics.stats import wilson_interval
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
+from dota_insights.mcp.errors import retry_hint, source_error
 from dota_insights.models.filters import Filters, GameMode
 from dota_insights.reference import Hero, resolve_hero
 from dota_insights.sources.opendota import OpenDotaError
@@ -239,7 +240,12 @@ async def _builds_fallback(hero: Hero, filters: Filters, reason: str) -> ToolRes
     try:
         raw = await builds.fetch_item_popularity(hero.id)
     except OpenDotaError as exc:
-        return error(f"{reason}; OpenDota fallback failed ({exc}).", filters=filters)
+        return error(
+            f"{reason}; OpenDota fallback failed ({exc}).",
+            hint=retry_hint(exc),
+            filters=filters,
+            source=["stratz", "opendota"],
+        )
     phases = builds.popularity_fallback(raw)
     n = max((r["count"] for r in phases.get("start_game") or []), default=0)
     if n < applied.min_sample:
@@ -278,9 +284,7 @@ async def ability_stats(hero_query: str, filters: Filters | None) -> ToolResult:
         names = await _names(aggregates)
         _, guides = await builds.fetch_guides(hero.id, position)
     except StratzError as exc:
-        return error(
-            f"STRATZ failed: {exc}", hint="Retry later.", filters=applied, source=["stratz"]
-        )
+        return source_error(exc, filters=applied, source=["stratz"])
 
     stats = aggregates.get("heroStats") or {}
     n = builds.reference_matches(aggregates)
@@ -388,7 +392,7 @@ async def neutral_items(
     try:
         tiers = await builds.fetch_neutral_tiers()
     except OpenDotaError as exc:
-        return error(f"OpenDota failed: {exc}", hint="Retry later.", filters=filters)
+        return source_error(exc, filters=filters, source=["opendota"])
 
     raw: list[tuple[int, int, int]] = []
     source: list = []
@@ -413,7 +417,7 @@ async def neutral_items(
         try:
             rows = await builds.fetch_opendota_neutrals(patch, hero.id if hero else None)
         except (OpenDotaError, RuntimeError) as exc:
-            return error(f"OpenDota failed: {exc}", hint="Retry later.", filters=filters)
+            return source_error(exc, filters=filters, source=["opendota"])
         raw = [(int(r["item_neutral"]), int(r["games"]), int(r["wins"])) for r in rows]
         source = ["opendota"]
         applied = filters.model_copy(

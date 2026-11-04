@@ -16,9 +16,10 @@ from dota_insights.analytics.players import (
     Report,
 )
 from dota_insights.mcp.envelope import ToolResult, error, insufficient_data, ok
+from dota_insights.mcp.errors import source_error
 from dota_insights.models.filters import Filters, GameMode, Position
 from dota_insights.reference import resolve_hero
-from dota_insights.sources.opendota import OpenDotaError, OpenDotaRateLimitedError
+from dota_insights.sources.opendota import OpenDotaError
 
 PLAYER_HINT = (
     "Pass the 32-bit account ID (as on OpenDota/Dotabuff/STRATZ), a SteamID64, or a "
@@ -110,10 +111,8 @@ async def _run(work: Awaitable[Report], filters: Filters | None = None) -> ToolR
         return error(str(exc), filters=filters)
     except InsufficientData as exc:
         return insufficient_data(exc.reason, exc.hint, filters=filters, sample_size=exc.sample_size)
-    except OpenDotaRateLimitedError:
-        return error("OpenDota rate limit reached.", hint="Retry in a minute.", source=["opendota"])
     except OpenDotaError as exc:
-        return error(f"OpenDota request failed: {exc}", source=["opendota"])
+        return source_error(exc, filters=filters, source=["opendota"])
     return _wrap(report, filters)
 
 

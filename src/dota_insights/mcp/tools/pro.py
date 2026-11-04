@@ -9,10 +9,11 @@ from pydantic import Field
 from dota_insights.analytics import pro
 from dota_insights.cache import TTL_LIVE
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
+from dota_insights.mcp.errors import source_error
 from dota_insights.models import Filters
 from dota_insights.reference import resolve_hero
 from dota_insights.sources.opendota import OpenDotaError
-from dota_insights.sources.stratz import StratzAuthError, StratzError
+from dota_insights.sources.stratz import StratzError
 
 STRATZ_CREDIT = "Team, player and build data from STRATZ (https://stratz.com)."
 SOURCE_ERRORS = (OpenDotaError, StratzError, pro.ExplorerError)
@@ -43,13 +44,9 @@ def _period(matches) -> Period | None:
 
 
 def _source_error(exc: Exception, source: list) -> ToolResult:
-    if isinstance(exc, StratzAuthError):
-        return error(
-            "STRATZ is not configured or refused the token, and this tool needs it.",
-            hint="Set DOTA_INSIGHTS_STRATZ_API_TOKEN on the server.",
-            source=["stratz"],
-        )
-    return error(f"Data source failed: {exc}", hint="Retry in a minute.", source=source)
+    if isinstance(exc, OpenDotaError | StratzError):
+        return source_error(exc)
+    return source_error(exc, source=source)
 
 
 def _not_found(kind: str, lookup: pro.Lookup, label) -> ToolResult:
