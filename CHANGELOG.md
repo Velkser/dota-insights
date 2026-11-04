@@ -8,6 +8,12 @@ All notable changes to this project. The format follows
 
 ### Added
 
+- Landing page at `/` and privacy policy at `/privacy`: self-contained HTML (no JavaScript),
+  light and dark, English and Russian (`?lang=`, else `Accept-Language`). The landing page's tool
+  list is rendered from the registered tools (`dota_insights.mcp.catalog`, shared with the README
+  generator).
+- Connection guides for Claude Code, Claude Desktop, Cursor and other clients
+  (`docs/connect/`), and a privacy policy template (`docs/privacy.md`) for the owner to complete.
 - Evals (`evals/`): 63 English and Russian player questions with expected tools, argument
   matchers and answer checks; a harness that lets a Claude model answer them with the in-process
   server or a remote URL and scores tool choice, arguments, envelope status and answer caveats;
