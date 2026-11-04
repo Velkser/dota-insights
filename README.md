@@ -255,8 +255,8 @@ Tool conventions are in [docs/architecture/tools.md](docs/architecture/tools.md)
 
 Production runs on Vercel (Hobby plan) as a serverless ASGI app, `dota_insights.mcp.asgi:app`,
 loaded through the root `app.py` that Vercel detects. It is stateless: no MCP session survives between
-requests, and responses are JSON rather than SSE. Pushes to `main` deploy to production; pull
-requests get preview deployments, which Vercel Deployment Protection hides from MCP clients.
+requests, and responses are JSON rather than SSE. Only pushes to `main` deploy (to production);
+other branches and pull requests get no deployment (`git.deploymentEnabled` in `vercel.json`).
 
 Project environment variables in Vercel: `DOTA_INSIGHTS_STRATZ_API_TOKEN`, and `DATABASE_URL`
 from the Neon integration (read when `DOTA_INSIGHTS_DATABASE_URL` is not set). Data collection
