@@ -218,6 +218,9 @@ SAMPLE_ARGS: dict[str, Any] = {
     "metric": "gpm",
     "table": "player_matches",
     "data": [{"x": 10, "y": 4200, "series": "Anti-Mage"}],
+    "tool_name": "get_hero_overview",
+    "what_was_wrong": "The pick rate is far from what Dotabuff shows.",
+    "question": "Which heroes counter Pudge in the current patch at Immortal?",
 }
 
 

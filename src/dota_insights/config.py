@@ -54,6 +54,24 @@ class Settings(BaseSettings):
     rate_limit_heavy_per_minute: int = 5
     rate_limit_heavy_per_day: int = 150
 
+    # Reports from clients (report_wrong_answer, suggest_feature), per client IP.
+    rate_limit_feedback_per_minute: int = 3
+    rate_limit_feedback_per_day: int = 30
+
+    # Usage analytics (dota_insights.usage): one row per tool call, queued in Redis and moved to
+    # Postgres by the collector's ``usage`` job, which also deletes rows past the retention.
+    usage_enabled: bool = True
+    # Bounds the time recording may add to a tool call; a slower write is dropped.
+    usage_write_timeout: float = 0.5
+    # Redis queue cap: when the collector stops flushing, the oldest events are dropped first.
+    usage_queue_max: int = 50_000
+    usage_retention_days: int = 90
+    feedback_retention_days: int = 365
+    # Optional secret mixed into client hashes, next to the weekly salt kept in Redis.
+    usage_hash_secret: str | None = None
+    # Bearer token for GET /admin/usage; unset, the route answers 404.
+    admin_token: str | None = None
+
     # Optional Telegram alerts on quota exhaustion and error-rate spikes.
     telegram_bot_token: str | None = None
     telegram_chat_id: str | None = None

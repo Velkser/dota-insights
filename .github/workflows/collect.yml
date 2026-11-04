@@ -4,7 +4,8 @@ name: Collect
 
 on:
   schedule:
-    # Hourly: new ranked matches, gap backfill, STRATZ enrichment, then aggregates.
+    # Hourly: usage events from the server's Redis queue, new ranked matches, gap backfill,
+    # STRATZ enrichment, then aggregates.
     - cron: "17 * * * *"
     # Daily: patch list (and patch versioning), constants, /heroStats snapshot, then aggregates.
     - cron: "43 4 * * *"
@@ -12,7 +13,7 @@ on:
     inputs:
       jobs:
         description: "Jobs to run, in order (see `dota-insights collect list`)"
-        default: "public-matches backfill enrich aggregate"
+        default: "usage public-matches backfill enrich aggregate"
         required: true
 
 # Never two collectors at once: the API budgets assume a single writer. A run that is due while
@@ -31,7 +32,8 @@ jobs:
     env:
       DOTA_INSIGHTS_DATABASE_URL: ${{ secrets.DOTA_INSIGHTS_DATABASE_URL }}
       DOTA_INSIGHTS_STRATZ_API_TOKEN: ${{ secrets.DOTA_INSIGHTS_STRATZ_API_TOKEN }}
-      # Optional: lets the patches job invalidate the MCP server's shared cache on a new patch.
+      # The usage job flushes the server's usage queue from here; the patches job also uses it to
+      # invalidate the MCP server's shared cache on a new patch.
       UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
       UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
     steps:
@@ -72,7 +74,7 @@ jobs:
           if [ "$EVENT" = "schedule" ] && [ "$SCHEDULE" = "43 4 * * *" ]; then
             set -- patches constants hero-stats aggregate
           elif [ "$EVENT" = "schedule" ]; then
-            set -- public-matches backfill enrich aggregate
+            set -- usage public-matches backfill enrich aggregate
           else
             # Word-split on purpose (no globbing); argparse rejects anything but job names.
             set -f

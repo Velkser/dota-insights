@@ -38,6 +38,13 @@ end
 return out
 """
 
+# Append to a list and keep only its newest ARGV[2] entries; one round trip.
+PUSH_CAPPED_SCRIPT = """
+redis.call('RPUSH', KEYS[1], ARGV[1])
+redis.call('LTRIM', KEYS[1], -tonumber(ARGV[2]), -1)
+return 1
+"""
+
 
 class KVError(Exception):
     """The shared store failed or is cooling down after a failure."""
@@ -65,6 +72,21 @@ class KV(ABC):
     @abstractmethod
     async def incr_windows(self, windows: Sequence[tuple[str, int]]) -> list[int]:
         """Increment each ``(key, ttl)`` counter, setting ``ttl`` seconds on new keys."""
+
+    @abstractmethod
+    async def push_capped(self, key: str, value: str, *, max_len: int) -> None:
+        """Append ``value`` to the list ``key``, dropping its oldest entries beyond ``max_len``."""
+
+    @abstractmethod
+    async def list_head(self, key: str, count: int) -> list[str]:
+        """The oldest ``count`` entries of the list ``key``."""
+
+    @abstractmethod
+    async def list_drop(self, key: str, count: int) -> None:
+        """Remove the oldest ``count`` entries of the list ``key``."""
+
+    @abstractmethod
+    async def list_len(self, key: str) -> int: ...
 
 
 class UpstashKV(KV):
@@ -149,6 +171,18 @@ class UpstashKV(KV):
         ttls = [max(1, int(ttl)) for _, ttl in windows]
         result = await self.command("EVAL", INCR_WINDOWS_SCRIPT, len(keys), *keys, *ttls)
         return [int(n) for n in result]
+
+    async def push_capped(self, key: str, value: str, *, max_len: int) -> None:
+        await self.command("EVAL", PUSH_CAPPED_SCRIPT, 1, key, value, max(1, int(max_len)))
+
+    async def list_head(self, key: str, count: int) -> list[str]:
+        return await self.command("LRANGE", key, 0, count - 1)
+
+    async def list_drop(self, key: str, count: int) -> None:
+        await self.command("LTRIM", key, count, -1)
+
+    async def list_len(self, key: str) -> int:
+        return int(await self.command("LLEN", key))
 
     async def aclose(self) -> None:
         if self._http is not None:

@@ -6,6 +6,7 @@ from typing import Annotated
 from fastmcp import FastMCP
 from pydantic import BeforeValidator, Field
 
+from dota_insights import privacy
 from dota_insights.analytics import players as analytics
 from dota_insights.analytics.players import (
     InsufficientData,
@@ -139,11 +140,15 @@ def _query(
     )
 
 
-def _account(player: str) -> int | ToolResult:
+async def _account(player: str) -> int | ToolResult:
+    """The account id, or an error for bad input and players on the opt-out list."""
     try:
-        return analytics.parse_player(player)
+        account = analytics.parse_player(player)
     except PlayerInputError as exc:
         return error(str(exc), hint=PLAYER_HINT)
+    if await privacy.is_opted_out(account):
+        return error(privacy.OPTED_OUT_MESSAGE.format(account=account), hint=privacy.OPTED_OUT_HINT)
+    return account
 
 
 def _filters(query: MatchQuery, min_sample: int) -> Filters:
@@ -155,7 +160,7 @@ def register(mcp: FastMCP) -> None:
     async def get_player_profile(player: Player) -> ToolResult:
         """A player's medal, leaderboard rank, total matches, overall win rate and a summary
         of their last 20 matches. Start here before deeper player questions."""
-        account = _account(player)
+        account = await _account(player)
         if isinstance(account, ToolResult):
             return account
         return await _run(analytics.profile_report(account))
@@ -173,7 +178,7 @@ def register(mcp: FastMCP) -> None:
         """Average KDA, kills, deaths, assists, GPM, XPM, last hits, hero/tower damage and
         win rate over a player's recent matches, with 95% intervals. Optionally only one
         hero, position or game mode."""
-        account = _account(player)
+        account = await _account(player)
         if isinstance(account, ToolResult):
             return account
         query = _query(matches, days, hero, position, game_mode)
@@ -197,7 +202,7 @@ def register(mcp: FastMCP) -> None:
         """Matches and win rate per hero, compared with that hero's win rate and OpenDota
         benchmarks (GPM, XPM, last hits, damage percentiles) at the player's medal, and
         the heroes where the player over- or under-performs."""
-        account = _account(player)
+        account = await _account(player)
         if isinstance(account, ToolResult):
             return account
         query = MatchQuery(matches=matches, days=days, game_mode=game_mode)
@@ -219,7 +224,7 @@ def register(mcp: FastMCP) -> None:
         """Where a player falls short: per-minute stats below their medal's percentiles,
         the game phase (10/20/30 min net worth and XP) where losses fall behind wins, and
         traits more common in lost matches. Every finding carries sample sizes and caveats."""
-        account = _account(player)
+        account = await _account(player)
         if isinstance(account, ToolResult):
             return account
         query = _query(matches, days, hero, position, game_mode)
@@ -242,7 +247,7 @@ def register(mcp: FastMCP) -> None:
     ) -> ToolResult:
         """How a player's win rate, KDA, GPM, XPM, last hits and damage change over their
         recent matches, plus longest and current win/loss streaks."""
-        account = _account(player)
+        account = await _account(player)
         if isinstance(account, ToolResult):
             return account
         query = _query(matches, days, hero, None, game_mode)
@@ -264,12 +269,20 @@ def register(mcp: FastMCP) -> None:
     ) -> ToolResult:
         """The player's most frequent teammates and opponents over recent matches, with the
         player's win rate with or against each."""
-        account = _account(player)
+        account = await _account(player)
         if isinstance(account, ToolResult):
             return account
         query = MatchQuery(matches=matches, days=days, game_mode=game_mode)
         filters = _filters(query, 1)
-        return await _run(analytics.peers_report(account, query, min_games, top), filters)
+        result = await _run(analytics.peers_report(account, query, min_games, top), filters)
+        if isinstance(result.result, dict):
+            hidden = await privacy.opted_out()
+            for key, rows in result.result.items():
+                if isinstance(rows, list):
+                    result.result[key] = [
+                        privacy.masked(r, hidden) if isinstance(r, dict) else r for r in rows
+                    ]
+        return result
 
     @mcp.tool
     async def compare_players(
@@ -286,7 +299,7 @@ def register(mcp: FastMCP) -> None:
     ) -> ToolResult:
         """Two players side by side: overall win rate and averages, then the heroes both play
         and each position they play."""
-        account_a, account_b = _account(player_a), _account(player_b)
+        account_a, account_b = await _account(player_a), await _account(player_b)
         for account in (account_a, account_b):
             if isinstance(account, ToolResult):
                 return account

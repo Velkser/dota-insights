@@ -9,7 +9,7 @@ from typing import Any
 
 from fastmcp.server.middleware import CallNext, Middleware, MiddlewareContext
 
-from dota_insights import metrics
+from dota_insights import metrics, usage
 from dota_insights.config import settings
 
 TOOL_CALL_LOGGER = "dota_insights.tool_calls"
@@ -55,7 +55,8 @@ class ToolCallLoggingMiddleware(Middleware):
     """Log every tool call with its metrics: duration, status, sources, cache use, quota left.
 
     The fields come from ``dota_insights.metrics``; when Telegram alerts are configured the
-    call's outcome also feeds the error-rate monitor.
+    call's outcome also feeds the error-rate monitor. Each call is also stored as a usage event
+    (``dota_insights.usage``), after the result is computed and within a strict timeout.
     """
 
     def __init__(self, logger: logging.Logger | None = None) -> None:
@@ -79,11 +80,20 @@ class ToolCallLoggingMiddleware(Middleware):
                     },
                 )
                 await _record_outcome(failed=True)
+                await usage.record_call(
+                    context,
+                    status="error",
+                    latency_ms=(time.perf_counter() - start) * 1000,
+                    call=call,
+                    error_kind=call.error_kind or type(exc).__name__,
+                )
                 raise
         status = "error" if getattr(result, "is_error", False) else "ok"
+        message = None
         structured = getattr(result, "structured_content", None)
         if isinstance(structured, dict) and structured.get("status") in _ENVELOPE_STATUSES:
             status = structured["status"]
+            message = structured.get("message")
         self.logger.info(
             "tool call",
             extra={
@@ -96,6 +106,17 @@ class ToolCallLoggingMiddleware(Middleware):
         )
         # Calls refused by the per-client rate limiter are not server errors.
         await _record_outcome(failed=status == "error" and not call.rate_limited)
+        kind = None
+        if status == "error":
+            kind = "rate_limited" if call.rate_limited else call.error_kind or "error_envelope"
+        await usage.record_call(
+            context,
+            status=status,
+            latency_ms=(time.perf_counter() - start) * 1000,
+            call=call,
+            error_kind=kind,
+            message=message,
+        )
         return result
 
 

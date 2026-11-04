@@ -11,6 +11,7 @@ class FakeKV(KV):
     def __init__(self) -> None:
         self.data: dict[str, str] = {}
         self.ttls: dict[str, int] = {}
+        self.lists: dict[str, list[str]] = {}
         self.commands: list[str] = []
 
     async def get(self, key: str) -> str | None:
@@ -46,6 +47,24 @@ class FakeKV(KV):
             out.append(int(self.data[key]))
         return out
 
+    async def push_capped(self, key: str, value: str, *, max_len: int) -> None:
+        self.commands.append("RPUSH")
+        items = self.lists.setdefault(key, [])
+        items.append(value)
+        del items[: max(0, len(items) - max_len)]
+
+    async def list_head(self, key: str, count: int) -> list[str]:
+        self.commands.append("LRANGE")
+        return list(self.lists.get(key, [])[:count])
+
+    async def list_drop(self, key: str, count: int) -> None:
+        self.commands.append("LTRIM")
+        del self.lists.get(key, [])[:count]
+
+    async def list_len(self, key: str) -> int:
+        self.commands.append("LLEN")
+        return len(self.lists.get(key, []))
+
 
 class BrokenKV(KV):
     """Redis that is down: every command fails."""
@@ -73,4 +92,16 @@ class BrokenKV(KV):
         self._fail()
 
     async def incr_windows(self, windows):
+        self._fail()
+
+    async def push_capped(self, key, value, *, max_len):
+        self._fail()
+
+    async def list_head(self, key, count):
+        self._fail()
+
+    async def list_drop(self, key, count):
+        self._fail()
+
+    async def list_len(self, key):
         self._fail()
