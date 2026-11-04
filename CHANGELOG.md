@@ -8,6 +8,12 @@ All notable changes to this project. The format follows
 
 ### Added
 
+- Landing page at `/` and privacy policy at `/privacy`: self-contained HTML (no JavaScript),
+  light and dark, English and Russian (`?lang=`, else `Accept-Language`). The landing page's tool
+  list is rendered from the registered tools (`dota_insights.mcp.catalog`, shared with the README
+  generator).
+- Connection guides for Claude Code, Claude Desktop, Cursor and other clients
+  (`docs/connect/`), and a privacy policy template (`docs/privacy.md`) for the owner to complete.
 - Usage analytics: one `usage_events` row per tool call (argument shape without player ids,
   status, error kind, latency, sources, cache hit, client name, weekly-salted client hash; no
   raw IPs), queued in Redis and flushed by the collector's new `usage` job, which also applies a
