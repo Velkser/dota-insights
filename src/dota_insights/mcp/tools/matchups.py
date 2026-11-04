@@ -51,7 +51,7 @@ CORRELATION_CAVEAT = (
     "position are not controlled for."
 )
 POSITION_CAVEAT = (
-    "STRATZ matchup pairs are not split by position. Position filters choose heroes by how "
+    "Matchup pairs are not split by position. Position filters choose heroes by how "
     f"often they are played there (at least {mu.MIN_POSITION_SHARE:.0%} of their games)."
 )
 
@@ -95,7 +95,9 @@ def _check_filters(filters: Filters) -> ToolResult | None:
 
 def _caveats(filters: Filters, data: mu.MatchupData, *extra: str) -> list[str]:
     out = []
-    if data.source == "stratz":
+    if data.scope is not None:
+        out.extend(data.scope.caveats())
+    elif data.source == "stratz":
         out.append(STRATZ_CAVEAT)
     else:
         out.append(
@@ -110,7 +112,7 @@ def _caveats(filters: Filters, data: mu.MatchupData, *extra: str) -> list[str]:
 
 
 def _source(data: mu.MatchupData) -> list[Any]:
-    return [data.source]
+    return data.sources
 
 
 async def _positions_or_error(
@@ -182,6 +184,8 @@ def register(mcp: FastMCP) -> None:
                 filters=filters,
                 sample_size=games,
                 source=_source(data),
+                period=data.period,
+                data_freshness=data.freshness,
             )
         others = positions.heroes_at(other_position) if other_position and positions else None
         result = mu.hero_matchups(
@@ -199,6 +203,8 @@ def register(mcp: FastMCP) -> None:
                 filters=filters,
                 sample_size=games,
                 source=_source(data),
+                period=data.period,
+                data_freshness=data.freshness,
             )
         result = {
             "hero": name,
@@ -255,6 +261,8 @@ def register(mcp: FastMCP) -> None:
             confidence=confidence,
             caveats=_caveats(filters, data, *extra),
             source=_source(data),
+            period=data.period,
+            data_freshness=data.freshness,
         )
 
     @mcp.tool
@@ -297,6 +305,8 @@ def register(mcp: FastMCP) -> None:
                 "Widen rank_bracket, drop positions or lower min_sample.",
                 filters=filters,
                 source=_source(data),
+                period=data.period,
+                data_freshness=data.freshness,
             )
         extra = [POSITION_CAVEAT] if positions else []
         if size == 3:
@@ -322,6 +332,8 @@ def register(mcp: FastMCP) -> None:
             confidence=confidence,
             caveats=_caveats(filters, data, *extra),
             source=_source(data),
+            period=data.period,
+            data_freshness=data.freshness,
         )
 
     @mcp.tool
@@ -398,6 +410,8 @@ def register(mcp: FastMCP) -> None:
                 "Widen rank_bracket or lower min_sample.",
                 filters=filters,
                 source=_source(data),
+                period=data.period,
+                data_freshness=data.freshness,
             )
         # Smallest pair behind any returned score.
         smallest = min(
@@ -436,6 +450,8 @@ def register(mcp: FastMCP) -> None:
             },
             caveats=_caveats(filters, data, *extra),
             source=_source(data),
+            period=data.period,
+            data_freshness=data.freshness,
         )
 
     @mcp.tool
@@ -478,6 +494,8 @@ def register(mcp: FastMCP) -> None:
                 "Widen rank_bracket or lower min_sample.",
                 filters=filters,
                 source=_source(data),
+                period=data.period,
+                data_freshness=data.freshness,
             )
         extra = [
             "radiant_win_estimate is a heuristic, not a calibrated model: 0.5 + the difference "
@@ -507,4 +525,6 @@ def register(mcp: FastMCP) -> None:
             },
             caveats=_caveats(filters, data, *extra),
             source=_source(data),
+            period=data.period,
+            data_freshness=data.freshness,
         )

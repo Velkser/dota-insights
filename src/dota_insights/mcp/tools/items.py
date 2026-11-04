@@ -32,8 +32,9 @@ FiltersArg = Annotated[
     Filters | None,
     Field(
         description=(
-            "Match filters. rank_bracket and position are applied; patch and game_mode are "
-            "not available for item aggregates and are reported in caveats if given."
+            "Match filters. rank_bracket and position are applied. patch and game_mode are "
+            "applied only when the collector's database answers (major patch, ranked); STRATZ "
+            "item aggregates ignore them and say so in caveats."
         )
     ),
 ]
@@ -108,20 +109,15 @@ def register(mcp: FastMCP) -> None:
         resolved = _resolve_item(item)
         if isinstance(resolved, ToolResult):
             return resolved
-        scope = analytics.stratz_scope(filters)
         try:
-            stats, fetched = await analytics.fetch_hero_items(analytics.all_hero_ids(), scope)
+            data = await analytics.load_hero_items(analytics.all_hero_ids(), filters, [resolved.id])
         except StratzError as exc:
             return _stratz_error(exc, filters)
+        stats, fetched = data.stats, data.fetched
 
         rows = analytics.merge_rows(h.rows(resolved.id) for h in stats.values())
         buyers, wins = analytics.totals(rows)
-        caveats = [
-            analytics.SELECTION_BIAS_CAVEAT,
-            *scope.caveats,
-            analytics.STRATZ_WINDOW_CAVEAT,
-            analytics.STRATZ_LINK_CAVEAT,
-        ]
+        caveats = [analytics.SELECTION_BIAS_CAVEAT, *data.caveats]
         if buyers < filters.min_sample:
             return insufficient_data(
                 f"Only {buyers} games bought {_item_label(resolved)} under these filters.",
@@ -129,7 +125,8 @@ def register(mcp: FastMCP) -> None:
                 filters=filters,
                 sample_size=buyers,
                 caveats=caveats,
-                source=["stratz"],
+                source=data.sources,
+                period=data.period,
                 data_freshness=fetched,
             )
         # Each hero game is one player-game, so this is the share of player-games that buy it.
@@ -181,7 +178,8 @@ def register(mcp: FastMCP) -> None:
             },
             confidence=confidence,
             caveats=caveats,
-            source=["stratz"],
+            source=data.sources,
+            period=data.period,
             data_freshness=fetched,
         )
 
@@ -208,23 +206,18 @@ def register(mcp: FastMCP) -> None:
             hero_record = _resolve_hero(hero)
             if isinstance(hero_record, ToolResult):
                 return hero_record
-        scope = analytics.stratz_scope(filters)
         hero_ids = [hero_record.id] if hero_record else analytics.all_hero_ids()
         try:
-            stats, fetched = await analytics.fetch_hero_items(hero_ids, scope)
+            data = await analytics.load_hero_items(hero_ids, filters, [resolved.id])
         except StratzError as exc:
             if hero_record is None:
                 return _stratz_error(exc, filters)
             return await _analyze_item_opendota(resolved, hero_record, filters, str(exc))
+        stats, fetched = data.stats, data.fetched
 
         rows = analytics.merge_rows(stats[h].rows(resolved.id) for h in hero_ids)
         buyers, wins = analytics.totals(rows)
-        caveats = [
-            analytics.SELECTION_BIAS_CAVEAT,
-            *scope.caveats,
-            analytics.STRATZ_WINDOW_CAVEAT,
-            analytics.STRATZ_LINK_CAVEAT,
-        ]
+        caveats = [analytics.SELECTION_BIAS_CAVEAT, *data.caveats]
         subject = f"{_item_label(resolved)}" + (
             f" on {hero_record.display_name}" if hero_record else ""
         )
@@ -235,7 +228,8 @@ def register(mcp: FastMCP) -> None:
                 filters=filters,
                 sample_size=buyers,
                 caveats=caveats,
-                source=["stratz"],
+                source=data.sources,
+                period=data.period,
                 data_freshness=fetched,
             )
         boundaries = timing_buckets or analytics.quartile_boundaries(rows)
@@ -293,7 +287,8 @@ def register(mcp: FastMCP) -> None:
             definitions=definitions,
             confidence=confidence,
             caveats=caveats,
-            source=["stratz"],
+            source=data.sources,
+            period=data.period,
             data_freshness=fetched,
         )
 
@@ -384,11 +379,13 @@ def register(mcp: FastMCP) -> None:
         hero_record = _resolve_hero(hero)
         if isinstance(hero_record, ToolResult):
             return hero_record
-        scope = analytics.stratz_scope(filters)
         try:
-            stats, fetched = await analytics.fetch_hero_items([hero_record.id], scope)
+            data = await analytics.load_hero_items(
+                [hero_record.id], filters, [i.id for i in resolved_items]
+            )
         except StratzError as exc:
             return _stratz_error(exc, filters)
+        stats, fetched = data.stats, data.fetched
 
         hero_stats = stats[hero_record.id]
         item_rows = {_item_label(i): hero_stats.rows(i.id) for i in resolved_items}
@@ -398,9 +395,7 @@ def register(mcp: FastMCP) -> None:
             "the game is going), so differences are not a clean A/B test.",
             "One game can buy several of the compared items, so the groups can overlap and "
             "the z-tests, which assume independent groups, are approximate.",
-            *scope.caveats,
-            analytics.STRATZ_WINDOW_CAVEAT,
-            analytics.STRATZ_LINK_CAVEAT,
+            *data.caveats,
         ]
         counts = {name: analytics.totals(rows)[0] for name, rows in item_rows.items()}
         short = {name: n for name, n in counts.items() if n < filters.min_sample}
@@ -412,7 +407,8 @@ def register(mcp: FastMCP) -> None:
                 filters=filters,
                 sample_size=min(counts.values()),
                 caveats=caveats,
-                source=["stratz"],
+                source=data.sources,
+                period=data.period,
                 data_freshness=fetched,
             )
         boundaries = timing_buckets or analytics.quartile_boundaries(
@@ -466,7 +462,8 @@ def register(mcp: FastMCP) -> None:
             },
             confidence=confidence,
             caveats=caveats,
-            source=["stratz"],
+            source=data.sources,
+            period=data.period,
             data_freshness=fetched,
         )
 

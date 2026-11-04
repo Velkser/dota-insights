@@ -2,6 +2,9 @@
 
 Sources:
 
+- The collector's database (``db.readers``) first: first-purchase minutes per hero, position
+  and item from enriched matches, when it has fresh aggregates for the filters and every item
+  asked about reaches ``min_sample`` buyers. ``load_hero_items`` falls back to STRATZ otherwise.
 - STRATZ ``heroStats.itemFullPurchase`` gives, per hero, item and purchase minute, how many
   games bought the item at that minute and how many of them were won. ``heroStats.stats`` gives
   the hero's total games under the same filters, which is the denominator of a purchase rate.
@@ -32,6 +35,9 @@ from dota_insights.analytics.stats import (
     wilson_interval,
 )
 from dota_insights.cache import TTL_AGGREGATE, cached
+from dota_insights.db import readers
+from dota_insights.db.access import read
+from dota_insights.mcp.envelope import DB_SOURCE, Period, Source
 from dota_insights.models.filters import Filters, RankBracket
 from dota_insights.reference import hero_by_id, heroes, patches
 from dota_insights.sources import get_opendota, get_stratz
@@ -203,6 +209,66 @@ async def fetch_hero_items(
 
 def all_hero_ids() -> list[int]:
     return [hero.id for hero in heroes()]
+
+
+@dataclass(frozen=True, slots=True)
+class ItemData:
+    """Per-hero item stats with where they came from, for the envelope."""
+
+    stats: dict[int, HeroItemStats]
+    fetched: datetime | None
+    sources: list[Source]
+    caveats: list[str]  # what the filters became in the source and the source's own notes
+    period: Period | None = None
+
+
+def _db_hero_items(
+    session, filters: Filters, hero_ids: tuple[int, ...], item_ids: tuple[int, ...]
+) -> ItemData | None:
+    scope = readers.scope_for(session, filters)
+    if isinstance(scope, str):
+        return None
+    every_hero = len(hero_ids) > HERO_BATCH
+    selected = None if every_hero else hero_ids
+    counts = readers.detail_hero_counts(session, scope, selected)
+    timings = readers.item_timings(session, scope, item_ids, selected)
+    stats = {}
+    for hero_id in hero_ids:
+        games, wins = counts.get(hero_id, (0, 0))
+        purchases = {
+            item_id: tuple(TimingRow(m, n, w) for m, n, w in rows)
+            for item_id, rows in timings.get(hero_id, {}).items()
+        }
+        stats[hero_id] = HeroItemStats(hero_id, games, wins, purchases)
+    return ItemData(
+        stats=stats,
+        fetched=scope.freshness,
+        sources=[DB_SOURCE, *readers.DETAIL_SOURCES[1:]],
+        caveats=scope.caveats(detail=True),
+        period=scope.period,
+    )
+
+
+async def load_hero_items(
+    hero_ids: Iterable[int], filters: Filters, item_ids: Iterable[int]
+) -> ItemData:
+    """Item stats for ``hero_ids`` from the database when each of ``item_ids`` has
+    ``min_sample`` buyers there, else from STRATZ (raises ``StratzError`` when it fails)."""
+    ids, items = tuple(sorted(set(hero_ids))), tuple(sorted(set(item_ids)))
+    data = await read(_db_hero_items, filters, ids, items)
+    if data is not None and all(
+        totals(merge_rows(h.rows(item) for h in data.stats.values()))[0] >= filters.min_sample
+        for item in items
+    ):
+        return data
+    scope = stratz_scope(filters)
+    stats, fetched = await fetch_hero_items(ids, scope)
+    return ItemData(
+        stats=stats,
+        fetched=fetched,
+        sources=["stratz"],
+        caveats=[*scope.caveats, STRATZ_WINDOW_CAVEAT, STRATZ_LINK_CAVEAT],
+    )
 
 
 # --- OpenDota fallback -----------------------------------------------------------------------

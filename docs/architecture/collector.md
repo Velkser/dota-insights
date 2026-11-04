@@ -7,8 +7,9 @@ migration `0002` (see [db-schema.md](db-schema.md) for the tables it extends).
 The collector fills PostgreSQL (Neon in production) from OpenDota and STRATZ and keeps the
 aggregate tables current. It runs as **scheduled one-shot jobs on GitHub Actions**
 (`.github/workflows/collect.yml`, see [Deployment](#deployment-github-actions--neon)); the MCP
-server is deployed separately (Vercel) and never runs collection. MCP tools still call the APIs live; wiring them to read aggregates first is the
-next step (see [What remains](#what-remains)).
+server is deployed separately (Vercel) and never runs collection. The aggregate-heavy MCP tools read
+these aggregates first and call the APIs only as a fallback (see
+[Tools reading aggregates](#tools-reading-aggregates)).
 
 ```
 OpenDota publicMatches ─┐                      ┌─ patch_bracket_totals
@@ -229,11 +230,58 @@ match (`tests/fixtures/collector/stratz_match.json`). `tests/test_db_models.py` 
 round trip (migrations, on-demand partitions, rebuild after a patch split) that runs when
 `DOTA_INSIGHTS_TEST_DATABASE_URL` points at an empty scratch database.
 
+## Tools reading aggregates
+
+`db/access.py` gives tools `await read(fn, *args)`: `fn(session, *args)` runs in a worker thread on a
+session with one short-lived connection (`NullPool`, `connect_timeout` 5 s, `statement_timeout`
+4 s, prepared statements off for PgBouncer), so it suits Vercel functions; point `DATABASE_URL` at
+Neon's pooled (`-pooler`) endpoint there. No database configured, a connection error or a timeout
+returns None and the tool uses the live APIs, so the database is never a hard dependency.
+
+`db/readers.py` maps `Filters` to a `Scope` with `scope_for()`, or says why it cannot:
+
+| Filter | In the database | Not answerable (live APIs instead) |
+| --- | --- | --- |
+| `patch` | omitted = newest patch; `"7.41"` = 7.41 with all letter patches | a letter patch (`"7.41c"`), an unknown patch |
+| `rank_bracket` | brackets 1–7 of the lobby's average medal; `divine+` = bracket 7 | `immortal` alone |
+| `position` | `hero_aggregates` etc. from enriched matches | — |
+| `game_mode` | omitted or `ranked_all_pick` (only ranked lobbies are collected) | any other mode |
+
+A scope also needs `aggregate_status` to say the patch has aggregates (`first_match_at` /
+`last_match_at`, kept by the aggregate job since migration 0003), is not `stale`, and, for the live
+patch, was updated within `MAX_AGE` (24 h). Each tool then applies its own `min_sample` check to the
+database sample (the hero's games, the pool's matches, the item's buyers) and falls back when it
+is too small.
+
+| Tool | Reads | API calls on a cold cache, live path | Database hit |
+| --- | --- | --- | --- |
+| `get_tier_list`, `find_hidden_gems` | draft counts (position: enriched counts) | 2 STRATZ | 0 |
+| `get_hero_overview` | + positions, medals, 3-patch trend, `hero_stats_daily` pro rows | 4 STRATZ + 1 OpenDota | 0 |
+| `compare_heroes` | + per-game averages from `hero_aggregates` | 3 STRATZ | 0 |
+| `get_hero_matchups`, `suggest_pick` | matchup pairs, base win rates, positions | 1–2 STRATZ | 0 |
+| `find_hero_combos`, `analyze_draft` | same, all heroes / the draft | 1–2 STRATZ | 0 |
+| `get_item_overview`, `analyze_item` (all heroes) | `item_timing_aggregates` + enriched hero games | 6 STRATZ (25 heroes per call) | 0 |
+| `analyze_item` (one hero), `compare_items` | same, one hero | 1 STRATZ | 0 |
+| `get_hero_benchmarks` (GPM/XPM values, or a rank range) | `hero_stat_histograms` | 1 OpenDota | 0 |
+
+Envelopes from the database list `"dota-insights-db"` first in `source`, then the upstream
+origin: `"opendota"` (public matches) for draft-level numbers, plus `"stratz"` where enriched
+match details were used. `period` is `first_match_at`–`last_match_at`, `data_freshness` is
+`last_match_at`, and `filters` show the patch and game mode actually applied. Caveats say:
+
+- the matches are ranked lobbies collected from OpenDota public matches over that period, all
+  letter patches together;
+- medals are the lobby's average rank, capped at Divine by OpenDota, so Immortal games count as
+  Divine (`divine+immortal` in medal breakdowns) and there is no Immortal split, unlike STRATZ;
+- positions, averages, percentiles and item timings rest on the enriched subset, a smaller sample
+  than the win and pick counts.
+
 ## What remains
 
-- **Tools reading aggregates.** `compare_heroes`, `find_meta_trends`, `get_farming_stats`,
-  `analyze_item` and the matchup tools still call the APIs live. Wire them to `db/aggregates.py`
-  (and add readers for matchups and item timings) with a live fallback while samples are small.
+- **More tools on aggregates.** `find_meta_trends`, `get_hero_patch_history`, `get_farming_stats`,
+  `get_hero_power_curve` and `get_hero_builds` still call the APIs live: builds need skill and
+  talent orders and starting items, and farming needs per-minute curves, none of which are
+  aggregated yet. Matchup tools still reject a non-current `patch` before the database is asked.
 - **Retention job** (drop old monthly partitions, db-schema.md) is not implemented.
 - **Immortal bracket**: needs per-player `rank_tier` from match details; not collected.
 - **Replay-level data** (`player_timeseries`, deaths, wards) is not collected; STRATZ purchases are

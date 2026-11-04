@@ -8,6 +8,7 @@ from pydantic import Field
 
 from dota_insights.analytics import farming
 from dota_insights.analytics.stats import wilson_interval
+from dota_insights.db import readers
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
 from dota_insights.mcp.errors import source_error
 from dota_insights.models import Filters, Outcome
@@ -316,6 +317,59 @@ async def _pub_lane_stats(found: Hero, requested: Filters) -> ToolResult:
     )
 
 
+def _placements(
+    metrics: dict[str, list[farming.Percentile]], value: dict[str, float] | None
+) -> list[farming.ValuePlacement]:
+    placements = []
+    for key, number in (value or {}).items():
+        name = farming.metric_name(key)
+        if name in metrics:
+            pct, label = farming.place_value(metrics[name], number)
+            placements.append(
+                farming.ValuePlacement(metric=name, value=number, percentile=pct, label=label)
+            )
+    return placements
+
+
+def _db_benchmarks(
+    hero: Hero, filters: Filters, value: dict[str, float] | None, db: farming.DbBenchmarks
+) -> ToolResult[farming.HeroBenchmarks]:
+    position = filters.position
+    role = None if position is None else ("core" if position <= 3 else "support")
+    caveats = db.scope.caveats(detail=True)
+    caveats.append(
+        "The database keeps only GPM and XPM distributions; ask without a value (and with a "
+        "single medal) for OpenDota's other benchmark metrics."
+    )
+    if position is not None:
+        caveats.append(f"Percentiles are for position {int(position)} exactly, not the role.")
+    return ok(
+        farming.HeroBenchmarks(
+            hero=hero.display_name,
+            hero_id=hero.id,
+            bracket=filters.rank_bracket,
+            role=role,
+            metrics=db.metrics,
+            placements=_placements(db.metrics, value),
+        ),
+        filters=db.scope.filters(filters),
+        sample_size=db.sample_size,
+        period=db.scope.period,
+        definitions={
+            **{name: farming.BENCHMARK_METRICS[name] for name in farming.DB_BENCHMARKS},
+            "percentile": (
+                "Share of the hero's games with this value or lower, interpolated inside "
+                "25-wide GPM/XPM histogram buckets."
+            ),
+            "placements": "Linear interpolation between neighbouring percentiles.",
+            "sample_size": "Enriched games behind the smaller of the two distributions.",
+        },
+        caveats=caveats,
+        source=readers.DETAIL_SOURCES,
+        data_freshness=db.scope.freshness,
+    )
+
+
 def register(mcp: FastMCP) -> None:
     @mcp.tool
     async def get_hero_benchmarks(
@@ -340,16 +394,20 @@ def register(mcp: FastMCP) -> None:
         if isinstance(found, ToolResult):
             return found
         filters = filters or Filters()
-        try:
-            bracket, role = farming.benchmark_params(filters)
-        except ValueError as exc:
-            return error(str(exc), filters=filters, source=["opendota"])
         unknown = [k for k in value or {} if farming.metric_name(k) is None]
         if unknown:
             return error(
                 f"Unknown benchmark metric(s): {', '.join(unknown)}.",
                 hint="Use one of: " + ", ".join(farming.BENCHMARK_METRICS),
             )
+        if farming.wants_db_benchmarks(filters, value):
+            found_db = await farming.db_benchmarks(found.id, filters)
+            if found_db is not None:
+                return _db_benchmarks(found, filters, value, found_db)
+        try:
+            bracket, role = farming.benchmark_params(filters)
+        except ValueError as exc:
+            return error(str(exc), filters=filters, source=["opendota"])
         try:
             payload = await farming.fetch_benchmarks(found.id, bracket, role)
         except OpenDotaError as exc:
@@ -361,14 +419,7 @@ def register(mcp: FastMCP) -> None:
                 "Drop rank_bracket or position.",
                 source=["opendota"],
             )
-        placements = []
-        for key, number in (value or {}).items():
-            name = farming.metric_name(key)
-            if name in metrics:
-                pct, label = farming.place_value(metrics[name], number)
-                placements.append(
-                    farming.ValuePlacement(metric=name, value=number, percentile=pct, label=label)
-                )
+        placements = _placements(metrics, value)
         medal = filters.rank_range[0].value if filters.rank_range else None
         caveats = [
             "OpenDota does not publish how many matches the percentiles rest on, so no "

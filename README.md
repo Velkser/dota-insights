@@ -206,6 +206,11 @@ CI fails when it is out of date.
 - **OpenDota free tier.** 60 requests a minute and 3,000 a day, shared by every user of a server. Results
   are cached (hero and item aggregates for hours, finished matches for a week), but a cold question that
   fans out over many heroes or matches can hit the limit; the tool then answers `error` with a retry hint.
+- **Collector database.** Hero, matchup, item-timing and GPM/XPM percentile tools first read the
+  aggregates the collector builds from ranked OpenDota public matches (`source` starts with
+  `"dota-insights-db"`) and call the live APIs only when the database has no fresh data for the
+  filters or too small a sample. Those aggregates group lettered patches under their major patch
+  and cannot separate Immortal from Divine.
 - **Few parsed matches.** Only about 8% of public matches are replay-parsed on OpenDota. Timelines,
   teamfights, wards, lane outcomes, purchase logs and per-minute farm exist only for parsed matches, so
   those tools say when a match is unparsed and aggregates over parsed data rest on smaller samples.

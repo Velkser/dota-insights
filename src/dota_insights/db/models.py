@@ -445,6 +445,12 @@ class AggregateStatus(Base):
     stale_reason: Mapped[str | None] = mapped_column(String(200))
     stale_since: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     rebuilt_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    first_match_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), comment="start time of the oldest match in the draft aggregates"
+    )
+    last_match_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), comment="start time of the newest match in the draft aggregates"
+    )
 
 
 class HeroStatsDaily(Base):
