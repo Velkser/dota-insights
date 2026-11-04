@@ -11,6 +11,11 @@ All notable changes to this project. The format follows
 - Insight and Weekly Meta Report drafts name heroes in Russian ("Антимаг", "Пудж") through
   the shared RU name table, falling back to English; draft file names stay English slugs.
 
+### Fixed
+
+- The eval harness records parallel tool calls in the order the model asked for them, not the
+  order they finished (this made `test_run_case_calls_tools_and_records_transcript` flaky).
+
 ### Added
 
 - Russian hero and item names (p9-11): `reference/data/names_ru.json` lists the usual Russian
