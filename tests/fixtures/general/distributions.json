@@ -1,0 +1,225 @@
+{
+ "ranks": {
+  "rows": [
+   {
+    "bin": 11,
+    "bin_name": 11,
+    "count": 9066,
+    "cumulative_sum": 9066
+   },
+   {
+    "bin": 12,
+    "bin_name": 12,
+    "count": 145156,
+    "cumulative_sum": 154222
+   },
+   {
+    "bin": 13,
+    "bin_name": 13,
+    "count": 154013,
+    "cumulative_sum": 308235
+   },
+   {
+    "bin": 14,
+    "bin_name": 14,
+    "count": 184341,
+    "cumulative_sum": 492576
+   },
+   {
+    "bin": 15,
+    "bin_name": 15,
+    "count": 205429,
+    "cumulative_sum": 698005
+   },
+   {
+    "bin": 21,
+    "bin_name": 21,
+    "count": 228542,
+    "cumulative_sum": 926547
+   },
+   {
+    "bin": 22,
+    "bin_name": 22,
+    "count": 246625,
+    "cumulative_sum": 1173172
+   },
+   {
+    "bin": 23,
+    "bin_name": 23,
+    "count": 262521,
+    "cumulative_sum": 1435693
+   },
+   {
+    "bin": 24,
+    "bin_name": 24,
+    "count": 275238,
+    "cumulative_sum": 1710931
+   },
+   {
+    "bin": 25,
+    "bin_name": 25,
+    "count": 286856,
+    "cumulative_sum": 1997787
+   },
+   {
+    "bin": 31,
+    "bin_name": 31,
+    "count": 308835,
+    "cumulative_sum": 2306622
+   },
+   {
+    "bin": 32,
+    "bin_name": 32,
+    "count": 320607,
+    "cumulative_sum": 2627229
+   },
+   {
+    "bin": 33,
+    "bin_name": 33,
+    "count": 327906,
+    "cumulative_sum": 2955135
+   },
+   {
+    "bin": 34,
+    "bin_name": 34,
+    "count": 337406,
+    "cumulative_sum": 3292541
+   },
+   {
+    "bin": 35,
+    "bin_name": 35,
+    "count": 340205,
+    "cumulative_sum": 3632746
+   },
+   {
+    "bin": 41,
+    "bin_name": 41,
+    "count": 358615,
+    "cumulative_sum": 3991361
+   },
+   {
+    "bin": 42,
+    "bin_name": 42,
+    "count": 356222,
+    "cumulative_sum": 4347583
+   },
+   {
+    "bin": 43,
+    "bin_name": 43,
+    "count": 355380,
+    "cumulative_sum": 4702963
+   },
+   {
+    "bin": 44,
+    "bin_name": 44,
+    "count": 349145,
+    "cumulative_sum": 5052108
+   },
+   {
+    "bin": 45,
+    "bin_name": 45,
+    "count": 341263,
+    "cumulative_sum": 5393371
+   },
+   {
+    "bin": 51,
+    "bin_name": 51,
+    "count": 355714,
+    "cumulative_sum": 5749085
+   },
+   {
+    "bin": 52,
+    "bin_name": 52,
+    "count": 334711,
+    "cumulative_sum": 6083796
+   },
+   {
+    "bin": 53,
+    "bin_name": 53,
+    "count": 313985,
+    "cumulative_sum": 6397781
+   },
+   {
+    "bin": 54,
+    "bin_name": 54,
+    "count": 290659,
+    "cumulative_sum": 6688440
+   },
+   {
+    "bin": 55,
+    "bin_name": 55,
+    "count": 263899,
+    "cumulative_sum": 6952339
+   },
+   {
+    "bin": 61,
+    "bin_name": 61,
+    "count": 253528,
+    "cumulative_sum": 7205867
+   },
+   {
+    "bin": 62,
+    "bin_name": 62,
+    "count": 214849,
+    "cumulative_sum": 7420716
+   },
+   {
+    "bin": 63,
+    "bin_name": 63,
+    "count": 184091,
+    "cumulative_sum": 7604807
+   },
+   {
+    "bin": 64,
+    "bin_name": 64,
+    "count": 156824,
+    "cumulative_sum": 7761631
+   },
+   {
+    "bin": 65,
+    "bin_name": 65,
+    "count": 135351,
+    "cumulative_sum": 7896982
+   },
+   {
+    "bin": 71,
+    "bin_name": 71,
+    "count": 151290,
+    "cumulative_sum": 8048272
+   },
+   {
+    "bin": 72,
+    "bin_name": 72,
+    "count": 125659,
+    "cumulative_sum": 8173931
+   },
+   {
+    "bin": 73,
+    "bin_name": 73,
+    "count": 100818,
+    "cumulative_sum": 8274749
+   },
+   {
+    "bin": 74,
+    "bin_name": 74,
+    "count": 83462,
+    "cumulative_sum": 8358211
+   },
+   {
+    "bin": 75,
+    "bin_name": 75,
+    "count": 79079,
+    "cumulative_sum": 8437290
+   },
+   {
+    "bin": 80,
+    "bin_name": 80,
+    "count": 344772,
+    "cumulative_sum": 8782062
+   }
+  ],
+  "sum": {
+   "count": 8782062
+  }
+ }
+}

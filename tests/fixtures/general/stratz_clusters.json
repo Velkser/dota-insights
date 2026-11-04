@@ -1,0 +1,719 @@
+{
+ "constants": {
+  "clusters": [
+   {
+    "id": 111,
+    "regionId": 1
+   },
+   {
+    "id": 112,
+    "regionId": 1
+   },
+   {
+    "id": 113,
+    "regionId": 1
+   },
+   {
+    "id": 114,
+    "regionId": 1
+   },
+   {
+    "id": 117,
+    "regionId": 1
+   },
+   {
+    "id": 118,
+    "regionId": 1
+   },
+   {
+    "id": 121,
+    "regionId": 2
+   },
+   {
+    "id": 122,
+    "regionId": 2
+   },
+   {
+    "id": 123,
+    "regionId": 2
+   },
+   {
+    "id": 124,
+    "regionId": 2
+   },
+   {
+    "id": 125,
+    "regionId": 2
+   },
+   {
+    "id": 126,
+    "regionId": 2
+   },
+   {
+    "id": 127,
+    "regionId": 2
+   },
+   {
+    "id": 128,
+    "regionId": 2
+   },
+   {
+    "id": 129,
+    "regionId": 2
+   },
+   {
+    "id": 130,
+    "regionId": 3
+   },
+   {
+    "id": 131,
+    "regionId": 3
+   },
+   {
+    "id": 132,
+    "regionId": 3
+   },
+   {
+    "id": 133,
+    "regionId": 3
+   },
+   {
+    "id": 134,
+    "regionId": 3
+   },
+   {
+    "id": 135,
+    "regionId": 3
+   },
+   {
+    "id": 136,
+    "regionId": 3
+   },
+   {
+    "id": 137,
+    "regionId": 3
+   },
+   {
+    "id": 138,
+    "regionId": 3
+   },
+   {
+    "id": 141,
+    "regionId": 19
+   },
+   {
+    "id": 142,
+    "regionId": 19
+   },
+   {
+    "id": 143,
+    "regionId": 19
+   },
+   {
+    "id": 144,
+    "regionId": 19
+   },
+   {
+    "id": 145,
+    "regionId": 19
+   },
+   {
+    "id": 151,
+    "regionId": 5
+   },
+   {
+    "id": 152,
+    "regionId": 5
+   },
+   {
+    "id": 153,
+    "regionId": 5
+   },
+   {
+    "id": 154,
+    "regionId": 5
+   },
+   {
+    "id": 155,
+    "regionId": 5
+   },
+   {
+    "id": 156,
+    "regionId": 5
+   },
+   {
+    "id": 161,
+    "regionId": 6
+   },
+   {
+    "id": 162,
+    "regionId": 6
+   },
+   {
+    "id": 163,
+    "regionId": 6
+   },
+   {
+    "id": 171,
+    "regionId": 7
+   },
+   {
+    "id": 172,
+    "regionId": 7
+   },
+   {
+    "id": 181,
+    "regionId": 8
+   },
+   {
+    "id": 182,
+    "regionId": 8
+   },
+   {
+    "id": 183,
+    "regionId": 8
+   },
+   {
+    "id": 184,
+    "regionId": 8
+   },
+   {
+    "id": 185,
+    "regionId": 8
+   },
+   {
+    "id": 186,
+    "regionId": 8
+   },
+   {
+    "id": 187,
+    "regionId": 8
+   },
+   {
+    "id": 188,
+    "regionId": 8
+   },
+   {
+    "id": 189,
+    "regionId": 8
+   },
+   {
+    "id": 191,
+    "regionId": 9
+   },
+   {
+    "id": 192,
+    "regionId": 9
+   },
+   {
+    "id": 193,
+    "regionId": 9
+   },
+   {
+    "id": 200,
+    "regionId": 10
+   },
+   {
+    "id": 201,
+    "regionId": 10
+   },
+   {
+    "id": 202,
+    "regionId": 10
+   },
+   {
+    "id": 203,
+    "regionId": 10
+   },
+   {
+    "id": 204,
+    "regionId": 10
+   },
+   {
+    "id": 211,
+    "regionId": 11
+   },
+   {
+    "id": 212,
+    "regionId": 11
+   },
+   {
+    "id": 213,
+    "regionId": 11
+   },
+   {
+    "id": 214,
+    "regionId": 11
+   },
+   {
+    "id": 221,
+    "regionId": 12
+   },
+   {
+    "id": 222,
+    "regionId": 12
+   },
+   {
+    "id": 223,
+    "regionId": 18
+   },
+   {
+    "id": 224,
+    "regionId": 12
+   },
+   {
+    "id": 225,
+    "regionId": 17
+   },
+   {
+    "id": 227,
+    "regionId": 20
+   },
+   {
+    "id": 231,
+    "regionId": 13
+   },
+   {
+    "id": 232,
+    "regionId": 25
+   },
+   {
+    "id": 235,
+    "regionId": 13
+   },
+   {
+    "id": 236,
+    "regionId": 13
+   },
+   {
+    "id": 241,
+    "regionId": 14
+   },
+   {
+    "id": 242,
+    "regionId": 14
+   },
+   {
+    "id": 251,
+    "regionId": 15
+   },
+   {
+    "id": 261,
+    "regionId": 16
+   },
+   {
+    "id": 271,
+    "regionId": 3
+   },
+   {
+    "id": 272,
+    "regionId": 3
+   },
+   {
+    "id": 273,
+    "regionId": 3
+   },
+   {
+    "id": 274,
+    "regionId": 3
+   },
+   {
+    "id": 346,
+    "regionId": 38
+   },
+   {
+    "id": 347,
+    "regionId": 38
+   },
+   {
+    "id": 381,
+    "regionId": 15
+   },
+   {
+    "id": 382,
+    "regionId": 15
+   },
+   {
+    "id": 400,
+    "regionId": 2
+   },
+   {
+    "id": 401,
+    "regionId": 2
+   },
+   {
+    "id": 402,
+    "regionId": 2
+   },
+   {
+    "id": 403,
+    "regionId": 2
+   },
+   {
+    "id": 404,
+    "regionId": 2
+   },
+   {
+    "id": 405,
+    "regionId": 2
+   },
+   {
+    "id": 406,
+    "regionId": 2
+   },
+   {
+    "id": 407,
+    "regionId": 2
+   },
+   {
+    "id": 408,
+    "regionId": 2
+   },
+   {
+    "id": 409,
+    "regionId": 2
+   },
+   {
+    "id": 410,
+    "regionId": 2
+   },
+   {
+    "id": 412,
+    "regionId": 2
+   },
+   {
+    "id": 413,
+    "regionId": 2
+   },
+   {
+    "id": 414,
+    "regionId": 2
+   },
+   {
+    "id": 415,
+    "regionId": 2
+   },
+   {
+    "id": 416,
+    "regionId": 2
+   },
+   {
+    "id": 417,
+    "regionId": 2
+   },
+   {
+    "id": 418,
+    "regionId": 2
+   },
+   {
+    "id": 419,
+    "regionId": 2
+   },
+   {
+    "id": 420,
+    "regionId": 2
+   },
+   {
+    "id": 421,
+    "regionId": 2
+   },
+   {
+    "id": 422,
+    "regionId": 2
+   },
+   {
+    "id": 423,
+    "regionId": 2
+   },
+   {
+    "id": 424,
+    "regionId": 2
+   },
+   {
+    "id": 425,
+    "regionId": 2
+   }
+  ],
+  "regions": [
+   {
+    "id": 0,
+    "name": "unspecified",
+    "clientName": null,
+    "displayName": "#dota_region_automatic",
+    "leaderboardDivision": null,
+    "code": null,
+    "matchGroup": 0
+   },
+   {
+    "id": 1,
+    "name": "USWest",
+    "clientName": "US West",
+    "displayName": "#dota_region_us_west",
+    "leaderboardDivision": "americas",
+    "code": "eat",
+    "matchGroup": 0
+   },
+   {
+    "id": 2,
+    "name": "USEast",
+    "clientName": "US East",
+    "displayName": "#dota_region_us_east",
+    "leaderboardDivision": "americas",
+    "code": "iad",
+    "matchGroup": 1
+   },
+   {
+    "id": 3,
+    "name": "Europe",
+    "clientName": "Europe West",
+    "displayName": "#dota_region_europe",
+    "leaderboardDivision": "europe",
+    "code": "fra",
+    "matchGroup": 2
+   },
+   {
+    "id": 5,
+    "name": "Singapore",
+    "clientName": "SE Asia",
+    "displayName": "#dota_region_singapore",
+    "leaderboardDivision": "se_asia",
+    "code": "sgp",
+    "matchGroup": 3
+   },
+   {
+    "id": 6,
+    "name": "Dubai",
+    "clientName": "Dubai",
+    "displayName": "#dota_region_dubai",
+    "leaderboardDivision": "se_asia",
+    "code": "dxb",
+    "matchGroup": 13
+   },
+   {
+    "id": 7,
+    "name": "Australia",
+    "clientName": "Australia",
+    "displayName": "#dota_region_australia",
+    "leaderboardDivision": "se_asia",
+    "code": "syd",
+    "matchGroup": 9
+   },
+   {
+    "id": 8,
+    "name": "Stockholm",
+    "clientName": "Russia",
+    "displayName": "#dota_region_stockholm",
+    "leaderboardDivision": "europe",
+    "code": "sto",
+    "matchGroup": 7
+   },
+   {
+    "id": 9,
+    "name": "Austria",
+    "clientName": "EU East",
+    "displayName": "#dota_region_austria",
+    "leaderboardDivision": "europe",
+    "code": "vie",
+    "matchGroup": 8
+   },
+   {
+    "id": 10,
+    "name": "Brazil",
+    "clientName": "South America",
+    "displayName": "#dota_region_brazil",
+    "leaderboardDivision": "americas",
+    "code": "gru",
+    "matchGroup": 5
+   },
+   {
+    "id": 11,
+    "name": "SouthAfrica",
+    "clientName": "South Africa",
+    "displayName": "#dota_region_southafrica",
+    "leaderboardDivision": "europe",
+    "code": "jnb",
+    "matchGroup": 10
+   },
+   {
+    "id": 12,
+    "name": "PerfectWorldTelecom",
+    "clientName": "China",
+    "displayName": "#dota_region_pw_telecom_shanghai",
+    "leaderboardDivision": "china",
+    "code": "pwt",
+    "matchGroup": 11
+   },
+   {
+    "id": 13,
+    "name": "PerfectWorldUnicom",
+    "clientName": "China",
+    "displayName": "#dota_region_pw_unicom",
+    "leaderboardDivision": "china",
+    "code": "pwu",
+    "matchGroup": 12
+   },
+   {
+    "id": 14,
+    "name": "Chile",
+    "clientName": "Chile",
+    "displayName": "#dota_region_chile",
+    "leaderboardDivision": "americas",
+    "code": "scl",
+    "matchGroup": 14
+   },
+   {
+    "id": 15,
+    "name": "Peru",
+    "clientName": "Peru",
+    "displayName": "#dota_region_peru",
+    "leaderboardDivision": "americas",
+    "code": "lim",
+    "matchGroup": 15
+   },
+   {
+    "id": 16,
+    "name": "India",
+    "clientName": "India",
+    "displayName": "#dota_region_india",
+    "leaderboardDivision": "se_asia",
+    "code": "bom",
+    "matchGroup": 16
+   },
+   {
+    "id": 17,
+    "name": "PerfectWorldTelecomGuangdong",
+    "clientName": "China",
+    "displayName": "#dota_region_pw_telecom_guangdong",
+    "leaderboardDivision": "china",
+    "code": "pwg",
+    "matchGroup": 17
+   },
+   {
+    "id": 18,
+    "name": "PerfectWorldTelecomZhejiang",
+    "clientName": "China",
+    "displayName": "#dota_region_pw_telecom_zhejiang",
+    "leaderboardDivision": "china",
+    "code": "pwz",
+    "matchGroup": 18
+   },
+   {
+    "id": 19,
+    "name": "Japan",
+    "clientName": "Japan",
+    "displayName": "#dota_region_japan",
+    "leaderboardDivision": "se_asia",
+    "code": "tyo",
+    "matchGroup": 19
+   },
+   {
+    "id": 20,
+    "name": "PerfectWorldTelecomWuhan",
+    "clientName": "China",
+    "displayName": "#dota_region_pw_telecom_wuhan",
+    "leaderboardDivision": "china",
+    "code": "pww",
+    "matchGroup": 20
+   },
+   {
+    "id": 24,
+    "name": "HongKong",
+    "clientName": null,
+    "displayName": "#dota_region_hong_kong",
+    "leaderboardDivision": "se_asia",
+    "code": "hkg",
+    "matchGroup": 3
+   },
+   {
+    "id": 25,
+    "name": "PerfectWorldUnicomTianjin",
+    "clientName": "China",
+    "displayName": "#dota_region_pw_unicom_tianjin",
+    "leaderboardDivision": "china",
+    "code": "pwj",
+    "matchGroup": 25
+   },
+   {
+    "id": 27,
+    "name": "USNorthCentral",
+    "clientName": null,
+    "displayName": "#dota_region_us_north_central",
+    "leaderboardDivision": "americas",
+    "code": "ord",
+    "matchGroup": 1
+   },
+   {
+    "id": 28,
+    "name": "Poland",
+    "clientName": null,
+    "displayName": "#dota_region_warsaw",
+    "leaderboardDivision": "europe",
+    "code": "waw",
+    "matchGroup": 8
+   },
+   {
+    "id": 31,
+    "name": "USSouthCentral",
+    "clientName": null,
+    "displayName": "#dota_region_us_south_central",
+    "leaderboardDivision": "americas",
+    "code": "dfw",
+    "matchGroup": 1
+   },
+   {
+    "id": 37,
+    "name": "Taiwan",
+    "clientName": null,
+    "displayName": "#dota_region_taiwan",
+    "leaderboardDivision": "se_asia",
+    "code": "gtpe",
+    "matchGroup": 21
+   },
+   {
+    "id": 38,
+    "name": "Argentina",
+    "clientName": null,
+    "displayName": "#dota_region_argentina",
+    "leaderboardDivision": "americas",
+    "code": "eze",
+    "matchGroup": 6
+   },
+   {
+    "id": 42,
+    "name": "AlicloudChengdu",
+    "clientName": null,
+    "displayName": "#dota_region_pw_chengdu",
+    "leaderboardDivision": "china",
+    "code": "ctu",
+    "matchGroup": 20
+   },
+   {
+    "id": 46,
+    "name": "AlicloudShanghai",
+    "clientName": null,
+    "displayName": "#dota_region_pw_telecom_shanghai",
+    "leaderboardDivision": "china",
+    "code": "pvg",
+    "matchGroup": 11
+   },
+   {
+    "id": 49,
+    "name": "TencentGuangzhou",
+    "clientName": null,
+    "displayName": "#dota_region_pw_guangzhou",
+    "leaderboardDivision": "china",
+    "code": "tgd",
+    "matchGroup": 17
+   },
+   {
+    "id": 51,
+    "name": "AlicloudBeijing",
+    "clientName": null,
+    "displayName": "#dota_region_pw_beijing",
+    "leaderboardDivision": "china",
+    "code": "pek",
+    "matchGroup": 25
+   }
+  ]
+ }
+}
