@@ -1,0 +1,244 @@
+{
+ "_note": "GET /heroStats (row for hero_id 1) and GET /benchmarks?hero_id=1 (first 3 metrics), fetched 2026-11-04",
+ "heroStats_row": {
+  "id": 1,
+  "name": "npc_dota_hero_antimage",
+  "primary_attr": "agi",
+  "attack_type": "Melee",
+  "roles": [
+   "Carry",
+   "Escape",
+   "Nuker"
+  ],
+  "img": "/apps/dota2/images/dota_react/heroes/antimage.png?",
+  "icon": "/apps/dota2/images/dota_react/heroes/icons/antimage.png?",
+  "base_health": 120,
+  "base_health_regen": 1,
+  "base_mana": 75,
+  "base_mana_regen": 0,
+  "base_armor": 2,
+  "base_mr": 25,
+  "base_attack_min": 29,
+  "base_attack_max": 33,
+  "base_str": 21,
+  "base_agi": 24,
+  "base_int": 12,
+  "str_gain": 1.6,
+  "agi_gain": 2.8,
+  "int_gain": 1.8,
+  "attack_range": 150,
+  "projectile_speed": 0,
+  "attack_rate": 1.4,
+  "base_attack_time": 100,
+  "attack_point": 0.3,
+  "move_speed": 310,
+  "turn_rate": null,
+  "cm_enabled": true,
+  "legs": 2,
+  "day_vision": 1800,
+  "night_vision": 800,
+  "localized_name": "Anti-Mage",
+  "1_pick": 11960,
+  "1_win": 6219,
+  "2_pick": 42425,
+  "2_win": 21639,
+  "3_pick": 86346,
+  "3_win": 44266,
+  "4_pick": 147148,
+  "4_win": 75338,
+  "5_pick": 172691,
+  "5_win": 88663,
+  "6_pick": 95059,
+  "6_win": 48705,
+  "7_pick": 67245,
+  "7_win": 34315,
+  "8_pick": 0,
+  "8_win": 0,
+  "turbo_picks": 264173,
+  "turbo_picks_trend": [
+   38288,
+   40166,
+   43471,
+   44064,
+   37584,
+   37658,
+   22942
+  ],
+  "turbo_wins": 134763,
+  "turbo_wins_trend": [
+   19663,
+   20419,
+   21922,
+   22543,
+   19211,
+   19219,
+   11786
+  ],
+  "pro_pick": 6,
+  "pro_win": 4,
+  "pro_ban": 22,
+  "pub_pick": 677451,
+  "pub_pick_trend": [
+   94885,
+   100241,
+   110508,
+   114835,
+   98258,
+   97021,
+   61703
+  ],
+  "pub_win": 347057,
+  "pub_win_trend": [
+   48883,
+   51469,
+   56383,
+   58847,
+   50067,
+   49976,
+   31432
+  ]
+ },
+ "benchmarks": {
+  "hero_id": 1,
+  "result": {
+   "gold_per_min": [
+    {
+     "percentile": 0.1,
+     "value": 429
+    },
+    {
+     "percentile": 0.2,
+     "value": 508
+    },
+    {
+     "percentile": 0.3,
+     "value": 570
+    },
+    {
+     "percentile": 0.4,
+     "value": 623
+    },
+    {
+     "percentile": 0.5,
+     "value": 666
+    },
+    {
+     "percentile": 0.6,
+     "value": 710
+    },
+    {
+     "percentile": 0.7,
+     "value": 751
+    },
+    {
+     "percentile": 0.8,
+     "value": 795
+    },
+    {
+     "percentile": 0.9,
+     "value": 846
+    },
+    {
+     "percentile": 0.95,
+     "value": 890
+    },
+    {
+     "percentile": 0.99,
+     "value": 973
+    }
+   ],
+   "xp_per_min": [
+    {
+     "percentile": 0.1,
+     "value": 550
+    },
+    {
+     "percentile": 0.2,
+     "value": 674
+    },
+    {
+     "percentile": 0.3,
+     "value": 763
+    },
+    {
+     "percentile": 0.4,
+     "value": 847
+    },
+    {
+     "percentile": 0.5,
+     "value": 926
+    },
+    {
+     "percentile": 0.6,
+     "value": 999
+    },
+    {
+     "percentile": 0.7,
+     "value": 1076
+    },
+    {
+     "percentile": 0.8,
+     "value": 1161
+    },
+    {
+     "percentile": 0.9,
+     "value": 1265
+    },
+    {
+     "percentile": 0.95,
+     "value": 1345
+    },
+    {
+     "percentile": 0.99,
+     "value": 1482
+    }
+   ],
+   "kills_per_min": [
+    {
+     "percentile": 0.1,
+     "value": 0.07697241821680564
+    },
+    {
+     "percentile": 0.2,
+     "value": 0.1201802704056084
+    },
+    {
+     "percentile": 0.3,
+     "value": 0.1551991722710812
+    },
+    {
+     "percentile": 0.4,
+     "value": 0.18961625282167044
+    },
+    {
+     "percentile": 0.5,
+     "value": 0.22404779686333084
+    },
+    {
+     "percentile": 0.6,
+     "value": 0.25892506865437426
+    },
+    {
+     "percentile": 0.7,
+     "value": 0.2996542451018056
+    },
+    {
+     "percentile": 0.8,
+     "value": 0.3514817367332874
+    },
+    {
+     "percentile": 0.9,
+     "value": 0.423728813559322
+    },
+    {
+     "percentile": 0.95,
+     "value": 0.5023547880690739
+    },
+    {
+     "percentile": 0.99,
+     "value": 0.6748166259168704
+    }
+   ]
+  }
+ }
+}
