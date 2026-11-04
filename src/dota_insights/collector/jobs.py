@@ -213,7 +213,7 @@ async def job_public_matches(ctx: CollectorContext) -> JobResult:
     """
     brackets = list(settings.collector_rank_brackets)
     allowance = min(
-        ctx.budget.pace(OPENDOTA, PUBLIC_MATCHES_INTERVAL),
+        ctx.budget.pace(OPENDOTA, ctx.every(PUBLIC_MATCHES_INTERVAL)),
         settings.collector_max_pages_per_run * len(brackets),
     )
     if allowance <= 0:
@@ -232,7 +232,7 @@ async def job_public_matches(ctx: CollectorContext) -> JobResult:
     per_bracket = max(1, allowance // len(brackets))
     spent = new_matches = gaps = 0
     for bracket in brackets:
-        if spent >= allowance:
+        if spent >= allowance or ctx.out_of_time():
             break
         stream = _stream(bracket)
         cursor = cursors.get(stream)
@@ -262,7 +262,7 @@ async def job_public_matches(ctx: CollectorContext) -> JobResult:
                     )
                     gaps += 1
             position = seed
-        while calls < per_bracket and spent < allowance:
+        while calls < per_bracket and spent < allowance and not ctx.out_of_time():
             sql = explorer_sql(
                 bracket,
                 after_id=position[0],
@@ -308,7 +308,7 @@ async def job_backfill(ctx: CollectorContext) -> JobResult:
     Explorer filters on ``match_id`` ranges fast (``start_time`` filters time out), and one call
     returns up to ``collector_explorer_rows_per_call`` rows instead of publicMatches' 100.
     """
-    allowance = ctx.budget.pace(OPENDOTA, BACKFILL_INTERVAL)
+    allowance = ctx.budget.pace(OPENDOTA, ctx.every(BACKFILL_INTERVAL))
     limit = settings.collector_explorer_rows_per_call
     with ctx.session_factory() as session:
         gaps = list(
@@ -326,7 +326,7 @@ async def job_backfill(ctx: CollectorContext) -> JobResult:
     for gap in gaps:
         bracket = _bracket_of_stream(gap.stream)
         high = gap.high_match_id
-        while spent < allowance:
+        while spent < allowance and not ctx.out_of_time():
             sql = explorer_sql(
                 bracket, after_id=gap.low_match_id, before_id=high, limit=limit, ascending=False
             )
@@ -349,7 +349,7 @@ async def job_backfill(ctx: CollectorContext) -> JobResult:
             if done:
                 filled += 1
                 break
-        if spent >= allowance:
+        if spent >= allowance or ctx.out_of_time():
             break
     return JobResult(rows=stored, detail=f"calls={spent} gaps_filled={filled}")
 
@@ -358,7 +358,7 @@ async def job_enrich(ctx: CollectorContext) -> JobResult:
     """Fetch player stats for recent draft-level matches from STRATZ, a batch per call."""
     if ctx.stratz is None:
         return JobResult(status="skipped", detail="DOTA_INSIGHTS_STRATZ_API_TOKEN not set")
-    allowance = ctx.budget.pace(STRATZ, ENRICH_INTERVAL)
+    allowance = ctx.budget.pace(STRATZ, ctx.every(ENRICH_INTERVAL))
     if allowance <= 0:
         return JobResult(status="skipped", detail="no STRATZ budget left")
     per_call = settings.collector_enrich_matches_per_call
@@ -383,6 +383,8 @@ async def job_enrich(ctx: CollectorContext) -> JobResult:
         )
     enriched = missing = calls = 0
     for start in range(0, len(candidates), per_call):
+        if ctx.out_of_time():
+            break
         batch = candidates[start : start + per_call]
         data = await ctx.call_stratz(stratz_matches_query([m.match_id for m in batch]))
         calls += 1
@@ -409,7 +411,9 @@ async def job_enrich(ctx: CollectorContext) -> JobResult:
 async def job_aggregate(ctx: CollectorContext) -> JobResult:
     with ctx.session_factory.begin() as session:
         ensure_patches(session)
-    result = run_aggregation(ctx.session_factory, settings.collector_aggregate_batch_size)
+    result = run_aggregation(
+        ctx.session_factory, settings.collector_aggregate_batch_size, should_stop=ctx.out_of_time
+    )
     detail = f"draft={result.draft_matches} detail={result.detail_matches}"
     if result.rebuilt_patches:
         detail += f" rebuilt={result.rebuilt_patches}"

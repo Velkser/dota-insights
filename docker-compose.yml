@@ -1,5 +1,7 @@
-# Local stack: PostgreSQL, a one-shot migration, the MCP server and the collector.
+# Local development stack: PostgreSQL, a one-shot migration and the MCP server.
 #   docker compose up --build
+# Collection runs from GitHub Actions (.github/workflows/collect.yml); locally use
+#   docker compose run --rm server dota-insights collect run public-matches aggregate
 # Secrets (DOTA_INSIGHTS_STRATZ_API_TOKEN, DOTA_INSIGHTS_OPENDOTA_API_KEY) come from .env.
 x-app: &app
   build: .
@@ -34,15 +36,6 @@ services:
     <<: *app
     ports:
       - "8000:8000"
-    depends_on:
-      migrate:
-        condition: service_completed_successfully
-
-  # Exactly one replica: the API budgets are only enforced within a single scheduler.
-  collector:
-    <<: *app
-    command: ["dota-insights", "collect", "scheduler"]
-    restart: unless-stopped
     depends_on:
       migrate:
         condition: service_completed_successfully

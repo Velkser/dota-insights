@@ -1,10 +1,11 @@
 """What a collector job gets: sessions, budgeted API clients and a clock."""
 
+import time
 from collections import Counter
 from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Any
 
 from sqlalchemy.orm import Session, sessionmaker
@@ -24,6 +25,16 @@ class CollectorContext:
     stratz: StratzClient | None = None
     clock: Callable[[], datetime] = utc_now
     calls: Counter[str] = field(default_factory=Counter)
+    # How often this job runs, for budget pacing; None = the job's own interval.
+    pace_interval: timedelta | None = None
+    # time.monotonic() value after which jobs stop starting new API calls or batches.
+    deadline: float | None = None
+
+    def every(self, default: timedelta) -> timedelta:
+        return self.pace_interval or default
+
+    def out_of_time(self) -> bool:
+        return self.deadline is not None and time.monotonic() >= self.deadline
 
     async def call_opendota(self, request: Callable[[OpenDotaClient], Awaitable[Any]]) -> Any:
         """Reserve one OpenDota call from the budget, then make it."""

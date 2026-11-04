@@ -1,10 +1,18 @@
-"""``dota-insights collect ...``: run collector jobs once, run the scheduler, or show status."""
+"""``dota-insights collect ...``: run collector jobs once, run the scheduler, or show status.
+
+Production runs are one-shot (GitHub Actions cron, ``.github/workflows/collect.yml``):
+``collect run public-matches enrich aggregate --every 60 --max-minutes 25`` runs the jobs in
+order, paces budgets as if called every 60 minutes, and stops starting new work after 25
+minutes. Progress lives in the database, so the next run resumes where this one stopped.
+"""
 
 import argparse
 import asyncio
 import signal
 import sys
+import time
 from collections.abc import Sequence
+from datetime import timedelta
 
 from sqlalchemy import func, select
 
@@ -16,11 +24,28 @@ from dota_insights.db.models import AggregateStatus, CollectorGap, CollectorJobR
 from dota_insights.logging import setup_logging
 
 
+def _run_options(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--max-minutes",
+        type=float,
+        help="stop starting API calls and batches after this long; the rest waits for next run",
+    )
+    parser.add_argument(
+        "--every",
+        type=float,
+        metavar="MINUTES",
+        help="how often this command is scheduled, for spreading the daily budget",
+    )
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="dota-insights collect", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
     for name, spec in JOBS.items():
-        sub.add_parser(name, help=f"run the {name} job once: {spec.description}")
+        _run_options(sub.add_parser(name, help=f"run the {name} job once: {spec.description}"))
+    run = sub.add_parser("run", help="run several jobs once, in the given order")
+    run.add_argument("jobs", nargs="+", choices=list(JOBS), metavar="JOB")
+    _run_options(run)
     scheduler = sub.add_parser("scheduler", help="run due jobs forever (the collector service)")
     scheduler.add_argument("--tick", type=float, default=DEFAULT_TICK_SECONDS, help="seconds")
     scheduler.add_argument("--jobs", help="comma-separated subset of jobs")
@@ -33,11 +58,21 @@ def _parser() -> argparse.ArgumentParser:
     return parser
 
 
-async def _run_once(name: str) -> int:
+async def _run_once(names: Sequence[str], max_minutes: float | None, every: float | None) -> int:
+    failed = False
     async with collector_context() as ctx:
-        result = await run_job(ctx, JOBS[name])
-    print(f"{name}: {result.status} rows={result.rows} {result.detail or ''}".rstrip())
-    return 1 if result.status == "failed" else 0
+        if max_minutes is not None:
+            ctx.deadline = time.monotonic() + max_minutes * 60
+        if every is not None:
+            ctx.pace_interval = timedelta(minutes=every)
+        for name in names:
+            if ctx.out_of_time():
+                print(f"{name}: not started, out of time")
+                continue
+            result = await run_job(ctx, JOBS[name])
+            failed |= result.status == "failed"
+            print(f"{name}: {result.status} rows={result.rows} {result.detail or ''}".rstrip())
+    return 1 if failed else 0
 
 
 async def _scheduler(tick: float, names: str | None) -> int:
@@ -114,4 +149,5 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _add_gap(args.bracket, args.low, args.high)
     if args.command == "scheduler":
         return asyncio.run(_scheduler(args.tick, args.jobs))
-    return asyncio.run(_run_once(args.command))
+    names = args.jobs if args.command == "run" else [args.command]
+    return asyncio.run(_run_once(names, args.max_minutes, args.every))

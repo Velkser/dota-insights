@@ -558,3 +558,38 @@ async def test_enrich_retries_unparsed_matches_later(factory):
         assert session.get(Match, (1, start)).detail_attempts == 1
     await ctx.opendota.aclose()
     await ctx.stratz.aclose()
+
+
+async def test_out_of_time_stops_jobs_before_api_calls(factory, one_bracket):
+    fake = FakeOpenDota()
+    ctx = make_context(factory, fake)
+    ctx.deadline = 0.0  # already passed
+    result = await jobs.job_public_matches(ctx)
+    assert result.rows == 0 and fake.requests == []
+    with factory.begin() as session:
+        store_summaries(session, [public_row(1, NOW - timedelta(hours=3))])
+    assert aggregates.run_aggregation(factory, 10, should_stop=lambda: True).draft_matches == 0
+    await ctx.opendota.aclose()
+
+
+def test_pace_interval_overrides_job_interval(factory):
+    ctx = make_context(factory, FakeOpenDota())
+    assert ctx.every(timedelta(minutes=10)) == timedelta(minutes=10)
+    ctx.pace_interval = timedelta(hours=1)
+    assert ctx.every(timedelta(minutes=10)) == timedelta(hours=1)
+
+
+def test_cli_run_chains_jobs_in_order(monkeypatch):
+    from dota_insights.collector import cli
+
+    seen = []
+
+    async def fake_run_once(names, max_minutes, every):
+        seen.append((names, max_minutes, every))
+        return 0
+
+    monkeypatch.setattr(cli, "_run_once", fake_run_once)
+    argv = ["run", "public-matches", "aggregate", "--every", "60", "--max-minutes", "25"]
+    assert cli.main(argv) == 0
+    assert cli.main(["patches"]) == 0
+    assert seen == [(["public-matches", "aggregate"], 25.0, 60.0), (["patches"], None, None)]

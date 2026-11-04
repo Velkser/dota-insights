@@ -25,5 +25,5 @@ ENV PATH="/app/.venv/bin:$PATH" \
     DOTA_INSIGHTS_PORT=8000
 
 EXPOSE 8000
-# The same image runs the collector: `dota-insights collect scheduler` (see docker-compose.yml).
+# The same image can run collector jobs: `dota-insights collect run <job>...`.
 CMD ["dota-insights"]

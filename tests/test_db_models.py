@@ -188,3 +188,12 @@ def test_collector_round_trip_on_postgresql():
     finally:
         engine.dispose()
         command.downgrade(config, "base")
+
+
+def test_database_url_keeps_neon_ssl_parameters():
+    url = database_url(
+        "postgres://user:pw@ep-x-123.eu-central-1.aws.neon.tech/neondb"
+        "?sslmode=require&channel_binding=require"
+    )
+    assert url.drivername == "postgresql+psycopg"
+    assert dict(url.query) == {"sslmode": "require", "channel_binding": "require"}

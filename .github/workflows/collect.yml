@@ -1,0 +1,82 @@
+# Scheduled data collection (docs/architecture/collector.md). Each run is one-shot and
+# resumable: cursors, gaps, budgets and aggregation markers live in the database.
+name: Collect
+
+on:
+  schedule:
+    # Hourly: new ranked matches, gap backfill, STRATZ enrichment, then aggregates.
+    - cron: "17 * * * *"
+    # Daily: patch list (and patch versioning), constants, /heroStats snapshot, then aggregates.
+    - cron: "43 4 * * *"
+  workflow_dispatch:
+    inputs:
+      jobs:
+        description: "Jobs to run, in order (see `dota-insights collect list`)"
+        default: "public-matches backfill enrich aggregate"
+        required: true
+
+# Never two collectors at once: the API budgets assume a single writer. A run that is due while
+# another is running waits instead of cancelling it.
+concurrency:
+  group: collect
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      DOTA_INSIGHTS_DATABASE_URL: ${{ secrets.DOTA_INSIGHTS_DATABASE_URL }}
+      DOTA_INSIGHTS_STRATZ_API_TOKEN: ${{ secrets.DOTA_INSIGHTS_STRATZ_API_TOKEN }}
+    steps:
+      - name: Check configuration
+        id: config
+        run: |
+          if [ -z "$DOTA_INSIGHTS_DATABASE_URL" ]; then
+            echo "::warning::Repository secret DOTA_INSIGHTS_DATABASE_URL is not set; skipping."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+          if [ -z "$DOTA_INSIGHTS_STRATZ_API_TOKEN" ]; then
+            echo "::notice::DOTA_INSIGHTS_STRATZ_API_TOKEN is not set; enrich will be skipped."
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.config.outputs.ready == 'true'
+
+      - uses: astral-sh/setup-uv@v6
+        if: steps.config.outputs.ready == 'true'
+
+      - name: Install
+        if: steps.config.outputs.ready == 'true'
+        run: uv sync --locked --no-dev
+
+      - name: Migrate
+        if: steps.config.outputs.ready == 'true'
+        run: uv run --no-sync alembic upgrade head
+
+      - name: Collect
+        if: steps.config.outputs.ready == 'true'
+        env:
+          EVENT: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+          JOBS_INPUT: ${{ inputs.jobs }}
+        run: |
+          if [ "$EVENT" = "schedule" ] && [ "$SCHEDULE" = "43 4 * * *" ]; then
+            set -- patches constants hero-stats aggregate
+          elif [ "$EVENT" = "schedule" ]; then
+            set -- public-matches backfill enrich aggregate
+          else
+            # Word-split on purpose (no globbing); argparse rejects anything but job names.
+            set -f
+            set -- $JOBS_INPUT
+          fi
+          uv run --no-sync dota-insights collect run "$@" --every 60 --max-minutes 25
+
+      - name: Status
+        if: always() && steps.config.outputs.ready == 'true'
+        run: uv run --no-sync dota-insights collect status

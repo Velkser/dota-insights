@@ -16,7 +16,7 @@ rebuilt from scratch by ``rebuild_patch``.
 """
 
 from collections import defaultdict
-from collections.abc import Iterable, Sequence
+from collections.abc import Callable, Iterable, Sequence
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -330,18 +330,31 @@ def rebuild_patch(session: Session, patch_id: int, batch_size: int) -> Aggregate
     return total
 
 
-def run_aggregation(session_factory, batch_size: int, max_batches: int = 50) -> AggregateResult:
-    """Rebuild stale patches, then fold pending matches of fresh patches, one batch per commit."""
+def run_aggregation(
+    session_factory,
+    batch_size: int,
+    max_batches: int = 50,
+    should_stop: Callable[[], bool] = lambda: False,
+) -> AggregateResult:
+    """Rebuild stale patches, then fold pending matches of fresh patches, one batch per commit.
+
+    ``should_stop`` is checked between patches and batches; whatever is left stays pending for
+    the next run.
+    """
     total = AggregateResult()
     with session_factory.begin() as session:
         stale = stale_patches(session)
     for patch_id in stale:
+        if should_stop():
+            return total
         with session_factory.begin() as session:
             rebuilt = rebuild_patch(session, patch_id, batch_size)
         total.rebuilt_patches.append(patch_id)
         total.draft_matches += rebuilt.draft_matches
         total.detail_matches += rebuilt.detail_matches
     for _ in range(max_batches):
+        if should_stop():
+            break
         with session_factory.begin() as session:
             # Re-read: a patch job may have marked more patches stale since the rebuilds.
             batch = aggregate_batch(session, batch_size, exclude=stale_patches(session))

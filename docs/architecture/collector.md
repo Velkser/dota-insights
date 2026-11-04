@@ -4,9 +4,10 @@ Tracker tasks: p2-01 (jobs), p2-03 (aggregates), p2-09 (patch versioning). Code:
 `src/dota_insights/collector/`, read helpers in `src/dota_insights/db/aggregates.py`, schema in
 migration `0002` (see [db-schema.md](db-schema.md) for the tables it extends).
 
-The collector is a separate process (`dota-insights collect scheduler`, the `collector` service
-in `docker-compose.yml`) that fills PostgreSQL from OpenDota and STRATZ and keeps the aggregate
-tables current. MCP tools still call the APIs live; wiring them to read aggregates first is the
+The collector fills PostgreSQL (Neon in production) from OpenDota and STRATZ and keeps the
+aggregate tables current. It runs as **scheduled one-shot jobs on GitHub Actions**
+(`.github/workflows/collect.yml`, see [Deployment](#deployment-github-actions--neon)); the MCP
+server is deployed separately (Vercel) and never runs collection. MCP tools still call the APIs live; wiring them to read aggregates first is the
 next step (see [What remains](#what-remains)).
 
 ```
@@ -63,9 +64,20 @@ separate denominator (`ban_sample_games`) so tools can say when ban rate is unkn
 | `enrich` | 15 min | paced (STRATZ) | detail level for matches 1 h – 14 days old (retries at 3 h, 12 h) |
 | `aggregate` | 10 min | 0 | all aggregate tables |
 
-Run one with `dota-insights collect <job>`; `collect status` shows budgets, last runs, stale
-patches and open gaps; `collect add-gap --bracket 5 --low X --high Y` queues a historical id range
-for backfill.
+"Every" is each job's own interval, used for budget pacing when no `--every` is given. In
+production the workflow runs them hourly or daily instead (see Deployment).
+
+- `dota-insights collect <job>` runs one job; `collect run <job> <job> ... [--every MIN]
+  [--max-minutes MIN]` runs several in order. `--every` is how often the command is scheduled (it
+  sizes each run's share of the daily budget); `--max-minutes` is a soft deadline: jobs stop
+  starting API calls and aggregation batches when it passes, jobs not yet started are skipped,
+  and everything left over is picked up by the next run.
+- `collect status` shows budgets, last runs, stale patches and open gaps; `collect add-gap
+  --bracket 5 --low X --high Y` queues a historical id range for backfill.
+- Every job is resumable: cursors, gaps, `detail_attempts`, aggregation markers and budget counts
+  are committed as the job goes, so a run killed by the workflow timeout loses at most the batch in
+  flight (rolled back, redone next time). A stale-patch rebuild is one transaction; if it is cut
+  off, the patch stays stale and is rebuilt on the next run.
 
 ### Idempotency and gaps
 
@@ -105,23 +117,64 @@ restarts don't reset counts and the collector stops for the window when a limit 
 | OpenDota | 60/min, 3,000/day per IP | 20/min, **1,800/day** | `DOTA_INSIGHTS_COLLECTOR_OPENDOTA_DAILY_BUDGET`, `..._OPENDOTA_PER_MINUTE` |
 | STRATZ | 250/min, 2,000/h, 10,000/day | 100/min, 1,000/h, 5,000/day | `..._STRATZ_DAILY_BUDGET`, `..._STRATZ_HOURLY_BUDGET`, `..._STRATZ_PER_MINUTE` |
 
-The remaining ~1,200 OpenDota calls/day and the per-minute headroom are for the MCP server's live
-tool calls, which share the IP. Paced jobs ask `ApiBudget.pace()` for their share: calls left in the
+OpenDota's free limits are per IP. The collector runs on GitHub-hosted runners and the MCP server
+on Vercel, so they no longer share an IP, but runner IPs are shared with other GitHub users and
+change between runs; the defaults stay conservative and can be raised with the settings above. Paced jobs ask `ApiBudget.pace()` for their share: calls left in the
 window divided by the runs still to come before it resets, so a day's budget is spread over the
 day instead of being spent at midnight. Collector clients retry at most twice (a retry is a call
-the budget can't see). With the defaults, a 10-minute `public-matches` run early in the day may spend
-1,800 / 144 ≈ 12 calls; once caught up it needs one Explorer call per bracket (7 per run, ~1,000 a
-day), which covers ranked volume (~2,000 Legend matches per 15 min at peak, measured). `backfill`
-draws on what is left of the same OpenDota budget. Enrichment can reach ~5,000 calls × 10
-= 50k matches/day if the draft volume is there.
+the budget can't see). With the defaults and hourly runs (`--every 60`), `public-matches` may spend up to
+1,800 / 24 = 75 calls per run, capped at `collector_max_pages_per_run` (10) per bracket. An hour of
+Legend is ~8,000 ranked matches (~2,000 per 15 min at peak, measured), so about 4 Explorer calls;
+the whole hourly run needs roughly 20–30 OpenDota calls. `backfill` draws on what is left of the
+same budget. Enrichment gets 5,000 / 24 ≈ 200 STRATZ calls (≈2,000 matches) per hourly run, a few
+minutes at 100/min.
 
-### Scheduler
+### Local scheduler (optional, dev only)
 
-An asyncio loop (`collector/scheduler.py`, no extra dependency) runs due jobs one at a time in
-priority order every 30 s. A job is due when its last run in `collector_job_runs` started at
+`dota-insights collect scheduler` is an asyncio loop (`collector/scheduler.py`, no extra
+dependency) for running everything on a laptop; production does not use it. It runs due jobs one
+at a time in priority order every 30 s. A job is due when its last run in `collector_job_runs` started at
 least one interval ago (5 min after a failure). Failures are logged and recorded; they never stop
 the loop. SIGTERM/SIGINT stop it between jobs. **Run one scheduler per database**: budgets are
 checked and incremented in separate transactions, so two schedulers could overspend.
+
+## Deployment: GitHub Actions + Neon
+
+`.github/workflows/collect.yml`:
+
+| Trigger | Cron (UTC) | Runs |
+| --- | --- | --- |
+| hourly | `17 * * * *` | `collect run public-matches backfill enrich aggregate --every 60 --max-minutes 25` |
+| daily | `43 4 * * *` | `collect run patches constants hero-stats aggregate --every 60 --max-minutes 25` |
+| `workflow_dispatch` | — | the jobs given in the `jobs` input (default: the hourly set) |
+
+Aggregation runs last in both, right after ingestion. Each run checks out the repo, installs with
+`uv sync --locked --no-dev`, applies migrations (`alembic upgrade head`, a no-op at head) and runs
+the jobs; `collect status` is printed at the end. The job has `timeout-minutes: 30` and the
+`--max-minutes 25` deadline leaves time to finish the batch in flight. `concurrency: collect` with
+`cancel-in-progress: false` makes runs queue instead of overlapping (GitHub keeps at most one
+pending run; a skipped hourly run just means the next one reads more).
+
+**Secrets** (repository → Settings → Secrets and variables → Actions):
+
+- `DOTA_INSIGHTS_DATABASE_URL`: the Neon connection string, e.g.
+  `postgresql://USER:PASSWORD@ep-xxx.REGION.aws.neon.tech/neondb?sslmode=require&channel_binding=require`.
+  Query parameters are passed to libpq unchanged (`postgres://` and `postgresql://` both get the
+  psycopg 3 driver), so `sslmode=require` and `channel_binding=require` work as given. Prefer the
+  direct endpoint over the `-pooler` one: migrations create functions and partitions, and the
+  collector holds a transaction per batch.
+- `DOTA_INSIGHTS_STRATZ_API_TOKEN`: optional; without it `enrich` is skipped with a notice.
+
+The workflow only puts secrets into environment variables; nothing echoes them, the CLI doesn't
+print the URL or token (a connection error can name the host, never the password), and GitHub
+masks secret values in logs. Without
+`DOTA_INSIGHTS_DATABASE_URL` the run exits early with a warning instead of failing, so forks and
+an unconfigured repo stay green. Budget overrides (`DOTA_INSIGHTS_COLLECTOR_*`) can be added as
+repository variables and mapped in the workflow `env` if the defaults need changing.
+
+Locally, the same commands work against any database: `uv run dota-insights collect run
+public-matches aggregate`, or `docker compose run --rm server dota-insights collect run ...` with
+the compose stack.
 
 ## Aggregates (p2-03)
 
@@ -170,7 +223,7 @@ with sample sizes; `compare_hero_patches()` gives before/after/delta for two pat
 
 ## Testing
 
-`tests/test_collector.py` runs every job, the scheduler and the aggregation on SQLite (the models
+`tests/test_collector.py` runs every job, `collect run`, the deadline, the local scheduler and the aggregation on SQLite (the models
 map PostgreSQL arrays and JSONB to JSON there) with `httpx.MockTransport` and a recorded STRATZ
 match (`tests/fixtures/collector/stratz_match.json`). `tests/test_db_models.py` has a PostgreSQL
 round trip (migrations, on-demand partitions, rebuild after a patch split) that runs when
@@ -185,5 +238,5 @@ round trip (migrations, on-demand partitions, rebuild after a patch split) that 
 - **Immortal bracket**: needs per-player `rank_tier` from match details; not collected.
 - **Replay-level data** (`player_timeseries`, deaths, wards) is not collected; STRATZ purchases are
   the only events stored.
-- **Multiple collectors**: budgets assume one scheduler; a PostgreSQL advisory lock would make a
-  second instance safe.
+- **Multiple collectors**: budgets assume one writer (the workflow's `concurrency` group ensures
+  it in production); a PostgreSQL advisory lock would make a second instance safe.

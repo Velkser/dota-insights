@@ -38,9 +38,10 @@ Collector (needs `DOTA_INSIGHTS_DATABASE_URL`; see [docs/architecture/collector.
 uv run alembic upgrade head
 uv run dota-insights collect list         # jobs and intervals
 uv run dota-insights collect patches      # run one job now
-uv run dota-insights collect scheduler    # run due jobs forever
+uv run dota-insights collect run public-matches enrich aggregate --max-minutes 25
 uv run dota-insights collect status       # budgets, last runs, stale patches, gaps
-docker compose up --build                 # PostgreSQL + migrations + server + collector
+uv run dota-insights collect scheduler    # optional local loop; production uses GitHub Actions
+docker compose up --build                 # local PostgreSQL + migrations + server
 ```
 
 Connect a local server to Claude Code:
