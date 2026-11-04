@@ -17,6 +17,51 @@ class Settings(BaseSettings):
     )
     log_level: str = "INFO"
 
+    # Shared state across serverless instances: Upstash Redis over REST. The Vercel Upstash
+    # integration injects UPSTASH_REDIS_REST_* (older KV stores: KV_REST_API_*). Without them,
+    # caches, quotas and rate limits stay per instance.
+    redis_rest_url: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices(
+            "DOTA_INSIGHTS_REDIS_REST_URL", "UPSTASH_REDIS_REST_URL", "KV_REST_API_URL"
+        ),
+    )
+    redis_rest_token: str | None = Field(
+        default=None,
+        validation_alias=AliasChoices(
+            "DOTA_INSIGHTS_REDIS_REST_TOKEN", "UPSTASH_REDIS_REST_TOKEN", "KV_REST_API_TOKEN"
+        ),
+    )
+    redis_timeout: float = 1.5
+    # After a Redis failure, skip it for this many seconds and use the in-memory fallbacks.
+    redis_cooldown: float = 30.0
+    # Larger values stay in the instance's own cache only.
+    cache_shared_max_bytes: int = 512 * 1024
+
+    # Server-wide caps on source calls, shared by all instances through Redis. They leave headroom
+    # under the providers' limits (OpenDota free: 60/min, 3,000/day per IP; STRATZ token: 250/min,
+    # 10,000/day, also spent by the collector).
+    opendota_server_per_minute: int = 50
+    opendota_server_daily: int = 2500
+    stratz_server_per_minute: int = 120
+    stratz_server_daily: int = 4000
+
+    # Per-client limits on tool calls (client IP from x-real-ip / x-forwarded-for on Vercel).
+    # Heavy tools (explorer queries, multi-hero aggregates) also count against the general limits.
+    rate_limit_enabled: bool = True
+    rate_limit_per_minute: int = 30
+    rate_limit_per_day: int = 1000
+    rate_limit_heavy_per_minute: int = 5
+    rate_limit_heavy_per_day: int = 150
+
+    # Optional Telegram alerts on quota exhaustion and error-rate spikes.
+    telegram_bot_token: str | None = None
+    telegram_chat_id: str | None = None
+    alert_throttle_seconds: int = 1800
+    alert_quota_ratio: float = 0.8
+    alert_error_rate: float = 0.5
+    alert_error_min_calls: int = 10
+
     # Collector (separate process). The OpenDota free tier is 60/min and 3,000/day per IP, shared
     # with the MCP server's live calls, so the collector takes only part of it.
     collector_opendota_daily_budget: int = 1800

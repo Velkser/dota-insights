@@ -33,10 +33,17 @@ Conventions every tool in `src/dota_insights/mcp/tools/` follows.
 ## Sources
 
 - Get clients with `dota_insights.sources.get_opendota()` and `get_stratz()` so the server
-  shares one rate limiter per source. Tests swap them with `sources.use_clients(...)` and an
+  shares one rate limiter per source and the server-wide daily quota (`sources.quota`, counted
+  in Redis across instances). Tests swap them with `sources.use_clients(...)` and an
   `httpx.MockTransport`.
 - Wrap source calls in `@cached(ttl=...)` from `dota_insights.cache` (`TTL_AGGREGATE` for hero
-  and item stats, `TTL_REFERENCE` for constants, `TTL_MATCH` for finished matches).
+  and item stats, `TTL_REFERENCE` for constants, `TTL_MATCH` for finished matches). With Redis
+  configured, results are shared by all instances when they survive a JSON round trip unchanged
+  (return lists and str-keyed dicts from cached functions; tuples, dataclasses and int-keyed dicts
+  stay per instance) and their arguments encode as JSON. Pass `shared=False` for values that must
+  not leave the instance.
+- A tool that can spend many source requests or an explorer query per call goes in
+  `HEAVY_TOOLS` (`dota_insights.mcp.ratelimit`), which gets a lower per-client limit.
 - OpenDota free tier: 60 calls/min, 3,000/day, no paid key. Prefer STRATZ for aggregates by
   position and rank (STRATZ also separates Immortal, OpenDota does not), and OpenDota for
   matches, players and pro data. See `docs/research/`.
