@@ -1,0 +1,7933 @@
+{
+ "npc_dota_hero_abaddon": {
+  "abilities": [
+   "abaddon_death_coil",
+   "abaddon_aphotic_shield",
+   "abaddon_frostmourne",
+   "abaddon_withering_mist",
+   "abaddon_borrowed_time"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "abaddon_death_dude",
+    "title": ""
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "abaddon_mephitic_shroud",
+    "title": "Mephitic Shroud"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "abaddon_mists_of_fate",
+    "title": "Malignant Mist"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_abaddon_5"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_abaddon_7"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_abaddon_borrowed_time_cd"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_abaddon_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_abaddon"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_abaddon_immolation"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_abaddon_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_abaddon_4"
+   }
+  ]
+ },
+ "npc_dota_hero_abyssal_underlord": {
+  "abilities": [
+   "abyssal_underlord_firestorm",
+   "abyssal_underlord_pit_of_malice",
+   "abyssal_underlord_atrophy_aura",
+   "abyssal_underlord_raid_boss",
+   "abyssal_underlord_dark_portal"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "abyssal_underlord_demons_reach",
+    "title": "Demon's Reach"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "abyssal_underlord_summons",
+    "title": "Abyssal Horde"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_underlord_7"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_underlord_8"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_underlord_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_underlord_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_underlord_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_underlord_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_underlord"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_underlord_9"
+   }
+  ]
+ },
+ "npc_dota_hero_alchemist": {
+  "abilities": [
+   "alchemist_acid_spray",
+   "alchemist_unstable_concoction",
+   "alchemist_corrosive_weaponry",
+   "alchemist_berserk_potion",
+   "alchemist_goblins_greed",
+   "alchemist_chemical_rage",
+   "alchemist_unstable_concoction_throw"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "alchemist_seed_money",
+    "title": "Seed Money"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "alchemist_mixologist",
+    "title": "Mixologist"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "alchemist_dividends",
+    "title": "Dividends"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_alchemist_5"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_alchemist"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_alchemist_weaponry_power"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_alchemist_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_alchemist_8"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_alchemist_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_alchemist_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_alchemist_4"
+   }
+  ]
+ },
+ "npc_dota_hero_ancient_apparition": {
+  "abilities": [
+   "ancient_apparition_cold_feet",
+   "ancient_apparition_ice_vortex",
+   "ancient_apparition_chilling_touch",
+   "ancient_apparition_bone_chill",
+   "ancient_apparition_ice_blast",
+   "ancient_apparition_ice_blast_release"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "ancient_apparition_bone_chill",
+    "title": "Bone Chill"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "ancient_apparition_exposure",
+    "title": "Exposure"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_ancient_apparition_7"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_ancient_apparition_cold_feet_dps"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_ancient_apparition_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_ancient_apparition_cold_feet_distance"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_ancient_apparition_ice_vortex_duration"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_ancient_apparition_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_ancient_apparition_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_ancient_apparition_5"
+   }
+  ]
+ },
+ "npc_dota_hero_antimage": {
+  "abilities": [
+   "antimage_mana_break",
+   "antimage_blink",
+   "antimage_counterspell",
+   "antimage_persectur",
+   "antimage_mana_void"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "antimage_magebanes_mirror",
+    "title": "Magebane's Mirror"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "antimage_mana_thirst",
+    "title": "Mana Thirst"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_hp_regen_3"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_antimage_manavoid_aoe"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_antimage_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_antimage_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_antimage_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_antimage_8"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_antimage"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_antimage_2"
+   }
+  ]
+ },
+ "npc_dota_hero_arc_warden": {
+  "abilities": [
+   "arc_warden_flux",
+   "arc_warden_magnetic_field",
+   "arc_warden_spark_wraith",
+   "arc_warden_runic_infusion",
+   "arc_warden_tempest_double"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "arc_warden_order",
+    "title": "Order"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "arc_warden_disorder",
+    "title": "Disorder"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "arc_warden_runed_replica",
+    "title": "Runed Replica"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "arc_warden_power_capture",
+    "title": "Power Capture"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_arc_warden_5"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_hp_200"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_arc_warden_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_arc_warden_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_arc_warden"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_arc_warden_9"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_arc_warden_8"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_arc_warden_7"
+   }
+  ]
+ },
+ "npc_dota_hero_axe": {
+  "abilities": [
+   "axe_berserkers_call",
+   "axe_battle_hunger",
+   "axe_counter_helix",
+   "axe_culling_blade",
+   "axe_one_man_army"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "axe_one_man_army",
+    "title": ""
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "axe_call_out",
+    "title": "Call Out"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_axe_culling_blade_speed_duration"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_axe_8"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_axe"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_axe_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_strength_15"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_axe_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_axe_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_axe_5"
+   }
+  ]
+ },
+ "npc_dota_hero_bane": {
+  "abilities": [
+   "bane_enfeeble",
+   "bane_brain_sap",
+   "bane_nightmare",
+   "bane_fiends_grip",
+   "bane_nightmare_end",
+   "bane_ichor_of_nyctasha"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "bane_dream_stalker",
+    "title": "Dream Stalker"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "bane_sleepwalk",
+    "title": "Sleepwalk"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_bane_8"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_bane_11"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_bane_10"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_bane_9"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_bane_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_movement_speed_30"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_bane_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_bane_3"
+   }
+  ]
+ },
+ "npc_dota_hero_batrider": {
+  "abilities": [
+   "batrider_sticky_napalm",
+   "batrider_flamebreak",
+   "batrider_firefly",
+   "batrider_sticky_napalm_application_damage",
+   "batrider_smoldering_resin",
+   "batrider_flaming_lasso"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "batrider_buff_on_displacement",
+    "title": "Stoked"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "batrider_arsonist",
+    "title": "Arsonist"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_batrider_3"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_batrider_smoldering_resin_ticks"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_batrider_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_batrider_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_batrider_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_batrider_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_batrider_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_batrider_2"
+   }
+  ]
+ },
+ "npc_dota_hero_beastmaster": {
+  "abilities": [
+   "beastmaster_wild_axes",
+   "beastmaster_summon_razorback",
+   "beastmaster_summon_raptor",
+   "beastmaster_inner_beast",
+   "beastmaster_drums_of_slom",
+   "beastmaster_primal_roar"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "beastmaster_wild_hunt",
+    "title": "Wild Hunt"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "beastmaster_beast_mode",
+    "title": "Beast Mode"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_armor_5"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_beastmaster_9"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_beastmaster_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_beastmaster_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_beastmaster_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_beastmaster_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_beastmaster_wild_axe_cooldown"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_beastmaster_7"
+   }
+  ]
+ },
+ "npc_dota_hero_bloodseeker": {
+  "abilities": [
+   "bloodseeker_bloodrage",
+   "bloodseeker_blood_bath",
+   "bloodseeker_thirst",
+   "bloodseeker_sanguivore",
+   "bloodseeker_rupture"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "bloodseeker_arterial_spray",
+    "title": "Arterial Spray"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "bloodseeker_bloodrush",
+    "title": "Bloodrush"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "bloodseeker_old_blood",
+    "title": "Old Blood"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_hp_200"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_bloodseeker_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_bloodseeker"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_bloodseeker_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_bloodseeker_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_agility_15"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_bloodseeker_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_bloodseeker_4"
+   }
+  ]
+ },
+ "npc_dota_hero_bounty_hunter": {
+  "abilities": [
+   "bounty_hunter_shuriken_toss",
+   "bounty_hunter_jinada",
+   "bounty_hunter_wind_walk",
+   "bounty_hunter_wind_walk_ally",
+   "bounty_hunter_big_game_hunter",
+   "bounty_hunter_track"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "bounty_hunter_shuriken",
+    "title": ""
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "bounty_hunter_mugging",
+    "title": "Cutpurse"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_bounty_hunter_5"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_attack_damage_30"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_bounty_hunter_9"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_bounty_hunter_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_bounty_hunter_8"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_bounty_hunter"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_bounty_hunter_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_bounty_hunter_jinada_no_cooldown"
+   }
+  ]
+ },
+ "npc_dota_hero_brewmaster": {
+  "abilities": [
+   "brewmaster_thunder_clap",
+   "brewmaster_cinder_brew",
+   "brewmaster_drunken_brawler",
+   "brewmaster_liquid_courage",
+   "brewmaster_primal_split"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "brewmaster_roll_out_the_barrel",
+    "title": "Roll Out the Barrel"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "brewmaster_drunken_master",
+    "title": "Drunken Master"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "brewmaster_brewmaster",
+    "title": "Hungover"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_brewmaster_2"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_brewmaster_brewed_up_duration"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_brewmaster_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_brewmaster"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_brewmaster_primal_split_cooldown"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_attack_speed_110"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_brewmaster_drunken_brawler_stance_bonus"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_brewmaster_4"
+   }
+  ]
+ },
+ "npc_dota_hero_bristleback": {
+  "abilities": [
+   "bristleback_viscous_nasal_goo",
+   "bristleback_quill_spray",
+   "bristleback_bristleback",
+   "bristleback_hairball",
+   "bristleback_warpath",
+   "bristleback_prickly"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "bristleback_berserk",
+    "title": "Berserk"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "bristleback_snot_rocket",
+    "title": "Snot Rocket"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "bristleback_seeing_red",
+    "title": "Seeing Red"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_attack_speed_25"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_mp_regen_150"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_bristleback_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_bristleback_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_hp_regen_25"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_bristleback_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_bristleback"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_bristleback_3"
+   }
+  ]
+ },
+ "npc_dota_hero_broodmother": {
+  "abilities": [
+   "broodmother_insatiable_hunger",
+   "broodmother_spin_web",
+   "broodmother_incapacitating_bite",
+   "broodmother_sticky_snare",
+   "broodmother_spiders_milk",
+   "broodmother_spawn_spiderlings"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "broodmother_necrotic_webs",
+    "title": "Necrotic Webs"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "broodmother_feeding_frenzy",
+    "title": "Feeding Frenzy"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_broodmother_3"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_broodmother_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_broodmother_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_broodmother_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_broodmother_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_broodmother_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_broodmother_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_broodmother_web_speed"
+   }
+  ]
+ },
+ "npc_dota_hero_centaur": {
+  "abilities": [
+   "centaur_hoof_stomp",
+   "centaur_double_edge",
+   "centaur_return",
+   "centaur_work_horse",
+   "centaur_mount",
+   "centaur_stampede",
+   "centaur_horsepower"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "centaur_counter_strike",
+    "title": "Counter-Strike"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "centaur_horsepower",
+    "title": "Horsepower"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_hp_regen_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_movement_speed_15"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_strength_10"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_centaur_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_centaur_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_centaur_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_centaur_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_centaur_2"
+   }
+  ]
+ },
+ "npc_dota_hero_chaos_knight": {
+  "abilities": [
+   "chaos_knight_chaos_bolt",
+   "chaos_knight_reality_rift",
+   "chaos_knight_chaos_strike",
+   "chaos_knight_fundamental_forging",
+   "chaos_knight_phantasm"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "chaos_knight_strong_illusions",
+    "title": "Phantasmagoria"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "chaos_knight_irrationality",
+    "title": "Irrationality"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "chaos_knight_facet_fundamental_forging",
+    "title": "Fundamental Forging"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "chaos_knight_cloven_chaos",
+    "title": "Cloven Chaos"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_chaos_knight_6"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_chaos_knight_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_chaos_knight_8"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_strength_10"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_chaos_knight_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_chaos_knight"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_chaos_knight_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_chaos_knight_7"
+   }
+  ]
+ },
+ "npc_dota_hero_chen": {
+  "abilities": [
+   "chen_penitence",
+   "chen_holy_persuasion",
+   "chen_divine_favor",
+   "chen_zealot",
+   "chen_hand_of_god"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "chen_centaur_convert",
+    "title": "Centaur Convert"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "chen_wolf_convert",
+    "title": "Wolf Convert"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "chen_hellbear_convert",
+    "title": "Hellbear Convert"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "chen_troll_convert",
+    "title": "Troll Convert"
+   },
+   {
+    "deprecated": true,
+    "id": 4,
+    "name": "chen_satyr_convert",
+    "title": "Satyr Convert"
+   },
+   {
+    "deprecated": true,
+    "id": 5,
+    "name": "chen_frog_convert",
+    "title": "Marshmage Convert"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_chen_11"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_chen_zealot"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_chen_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_chen_8"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_chen_divine_favor_healing"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_chen_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_chen_12"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_chen_2"
+   }
+  ]
+ },
+ "npc_dota_hero_clinkz": {
+  "abilities": [
+   "clinkz_strafe",
+   "clinkz_searing_arrows",
+   "clinkz_death_pact",
+   "clinkz_burning_barrage",
+   "clinkz_burning_army",
+   "clinkz_wind_walk",
+   "clinkz_infernal_shred"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "clinkz_suppressive_fire",
+    "title": "Suppressive Fire"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "clinkz_engulfing_step",
+    "title": "Engulfing Step"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "clinkz_clinkz",
+    "title": "Trial By Pyre"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_clinkz_1"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_clinkz_10"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_attack_range_50"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_clinkz_9"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_clinkz_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_clinkz_8"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_clinkz_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_clinkz_3"
+   }
+  ]
+ },
+ "npc_dota_hero_crystal_maiden": {
+  "abilities": [
+   "crystal_maiden_crystal_nova",
+   "crystal_maiden_frostbite",
+   "crystal_maiden_brilliance_aura",
+   "crystal_maiden_crystal_clone",
+   "crystal_maiden_glacial_guard",
+   "crystal_maiden_freezing_field",
+   "crystal_maiden_freezing_field_stop"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "crystal_maiden_frozen_expanse",
+    "title": "Frozen Expanse"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "crystal_maiden_cold_comfort",
+    "title": ""
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "crystal_maiden_glacial_guard",
+    "title": "Glacial Guard"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "crystal_maiden_arcane_overflow",
+    "title": "Arcane Overflow"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_hp_200"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_intelligence_12"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_crystal_maiden_frostbite_castrange"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_crystal_maiden_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_crystal_maiden_glacial_guard_mana_multiplier"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_crystal_maiden_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_crystal_maiden_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_crystal_maiden_2"
+   }
+  ]
+ },
+ "npc_dota_hero_dark_seer": {
+  "abilities": [
+   "dark_seer_vacuum",
+   "dark_seer_ion_shell",
+   "dark_seer_surge",
+   "dark_seer_normal_punch",
+   "dark_seer_aggrandize",
+   "dark_seer_wall_of_replica"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "dark_seer_atkspd",
+    "title": "Quick Wit"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "dark_seer_movespd",
+    "title": "Heart of Battle"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_dark_seer_7"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_dark_seer_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_dark_seer_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_dark_seer_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_dark_seer_13"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_dark_seer"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_dark_seer_14"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_dark_seer_3"
+   }
+  ]
+ },
+ "npc_dota_hero_dark_willow": {
+  "abilities": [
+   "dark_willow_bramble_maze",
+   "dark_willow_shadow_realm",
+   "dark_willow_cursed_crown",
+   "dark_willow_bedlam",
+   "dark_willow_pixie_dust",
+   "dark_willow_terrorize"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "dark_willow_throwing_shade",
+    "title": "Throwing Shade"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "dark_willow_thorny_thicket",
+    "title": "Thorny Thicket"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "dark_willow_shattering_crown",
+    "title": "Shattering Crown"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_dark_willow_6"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_intelligence_12"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_dark_willow_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_dark_willow_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_dark_willow_1"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_dark_willow_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_dark_willow_bedlam_targets"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_dark_willow_2"
+   }
+  ]
+ },
+ "npc_dota_hero_dawnbreaker": {
+  "abilities": [
+   "dawnbreaker_fire_wreath",
+   "dawnbreaker_celestial_hammer",
+   "dawnbreaker_luminosity",
+   "dawnbreaker_converge",
+   "dawnbreaker_break_of_dawn",
+   "dawnbreaker_solar_guardian",
+   "dawnbreaker_land"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "dawnbreaker_solar_charged",
+    "title": "Solar Charged"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "dawnbreaker_gleaming_hammer",
+    "title": "Gleaming Hammer"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "dawnbreaker_blaze",
+    "title": "Starsurge"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "dawnbreaker_hearthfire",
+    "title": "Trailblazer"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_dawnbreaker_luminosity_crit"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_dawnbreaker_celestial_hammer_targets_allies"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_dawnbreaker_celestial_hammer_damage"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_dawnbreaker_solar_guardian_cooldown"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_dawnbreaker_solar_guardian_radius"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_dawnbreaker_luminosity_attack_count"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_dawnbreaker_fire_wreath_cooldown"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_dawnbreaker_celestial_hammer_cast_range"
+   }
+  ]
+ },
+ "npc_dota_hero_dazzle": {
+  "abilities": [
+   "dazzle_poison_touch",
+   "dazzle_shallow_grave",
+   "dazzle_shadow_wave",
+   "dazzle_innate_weave",
+   "dazzle_nothl_projection",
+   "dazzle_nothl_projection_end"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "dazzle_facet_nothl_boon",
+    "title": "Nothl Boon"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "dazzle_poison_bloom",
+    "title": "Poison Bloom"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_dazzle_poison_touch_attack_range_bonus"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_mp_regen_175"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_dazzle_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_dazzle_nothl_projection_duration"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_dazzle_shallow_grave_cooldown"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_dazzle_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_dazzle_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_dazzle_4"
+   }
+  ]
+ },
+ "npc_dota_hero_death_prophet": {
+  "abilities": [
+   "death_prophet_carrion_swarm",
+   "death_prophet_silence",
+   "death_prophet_spirit_siphon",
+   "death_prophet_witchcraft",
+   "death_prophet_exorcism"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "death_prophet_suppress",
+    "title": "Suppress"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "death_prophet_ghosts",
+    "title": "Spirit Collector"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "death_prophet_delayed_damage",
+    "title": "Mourning Ritual"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_death_prophet_silence_aoe"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_hp_200"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_attack_speed_50"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_death_prophet_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_death_prophet"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_death_prophet_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_death_prophet_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_death_prophet_exorcism_duration_on_kill"
+   }
+  ]
+ },
+ "npc_dota_hero_disruptor": {
+  "abilities": [
+   "disruptor_thunder_strike",
+   "disruptor_glimpse",
+   "disruptor_kinetic_field",
+   "disruptor_kinetic_fence",
+   "disruptor_electromagnetic_repulsion",
+   "disruptor_static_storm"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "disruptor_thunderstorm",
+    "title": "Thunderstorm"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "disruptor_line_walls",
+    "title": "Kinetic Fence"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "disruptor_conduit",
+    "title": "Transference"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_movement_speed_20"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_disruptor_consecutive_strike_damage"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_disruptor_9"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_disruptor"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_disruptor_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_disruptor_8"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_disruptor_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_disruptor_thunder_strike_strikes"
+   }
+  ]
+ },
+ "npc_dota_hero_doom_bringer": {
+  "abilities": [
+   "doom_bringer_devour",
+   "doom_bringer_scorched_earth",
+   "doom_bringer_infernal_blade",
+   "doom_bringer_empty1",
+   "doom_bringer_empty2",
+   "doom_bringer_doom",
+   "doom_bringer_lvl_pain"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "doom_bringer_gluttony",
+    "title": "Gluttony"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "doom_bringer_boost_selling",
+    "title": "Devil's Bargain"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "doom_bringer_impending_doom",
+    "title": "Impending Doom"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_doom_3"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_doom_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_doom_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_attack_damage_66"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_doom_9"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_doom_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_doom_10"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_doom_11"
+   }
+  ]
+ },
+ "npc_dota_hero_dragon_knight": {
+  "abilities": [
+   "dragon_knight_breathe_fire",
+   "dragon_knight_dragon_tail",
+   "dragon_knight_wyrms_wrath",
+   "dragon_knight_fireball",
+   "dragon_knight_dragon_blood",
+   "dragon_knight_elder_dragon_form"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "dragon_knight_fire_dragon",
+    "title": "Fire Dragon"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "dragon_knight_corrosive_dragon",
+    "title": "Corrosive Dragon"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "dragon_knight_frost_dragon",
+    "title": "Frost Dragon"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_attack_damage_15"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_dragon_knight_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_dragon_knight_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_hp_300"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_dragon_knight_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_dragon_knight_9"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_dragon_knight"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_dragon_knight_wyrms_wrath_damage"
+   }
+  ]
+ },
+ "npc_dota_hero_drow_ranger": {
+  "abilities": [
+   "drow_ranger_frost_arrows",
+   "drow_ranger_wave_of_silence",
+   "drow_ranger_multishot",
+   "drow_ranger_glacier",
+   "drow_ranger_trueshot",
+   "drow_ranger_marksmanship"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "drow_ranger_high_ground",
+    "title": ""
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "drow_ranger_sidestep",
+    "title": "Sidestep"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_drow_ranger_7"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_drow_ranger_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_attack_range_75"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_drow_ranger_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_drow_ranger_gust_selfmovespeed"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_drow_ranger_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_drow_ranger_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_drow_ranger_8"
+   }
+  ]
+ },
+ "npc_dota_hero_earth_spirit": {
+  "abilities": [
+   "earth_spirit_boulder_smash",
+   "earth_spirit_rolling_boulder",
+   "earth_spirit_geomagnetic_grip",
+   "earth_spirit_stone_caller",
+   "earth_spirit_petrify",
+   "earth_spirit_magnetize"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "earth_spirit_resonance",
+    "title": "Resonance"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "earth_spirit_stepping_stone",
+    "title": "Stepping Stone"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "earth_spirit_ready_to_roll",
+    "title": "Ready to Roll"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "earth_spirit_earth_spirit",
+    "title": "Reformation"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_earth_spirit_7"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_earth_spirit_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_earth_spirit_rolling_boulder_stun"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_earth_spirit_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_earth_spirit_8"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_earth_spirit"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_earth_spirit_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_earth_spirit_5"
+   }
+  ]
+ },
+ "npc_dota_hero_earthshaker": {
+  "abilities": [
+   "earthshaker_fissure",
+   "earthshaker_enchant_totem",
+   "earthshaker_aftershock",
+   "earthshaker_echo_slam",
+   "earthshaker_slugger"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "earthshaker_tectonic_buildup",
+    "title": "Tectonic Buildup"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "earthshaker_slugger",
+    "title": "Slugger Facet"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "earthshaker_reverberating_ridge",
+    "title": "Resonating Ridge"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_attack_base_damage_25"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_earthshaker_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_earthshaker_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_earthshaker_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_earthshaker_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_earthshaker_totem_damage"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_earthshaker_echo_cd"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_earthshaker"
+   }
+  ]
+ },
+ "npc_dota_hero_elder_titan": {
+  "abilities": [
+   "elder_titan_echo_stomp",
+   "elder_titan_ancestral_spirit",
+   "elder_titan_natural_order",
+   "elder_titan_move_spirit",
+   "elder_titan_momentum",
+   "elder_titan_earth_splitter",
+   "elder_titan_return_spirit"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "elder_titan_deconstruction",
+    "title": "Deconstruction"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "elder_titan_boost_atkspd",
+    "title": "Momentum"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_elder_titan_bonus_spirit_speed"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_elder_titan_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_elder_titan_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_elder_titan_momentum_attack_speed"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_elder_titan"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_elder_titan_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_elder_titan_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_cleave_100"
+   }
+  ]
+ },
+ "npc_dota_hero_ember_spirit": {
+  "abilities": [
+   "ember_spirit_searing_chains",
+   "ember_spirit_sleight_of_fist",
+   "ember_spirit_flame_guard",
+   "ember_spirit_activate_fire_remnant",
+   "ember_spirit_immolation",
+   "ember_spirit_fire_remnant"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "ember_spirit_double_impact",
+    "title": "Double Impact"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "ember_spirit_chain_gang",
+    "title": "Chain Gang"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_attack_damage_12"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_ember_spirit_1"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_ember_spirit_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_ember_spirit_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_ember_spirit_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_ember_spirit_chains_dps"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_ember_spirit_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_ember_spirit_5"
+   }
+  ]
+ },
+ "npc_dota_hero_enchantress": {
+  "abilities": [
+   "enchantress_impetus",
+   "enchantress_enchant",
+   "enchantress_natures_attendants",
+   "enchantress_bunny_hop",
+   "enchantress_little_friends",
+   "enchantress_untouchable",
+   "enchantress_rabblerouser"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "enchantress_overprotective_wisps",
+    "title": "Overprotective Wisps"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "enchantress_spellbound",
+    "title": "Spellbound"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_enchantress_enchant_armor"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_enchantress_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_enchantress_enchant_attackspeed"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_enchantress_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_enchantress_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_enchantress_enchant_health_damage"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_enchantress_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_enchantress_3"
+   }
+  ]
+ },
+ "npc_dota_hero_enigma": {
+  "abilities": [
+   "enigma_malefice",
+   "enigma_demonic_conversion",
+   "enigma_midnight_pulse",
+   "enigma_event_horizon",
+   "enigma_black_hole"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "enigma_gravity",
+    "title": "Event Horizon"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "enigma_fragment",
+    "title": "Splitting Image"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_enigma_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_enigma_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_hp_250"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_enigma_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_enigma_9"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_enigma_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_enigma_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_enigma"
+   }
+  ]
+ },
+ "npc_dota_hero_faceless_void": {
+  "abilities": [
+   "faceless_void_time_walk",
+   "faceless_void_time_dilation",
+   "faceless_void_time_lock",
+   "faceless_void_time_walk_reverse",
+   "faceless_void_distortion_field",
+   "faceless_void_chronosphere"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "faceless_void_temporal_impunity",
+    "title": ""
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "faceless_void_chronosphere",
+    "title": "Chronosphere"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "faceless_void_time_zone",
+    "title": "Time Zone"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_faceless_void_6"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_faceless_void_7"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_faceless_void_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_faceless_void_8"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_faceless_void"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_faceless_void_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_faceless_void_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_faceless_void_2"
+   }
+  ]
+ },
+ "npc_dota_hero_furion": {
+  "abilities": [
+   "furion_sprout",
+   "furion_teleportation",
+   "furion_force_of_nature",
+   "furion_curse_of_the_forest",
+   "furion_spirit_of_the_forest",
+   "furion_wrath_of_nature"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "furion_soothing_saplings",
+    "title": "Soothing Saplings"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "furion_ironwood_treant",
+    "title": "Ironwood Treant"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "furion_natures_profit",
+    "title": "Nature's Profit"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_furion_6"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_furion_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_furion_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_furion_teleportation_barrier"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_furion_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_furion_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_furion_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_furion"
+   }
+  ]
+ },
+ "npc_dota_hero_grimstroke": {
+  "abilities": [
+   "grimstroke_dark_artistry",
+   "grimstroke_ink_creature",
+   "grimstroke_spirit_walk",
+   "grimstroke_dark_portrait",
+   "grimstroke_soul_chain",
+   "grimstroke_ink_trail"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "grimstroke_inkstigate",
+    "title": "Inkstigate"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "grimstroke_fine_art",
+    "title": "Fine Art"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_grimstroke_8"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_grimstroke_7"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_grimstroke_soul_chain_reflect_damage"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_grimstroke_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_grimstroke_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_grimstroke_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_grimstroke_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_grimstroke_3"
+   }
+  ]
+ },
+ "npc_dota_hero_gyrocopter": {
+  "abilities": [
+   "gyrocopter_rocket_barrage",
+   "gyrocopter_homing_missile",
+   "gyrocopter_flak_cannon",
+   "gyrocopter_afterburner",
+   "gyrocopter_side_gunner_spawn_ability",
+   "gyrocopter_call_down"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "gyrocopter_secondary_strikes",
+    "title": "Secondary Strikes"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "gyrocopter_afterburner",
+    "title": "Afterburner"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_gyrocopter_homing_missile_damage"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_hp_150"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_gyrocopter_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_gyrocopter_flak_cannon_bonus_damage"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_gyrocopter_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_gyrocopter_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_gyrocopter_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_gyrocopter_5"
+   }
+  ]
+ },
+ "npc_dota_hero_hoodwink": {
+  "abilities": [
+   "hoodwink_acorn_shot",
+   "hoodwink_bushwhack",
+   "hoodwink_scurry",
+   "hoodwink_decoy",
+   "hoodwink_hunters_boomerang",
+   "hoodwink_sharpshooter",
+   "hoodwink_sharpshooter_release",
+   "hoodwink_mistwoods_wayfarer"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "hoodwink_hunter",
+    "title": "Go Nuts"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "hoodwink_treebounce_trickshot",
+    "title": "Treebounce Trickshot"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "hoodwink_hipshot",
+    "title": "Hipshot"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_hoodwink_bushwhack_damage"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_hp_175"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_hoodwink_scurry_charges"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_agility_10"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_hoodwink_sharpshooter_vision"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_hoodwink_acorn_shot_bounces"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_hoodwink_sharpshooter_damage"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_hoodwink_acorn_shot_charges"
+   }
+  ]
+ },
+ "npc_dota_hero_huskar": {
+  "abilities": [
+   "huskar_inner_fire",
+   "huskar_burning_spear",
+   "huskar_berserkers_blood",
+   "huskar_blood_magic",
+   "huskar_life_break"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "huskar_bloodbath",
+    "title": "Bloodbath"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "huskar_nothl_transfusion",
+    "title": "Nothl Transfusion"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "huskar_cauterize",
+    "title": "Cauterize"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "huskar_nothl_conflagration",
+    "title": "Incendiary"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_huskar_3"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_huskar_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_huskar_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_lifesteal_12"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_huskar_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_huskar_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_huskar_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_huskar"
+   }
+  ]
+ },
+ "npc_dota_hero_invoker": {
+  "abilities": [
+   "invoker_quas",
+   "invoker_wex",
+   "invoker_exort",
+   "invoker_empty1",
+   "invoker_empty2",
+   "invoker_invoke",
+   "invoker_cold_snap",
+   "invoker_ghost_walk",
+   "invoker_tornado",
+   "invoker_emp",
+   "invoker_alacrity",
+   "invoker_chaos_meteor",
+   "invoker_sun_strike",
+   "invoker_forge_spirit",
+   "invoker_ice_wall",
+   "invoker_deafening_blast"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "invoker_quas_focus",
+    "title": "Scholar of Koryx"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "invoker_wex_focus",
+    "title": "Mind of Tornarus"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "invoker_exort_focus",
+    "title": "Agent of Gallaron"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_invoker_ice_wall_dps"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_invoker_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_invoker_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_invoker_9"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_invoker_additional_chaos_meteors"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_invoker_orb_levels"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_invoker_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_invoker_13"
+   }
+  ]
+ },
+ "npc_dota_hero_jakiro": {
+  "abilities": [
+   "jakiro_dual_breath",
+   "jakiro_ice_path",
+   "jakiro_liquid_fire",
+   "jakiro_liquid_ice",
+   "jakiro_double_trouble",
+   "jakiro_macropyre"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "jakiro_fire",
+    "title": "Liquid Fire Facet"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "jakiro_ice",
+    "title": "Liquid Frost Facet"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "jakiro_twin_terror",
+    "title": "Twin Terror"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "jakiro_ice_breaker",
+    "title": "Ice Breaker"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_jakiro_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_jakiro_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_attack_range_175"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_jakiro_dualbreath_cooldown"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_jakiro"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_jakiro_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_jakiro_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_jakiro_3"
+   }
+  ]
+ },
+ "npc_dota_hero_juggernaut": {
+  "abilities": [
+   "juggernaut_blade_fury",
+   "juggernaut_healing_ward",
+   "juggernaut_blade_dance",
+   "juggernaut_swift_slash",
+   "juggernaut_bladeform",
+   "juggernaut_omni_slash"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "juggernaut_bladestorm",
+    "title": "Bladestorm"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "juggernaut_agigain",
+    "title": "Bladeform"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_juggernaut_5"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_juggernaut_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_juggernaut_omnislash_cooldown"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_juggernaut_blade_fury_movespeed"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_juggernaut_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_juggernaut"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_juggernaut_omnislash_duration"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_juggernaut_blade_dance_lifesteal"
+   }
+  ]
+ },
+ "npc_dota_hero_keeper_of_the_light": {
+  "abilities": [
+   "keeper_of_the_light_illuminate",
+   "keeper_of_the_light_blinding_light",
+   "keeper_of_the_light_chakra_magic",
+   "keeper_of_the_light_radiant_bind",
+   "keeper_of_the_light_will_o_wisp",
+   "keeper_of_the_light_spirit_form",
+   "keeper_of_the_light_illuminate_end",
+   "keeper_of_the_light_bright_speed"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "keeper_of_the_light_facet_solar_bind",
+    "title": "Solar Bind"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "keeper_of_the_light_facet_recall",
+    "title": "Recall"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_keeper_of_the_light_8"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_keeper_of_the_light_illuminate_cooldown"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_keeper_of_the_light_11"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_keeper_of_the_light_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_keeper_of_the_light_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_keeper_of_the_light_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_keeper_of_the_light_14"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_keeper_of_the_light"
+   }
+  ]
+ },
+ "npc_dota_hero_kez": {
+  "abilities": [
+   "kez_echo_slash",
+   "kez_grappling_claw",
+   "kez_kazurai_katana",
+   "kez_switch_weapons",
+   "kez_raptor_dance",
+   "kez_falcon_rush",
+   "kez_talon_toss",
+   "kez_shodo_sai",
+   "kez_ravens_veil",
+   "kez_shodo_sai_parry_cancel"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "kez_flutter",
+    "title": ""
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "kez_shadowhawk",
+    "title": ""
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_magic_resistance_12"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_kez_raptor_dance_radius"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_kez_falcon_rush_duration"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_kez_raptor_dance_strikes"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_kez_kazura_katana_bleed_damage"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_kez_falcon_rush_attack_speed"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_kez_mark_damage"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_kez_echo_slash_strike_count"
+   }
+  ]
+ },
+ "npc_dota_hero_kunkka": {
+  "abilities": [
+   "kunkka_torrent",
+   "kunkka_tidebringer",
+   "kunkka_x_marks_the_spot",
+   "kunkka_admirals_rum",
+   "kunkka_tidal_wave",
+   "kunkka_ghostship",
+   "kunkka_return"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "kunkka_high_tide",
+    "title": "High Tide"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "kunkka_grog",
+    "title": "Grog Blossom"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_kunkka_rum_duration"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_kunkka_tidebringer_slow"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_kunkka_7"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_kunkka_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_kunkka_torrent_cooldown"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_kunkka_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_spell_aoe_100"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_kunkka_tidebringer_armor_pierce"
+   }
+  ]
+ },
+ "npc_dota_hero_largo": {
+  "abilities": [
+   "largo_catchy_lick",
+   "largo_frogstomp",
+   "largo_croak_of_genius",
+   "largo_encore",
+   "largo_amphibian_rhapsody",
+   "largo_song_fight_song",
+   "largo_song_double_time",
+   "largo_song_good_vibrations"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "largo_largo",
+    "title": "Musical pilgrimage"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_largo_1"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_largo_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_largo_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_largo_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_largo_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_largo_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_largo_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_largo_8"
+   }
+  ]
+ },
+ "npc_dota_hero_legion_commander": {
+  "abilities": [
+   "legion_commander_overwhelming_odds",
+   "legion_commander_press_the_attack",
+   "legion_commander_moment_of_courage",
+   "legion_commander_outfight_them",
+   "legion_commander_duel"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "legion_commander_stonehall_plate",
+    "title": "Stonehall Plate"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "legion_commander_spoils_of_war",
+    "title": "Spoils of War"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_legion_commander_9"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_legion_commander_outfight_them_armor"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_legion_commander_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_legion_commander_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_legion_commander_duel_duration"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_legion_commander_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_legion_commander_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_legion_commander_duel_refresh_on_victory"
+   }
+  ]
+ },
+ "npc_dota_hero_leshrac": {
+  "abilities": [
+   "leshrac_split_earth",
+   "leshrac_diabolic_edict",
+   "leshrac_lightning_storm",
+   "leshrac_greater_lightning_storm",
+   "leshrac_defilement",
+   "leshrac_pulse_nova"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "leshrac_attacks_mana",
+    "title": "Chronoptic Nourishment"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "leshrac_misanthropy",
+    "title": "Misanthropy"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_mp_regen_150"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_armor_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_leshrac_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_leshrac_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_leshrac_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_leshrac_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_leshrac_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_leshrac_pulse_nova_lightning"
+   }
+  ]
+ },
+ "npc_dota_hero_lich": {
+  "abilities": [
+   "lich_frost_nova",
+   "lich_frost_shield",
+   "lich_sinister_gaze",
+   "lich_ice_spire",
+   "lich_death_charge",
+   "lich_chain_frost"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "lich_frostbound",
+    "title": "Frostbound"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "lich_growing_cold",
+    "title": "Growing Cold"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "lich_cryophobia",
+    "title": "Evil Eye"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_lich_8"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_lich_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_lich_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_lich_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_lich_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_lich_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_lich_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_lich_5"
+   }
+  ]
+ },
+ "npc_dota_hero_life_stealer": {
+  "abilities": [
+   "life_stealer_rage",
+   "life_stealer_open_wounds",
+   "life_stealer_feast",
+   "life_stealer_ghoul_frenzy",
+   "life_stealer_infest",
+   "life_stealer_consume"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "life_stealer_maxhp_gain",
+    "title": ""
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "life_stealer_rage",
+    "title": "Rage"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "life_stealer_rage_dispell",
+    "title": "Unfettered"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "life_stealer_fleshfeast",
+    "title": "Fleshfeast"
+   },
+   {
+    "deprecated": true,
+    "id": 4,
+    "name": "life_stealer_gorestorm",
+    "title": "Gorestorm"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_all_stats_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_movement_speed_20"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_lifestealer_infest_damage"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_lifestealer_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_lifestealer_infest_target_bonus"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_lifestealer_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_lifestealer_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_lifestealer"
+   }
+  ]
+ },
+ "npc_dota_hero_lina": {
+  "abilities": [
+   "lina_dragon_slave",
+   "lina_light_strike_array",
+   "lina_fiery_soul",
+   "lina_flame_cloak",
+   "lina_slow_burn",
+   "lina_laguna_blade"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "lina_supercharge",
+    "title": "Thermal Runaway"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "lina_dot",
+    "title": "Slow Burn"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_attack_damage_25"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_lina_1"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_lina_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_lina_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_lina_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_lina_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_lina_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_lina_crit_debuff"
+   }
+  ]
+ },
+ "npc_dota_hero_lion": {
+  "abilities": [
+   "lion_impale",
+   "lion_voodoo",
+   "lion_mana_drain",
+   "lion_to_hell_and_back",
+   "lion_finger_of_death"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "lion_essence_eater",
+    "title": "Essence Eater"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "lion_fist_of_death",
+    "title": "Fist of Death"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_lion_6"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_movement_speed_20"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_lion_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_lion_11"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_lion_8"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_lion_10"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_lion_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_lion_2"
+   }
+  ]
+ },
+ "npc_dota_hero_lone_druid": {
+  "abilities": [
+   "lone_druid_entangle",
+   "lone_druid_spirit_link",
+   "lone_druid_savage_roar",
+   "lone_druid_spirit_bear",
+   "lone_druid_true_form"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "lone_druid_bear_with_me",
+    "title": "Bear with Me"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "lone_druid_unbearable",
+    "title": "Unbearable"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "lone_druid_bear_necessities",
+    "title": "Bear Necessities"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "lone_druid_lone_druid",
+    "title": "Forbearance"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_lone_druid_2"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_lone_druid_1"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_lone_druid_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_agility_12"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_lone_druid_savage_roar_aoe"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_attack_speed_55"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_lone_druid_8"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_lone_druid_entangle_duration"
+   }
+  ]
+ },
+ "npc_dota_hero_luna": {
+  "abilities": [
+   "luna_lucent_beam",
+   "luna_lunar_orbit",
+   "luna_moon_glaive",
+   "luna_lunar_blessing",
+   "luna_eclipse"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "luna_lunar_orbit",
+    "title": ""
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "luna_moonshield",
+    "title": "Moonshield"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "luna_moonstorm",
+    "title": "Moonstorm"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_luna_7"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_luna_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_luna_lunar_orbit_glaive_count"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_luna_1"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_luna_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_luna_lunar_orbit_speed_damage"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_luna_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_luna_5"
+   }
+  ]
+ },
+ "npc_dota_hero_lycan": {
+  "abilities": [
+   "lycan_summon_wolves",
+   "lycan_howl",
+   "lycan_feral_impulse",
+   "lycan_wolf_bite",
+   "lycan_apex_predator",
+   "lycan_shapeshift"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "lycan_pack_leader",
+    "title": "Pack Leader"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "lycan_spirit_wolves",
+    "title": "Spirit Wolves"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "lycan_alpha_wolves",
+    "title": "Alpha Wolves"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_lycan_howl_armor"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_lycan_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_lycan_7"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_lycan_8"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_lycan_1"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_lycan_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_lycan_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_lycan_5"
+   }
+  ]
+ },
+ "npc_dota_hero_magnataur": {
+  "abilities": [
+   "magnataur_shockwave",
+   "magnataur_empower",
+   "magnataur_skewer",
+   "magnataur_horn_toss",
+   "magnataur_solid_core",
+   "magnataur_reverse_polarity"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "magnataur_run_through",
+    "title": ""
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "magnataur_reverse_polarity",
+    "title": "Reverse Polarity Facet"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "magnataur_eternal_empowerment",
+    "title": "Eternal Empowerment"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "magnataur_diminishing_return",
+    "title": "Diminishing Return"
+   },
+   {
+    "deprecated": true,
+    "id": 4,
+    "name": "magnataur_reverse_reverse_polarity",
+    "title": "Reverse Reverse Polarity"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_mp_regen_150"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_magnus_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_magnus_reverse_polarity_stats"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_magnus_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_magnus"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_magnus_skewer_damage_distance"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_magnus_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_magnus_5"
+   }
+  ]
+ },
+ "npc_dota_hero_marci": {
+  "abilities": [
+   "marci_grapple",
+   "marci_companion_run",
+   "marci_bodyguard",
+   "marci_special_delivery",
+   "marci_unleash"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "marci_sidekick",
+    "title": "Sidekick"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "marci_bodyguard",
+    "title": "Bodyguard Facet"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "marci_buddy_system",
+    "title": "Buddy System"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "marci_pickmeup",
+    "title": "Pick-me-up"
+   },
+   {
+    "deprecated": true,
+    "id": 4,
+    "name": "marci_fleeting_fury",
+    "title": "Fleeting Fury"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_marci_dispose_slow"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_marci_rebound_radius"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_marci_grapple_damage"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_marci_guardian_damage"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_marci_grapple_stun_duration"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_marci_unleash_speed"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_marci_unleash_extend_duration"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_marci_guardian_strong_dispel"
+   }
+  ]
+ },
+ "npc_dota_hero_mars": {
+  "abilities": [
+   "mars_spear",
+   "mars_gods_rebuke",
+   "mars_bulwark",
+   "mars_dauntless",
+   "mars_arena_of_blood"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "mars_victory_feast",
+    "title": "Victory Feast"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "mars_arena",
+    "title": "Blood Sport"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_mars_rebuke_radius"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_mp_regen_150"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_mars_rebuke_cooldown"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_mars_spear_bonus_damage"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_mars_arena_of_blood_damage"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_mars_spear_stun_duration"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_mars_gods_rebuke_extra_crit"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_mars_arena_of_blood_hp_regen"
+   }
+  ]
+ },
+ "npc_dota_hero_medusa": {
+  "abilities": [
+   "medusa_split_shot",
+   "medusa_mystic_snake",
+   "medusa_gorgon_grasp",
+   "medusa_cold_blooded",
+   "medusa_mana_shield",
+   "medusa_stone_gaze"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "medusa_engorged",
+    "title": "Engorged"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "medusa_mana_pact",
+    "title": "Mana Pact"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "medusa_slow_attacks",
+    "title": ""
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "medusa_undulation",
+    "title": "Undulation"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_medusa_gorgons_grasp_radius"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_medusa_8"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_medusa_gorgons_grasp_volleys"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_medusa_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_medusa_snake_damage"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_medusa_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_medusa"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_intelligence_40"
+   }
+  ]
+ },
+ "npc_dota_hero_meepo": {
+  "abilities": [
+   "meepo_earthbind",
+   "meepo_poof",
+   "meepo_ransack",
+   "meepo_petrify",
+   "meepo_megameepo",
+   "meepo_divided_we_stand",
+   "meepo_geomancy",
+   "meepo_megameepo_fling"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "meepo_more_meepo",
+    "title": "More Meepo"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "meepo_codependent",
+    "title": "Codependent"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "meepo_pack_rat",
+    "title": "Pack Rat"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_strength_7"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_meepo_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_evasion_15"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_meepo_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_meepo_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_meepo_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_hp_400"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_meepo_poof_cast_point"
+   }
+  ]
+ },
+ "npc_dota_hero_mirana": {
+  "abilities": [
+   "mirana_starfall",
+   "mirana_arrow",
+   "mirana_leap",
+   "mirana_celestial_quiver",
+   "mirana_invis"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "mirana_moonlight",
+    "title": "Moonlight Shadow Facet"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "mirana_sunlight",
+    "title": "Solar Flare"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "mirana_starstruck",
+    "title": "Starstruck"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "mirana_leaps_and_bounds",
+    "title": "Leaps and Bounds"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_mirana_3"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_mirana_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_mirana_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_mirana_1"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_mirana_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_mirana_quiver_damage"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_mirana_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_mirana_4"
+   }
+  ]
+ },
+ "npc_dota_hero_monkey_king": {
+  "abilities": [
+   "monkey_king_boundless_strike",
+   "monkey_king_tree_dance",
+   "monkey_king_primal_spring",
+   "monkey_king_jingu_mastery",
+   "monkey_king_mischief",
+   "monkey_king_wukongs_command",
+   "monkey_king_primal_spring_early",
+   "monkey_king_untransform",
+   "monkey_king_transfiguration"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "monkey_king_wukongs_faithful",
+    "title": "Wukong's Faithful"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "monkey_king_simian_stride",
+    "title": "Simian Stride"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "monkey_king_transfiguration",
+    "title": "Changing of the Guard"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_monkey_king_7"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_monkey_king_9"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_monkey_king_8"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_monkey_king_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_monkey_king_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_monkey_king_10"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_monkey_king_11"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_monkey_king_6"
+   }
+  ]
+ },
+ "npc_dota_hero_morphling": {
+  "abilities": [
+   "morphling_waveform",
+   "morphling_adaptive_strike_agi",
+   "morphling_ebb_and_flow",
+   "morphling_morph_agi",
+   "morphling_morph_str",
+   "morphling_replicate",
+   "morphling_morph_replicate"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "morphling_agi",
+    "title": "Ebb"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "morphling_str",
+    "title": "Flow"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_magic_resistance_15"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_morphling_8"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_morphling_1"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_attack_range_75"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_morphling_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_agility_15"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_morphling_waveform_cooldown"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_strength_35"
+   }
+  ]
+ },
+ "npc_dota_hero_muerta": {
+  "abilities": [
+   "muerta_dead_shot",
+   "muerta_the_calling",
+   "muerta_gunslinger",
+   "muerta_spectral_slug",
+   "muerta_pierce_the_veil",
+   "muerta_supernatural"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "muerta_dance_of_the_dead",
+    "title": "Dance of the Dead"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "muerta_ofrenda",
+    "title": "Ofrenda"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "muerta_slingshot",
+    "title": "Quickdraw"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_muerta_dead_shot_range"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_attack_speed_20"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_muerta_calling_hp_regen"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_intelligence_15"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_muerta_pierce_the_veil_duration"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_muerta_the_calling_num_revenants"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_muerta_gunslinger_double_shot_chance"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_muerta_dead_shot_charges"
+   }
+  ]
+ },
+ "npc_dota_hero_naga_siren": {
+  "abilities": [
+   "naga_siren_mirror_image",
+   "naga_siren_ensnare",
+   "naga_siren_rip_tide",
+   "naga_siren_reel_in",
+   "naga_siren_eelskin",
+   "naga_siren_song_of_the_siren",
+   "naga_siren_song_of_the_siren_cancel"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "naga_siren_passive_riptide",
+    "title": "Rip Tide"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "naga_siren_active_riptide",
+    "title": "Deluge"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_naga_siren_reel_in_speed"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_naga_siren_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_naga_siren_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_naga_siren_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_naga_siren_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_naga_siren"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_naga_siren_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_agility_25"
+   }
+  ]
+ },
+ "npc_dota_hero_necrolyte": {
+  "abilities": [
+   "necrolyte_death_pulse",
+   "necrolyte_ghost_shroud",
+   "necrolyte_heartstopper_aura",
+   "necrolyte_death_seeker",
+   "necrolyte_sadist",
+   "necrolyte_reapers_scythe"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "necrolyte_profane_potency",
+    "title": "Profane Potency"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "necrolyte_rapid_decay",
+    "title": "Rapid Decay"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_necrophos_6"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_necrophos_heartstopper_regen_duration"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_necrophos_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_necrophos_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_spell_aoe_75"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_necrophos_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_necrophos_reaper_scythe_damage_per_health"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_necrophos"
+   }
+  ]
+ },
+ "npc_dota_hero_nevermore": {
+  "abilities": [
+   "nevermore_shadowraze1",
+   "nevermore_shadowraze2",
+   "nevermore_shadowraze3",
+   "nevermore_frenzy",
+   "nevermore_dark_lord",
+   "nevermore_requiem",
+   "nevermore_necromastery"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "nevermore_lasting_presence",
+    "title": "Lasting Presence"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "nevermore_shadowmire",
+    "title": "Shadowmire"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_nevermore_7"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_nevermore_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_nevermore_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_nevermore_frenzy_max_collection_count"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_nevermore_1"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_nevermore_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_nevermore_frenzy_castspeed"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_nevermore_raze_procsattacks"
+   }
+  ]
+ },
+ "npc_dota_hero_night_stalker": {
+  "abilities": [
+   "night_stalker_void",
+   "night_stalker_crippling_fear",
+   "night_stalker_midnight_feast",
+   "night_stalker_hunter_in_the_night",
+   "night_stalker_darkness"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "night_stalker_blinding_void",
+    "title": "Blinding Void"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "night_stalker_dayswap",
+    "title": "Night Reign"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "night_stalker_voidbringer",
+    "title": "Voidbringer"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_night_stalker_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_night_stalker_crippling_fear_damage"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_night_stalker_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_night_stalker_hunter_status_resist"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_night_stalker_crippling_fear_radius"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_strength_15"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_night_stalker_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_night_stalker"
+   }
+  ]
+ },
+ "npc_dota_hero_nyx_assassin": {
+  "abilities": [
+   "nyx_assassin_impale",
+   "nyx_assassin_jolt",
+   "nyx_assassin_spiked_carapace",
+   "nyx_assassin_burrow",
+   "nyx_assassin_neuro_sting",
+   "nyx_assassin_vendetta",
+   "nyx_assassin_unburrow"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "nyx_assassin_burn_mana",
+    "title": "Mana Burn"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "nyx_assassin_scuttle",
+    "title": "Scuttle"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_nyx_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_nyx_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_nyx_vendetta_damage"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_nyx_jolt_cooldown"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_nyx_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_nyx_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_nyx"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_agility_80"
+   }
+  ]
+ },
+ "npc_dota_hero_obsidian_destroyer": {
+  "abilities": [
+   "obsidian_destroyer_arcane_orb",
+   "obsidian_destroyer_astral_imprisonment",
+   "obsidian_destroyer_objurgation",
+   "obsidian_destroyer_equilibrium",
+   "obsidian_destroyer_sanity_eclipse"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "obsidian_destroyer_obsidian_decimator",
+    "title": "Obsidian Decimator"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "obsidian_destroyer_overwhelming_devourer",
+    "title": "Overwhelming Devourer"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_outworld_devourer_astral_castrange"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_mp_200"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_outworld_devourer_flux_restore"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_outworld_devourer_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_outworld_devourer_barrier"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_outworld_devourer_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_outworld_devourer"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_outworld_devourer_5"
+   }
+  ]
+ },
+ "npc_dota_hero_ogre_magi": {
+  "abilities": [
+   "ogre_magi_fireblast",
+   "ogre_magi_ignite",
+   "ogre_magi_bloodlust",
+   "ogre_magi_unrefined_fireblast",
+   "ogre_magi_smash",
+   "ogre_magi_dumb_luck",
+   "ogre_magi_multicast"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "ogre_magi_fat_chance",
+    "title": "Fat Chance"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "ogre_magi_learning_curve",
+    "title": "Learning Curve"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_ogre_magi_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_ogre_magi_dumb_luck_mana"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_attack_damage_80"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_ogre_magi"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_strength_30"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_ogre_magi_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_ogre_magi_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_ogre_magi_multicast_chance"
+   }
+  ]
+ },
+ "npc_dota_hero_omniknight": {
+  "abilities": [
+   "omniknight_purification",
+   "omniknight_martyr",
+   "omniknight_hammer_of_purity",
+   "omniknight_degen_aura",
+   "omniknight_guardian_angel"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "omniknight_omnipresent",
+    "title": "Omnipresent"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "omniknight_dmgheals",
+    "title": "Healing Hammer"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_omniknight_2"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_attack_base_damage_30"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_omniknight_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_omniknight_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_omniknight_degen_aura_radius"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_omniknight_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_omniknight_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_omniknight_4"
+   }
+  ]
+ },
+ "npc_dota_hero_oracle": {
+  "abilities": [
+   "oracle_fortunes_end",
+   "oracle_fates_edict",
+   "oracle_purifying_flames",
+   "oracle_rain_of_destiny",
+   "oracle_diviners_deck",
+   "oracle_false_promise",
+   "oracle_prognosticate"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "oracle_facet_dmg",
+    "title": "Clairvoyant Curse"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "oracle_facet_heal",
+    "title": "Clairvoyant Cure"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_oracle_2"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_oracle_9"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_oracle_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_oracle_8"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_oracle_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_oracle_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_oracle_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_oracle"
+   }
+  ]
+ },
+ "npc_dota_hero_pangolier": {
+  "abilities": [
+   "pangolier_swashbuckle",
+   "pangolier_shield_crash",
+   "pangolier_lucky_shot",
+   "pangolier_rollup",
+   "pangolier_gyroshell",
+   "pangolier_gyroshell_stop",
+   "pangolier_rollup_stop",
+   "pangolier_fortune_favors_the_bold"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "pangolier_double_jump",
+    "title": "Double Jump"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "pangolier_thunderbolt",
+    "title": "Thunderbolt"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "pangolier_pangolier",
+    "title": "Dangerous Liaisons"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_pangolier_luckyshot_armor"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_pangolier"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_pangolier_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_pangolier_shield_crash_herostacks"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_pangolier_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_pangolier_shield_crash_cooldown"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_pangolier_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_pangolier_5"
+   }
+  ]
+ },
+ "npc_dota_hero_phantom_assassin": {
+  "abilities": [
+   "phantom_assassin_stifling_dagger",
+   "phantom_assassin_phantom_strike",
+   "phantom_assassin_blur",
+   "phantom_assassin_fan_of_knives",
+   "phantom_assassin_immaterial",
+   "phantom_assassin_coup_de_grace"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "phantom_assassin_veiled_one",
+    "title": "Veiled One"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "phantom_assassin_methodical",
+    "title": "Methodical"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "phantom_assassin_sweet_release",
+    "title": "Sweet Release"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_phantom_assassin_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_phantom_assassin_7"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_phantom_assassin_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_phantom_assassin_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_phantom_assassin_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_phantom_assassin_strike_aspd"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_phantom_assassin_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_phantom_assassin"
+   }
+  ]
+ },
+ "npc_dota_hero_phantom_lancer": {
+  "abilities": [
+   "phantom_lancer_spirit_lance",
+   "phantom_lancer_doppelwalk",
+   "phantom_lancer_phantom_edge",
+   "phantom_lancer_illusory_armaments",
+   "phantom_lancer_juxtapose"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "phantom_lancer_convergence",
+    "title": "Convergence"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "phantom_lancer_divergence",
+    "title": "Divergence"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "phantom_lancer_lancelot",
+    "title": "Lancelot"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "phantom_lancer_lancer",
+    "title": "Fractured"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_phantom_lancer_lance_slow_duration"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_phantom_lancer_juxtapose_illusio_proc_chance"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_phantom_lancer_illusion_lances"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_phantom_lancer_doppelwalk_cast_range"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_phantom_lancer_lance_damage"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_phantom_lancer_juxtapose_damage_in"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_phantom_lancer_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_phantom_lancer_illusory_armaments_duration"
+   }
+  ]
+ },
+ "npc_dota_hero_phoenix": {
+  "abilities": [
+   "phoenix_icarus_dive",
+   "phoenix_fire_spirits",
+   "phoenix_sun_ray",
+   "phoenix_sun_ray_toggle_move",
+   "phoenix_dying_light",
+   "phoenix_supernova",
+   "phoenix_launch_fire_spirit",
+   "phoenix_icarus_dive_stop",
+   "phoenix_sun_ray_stop"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "phoenix_facet_immolate",
+    "title": "Dying Light"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "phoenix_hotspot",
+    "title": "Hotspot"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_phoenix_6"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_phoenix_dying_light_damage"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_phoenix_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_hp_regen_25"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_phoenix_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_phoenix_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_phoenix_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_phoenix_4"
+   }
+  ]
+ },
+ "npc_dota_hero_primal_beast": {
+  "abilities": [
+   "primal_beast_onslaught",
+   "primal_beast_trample",
+   "primal_beast_uproar",
+   "primal_beast_rock_throw",
+   "primal_beast_onslaught_release",
+   "primal_beast_pulverize",
+   "primal_beast_colossal"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "primal_beast_romp_n_stomp",
+    "title": "Romp n' Stomp"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "primal_beast_provoke_the_beast",
+    "title": "Provoke the Beast"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "primal_beast_ferocity",
+    "title": "Ferocity"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_attack_damage_30"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_primal_beast_trample_magic_resist"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_primal_beast_trample_cooldown"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_primal_beast_uproar_armor"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_primal_beast_trample_attack_damage"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_primal_beast_roar_dispells"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_primal_beast_colossal_trample"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_primal_beast_pulverize_duration"
+   }
+  ]
+ },
+ "npc_dota_hero_puck": {
+  "abilities": [
+   "puck_illusory_orb",
+   "puck_waning_rift",
+   "puck_phase_shift",
+   "puck_ethereal_jaunt",
+   "puck_puckish",
+   "puck_dream_coil"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "puck_jostling_rift",
+    "title": "Jostling Rift"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "puck_curveball",
+    "title": "Curveball"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_puck_orb_damage"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_puck_7"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_puck"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_puck_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_puck_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_puck_coil_damage"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_puck_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_puck_rift_radius"
+   }
+  ]
+ },
+ "npc_dota_hero_pudge": {
+  "abilities": [
+   "pudge_meat_hook",
+   "pudge_rot",
+   "pudge_flesh_heap",
+   "pudge_innate_graft_flesh",
+   "pudge_dismember"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "pudge_fresh_meat",
+    "title": "Fresh Meat"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "pudge_flayers_hook",
+    "title": "Flayer's Hook"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "pudge_rotten_core",
+    "title": "Rotten Core"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_armor_5"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_pudge_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_spell_lifesteal_8"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_pudge_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_pudge_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_pudge_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_pudge_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_pudge_1"
+   }
+  ]
+ },
+ "npc_dota_hero_pugna": {
+  "abilities": [
+   "pugna_nether_blast",
+   "pugna_decrepify",
+   "pugna_nether_ward",
+   "pugna_oblivion_savant",
+   "pugna_life_drain"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "pugna_siphoning_ward",
+    "title": "Siphoning Ward"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "pugna_rewards_of_ruin",
+    "title": "Rewards of Ruin"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_pugna_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_pugna_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_pugna_decrepify_ally_movespeed"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_hp_250"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_pugna_1"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_pugna_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_pugna_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_pugna_3"
+   }
+  ]
+ },
+ "npc_dota_hero_queenofpain": {
+  "abilities": [
+   "queenofpain_shadow_strike",
+   "queenofpain_blink",
+   "queenofpain_scream_of_pain",
+   "queenofpain_succubus",
+   "queenofpain_sonic_wave"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "queenofpain_lifesteal",
+    "title": "Succubus Facet"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "queenofpain_selfdmg",
+    "title": "Masochist"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "queenofpain_facet_bondage",
+    "title": "Bondage"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_queen_of_pain_1"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_strength_7"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_queen_of_pain_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_attack_damage_30"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_queen_of_pain_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_queen_of_pain_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_queen_of_pain_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_queen_of_pain_7"
+   }
+  ]
+ },
+ "npc_dota_hero_rattletrap": {
+  "abilities": [
+   "rattletrap_battery_assault",
+   "rattletrap_power_cogs",
+   "rattletrap_rocket_flare",
+   "rattletrap_overclocking",
+   "rattletrap_jetpack",
+   "rattletrap_hookshot",
+   "rattletrap_armor_power",
+   "rattletrap_jetpack_toggle"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "rattletrap_hookup",
+    "title": "Hookup"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "rattletrap_expanded_armature",
+    "title": "Expanded Armature"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "rattletrap_junk_mail",
+    "title": "Chainmeal"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_mp_regen_150"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_clockwerk_hookshot_damage"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_clockwerk_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_clockwerk_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_clockwerk_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_clockwerk_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_clockwerk_rocket_flare_charges"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_clockwerk"
+   }
+  ]
+ },
+ "npc_dota_hero_razor": {
+  "abilities": [
+   "razor_plasma_field",
+   "razor_static_link",
+   "razor_storm_surge",
+   "razor_unstable_current",
+   "razor_eye_of_the_storm"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "razor_thunderhead",
+    "title": "Thunderhead"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "razor_spellamp",
+    "title": "Dynamo"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_razor_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_armor_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_razor"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_strength_12"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_razor_storm_surge_damage_and_slow"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_razor_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_razor_plasmafield_second_ring"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_razor_static_link_aspd"
+   }
+  ]
+ },
+ "npc_dota_hero_riki": {
+  "abilities": [
+   "riki_smoke_screen",
+   "riki_blink_strike",
+   "riki_tricks_of_the_trade",
+   "riki_innate_backstab",
+   "riki_backstab"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "riki_contract_killer",
+    "title": "Contract Killer"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "riki_exterminator",
+    "title": "Exterminator"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "riki_riki",
+    "title": "Cutthroat"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_riki_7"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_riki_8"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_riki_tricks_dmg"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_riki_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_riki_1"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_riki_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_riki_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_riki_9"
+   }
+  ]
+ },
+ "npc_dota_hero_ringmaster": {
+  "abilities": [
+   "ringmaster_tame_the_beasts",
+   "ringmaster_the_box",
+   "ringmaster_impalement",
+   "ringmaster_empty_souvenir",
+   "ringmaster_spotlight",
+   "ringmaster_wheel",
+   "ringmaster_tame_the_beasts_crack"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "ringmaster_default",
+    "title": "Center Stage"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "ringmaster_carny_classics",
+    "title": "Carny Classics"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "ringmaster_sideshow_secrets",
+    "title": "Sideshow Secrets"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_ringmaster_dagger_charge"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_ringmaster_whip_radius"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_ringmaster_dagger_penetrates"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_ringmaster_whip_debuff_immunity"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_ringmaster_dagger_bleed_and_slow_duration"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_ringmaster_whip_damage"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_ringmaster_wheel_radius"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_ringmaster_the_box_strong_dispel_and_flying"
+   },
+   {
+    "level": 5,
+    "name": "ringmaster_dark_carnival_souvenirs"
+   },
+   {
+    "level": 5,
+    "name": "ringmaster_funhouse_mirror"
+   },
+   {
+    "level": 6,
+    "name": "ringmaster_strongman_tonic"
+   },
+   {
+    "level": 6,
+    "name": "ringmaster_whoopee_cushion"
+   },
+   {
+    "level": 7,
+    "name": "ringmaster_summon_unicycle"
+   }
+  ]
+ },
+ "npc_dota_hero_rubick": {
+  "abilities": [
+   "rubick_telekinesis",
+   "rubick_fade_bolt",
+   "rubick_arcane_supremacy",
+   "rubick_empty1",
+   "rubick_empty2",
+   "rubick_spell_steal",
+   "rubick_telekinesis_land",
+   "rubick_hidden1",
+   "rubick_hidden2",
+   "rubick_curiosity",
+   "rubick_telekinesis_land_self"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "rubick_frugal_filch",
+    "title": "Frugal Filch"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "rubick_arcane_accumulation",
+    "title": "Arcane Accumulation"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_rubick_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_hp_200"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_rubick_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_rubick_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_rubick_fade_bolt_spell_reduction"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_rubick_8"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_rubick_curiosity_factor"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_rubick_5"
+   },
+   {
+    "level": 5,
+    "name": "rubick_hidden3"
+   },
+   {
+    "level": 5,
+    "name": "rubick_hidden4"
+   }
+  ]
+ },
+ "npc_dota_hero_sand_king": {
+  "abilities": [
+   "sandking_burrowstrike",
+   "sandking_sand_storm",
+   "sandking_scorpion_strike",
+   "sandking_caustic_finale",
+   "sandking_epicenter"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "sand_king_sandshroud",
+    "title": "Sandshroud"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "sand_king_dust_devil",
+    "title": "Dust Devil"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "sand_king_obscurity",
+    "title": "Sandblast"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "sand_king_pinpoint",
+    "title": "Final Sting"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_sand_king_3"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_sand_king_caustic_finale_radius"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_sand_king_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_sand_king_8"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_sand_king_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_sand_king"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_sand_king_scorpion_strike_damage"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_sand_king_4"
+   }
+  ]
+ },
+ "npc_dota_hero_shadow_demon": {
+  "abilities": [
+   "shadow_demon_disruption",
+   "shadow_demon_disseminate",
+   "shadow_demon_shadow_poison",
+   "shadow_demon_shadow_poison_release",
+   "shadow_demon_demonic_cleanse",
+   "shadow_demon_demonic_purge",
+   "shadow_demon_menace"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "shadow_demon_promulgate",
+    "title": "Promulgate"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "shadow_demon_facet_soul_mastery",
+    "title": "Soul Catcher"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_shadow_demon_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_strength_8"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_movement_speed_25"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_shadow_demon_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_shadow_demon_disseminate_damage"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_shadow_demon_9"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_shadow_demon_purge_poison"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_shadow_demon_7"
+   }
+  ]
+ },
+ "npc_dota_hero_shadow_shaman": {
+  "abilities": [
+   "shadow_shaman_ether_shock",
+   "shadow_shaman_voodoo",
+   "shadow_shaman_shackles",
+   "shadow_shaman_fowl_play",
+   "shadow_shaman_urnaconda",
+   "shadow_shaman_mass_serpent_ward"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "shadow_shaman_cluster_cluck",
+    "title": "Cluster Cluck"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "shadow_shaman_voodoo_hands",
+    "title": "Chicken Fingers"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "shadow_shaman_massive_serpent_ward",
+    "title": "Massive Serpent Ward"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_shadow_shaman_6"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_mp_regen_175"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_shadow_shaman_8"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_shadow_shaman_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_shadow_shaman_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_shadow_shaman_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_shadow_shaman_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_shadow_shaman_4"
+   }
+  ]
+ },
+ "npc_dota_hero_shredder": {
+  "abilities": [
+   "shredder_whirling_death",
+   "shredder_timber_chain",
+   "shredder_reactive_armor",
+   "shredder_flamethrower",
+   "shredder_chakram",
+   "shredder_return_chakram",
+   "shredder_exposure_therapy"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "shredder_shredder",
+    "title": "Shredder"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "shredder_second_chakram",
+    "title": "Twisted Chakram"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_timbersaw_reactive_armor_regen_per_stack"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_mp_regen_150"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_timbersaw_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_timbersaw_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_timbersaw_exposure_therapy_health"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_timbersaw_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_timbersaw"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_timbersaw_3"
+   }
+  ]
+ },
+ "npc_dota_hero_silencer": {
+  "abilities": [
+   "silencer_curse_of_the_silent",
+   "silencer_glaives_of_wisdom",
+   "silencer_last_word",
+   "silencer_brain_drain",
+   "silencer_global_silence",
+   "silencer_oppressive_silence"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "silencer_irrepressible",
+    "title": "Irrepressible"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "silencer_reverberating_silence",
+    "title": "Reverberating Silence"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "silencer_spread_the_knowledge",
+    "title": "Synaptic Split"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "silencer_oppressive_silence",
+    "title": "Suffer In Silence"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_attack_speed_25"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_silencer_brain_drain_damage"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_silencer_7"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_silencer_arcane_curse_duration"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_silencer_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_silencer_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_silencer_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_silencer_global_duration"
+   }
+  ]
+ },
+ "npc_dota_hero_skeleton_king": {
+  "abilities": [
+   "skeleton_king_hellfire_blast",
+   "skeleton_king_bone_guard",
+   "skeleton_king_mortal_strike",
+   "skeleton_king_vampiric_spirit",
+   "skeleton_king_reincarnation"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "skeleton_king_facet_bone_guard",
+    "title": "Bone Guard"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "skeleton_king_facet_cursed_blade",
+    "title": "Spectral Blade"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_wraith_king_2"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_wraith_king_facet_1"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_wraith_king_11"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_hp_350"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_attack_speed_50"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_wraith_king_facet_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_wraith_king_10"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_wraith_king_4"
+   }
+  ]
+ },
+ "npc_dota_hero_skywrath_mage": {
+  "abilities": [
+   "skywrath_mage_arcane_bolt",
+   "skywrath_mage_concussive_shot",
+   "skywrath_mage_ancient_seal",
+   "skywrath_mage_shield_of_the_scion",
+   "skywrath_mage_mystic_flare"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "skywrath_mage_shield",
+    "title": "Shield of the Scion"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "skywrath_mage_staff",
+    "title": "Staff of the Scion"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_mp_regen_150"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_skywrath_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_skywrath"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_skywrath_concussive_shot_slow"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_skywrath_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_skywrath_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_skywrath_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_skywrath_5"
+   }
+  ]
+ },
+ "npc_dota_hero_slardar": {
+  "abilities": [
+   "slardar_sprint",
+   "slardar_slithereen_crush",
+   "slardar_bash",
+   "slardar_seaborn_sentinel",
+   "slardar_amplify_damage"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "slardar_leg_day",
+    "title": "Leg Day"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "slardar_brineguard",
+    "title": "Brineguard"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_slardar_7"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_slardar_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_hp_250"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_slardar_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_slardar"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_slardar_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_slardar_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_slardar_3"
+   }
+  ]
+ },
+ "npc_dota_hero_slark": {
+  "abilities": [
+   "slark_dark_pact",
+   "slark_pounce",
+   "slark_saltwater_shiv",
+   "slark_depth_shroud",
+   "slark_essence_shift",
+   "slark_shadow_dance"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "slark_leeching_leash",
+    "title": "Leeching Leash"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "slark_dark_reef_renegade",
+    "title": "Dark Reef Renegade"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "slark_slark",
+    "title": "Fugitive"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_slark_6"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_slark"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_slark_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_slark_8"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_slark_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_slark_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_slark_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_slark_4"
+   }
+  ]
+ },
+ "npc_dota_hero_snapfire": {
+  "abilities": [
+   "snapfire_scatterblast",
+   "snapfire_firesnap_cookie",
+   "snapfire_lil_shredder",
+   "snapfire_gobble_up",
+   "snapfire_spit_creep",
+   "snapfire_mortimer_kisses",
+   "snapfire_boomstick"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "snapfire_ricochet_ii",
+    "title": "Ricochet II"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "snapfire_full_bore",
+    "title": "Full Bore"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_snapfire_7"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_snapfire_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_snapfire_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_snapfire_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_snapfire_8"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_snapfire_firesnap_cookie_additional_charge"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_snapfire_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_snapfire_1"
+   }
+  ]
+ },
+ "npc_dota_hero_sniper": {
+  "abilities": [
+   "sniper_shrapnel",
+   "sniper_headshot",
+   "sniper_take_aim",
+   "sniper_concussive_grenade",
+   "sniper_keen_scope",
+   "sniper_assassinate"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "sniper_ghillie_suit",
+    "title": "Ghillie Suit"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "sniper_scattershot",
+    "title": "Scattershot"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_sniper_5"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_sniper_headshot_damage"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_sniper_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_sniper_1"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_sniper_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_sniper_shrapnel_damage"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_sniper_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_sniper_3"
+   }
+  ]
+ },
+ "npc_dota_hero_spectre": {
+  "abilities": [
+   "spectre_spectral_dagger",
+   "spectre_shadow_step",
+   "spectre_dispersion",
+   "spectre_reality",
+   "spectre_desolate",
+   "spectre_haunt"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "spectre_forsaken",
+    "title": "Forsaken"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "spectre_twist_the_knife",
+    "title": "Twist the Knife"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "spectre_spectre",
+    "title": "Ephemeral"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_spectre"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_spectre_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_spectre_shadow_step_duration"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_spectre_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_hp_325"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_spectre_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_spectre_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_spectre_5"
+   }
+  ]
+ },
+ "npc_dota_hero_spirit_breaker": {
+  "abilities": [
+   "spirit_breaker_charge_of_darkness",
+   "spirit_breaker_bulldoze",
+   "spirit_breaker_greater_bash",
+   "spirit_breaker_planar_pocket",
+   "spirit_breaker_bull_rush",
+   "spirit_breaker_nether_strike"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "spirit_breaker_bull_rush",
+    "title": "Bull Rush"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "spirit_breaker_imbalanced",
+    "title": "Imbalanced"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "spirit_breaker_bulls_hit",
+    "title": "Bull's Hit"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_night_vision_500"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_armor_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_spirit_breaker_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_spirit_breaker_increased_charge_speed"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_bull_rush_movement_increase"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_spirit_breaker_shield"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_spirit_breaker_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_spirit_breaker_4"
+   }
+  ]
+ },
+ "npc_dota_hero_storm_spirit": {
+  "abilities": [
+   "storm_spirit_static_remnant",
+   "storm_spirit_electric_vortex",
+   "storm_spirit_overload",
+   "storm_spirit_ball_lightning",
+   "storm_spirit_galvanized"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "storm_spirit_shock_collar",
+    "title": "Shock Collar"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "storm_spirit_static_slide",
+    "title": "Static Slide"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_storm_spirit_overload_aspd"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_mp_regen_150"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_hp_250"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_storm_spirit_5"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_storm_spirit"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_storm_spirit_8"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_storm_spirit_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_storm_spirit_4"
+   }
+  ]
+ },
+ "npc_dota_hero_sven": {
+  "abilities": [
+   "sven_storm_bolt",
+   "sven_great_cleave",
+   "sven_warcry",
+   "sven_gods_strength",
+   "sven_wrath_of_god"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "sven_heavy_plate",
+    "title": "Heavy Plate"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "sven_strscaling",
+    "title": "Wrath of God"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_sven_5"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_sven_gods_strength_slow_resist"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_sven_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_sven_8"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_sven_stormhammer_cooldown"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_sven_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_sven_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_sven_4"
+   }
+  ]
+ },
+ "npc_dota_hero_techies": {
+  "abilities": [
+   "techies_sticky_bomb",
+   "techies_reactive_tazer",
+   "techies_suicide",
+   "techies_mutually_assured_destruction",
+   "techies_minefield_sign",
+   "techies_land_mines",
+   "techies_reactive_tazer_stop",
+   "techies_focused_detonate"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "techies_atk_range",
+    "title": "Squee's Scope"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "techies_spleens_secret_sauce",
+    "title": "Spleen's Secret Sauce"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "techies_backpack",
+    "title": "Spoon's Stash"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_magic_resistance_20"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_techies_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_techies"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_techies_tazer_duration"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_techies_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_techies_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_attack_damage_253"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_techies_4"
+   }
+  ]
+ },
+ "npc_dota_hero_templar_assassin": {
+  "abilities": [
+   "templar_assassin_refraction",
+   "templar_assassin_meld",
+   "templar_assassin_psi_blades",
+   "templar_assassin_trap",
+   "templar_assassin_trap_teleport",
+   "templar_assassin_psionic_trap",
+   "templar_assassin_inner_peace"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "templar_assassin_voidblades",
+    "title": "Voidblades"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "templar_assassin_refractor",
+    "title": "Refractor"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "templar_assassin_hidden_reach",
+    "title": "Hidden Reach"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_templar_assassin_meld_duration"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_templar_assassin_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_templar_assassin_meld_attack_range_bonus"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_templar_assassin_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_templar_assassin_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_templar_assassin_8"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_templar_assassin_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_templar_assassin"
+   }
+  ]
+ },
+ "npc_dota_hero_terrorblade": {
+  "abilities": [
+   "terrorblade_reflection",
+   "terrorblade_conjure_image",
+   "terrorblade_metamorphosis",
+   "terrorblade_demon_zeal",
+   "terrorblade_terror_wave",
+   "terrorblade_sunder",
+   "terrorblade_dark_unity"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "terrorblade_condemned",
+    "title": "Condemned"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "terrorblade_soul_fragment",
+    "title": "Soul Fragment"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_terrorblade_2"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_terrorblade_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_terrorblade_metamorphosis_cooldown"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_terrorblade_sunder_hp_threshold"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_all_stats_10"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_terrorblade_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_terrorblade"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_terrorblade_3"
+   }
+  ]
+ },
+ "npc_dota_hero_tidehunter": {
+  "abilities": [
+   "tidehunter_gush",
+   "tidehunter_kraken_shell",
+   "tidehunter_anchor_smash",
+   "tidehunter_dead_in_the_water",
+   "tidehunter_ravage",
+   "tidehunter_krill_eater"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "tidehunter_kraken_swell",
+    "title": "Kraken Swell"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "tidehunter_sizescale",
+    "title": "Krill Eater"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_tidehunter_3"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_tidehunter_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_tidehunter_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_tidehunter_ravage_cooldown"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_tidehunter_smash_on_blubber"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_tidehunter"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_tidehunter_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_tidehunter_10"
+   }
+  ]
+ },
+ "npc_dota_hero_tinker": {
+  "abilities": [
+   "tinker_laser",
+   "tinker_march_of_the_machines",
+   "tinker_deploy_turrets",
+   "tinker_warp_grenade",
+   "tinker_keen_teleport",
+   "tinker_rearm",
+   "tinker_eureka"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "tinker_repair_bots",
+    "title": "Repair Bots"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "tinker_translocator",
+    "title": "Translocator"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_tinker_march_duration"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_mana_reduction_10"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_tinker_deploy_turrets_knockback"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_tinker"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_tinker_deploy_turrets_missile_damage"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_tinker_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_tinker_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_tinker_rearm_channel_time"
+   }
+  ]
+ },
+ "npc_dota_hero_tiny": {
+  "abilities": [
+   "tiny_avalanche",
+   "tiny_toss",
+   "tiny_tree_grab",
+   "tiny_tree_channel",
+   "tiny_insurmountable",
+   "tiny_grow",
+   "tiny_toss_tree"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "tiny_crash_landing",
+    "title": "Crash Landing"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "tiny_insurmountable",
+    "title": "Insurmountable"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_tiny_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_strength_8"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_tiny_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_tiny"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_tiny_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_tiny_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_tiny_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_tiny_2"
+   }
+  ]
+ },
+ "npc_dota_hero_treant": {
+  "abilities": [
+   "treant_natures_grasp",
+   "treant_leech_seed",
+   "treant_living_armor",
+   "treant_eyes_in_the_forest",
+   "treant_natures_guise",
+   "treant_overgrowth"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "treant_primeval_power",
+    "title": "Primeval Power"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "treant_sapling",
+    "title": "Sapling"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "treant_treant",
+    "title": ""
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_treant_8"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_attack_base_damage_50"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_treant_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_treant_9"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_treant_13"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_treant_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_treant_14"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_treant_7"
+   }
+  ]
+ },
+ "npc_dota_hero_troll_warlord": {
+  "abilities": [
+   "troll_warlord_switch_stance",
+   "troll_warlord_whirling_axes_ranged",
+   "troll_warlord_whirling_axes_melee",
+   "troll_warlord_fervor",
+   "troll_warlord_berserkers_rage",
+   "troll_warlord_battle_trance"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "troll_warlord_insensitive",
+    "title": "Insensitive"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "troll_warlord_bad_influence",
+    "title": "Bad Influence"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_troll_warlord_whirling_axes_debuff_duration"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_troll_warlord_2"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_troll_warlord_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_troll_warlord"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_troll_warlord_battle_trance_movespeed"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_troll_warlord_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_troll_warlord_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_troll_warlord_4"
+   }
+  ]
+ },
+ "npc_dota_hero_tusk": {
+  "abilities": [
+   "tusk_ice_shards",
+   "tusk_snowball",
+   "tusk_tag_team",
+   "tusk_drinking_buddies",
+   "tusk_walrus_kick",
+   "tusk_walrus_punch",
+   "tusk_launch_snowball",
+   "tusk_bitter_chill"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "tusk_facet_tag_team",
+    "title": "Tag Team"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "tusk_facet_fist_bump",
+    "title": "Drinking Buddies"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_tusk_3"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_tusk_7"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_hp_325"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_tusk_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_tusk_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_tusk"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_tusk_shard_dps"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_tusk_4"
+   }
+  ]
+ },
+ "npc_dota_hero_undying": {
+  "abilities": [
+   "undying_decay",
+   "undying_soul_rip",
+   "undying_tombstone",
+   "undying_ceaseless_dirge",
+   "undying_flesh_golem"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "undying_rotting_mitts",
+    "title": "Rotting Mitts"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "undying_ripped",
+    "title": "Ripped"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_undying_8"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_undying_7"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_undying_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_undying"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_undying_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_undying_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_undying_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_undying_3"
+   }
+  ]
+ },
+ "npc_dota_hero_ursa": {
+  "abilities": [
+   "ursa_earthshock",
+   "ursa_overpower",
+   "ursa_fury_swipes",
+   "ursa_maul",
+   "ursa_enrage"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "ursa_grudge_bearer",
+    "title": "Grudge Bearer"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "ursa_debuff_reduce",
+    "title": "Bear Down"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_ursa_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_mp_regen_175"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_ursa_maul_health"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_ursa_8"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_ursa_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_ursa"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_ursa_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_ursa_7"
+   }
+  ]
+ },
+ "npc_dota_hero_vengefulspirit": {
+  "abilities": [
+   "vengefulspirit_magic_missile",
+   "vengefulspirit_wave_of_terror",
+   "vengefulspirit_command_aura",
+   "vengefulspirit_retribution",
+   "vengefulspirit_nether_swap"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "vengefulspirit_avenging_missile",
+    "title": "Avenging Missile"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "vvengefulspirit_melee",
+    "title": "Soul Strike"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_vengeful_spirit_swap_damage"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_vengeful_spirit_missile_castrange"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_vengeful_spirit_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_vengeful_spirit_1"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_vengeful_spirit_wave_of_terror_steal"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_vengeful_spirit_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_vengeful_spirit_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_vengeful_spirit_9"
+   }
+  ]
+ },
+ "npc_dota_hero_venomancer": {
+  "abilities": [
+   "venomancer_venomous_gale",
+   "venomancer_snakebite",
+   "venomancer_plague_ward",
+   "venomancer_poison_sting",
+   "venomancer_noxious_plague"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "venomancer_patient_zero",
+    "title": "Patient Zero"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "venomancer_plague_carrier",
+    "title": "Plague Carrier"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_venomancer_3"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_venomancer_poisonsting_regen_reduction"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_venomancer_plague_spread"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_venomancer_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_venomancer_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_venomancer_8"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_venomancer_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_venomancer"
+   }
+  ]
+ },
+ "npc_dota_hero_viper": {
+  "abilities": [
+   "viper_poison_attack",
+   "viper_nethertoxin",
+   "viper_corrosive_skin",
+   "viper_nose_dive",
+   "viper_predator",
+   "viper_viper_strike"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "viper_poison_burst",
+    "title": "Poison Burst"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "viper_caustic_bath",
+    "title": "Caustic Bath"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_viper_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_viper_1"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_viper_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_viper_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_viper_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_viper_predator_damage"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_viper_nethertoxin_radius"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_viper_8"
+   }
+  ]
+ },
+ "npc_dota_hero_visage": {
+  "abilities": [
+   "visage_grave_chill",
+   "visage_soul_assumption",
+   "visage_gravekeepers_cloak",
+   "visage_stone_form_self_cast",
+   "visage_silent_as_the_grave",
+   "visage_summon_familiars",
+   "visage_summon_familiars_stone_form"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "visage_sepulchre",
+    "title": "Sepulchre"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "visage_faithful_followers",
+    "title": "Faithful Followers"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "visage_gold_assumption",
+    "title": "Death Toll"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_visage_soul_assumption_cooldown"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_visage_7"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_visage_grave_chill_duration"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_visage_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_visage_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_visage_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_visage_cloak_recovery_time"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_visage_6"
+   }
+  ]
+ },
+ "npc_dota_hero_void_spirit": {
+  "abilities": [
+   "void_spirit_aether_remnant",
+   "void_spirit_dissimilate",
+   "void_spirit_resonant_pulse",
+   "void_spirit_intrinsic_edge",
+   "void_spirit_astral_step"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "void_spirit_sanctuary",
+    "title": "Sanctuary"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "void_spirit_phys_barrier",
+    "title": "Symmetry"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "void_spirit_aether_artifice",
+    "title": "Call of the Void"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_mp_regen_150"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_void_spirit_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_void_spirit_resonant_pulse_barrier"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_void_spirit_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_void_spirit_dissimilate_outerring"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_void_spirit_1"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_void_spirit_8"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_void_spirit_3"
+   }
+  ]
+ },
+ "npc_dota_hero_warlock": {
+  "abilities": [
+   "warlock_fatal_bonds",
+   "warlock_shadow_word",
+   "warlock_upheaval",
+   "warlock_eldritch_summoning",
+   "warlock_rain_of_chaos"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "warlock_golem",
+    "title": "Champion of Gorroth"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "warlock_grimoire",
+    "title": "Black Grimoire"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_warlock_5"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_warlock_upheaval_aoe"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_warlock_10"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_warlock_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_warlock_1"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_warlock_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_warlock_4"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_warlock_fatal_bonds_count"
+   }
+  ]
+ },
+ "npc_dota_hero_weaver": {
+  "abilities": [
+   "weaver_the_swarm",
+   "weaver_shukuchi",
+   "weaver_geminate_attack",
+   "weaver_time_lapse",
+   "weaver_threads_of_fate"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "weaver_skitterstep",
+    "title": "Skitterstep"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "weaver_hivemind",
+    "title": "Hivemind"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_weaver_shukuchi_movespeed"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_strength_7"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_weaver_1"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_weaver_4"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_weaver_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_weaver_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_weaver_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_weaver_5"
+   }
+  ]
+ },
+ "npc_dota_hero_windrunner": {
+  "abilities": [
+   "windrunner_shackleshot",
+   "windrunner_powershot",
+   "windrunner_windrun",
+   "windrunner_gale_force",
+   "windrunner_focusfire_cancel",
+   "windrunner_focusfire",
+   "windrunner_tailwind"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "windrunner_tailwind",
+    "title": ""
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "windrunner_focusfire",
+    "title": "Focus Fire Facet"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "windrunner_whirlwind",
+    "title": "Whirlwind"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "windrunner_tangled",
+    "title": "Tangled"
+   },
+   {
+    "deprecated": true,
+    "id": 4,
+    "name": "windrunner_killshot",
+    "title": "Killshot"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_windranger_powershot_slow"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_unique_windranger_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_windranger_5"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_windranger_3"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_windranger_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_windranger_8"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_windranger_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_windranger_2"
+   }
+  ]
+ },
+ "npc_dota_hero_winter_wyvern": {
+  "abilities": [
+   "winter_wyvern_arctic_burn",
+   "winter_wyvern_splinter_blast",
+   "winter_wyvern_cold_embrace",
+   "winter_wyvern_eldwurms_edda",
+   "winter_wyvern_winters_curse"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "winter_wyvern_heal_mana",
+    "title": "Essence of the Blueheart"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "winter_wyvern_atk_range",
+    "title": "Dragon Sight"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "winter_wyvern_winterproof",
+    "title": "Winterproof"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "winter_wyvern_recursive",
+    "title": "Recursive"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_winter_wyvern_5"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_attack_damage_35"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_winter_wyvern_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_winter_wyvern_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_winter_wyvern_1"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_winter_wyvern_7"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_winter_wyvern_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_winter_wyvern_4"
+   }
+  ]
+ },
+ "npc_dota_hero_wisp": {
+  "abilities": [
+   "wisp_tether",
+   "wisp_spirits",
+   "wisp_overcharge",
+   "wisp_spirits_in",
+   "wisp_spirits_out",
+   "wisp_relocate",
+   "wisp_tether_break",
+   "wisp_equilibrium"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "wisp_kritzkrieg",
+    "title": "Kritzkrieg"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "wisp_medigun",
+    "title": "Medigun"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_wisp_overcharge_duration"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_strength_8"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_wisp_3"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_wisp"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_wisp_10"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_wisp_6"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_wisp_relocate_delay"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_wisp_4"
+   }
+  ]
+ },
+ "npc_dota_hero_witch_doctor": {
+  "abilities": [
+   "witch_doctor_paralyzing_cask",
+   "witch_doctor_voodoo_restoration",
+   "witch_doctor_maledict",
+   "witch_doctor_voodoo_switcheroo",
+   "witch_doctor_gris_gris",
+   "witch_doctor_death_ward"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "witch_doctor_headhunter",
+    "title": "Headhunter"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "witch_doctor_voodoo_festeration",
+    "title": "Voodoo Festeration"
+   },
+   {
+    "deprecated": true,
+    "id": 2,
+    "name": "witch_doctor_cleft_death",
+    "title": "Cleft Death"
+   },
+   {
+    "deprecated": true,
+    "id": 3,
+    "name": "witch_doctor_malpractice",
+    "title": "Malpractice"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_witch_doctor_4"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_hp_200"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_witch_doctor_6"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_witch_doctor_7"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_witch_doctor_maledict_spread"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_witch_doctor_2"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_witch_doctor_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_witch_doctor_5"
+   }
+  ]
+ },
+ "npc_dota_hero_zuus": {
+  "abilities": [
+   "zuus_arc_lightning",
+   "zuus_lightning_bolt",
+   "zuus_heavenly_jump",
+   "zuus_cloud",
+   "zuus_lightning_hands",
+   "zuus_thundergods_wrath",
+   "zuus_static_field"
+  ],
+  "facets": [
+   {
+    "deprecated": true,
+    "id": 0,
+    "name": "zuus_livewire",
+    "title": "Livewire"
+   },
+   {
+    "deprecated": true,
+    "id": 1,
+    "name": "zuus_divine_rampage",
+    "title": "Divine Rampage"
+   }
+  ],
+  "talents": [
+   {
+    "level": 1,
+    "name": "special_bonus_unique_zeus"
+   },
+   {
+    "level": 1,
+    "name": "special_bonus_hp_200"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_zeus_4"
+   },
+   {
+    "level": 2,
+    "name": "special_bonus_unique_zeus_6"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_zeus_2"
+   },
+   {
+    "level": 3,
+    "name": "special_bonus_unique_zeus_3"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_zeus_5"
+   },
+   {
+    "level": 4,
+    "name": "special_bonus_unique_zeus_jump_charges"
+   }
+  ]
+ }
+}
