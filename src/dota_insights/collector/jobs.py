@@ -9,6 +9,8 @@
 - ``backfill``: OpenDota ``/explorer`` on ``public_matches`` (paced) -> draft-level matches in gaps.
 - ``enrich``: STRATZ aliased ``match(id)`` batches (paced) -> player stats, positions, purchases.
 - ``aggregate``: no API calls -> every aggregate table.
+- ``usage``: no API calls -> moves the server's Redis usage queue into ``usage_events`` /
+  ``usage_feedback`` and deletes rows past their retention (``dota_insights.usage.store``).
 """
 
 import hashlib
@@ -424,6 +426,23 @@ async def job_aggregate(ctx: CollectorContext) -> JobResult:
     return JobResult(rows=result.draft_matches + result.detail_matches, detail=detail)
 
 
+async def job_usage(ctx: CollectorContext) -> JobResult:
+    from dota_insights.kv import KVError, get_kv
+    from dota_insights.usage import store
+
+    kv = get_kv()
+    moved, detail = 0, "no Redis configured, nothing to flush"
+    if kv is not None:
+        try:
+            moved = await store.flush_queue(kv, ctx.session_factory, should_stop=ctx.out_of_time)
+            detail = f"flushed={moved}"
+        except KVError:
+            detail = "Redis unavailable, flush skipped"
+    with ctx.session_factory.begin() as session:
+        calls, feedback = store.prune(session, ctx.clock())
+    return JobResult(rows=moved, detail=f"{detail} pruned_calls={calls} pruned_feedback={feedback}")
+
+
 # In priority order: the scheduler runs due jobs top to bottom.
 JOBS: dict[str, JobSpec] = {
     spec.name: spec
@@ -445,6 +464,7 @@ JOBS: dict[str, JobSpec] = {
         JobSpec("backfill", job_backfill, BACKFILL_INTERVAL, (OPENDOTA,), "fill gaps via Explorer"),
         JobSpec("enrich", job_enrich, ENRICH_INTERVAL, (STRATZ,), "player stats from STRATZ"),
         JobSpec("aggregate", job_aggregate, timedelta(minutes=10), (), "incremental aggregates"),
+        JobSpec("usage", job_usage, timedelta(hours=1), (), "flush usage events, apply retention"),
     )
 }
 

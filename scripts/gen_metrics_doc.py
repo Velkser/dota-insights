@@ -395,6 +395,16 @@ MATRIX: dict[str, Entry] = {
         "chart of another tool's result (Vega-Lite + PNG)", ("none (input data)",), "good"
     ),  # fmt: skip
     "server_info": Entry("server version, configured sources", ("server configuration",), "good"),
+    "report_wrong_answer": Entry(
+        "client feedback on a tool's answer (stored, not a metric)",
+        ("usage_feedback table",),
+        "good",
+    ),
+    "suggest_feature": Entry(
+        "questions no tool answers (stored for review, not a metric)",
+        ("usage_feedback table",),
+        "good",
+    ),
 }
 
 # Metrics players ask for (docs/research/user-questions.md) that no source covers well.

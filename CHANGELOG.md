@@ -14,6 +14,15 @@ All notable changes to this project. The format follows
   generator).
 - Connection guides for Claude Code, Claude Desktop, Cursor and other clients
   (`docs/connect/`), and a privacy policy template (`docs/privacy.md`) for the owner to complete.
+- Usage analytics: one `usage_events` row per tool call (argument shape without player ids,
+  status, error kind, latency, sources, cache hit, client name, weekly-salted client hash; no
+  raw IPs), queued in Redis and flushed by the collector's new `usage` job, which also applies a
+  90-day retention. `dota-insights usage report` and the token-protected `GET /admin/usage`.
+- `report_wrong_answer` and `suggest_feature` tools: wrong answers (linked to the client's
+  latest call of the tool) and unmet questions, stored in `usage_feedback`, rate-limited per
+  client and listed in the usage report.
+- Player privacy: an opt-out list (`player_opt_outs`, `dota-insights privacy opt-out|opt-in|list`)
+  that player tools refuse and match tools mask; anonymous players are masked too.
 - Evals (`evals/`): 63 English and Russian player questions with expected tools, argument
   matchers and answer checks; a harness that lets a Claude model answer them with the in-process
   server or a remote URL and scores tool choice, arguments, envelope status and answer caveats;

@@ -18,6 +18,7 @@ from fastmcp.server.middleware import CallNext, Middleware, MiddlewareContext
 from fastmcp.tools.base import ToolResult as McpToolResult
 from mcp.shared.exceptions import MCPError
 
+from dota_insights import metrics
 from dota_insights.mcp.envelope import Source, ToolResult, error
 from dota_insights.models.filters import Filters
 from dota_insights.sources.opendota import (
@@ -174,6 +175,7 @@ def map_exception(
             return map_exception(TimeoutError(), filters=filters, source=source)
         case _:
             return None
+    metrics.record_error_kind(type(exc).__name__)
     return error(message, hint=hint, filters=filters, source=source or inferred)
 
 
@@ -249,6 +251,7 @@ class ErrorEnvelopeMiddleware(Middleware):
                 raise
             envelope = map_exception(cause, timeout=limit)
             if envelope is None:
+                metrics.record_error_kind(type(cause).__name__)
                 logger.error(
                     "unexpected tool failure",
                     extra={"tool": name, "error": type(cause).__name__},

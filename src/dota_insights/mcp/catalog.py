@@ -73,6 +73,8 @@ EXAMPLES: dict[str, str] = {
     "explore_query": "Average GPM by lane role in league matches this patch?",
     "render_chart": "Draw Anti-Mage's gold curve as a chart.",
     "predict_live_win": "Who is likely to win a game with a 5k lead at 30 minutes?",
+    "report_wrong_answer": "That win rate is wrong, Dotabuff shows something else. Report it.",
+    "suggest_feature": "Can you tell me my exact MMR? (no tool can, so the question is logged)",
 }
 
 

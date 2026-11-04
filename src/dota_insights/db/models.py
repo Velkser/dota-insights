@@ -542,3 +542,61 @@ class CollectorGap(Base):
     high_match_id: Mapped[int] = mapped_column(BigInteger)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     filled_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class UsageEvent(Base):
+    """One MCP tool call (p4-08), written from the server through the Redis usage queue.
+
+    Never holds a raw IP: ``client_hash`` is a salted hash whose salt rotates weekly and lives
+    only in Redis. ``arguments`` keeps the call's shape: player identifiers are replaced and
+    strings are cut to 200 characters (see ``dota_insights.usage.events``).
+    """
+
+    __tablename__ = "usage_events"
+    __table_args__ = (
+        Index("ix_usage_events_ts", "ts"),
+        Index("ix_usage_events_tool_ts", "tool", "ts"),
+    )
+
+    event_id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    ts: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    tool: Mapped[str] = mapped_column(String(64))
+    arguments: Mapped[Any] = mapped_column(JsonB)
+    status: Mapped[str] = mapped_column(String(24), comment="ok | insufficient_data | error")
+    error_kind: Mapped[str | None] = mapped_column(String(64))
+    message: Mapped[str | None] = mapped_column(String(300), comment="why the call was not ok")
+    latency_ms: Mapped[int] = mapped_column(Integer)
+    sources: Mapped[Any] = mapped_column(JsonB, comment="sources called, e.g. [opendota]")
+    cache_hit: Mapped[bool] = mapped_column(Boolean)
+    client_name: Mapped[str | None] = mapped_column(String(100))
+    client_version: Mapped[str | None] = mapped_column(String(50))
+    client_hash: Mapped[str | None] = mapped_column(String(16))
+
+
+class UsageFeedback(Base):
+    """A wrong-answer report (p5-02) or an unmet question / feature request (p5-03)."""
+
+    __tablename__ = "usage_feedback"
+    __table_args__ = (Index("ix_usage_feedback_ts", "ts"),)
+
+    feedback_id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    ts: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    kind: Mapped[str] = mapped_column(String(16), comment="wrong_answer | feature_request")
+    tool: Mapped[str | None] = mapped_column(String(64))
+    call_id: Mapped[str | None] = mapped_column(
+        String(32), comment="the client's latest call of that tool, when it could be found"
+    )
+    text: Mapped[str] = mapped_column(String(2000))
+    expected: Mapped[str | None] = mapped_column(String(1000))
+    client_name: Mapped[str | None] = mapped_column(String(100))
+    client_hash: Mapped[str | None] = mapped_column(String(16))
+
+
+class PlayerOptOut(Base):
+    """Players who asked not to be shown (p4-10): player tools refuse, match tools mask them."""
+
+    __tablename__ = "player_opt_outs"
+
+    account_id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    note: Mapped[str | None] = mapped_column(String(200))

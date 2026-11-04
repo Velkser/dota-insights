@@ -4,7 +4,8 @@ __version__ = "0.1.0"
 
 
 def main() -> None:
-    """``dota-insights`` serves MCP; ``dota-insights collect ...`` runs the collector."""
+    """``dota-insights`` serves MCP; ``dota-insights collect ...`` runs the collector,
+    ``dota-insights usage ...`` reports usage, ``dota-insights privacy ...`` manages opt-outs."""
     import sys
 
     args = sys.argv[1:]
@@ -12,6 +13,10 @@ def main() -> None:
         from dota_insights.collector.cli import main as collect
 
         sys.exit(collect(args[1:]))
+    if args and args[0] in ("usage", "privacy"):
+        from dota_insights.usage import cli
+
+        sys.exit(cli.main(args))
 
     from dota_insights.mcp.server import run
 

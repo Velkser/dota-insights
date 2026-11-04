@@ -8,6 +8,7 @@ from dota_insights import __version__
 from dota_insights.config import settings
 from dota_insights.logging import ToolCallLoggingMiddleware, setup_logging
 from dota_insights.mcp import site
+from dota_insights.mcp.admin import register_admin_routes
 from dota_insights.mcp.errors import ErrorEnvelopeMiddleware
 from dota_insights.mcp.prompts import register_prompts
 from dota_insights.mcp.ratelimit import RateLimitMiddleware
@@ -28,6 +29,7 @@ mcp.add_middleware(RateLimitMiddleware())
 mcp.add_middleware(ErrorEnvelopeMiddleware())
 register_all(mcp)
 register_prompts(mcp)
+register_admin_routes(mcp)
 
 
 @mcp.custom_route("/health", methods=["GET"], include_in_schema=False)

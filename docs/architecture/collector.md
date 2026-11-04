@@ -64,6 +64,7 @@ separate denominator (`ban_sample_games`) so tools can say when ban rate is unkn
 | `backfill` | 30 min | paced (OpenDota Explorer) | draft matches inside gaps |
 | `enrich` | 15 min | paced (STRATZ) | detail level for matches 1 h – 14 days old (retries at 3 h, 12 h) |
 | `aggregate` | 10 min | 0 | all aggregate tables |
+| `usage` | 1 h | 0 | `usage_events`, `usage_feedback` from the server's Redis queue; deletes rows past retention |
 
 "Every" is each job's own interval, used for budget pacing when no `--every` is given. In
 production the workflow runs them hourly or daily instead (see Deployment).
@@ -145,7 +146,7 @@ checked and incremented in separate transactions, so two schedulers could oversp
 
 | Trigger | Cron (UTC) | Runs |
 | --- | --- | --- |
-| hourly | `17 * * * *` | `collect run public-matches backfill enrich aggregate --every 60 --max-minutes 25` |
+| hourly | `17 * * * *` | `collect run usage public-matches backfill enrich aggregate --every 60 --max-minutes 25` |
 | daily | `43 4 * * *` | `collect run patches constants hero-stats aggregate --every 60 --max-minutes 25` |
 | `workflow_dispatch` | — | the jobs given in the `jobs` input (default: the hourly set) |
 

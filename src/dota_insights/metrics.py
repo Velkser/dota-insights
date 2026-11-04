@@ -22,6 +22,8 @@ class CallMetrics:
     source_calls: Counter[str] = field(default_factory=Counter)
     quota_left: dict[str, int] = field(default_factory=dict)  # source -> calls left today
     rate_limited: bool = False
+    # Why the call failed, when an exception was turned into an error envelope.
+    error_kind: str | None = None
 
     def as_log(self) -> dict[str, Any]:
         hits = self.cache_hits + self.shared_cache_hits
@@ -78,3 +80,9 @@ def record_quota(source: str, left: int) -> None:
     metrics = _current.get()
     if metrics is not None:
         metrics.quota_left[source] = left
+
+
+def record_error_kind(kind: str) -> None:
+    metrics = _current.get()
+    if metrics is not None and metrics.error_kind is None:
+        metrics.error_kind = kind

@@ -1,11 +1,13 @@
 """Single-match tools: overview, timeline, turning points, teamfights, vision and laning."""
 
+import dataclasses
 from collections.abc import Callable
 from typing import Annotated, Any
 
 from fastmcp import FastMCP
 from pydantic import Field
 
+from dota_insights import privacy
 from dota_insights.analytics import matches as am
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
 from dota_insights.mcp.errors import source_error
@@ -95,9 +97,19 @@ async def _run(
         )
     except OpenDotaError as exc:
         return source_error(exc, source=["opendota"])
+    match = await _masked(match)
     if parsed_only and not match.parsed:
         return _unparsed(match, parsed_only)
     return build(match)
+
+
+async def _masked(match: am.MatchData) -> am.MatchData:
+    """The match with opted-out and anonymous players' account ids and names removed."""
+    players = match.raw.get("players")
+    if not players:
+        return match
+    raw = {**match.raw, "players": privacy.mask_players(players, await privacy.opted_out())}
+    return dataclasses.replace(match, raw=raw)
 
 
 def _ok(raw: dict[str, Any], result: Any, definitions: dict[str, str], caveats: list[str]):

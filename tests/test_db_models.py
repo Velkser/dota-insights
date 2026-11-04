@@ -33,9 +33,14 @@ EXPECTED_TABLES = {
     "collector_api_usage",
     "collector_cursors",
     "collector_gaps",
+    "usage_events",
+    "usage_feedback",
+    "player_opt_outs",
 }
 
 EXPECTED_INDEXES = {
+    "usage_events": {"ix_usage_events_ts", "ix_usage_events_tool_ts"},
+    "usage_feedback": {"ix_usage_feedback_ts"},
     "matches": {
         "ix_matches_patch_rank",
         "ix_matches_pending_aggregation",

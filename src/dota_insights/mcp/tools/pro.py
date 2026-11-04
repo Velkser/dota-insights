@@ -6,6 +6,7 @@ from typing import Annotated
 from fastmcp import FastMCP
 from pydantic import Field
 
+from dota_insights import privacy
 from dota_insights.analytics import pro
 from dota_insights.cache import TTL_LIVE
 from dota_insights.mcp.envelope import Period, ToolResult, error, insufficient_data, ok
@@ -378,6 +379,11 @@ def register(mcp: FastMCP) -> None:
             if lookup.best is None:
                 return _not_found("Player", lookup, pro.player_label)
             record = lookup.best
+            if await privacy.is_opted_out(record["account_id"]):
+                return error(
+                    privacy.OPTED_OUT_MESSAGE.format(account=record["account_id"]),
+                    hint=privacy.OPTED_OUT_HINT,
+                )
             data = await pro.fetch_player_matches(record["account_id"], matches)
         except SOURCE_ERRORS as exc:
             return _source_error(exc, ["opendota", "stratz"])

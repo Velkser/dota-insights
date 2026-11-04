@@ -3,7 +3,8 @@
 Clients are told apart by IP: Vercel sets ``x-real-ip`` and ``x-forwarded-for`` to the caller's
 address (overwriting what the client sent), and other proxies usually do too. Each client gets
 fixed per-minute and per-day windows for all tools, and lower ones for ``HEAVY_TOOLS``, which can
-spend dozens of source requests or a slow explorer query per call (heavy calls count against both).
+spend dozens of source requests or a slow explorer query per call (heavy calls count against both),
+and lower still for ``FEEDBACK_TOOLS``, whose reports are stored for review.
 Counters live in Redis when configured, else in this instance's memory. A call over a limit gets
 an ``error`` envelope whose hint says how many seconds until the window resets.
 
@@ -45,15 +46,18 @@ HEAVY_TOOLS: frozenset[str] = frozenset(TOOL_TIMEOUTS) | {
     "get_objective_impact",
 }
 
+# Client reports (stored for review): limited separately and much lower.
+FEEDBACK_TOOLS: frozenset[str] = frozenset({"report_wrong_answer", "suggest_feature"})
+
 
 @dataclass(frozen=True)
 class Limit:
-    scope: str  # "all" or "heavy"
+    scope: str  # "all", "heavy" or "feedback"
     window: int  # seconds
     max_calls: int
 
     def describe(self) -> str:
-        kind = "heavy tool calls" if self.scope == "heavy" else "tool calls"
+        kind = {"heavy": "heavy tool calls", "feedback": "reports"}.get(self.scope, "tool calls")
         per = "a minute" if self.window == MINUTE else "a day"
         return f"{self.max_calls} {kind} {per}"
 
@@ -67,6 +71,11 @@ def limits_for(tool: str) -> list[Limit]:
         limits += [
             Limit("heavy", MINUTE, settings.rate_limit_heavy_per_minute),
             Limit("heavy", DAY, settings.rate_limit_heavy_per_day),
+        ]
+    if tool in FEEDBACK_TOOLS:
+        limits += [
+            Limit("feedback", MINUTE, settings.rate_limit_feedback_per_minute),
+            Limit("feedback", DAY, settings.rate_limit_feedback_per_day),
         ]
     return [limit for limit in limits if limit.max_calls > 0]
 
