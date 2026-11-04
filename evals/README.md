@@ -6,9 +6,12 @@ p3-06 and p3-10).
 
 ## Files
 
-- `dataset.toml`: 63 questions in English and Russian, paraphrased from
+- `dataset.toml`: 73 questions in English and Russian, paraphrased from
   `docs/research/user-questions.md` (the `source` field is the question ID). Each names the
   expected tool(s), argument matchers and answer checks.
+- `myths.yaml`: the myth library (17 myths), each with its exact tool call, the result of a live
+  run (sample size, effect, CI, verdict) and causality caveats, and the dataset case that asks
+  it. `docs/myths.md` is generated from it by `scripts/gen_myths_doc.py`.
 - `harness.py`: connects to the server (in-process `mcp` object or a URL), runs the model in a
   tool-use loop capped at `--max-turns` requests, and records a transcript per question.
 - `scoring.py`: grades a transcript on four dimensions (tool, args, envelope, answer). The module

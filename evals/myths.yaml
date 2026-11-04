@@ -1,0 +1,329 @@
+# Myth library (tracker task p9-10): popular Dota 2 beliefs, the tool call that tests each one,
+# and what a live run against https://dota-insights.vercel.app/mcp returned on 2026-11-04.
+#
+# Fields:
+#   claim        the myth as players say it
+#   eval_case    id of the case in evals/dataset.toml that asks the question
+#   tool, args   the exact call (arguments as sent)
+#   result       sample_size, effect (with its unit), ci (95%), p_value, patch, data source
+#   verdict      supported | not_supported | inconclusive. "supported" means the association
+#                the myth claims exists in the data; it never means the condition causes the win.
+#   caveats      why the number cannot be read as cause and effect, and other limits
+#
+# docs/myths.md is generated from this file (scripts/gen_myths_doc.py); tests/test_myths.py
+# checks both stay consistent with each other, the eval dataset and the tools' schemas.
+# Rerun the calls before updating a result; tool results drift with every new patch.
+
+run_date: "2026-11-04"
+server: "https://dota-insights.vercel.app/mcp"
+
+myths:
+  - id: bkb-timing-pa
+    claim: "BKB timing decides Phantom Assassin games."
+    eval_case: hyp-01
+    tool: test_hypothesis
+    args:
+      hero: PA
+      group_a: [{field: item_minute, item: bkb, op: "<", value: 20}]
+      group_b: [{field: item_minute, item: bkb, op: ">=", value: 20}]
+      filters: {patch: "7.40"}
+    result:
+      patch: "7.40"
+      sample_size: 209
+      effect: "+23.2 pp win rate (74.4% of 43 vs 51.2% of 166)"
+      ci: [0.068, 0.363]
+      p_value: 0.0063
+      source: "OpenDota explorer, parsed league matches"
+    verdict: supported
+    caveats:
+      - "7.41 has only 94 parsed league PA games with a BKB (11 before 20 min), below the tool's minimum, so the run uses 7.40."
+      - "A PA that is already winning gets BKB sooner; the timing is as much a symptom of a good game as a cause."
+      - "Games that end before 20 minutes cannot have a late BKB, and very long games are all in group B."
+
+  - id: first-blood
+    claim: "The team that draws first blood wins the game."
+    eval_case: myth-01
+    tool: get_objective_impact
+    args: {}
+    result:
+      patch: "7.41"
+      sample_size: 500
+      effect: "first-blood team wins 54.2% (271 of 500), +4.2 pp over a coin flip"
+      ci: [0.498, 0.585]
+      p_value: 0.060
+      source: "OpenDota explorer, newest parsed league matches"
+    verdict: inconclusive
+    caveats:
+      - "The interval touches 50%; at most a small edge, not a predictor of the result."
+      - "The tool's when_even split is meaningless for first blood: the lead at the first kill is ~0 in every game, so when_even equals the overall rate."
+      - "League games only; pub first bloods (often a smoke at the rune) may differ."
+
+  - id: wards-supports
+    claim: "Supports who place more wards win more."
+    eval_case: myth-03
+    tool: analyze_correlation
+    args: {metric: wards, hero: Lion}
+    result:
+      patch: "7.41"
+      sample_size: 500
+      effect: "Mantel-Haenszel odds ratio 0.95 (above vs at-or-below median observers, duration strata)"
+      ci: [0.663, 1.365]
+      p_value: 0.859
+      source: "OpenDota explorer, parsed league matches"
+    verdict: not_supported
+    caveats:
+      - "Pooled over every player (3,000 rows) the odds ratio is 0.99 (0.85-1.14, p = 0.88): no association either."
+      - "Ward count says nothing about ward placement; a losing team also wards more defensively."
+      - "One hero (Lion) as a support stand-in; other supports were not run."
+
+  - id: roshan-early
+    claim: "Killing Roshan before 20 minutes wins games."
+    eval_case: myth-04
+    tool: get_objective_impact
+    args: {}
+    result:
+      patch: "7.41"
+      sample_size: 451
+      effect: "first-Roshan team wins 79.2% overall, 57.3% when the gold lead at the kill was within ±2,000 (55 of 96)"
+      ci: [0.473, 0.667]
+      p_value: 3.2e-35
+      source: "OpenDota explorer, newest parsed league matches"
+    verdict: inconclusive
+    caveats:
+      - "The CI and verdict are for the even-game rate; the p-value is for the overall 79.2%."
+      - "No tool splits Roshan by kill time yet, so 'before 20 minutes' itself is untested; this is first Roshan at any time."
+      - "The median first-Roshan team is 4,716 gold ahead at the kill: most of the 79% is the lead that made the Roshan possible."
+
+  - id: first-tower
+    claim: "Losing the first tower decides the game."
+    eval_case: myth-lib-01
+    tool: get_objective_impact
+    args: {}
+    result:
+      patch: "7.41"
+      sample_size: 500
+      effect: "first-tower team wins 62.8%; 58.3% when within ±2,000 gold at the time (215 of 369)"
+      ci: [0.532, 0.632]
+      p_value: 1.0e-8
+      source: "OpenDota explorer, newest parsed league matches"
+    verdict: supported
+    caveats:
+      - "CI is for the even-game rate. 'Decides' overstates it: four games in ten are still won by the other team."
+      - "A building counts for the side that did not own it, also when creeps finished it."
+
+  - id: tormentor
+    claim: "The first Tormentor is a waste of time."
+    eval_case: myth-lib-02
+    tool: get_objective_impact
+    args: {}
+    result:
+      patch: "7.41"
+      sample_size: 230
+      effect: "first-Tormentor team wins 74.3%; 65.5% when within ±2,000 gold (38 of 58)"
+      ci: [0.527, 0.764]
+      p_value: 1.5e-13
+      source: "OpenDota explorer, newest parsed league matches"
+    verdict: not_supported
+    caveats:
+      - "CI is for the even-game rate, the strongest even-game edge of any objective in the run."
+      - "Only 230 of 500 matches had a Tormentor kill; teams that go for it may be the more organised ones."
+
+  - id: two-roshans
+    claim: "Two Roshans in a row means the game is over."
+    eval_case: myth-lib-03
+    tool: get_objective_impact
+    args: {}
+    result:
+      patch: "7.41"
+      sample_size: 184
+      effect: "double-Roshan team wins 87.5%; 58.8% when within ±2,000 gold (10 of 17)"
+      ci: [0.360, 0.784]
+      p_value: 2.6e-24
+      source: "OpenDota explorer, newest parsed league matches"
+    verdict: inconclusive
+    caveats:
+      - "87.5% overall, but the median double-Roshan team leads by 11,527 gold; with only 17 even games nothing can be said about the Roshans themselves."
+
+  - id: rune-control
+    claim: "Mid rune control wins games."
+    eval_case: myth-lib-04
+    tool: get_objective_impact
+    args: {}
+    result:
+      patch: "7.41"
+      sample_size: 472
+      effect: "team with more power runes wins 82.6%"
+      ci: [0.789, 0.858]
+      p_value: 1.3e-45
+      source: "OpenDota explorer, newest parsed league matches"
+    verdict: inconclusive
+    caveats:
+      - "Runes are counted over the whole match, so the winning team controls the map and picks up more runes late; the tool has no early-game rune split, so cause and symptom cannot be separated."
+
+  - id: stacking
+    claim: "Stacking camps wins games."
+    eval_case: hyp-02
+    tool: analyze_correlation
+    args: {metric: stacks}
+    result:
+      patch: "7.41"
+      sample_size: 3000
+      effect: "odds ratio 1.11 (above vs at-or-below median stacks, duration strata)"
+      ci: [0.960, 1.288]
+      p_value: 0.166
+      source: "OpenDota explorer, parsed league matches"
+    verdict: not_supported
+    caveats:
+      - "All heroes and roles pooled; the median player stacks 2 camps, so the split is coarse."
+      - "In games under 25 minutes the high-stack half wins 61% vs 45%, but that stratum has only 170 rows."
+
+  - id: farm-wins
+    claim: "The team with the higher-GPM carry always wins."
+    eval_case: hyp-03
+    tool: analyze_correlation
+    args: {metric: gpm}
+    result:
+      patch: "7.41"
+      sample_size: 3000
+      effect: "odds ratio 2.10 (above vs at-or-below median GPM, duration strata)"
+      ci: [1.818, 2.432]
+      p_value: 0.0
+      source: "OpenDota explorer, parsed league matches"
+    verdict: supported
+    caveats:
+      - "Selection bias: winning teams farm more because they are winning; GPM is mostly a result."
+      - "'Always' is wrong: within 35-45 minute games the higher-GPM half still loses 41% of the time."
+
+  - id: kills-dont-matter
+    claim: "Kills don't win games, only objectives do."
+    eval_case: myth-lib-05
+    tool: analyze_correlation
+    args: {metric: kills}
+    result:
+      patch: "7.41"
+      sample_size: 3000
+      effect: "odds ratio 4.04 for kills vs 4.77 for tower damage (run with metric tower_damage)"
+      ci: [3.469, 4.704]
+      p_value: 0.0
+      source: "OpenDota explorer, parsed league matches"
+    verdict: not_supported
+    caveats:
+      - "Kills are about as strongly tied to winning as building damage (tower_damage OR 4.77, CI 4.09-5.56); both are outcomes of a winning game as much as causes."
+      - "The kill association fades in long games (stratum r 0.56 under 25 min, 0.24 after 45)."
+
+  - id: hero-damage
+    claim: "The player with the most hero damage carried the game."
+    eval_case: myth-lib-06
+    tool: analyze_correlation
+    args: {metric: hero_damage}
+    result:
+      patch: "7.41"
+      sample_size: 3000
+      effect: "odds ratio 2.29"
+      ci: [1.984, 2.654]
+      p_value: 0.0
+      source: "OpenDota explorer, parsed league matches"
+    verdict: supported
+    caveats:
+      - "The association is strong in short games (r 0.39) and weak after 45 minutes (r 0.10), where the losing side also deals plenty of damage."
+      - "Roles pooled: cores deal more damage than supports regardless of the result."
+
+  - id: radiant-advantage
+    claim: "Radiant wins more than Dire."
+    eval_case: myth-02
+    tool: get_general_stats
+    args: {}
+    result:
+      patch: "7.41"
+      sample_size: 252862
+      effect: "Radiant wins 52.96% of ranked All Pick games"
+      ci: [0.5277, 0.5316]
+      p_value: null
+      source: "OpenDota public matches, latest ~11 hours (2026-11-04 10:36-20:10 UTC)"
+    verdict: supported
+    caveats:
+      - "A ~3-point side edge in pubs, measured over one ~11-hour window; it leans towards the regions in prime time then (49% Russia)."
+      - "In league games the side edge was not visible for Lion (47.9% vs 48.1%, n = 500, test_hypothesis side == radiant); league drafts may compensate."
+
+  - id: battle-fury-am
+    claim: "A sub-15-minute Battle Fury is what makes Anti-Mage win."
+    eval_case: myth-lib-07
+    tool: test_hypothesis
+    args:
+      hero: Anti-Mage
+      group_a: [{field: item_minute, item: battle fury, op: "<", value: 15}]
+      group_b: [{field: item_minute, item: battle fury, op: ">=", value: 15}]
+      filters: {patch: "7.40"}
+    result:
+      patch: "7.40"
+      sample_size: 218
+      effect: "+17.8 pp win rate (50.4% of 129 vs 32.6% of 89)"
+      ci: [0.045, 0.301]
+      p_value: 0.0091
+      source: "OpenDota explorer, parsed league matches"
+    verdict: supported
+    caveats:
+      - "A free lane gives both the fast Battle Fury and the win; a contested lane delays both."
+      - "Even the fast group only wins half its games."
+
+  - id: blink-axe
+    claim: "Axe needs Blink Dagger before 13 minutes or he loses."
+    eval_case: myth-lib-08
+    tool: test_hypothesis
+    args:
+      hero: Axe
+      group_a: [{field: item_minute, item: blink dagger, op: "<", value: 13}]
+      group_b: [{field: item_minute, item: blink dagger, op: ">=", value: 13}]
+      filters: {patch: "7.40"}
+    result:
+      patch: "7.40"
+      sample_size: 467
+      effect: "+9.1 pp win rate (56.8% of 81 vs 47.7% of 386)"
+      ci: [-0.028, 0.205]
+      p_value: 0.135
+      source: "OpenDota explorer, parsed league matches"
+    verdict: not_supported
+    caveats:
+      - "Not shown is not disproven: the interval allows anything from -3 to +20 points."
+      - "Only 81 of 467 league Axes had Blink before 13 minutes."
+
+  - id: spectre-late
+    claim: "Spectre wins if the game goes late."
+    eval_case: myth-lib-09
+    tool: test_hypothesis
+    args:
+      hero: Spectre
+      group_a: [{field: duration_min, op: ">=", value: 45}]
+      group_b: [{field: duration_min, op: "<", value: 45}]
+      filters: {patch: "7.39"}
+    result:
+      patch: "7.39"
+      sample_size: 258
+      effect: "+31.0 pp win rate (69.7% of 33 vs 38.7% of 225)"
+      ci: [0.128, 0.453]
+      p_value: 0.00076
+      source: "OpenDota explorer, parsed league matches"
+    verdict: supported
+    caveats:
+      - "7.40 and 7.41 have too few parsed league Spectre games past 45 minutes (4 on 7.40), so the run uses 7.39."
+      - "Duration is not chosen: a game goes long partly because Spectre's team is holding on, which is the same story read backwards."
+
+  - id: midas
+    claim: "Hand of Midas on Nature's Prophet loses games."
+    eval_case: myth-lib-10
+    tool: test_hypothesis
+    args:
+      hero: Nature's Prophet
+      group_a: [{field: item_minute, item: hand of midas, op: bought}]
+      group_b: [{field: item_minute, item: hand of midas, op: not_bought}]
+      filters: {patch: "7.40"}
+    result:
+      patch: "7.40"
+      sample_size: 319
+      effect: "not computed: only 4 of 319 league Nature's Prophets bought Midas"
+      ci: null
+      p_value: null
+      source: "OpenDota explorer, parsed league matches"
+    verdict: inconclusive
+    caveats:
+      - "League players almost never build it, so league data cannot answer this; a pub source with purchase logs (the collector's STRATZ-enriched matches) would be needed."
