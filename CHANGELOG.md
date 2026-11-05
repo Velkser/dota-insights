@@ -21,6 +21,11 @@ All notable changes to this project. The format follows
 
 ### Added
 
+- Agent skill for skill marketplaces (Agensi and others): `skill/dota-insights/` with a trigger-based
+  `SKILL.md`, tool reference generated from the server (`references/tools.md`), reading-results
+  and connection guides, and example questions. `scripts/build_skill.py` regenerates the
+  reference and builds `dist/dota-insights-skill.zip`; `tests/test_skill.py` checks it.
+
 - Developer API prototype (p5-06, `dota_insights.api`, [docs/api.md](docs/api.md)): read-only
   `GET /api/v1/...` endpoints for hero overview, matchups and builds, tier list, item overview,
   match analysis and player profile. Each runs its MCP tool through `mcp.call_tool`, so it returns
