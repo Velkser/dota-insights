@@ -13,6 +13,9 @@ All notable changes to this project. The format follows
 
 ### Fixed
 
+- `collect run` keeps up to 3 minutes of its time limit for each job still to come, so a long
+  enrich backlog no longer leaves aggregate "not started, out of time". `collect.yml` is
+  re-committed so GitHub picks up its hourly and daily schedule.
 - The eval harness records parallel tool calls in the order the model asked for them, not the
   order they finished (this made `test_run_case_calls_tools_and_records_transcript` flaky).
 

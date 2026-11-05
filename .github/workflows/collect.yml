@@ -80,6 +80,7 @@ jobs:
             set -f
             set -- $JOBS_INPUT
           fi
+          # Each job leaves 3 minutes per job after it, so aggregate always gets to run.
           uv run --no-sync dota-insights collect run "$@" --every 60 --max-minutes 25
 
       - name: Status

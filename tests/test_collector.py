@@ -6,6 +6,7 @@ Runs on SQLite (the models fall back to JSON for PostgreSQL arrays); HTTP goes t
 
 import json
 import re
+import types
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
@@ -612,6 +613,31 @@ def test_pace_interval_overrides_job_interval(factory):
     assert ctx.every(timedelta(minutes=10)) == timedelta(minutes=10)
     ctx.pace_interval = timedelta(hours=1)
     assert ctx.every(timedelta(minutes=10)) == timedelta(hours=1)
+
+
+async def test_cli_run_leaves_time_for_later_jobs(monkeypatch):
+    from contextlib import asynccontextmanager
+
+    from dota_insights.collector import cli
+    from dota_insights.collector.jobs import JobResult
+
+    ctx = types.SimpleNamespace(deadline=None, pace_interval=None)
+    deadlines = {}
+
+    @asynccontextmanager
+    async def fake_context():
+        yield ctx
+
+    async def fake_run_job(_ctx, spec):
+        deadlines[spec.name] = ctx.deadline
+        return JobResult(rows=0)
+
+    monkeypatch.setattr(cli, "collector_context", fake_context)
+    monkeypatch.setattr(cli, "run_job", fake_run_job)
+    monkeypatch.setattr(cli.time, "monotonic", lambda: 1000.0)
+    assert await cli._run_once(["public-matches", "enrich", "aggregate"], 25, None) == 0
+    # 25 min = 1500 s: enrich stops 180 s early so aggregate still gets its slice.
+    assert deadlines == {"public-matches": 2140.0, "enrich": 2320.0, "aggregate": 2500.0}
 
 
 def test_cli_run_chains_jobs_in_order(monkeypatch):
