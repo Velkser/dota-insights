@@ -58,17 +58,29 @@ def _parser() -> argparse.ArgumentParser:
     return parser
 
 
+# Run time a `collect run` keeps for each job still to come.
+RESERVE_PER_LATER_JOB_SECONDS = 180.0
+
+
 async def _run_once(names: Sequence[str], max_minutes: float | None, every: float | None) -> int:
     failed = False
     async with collector_context() as ctx:
-        if max_minutes is not None:
-            ctx.deadline = time.monotonic() + max_minutes * 60
+        end = None if max_minutes is None else time.monotonic() + max_minutes * 60
+        # Each job leaves a slice of the run to the jobs after it, so a long backlog in one job
+        # (enrich after a pause) cannot starve the rest (aggregate) of the whole run.
+        reserve = (
+            0.0
+            if max_minutes is None
+            else min(RESERVE_PER_LATER_JOB_SECONDS, max_minutes * 60 / (2 * len(names)))
+        )
         if every is not None:
             ctx.pace_interval = timedelta(minutes=every)
-        for name in names:
-            if ctx.out_of_time():
+        for index, name in enumerate(names):
+            if end is not None and time.monotonic() >= end:
                 print(f"{name}: not started, out of time")
                 continue
+            if end is not None:
+                ctx.deadline = end - reserve * (len(names) - index - 1)
             result = await run_job(ctx, JOBS[name])
             failed |= result.status == "failed"
             print(f"{name}: {result.status} rows={result.rows} {result.detail or ''}".rstrip())
